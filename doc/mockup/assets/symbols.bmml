@@ -37,5 +37,18 @@
         </control>
       </groupChildrenDescriptors>
     </control>
+    <control controlID="1" controlTypeID="__group__" x="60" y="80" w="218" h="22" measuredW="218" measuredH="22" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>Input%20Item</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="0" w="-1" h="-1" measuredW="41" measuredH="21" zOrder="0" locked="false" isInGroup="1">
+          <controlProperties>
+            <text>Name</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::HRule" x="71" y="17" w="147" h="-1" measuredW="100" measuredH="5" zOrder="1" locked="false" isInGroup="1"/>
+      </groupChildrenDescriptors>
+    </control>
   </controls>
 </mockup>
