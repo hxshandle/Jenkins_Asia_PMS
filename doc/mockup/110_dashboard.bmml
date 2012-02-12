@@ -118,7 +118,7 @@
         <scrollBarValue>13</scrollBarValue>
       </controlProperties>
     </control>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Image" x="1096" y="450" w="706" h="418" measuredW="77" measuredH="79" zOrder="23" locked="false" isInGroup="-1">
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Image" x="1096" y="469" w="706" h="196" measuredW="77" measuredH="79" zOrder="23" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Gantt%20Chart</text>
       </controlProperties>
@@ -161,6 +161,16 @@
     <control controlID="34" controlTypeID="com.balsamiq.mockups::Image" x="1985" y="300" w="706" h="568" measuredW="77" measuredH="79" zOrder="30" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Personal%20Calendar</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::Image" x="1096" y="672" w="706" h="196" measuredW="77" measuredH="79" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Schecdule%20Table</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Button" x="1751" y="442" w="-1" h="-1" measuredW="45" measuredH="27" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Edit</text>
       </controlProperties>
     </control>
   </controls>
