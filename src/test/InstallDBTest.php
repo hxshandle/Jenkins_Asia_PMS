@@ -25,7 +25,7 @@ class InstallDBTest extends PHPUnit_Framework_TestCase {
   protected function setUp() {
     $db_host = "127.0.0.1";
     $db_user = "db_jenkins_asia";
-    $db_pass = "";
+    $db_pass = "db_jenkins_asia";
     $db_name = "jenkins_asia";
     $this->conn = mysql_connect($db_host, $db_user, $db_pass);
     $this->db_check = mysql_select_db($db_name);
@@ -42,6 +42,9 @@ class InstallDBTest extends PHPUnit_Framework_TestCase {
   private function clearDB() {
     $db_name = "jenkins_asia";
     $result = mysql_query("show table status from $db_name");
+    if(!$result){
+      return TRUE;
+    }
     while ($data = mysql_fetch_array($result)) {
       echo "drop table $data[Name] \n";
       mysql_query("drop table $data[Name]");
@@ -406,6 +409,7 @@ ENGINE = MyISAM");
     $table26 = mysql_query("
       CREATE  TABLE IF NOT EXISTS `engineering_change_note` (
   `ID` INT NOT NULL AUTO_INCREMENT ,
+  `status` INT(10) NOT NULL,
   `submitter` INT(10) NOT NULL ,
   `submit_time` DATETIME NOT NULL ,
   `approver` INT(10) NOT NULL ,
@@ -459,7 +463,7 @@ ENGINE = MyISAM");
   `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM;");
-    
+      
 // Checks if tables could be created
     if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20 or !$table21 or !$table22 or !$table23 or !$table24 or !$table25 or !$table26 or !$table27 or !$table28 or !$table29) {
       return FALSE;

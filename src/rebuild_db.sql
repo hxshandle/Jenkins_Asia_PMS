@@ -1,5 +1,7 @@
-drop schema `collabtive07`;
-CREATE SCHEMA `collabtive07` DEFAULT CHARACTER SET utf8 ;
-grant all on collabtive07.* to 'db_collabtive07'@'%';
+drop schema if EXISTS`jenkins_asia`;
+CREATE SCHEMA `jenkins_asia` DEFAULT CHARACTER SET utf8 ;
+create user 'db_jenkins_asia'@'localhost' identified by 'db_jenkins_asia';
+grant all on jenkins_asia.* to 'db_jenkins_asia'@'%';
+grant all on jenkins_asia.* to 'db_jenkins_asia'@'localhost';
 flush privileges;
 commit;
