@@ -152,9 +152,9 @@
         <text>Factory-A</text>
       </controlProperties>
     </control>
-    <control controlID="37" controlTypeID="com.balsamiq.mockups::TabBar" x="289" y="458" w="706" h="473" measuredW="436" measuredH="100" zOrder="35" locked="false" isInGroup="-1">
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::TabBar" x="289" y="458" w="706" h="473" measuredW="526" measuredH="100" zOrder="35" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Phase%2CFinance%2CSample%2CTeam%20Member%2COrder%2CTask</text>
+        <text>Phase%2CFinance%2CSample%2CTeam%20Member%2COrder%2CTask%2CQuality%2CECN</text>
         <verticalScrollbar>false</verticalScrollbar>
       </controlProperties>
     </control>
