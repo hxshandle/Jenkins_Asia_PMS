@@ -22,12 +22,10 @@ class EngineeringChangeNote {
   
   function add($submitterComments,$projectId,$phaseId,$deliverableItemId){
     $submitter = getArrayVal($_SESSION, 'userid');
-    $submitterTime = time();
     $submitterComments = mysql_real_escape_string($submitterComments);
     $projectId = (int) $projectId;
     $phaseId = (int) $phaseId;
     $deliverableItemId = (int) $deliverableItemId;
-    $submit_time = new DateTime();
     $status = Status::getId("ECN", "need_approve");
     $ins = mysql_query("insert into engineering_change_note (status,submitter,submit_time,submitter_comments,project,phase,deliverable) values($status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId )");
     if($ins){
