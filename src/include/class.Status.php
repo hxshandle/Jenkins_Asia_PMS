@@ -14,9 +14,50 @@ class Status {
 
   //put your code here
   private $myLog;
+  private static $ARR_STATUS;
 
   function __construct() {
     $this->myLog = new mylog;
+  }
+  
+  static public function getId($type,$value){
+    $id = FALSE;
+    if(!empty(self::$ARR_STATUS["$type"])){
+      $arr = self::$ARR_STATUS["$type"];
+      foreach ($arr as $status) {
+        if($status["value"] == $value){
+          $id = $status["id"];
+          break;
+        }
+      }
+    }
+    return $id;
+  }
+  
+  static public function getStatusByType($type){
+    if(empty(self::$ARR_STATUS["$type"])){
+      return array();
+    }else{
+      return self::$ARR_STATUS["$type"];
+    }
+  }
+
+
+  static public function load(){
+    self::$ARR_STATUS = array();
+    $result = mysql_query("select * from status");
+    while($arr = mysql_fetch_array($result)){
+      $id= $arr['ID'];
+      $type = $arr['type'];
+      $value = $arr['value'];
+      if(empty(self::$ARR_STATUS["$type"])){
+        self::$ARR_STATUS["$type"] = array();
+      }
+      $arrType = self::$ARR_STATUS["$type"];
+      array_push($arrType, array('id'=>$id,'value'=>$value));
+      self::$ARR_STATUS["$type"]=$arrType;
+    }
+    return TRUE;
   }
 
   function add($type, $value) {

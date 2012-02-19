@@ -31,6 +31,7 @@ class EngineeringChangeNote {
     if($ins){
       return mysql_insert_id();
     }else{
+      
       return FALSE;
     }
   }

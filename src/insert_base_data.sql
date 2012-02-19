@@ -1,3 +1,9 @@
 insert into status (type,value) values ('ECN','need_approve');
-insert into status (type,value) values ('ECN','Approved');
-insert into status (type,value) values ('ECN','Rejected');
+insert into status (type,value) values ('ECN','approved');
+insert into status (type,value) values ('ECN','rejected');
+insert into status (type,value) values ('project','need_approve');
+insert into status (type,value) values ('project','approved');
+insert into status (type,value) values ('project','rejected');
+insert into status (type,value) values ('project','padding');
+insert into status (type,value) values ('project','closed');
+insert into status (type,value) values ('project','in_progress');
