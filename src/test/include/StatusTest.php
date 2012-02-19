@@ -83,7 +83,7 @@ class StatusTest extends PHPUnit_Framework_TestCase {
   }
   
   public function testGetId(){
-    $id = Status::getId("ECN", "Approved");
+    $id = Status::getId("ECN", "approved");
     $this->assertNotEquals(FALSE,$id);
   }
 

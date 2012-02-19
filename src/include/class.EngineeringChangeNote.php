@@ -1,6 +1,7 @@
 <?php
 
   require_once 'class.mylog.php';
+  require_once 'class.status.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -27,7 +28,8 @@ class EngineeringChangeNote {
     $phaseId = (int) $phaseId;
     $deliverableItemId = (int) $deliverableItemId;
     $submit_time = new DateTime();
-    $ins = mysql_query("insert into engineering_change_note (status,submitter,submit_time,submitter_comments,project,phase,deliverable) values(1,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId )");
+    $status = Status::getId("ECN", "need_approve");
+    $ins = mysql_query("insert into engineering_change_note (status,submitter,submit_time,submitter_comments,project,phase,deliverable) values($status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId )");
     if($ins){
       return mysql_insert_id();
     }else{
@@ -36,17 +38,29 @@ class EngineeringChangeNote {
     }
   }
   
-  function approve($id,$approverId,$approverComments){
+  function update($id,$approverId,$approverComments,$isApprove){
     $id = (int) $id;
     if(!$approverId){
       $approverId = $_SESSION['userid'];
     }
     $approverId = (int) $approverId;
-    $upd = mysql_query("update engineering_change_note set `approver`='$approverId',`approve_time`=NOW(),`approve_comments`='$approverComments' where `id`=$id");
+    $st = $isApprove ==TRUE ? "approved" : "rejected";
+    $status = Status::getId("ECN", $st);
+    $upd = mysql_query("update engineering_change_note set `status`=$status,`approver`=$approverId,`approve_time`=NOW(),`approver_comments`='$approverComments' where `id`=$id");
+    if($upd){
+      return TRUE;
+    }else{
+      return FALSE;
+    }
   }
   
-  function reject($noteId){
-    
+  function approve($id,$approverId,$approverComments){
+    return $this->update($id, $approverId, $approverComments, true);
+  }
+  
+  function reject($id,$approverId,$approverComments){
+    return $this->update($id, $approverId, $approverComments, false);
+ 
   }
 }
 

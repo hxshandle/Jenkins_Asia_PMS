@@ -14,13 +14,16 @@ class Status {
 
   //put your code here
   private $myLog;
-  private static $ARR_STATUS;
+  private static $ARR_STATUS = array();
 
   function __construct() {
     $this->myLog = new mylog;
   }
   
   static public function getId($type,$value){
+    if(empty(self::$ARR_STATUS)){
+      self::load();
+    }
     $id = FALSE;
     if(!empty(self::$ARR_STATUS["$type"])){
       $arr = self::$ARR_STATUS["$type"];
@@ -35,6 +38,9 @@ class Status {
   }
   
   static public function getStatusByType($type){
+    if(empty(self::$ARR_STATUS)){
+      self::load();
+    }
     if(empty(self::$ARR_STATUS["$type"])){
       return array();
     }else{

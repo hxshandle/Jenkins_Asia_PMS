@@ -58,9 +58,8 @@ class EngineeringChangeNoteTest extends PHPUnit_Framework_TestCase {
    */
   public function testApprove() {
     // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $ret = $this->object->approve(1, '2', "this is approve comment");
+    $this->assertTrue($ret);
   }
 
   /**
@@ -69,9 +68,8 @@ class EngineeringChangeNoteTest extends PHPUnit_Framework_TestCase {
    */
   public function testReject() {
     // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $ret = $this->object->reject(1, '2', "this is reject comment");
+    $this->assertTrue($ret);
   }
 
 }
