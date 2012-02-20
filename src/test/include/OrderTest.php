@@ -47,10 +47,10 @@ class OrderTest extends PHPUnit_Framework_TestCase {
    * @todo Implement testAdd().
    */
   public function testAdd() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $endTime = date("Y-m-d H:i:s",  strtotime("2012-10-31"));
+    $status = Status::getId("order", "accepted");
+    $ret = $this->object->add("test_order",1, "test desc", $endTime, $status);
+    $this->assertNotEmpty($ret);
   }
 
   /**
@@ -58,10 +58,8 @@ class OrderTest extends PHPUnit_Framework_TestCase {
    * @todo Implement testAccept().
    */
   public function testAccept() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $ret = $this->object->accept(1);
+    $this->assertTrue($ret);
   }
 
   /**
@@ -69,10 +67,8 @@ class OrderTest extends PHPUnit_Framework_TestCase {
    * @todo Implement testClose().
    */
   public function testClose() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $ret = $this->object->close(2);
+    $this->assertTrue($ret);
   }
 
   /**
@@ -80,10 +76,10 @@ class OrderTest extends PHPUnit_Framework_TestCase {
    * @todo Implement testUpdate().
    */
   public function testUpdate() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $endTime = date("y-m-d H:i:s",  strtotime("2012-10-31"));
+    $status = Status::getId("order", "accepted");
+    $ret = $this->object->update(1, "updated desc", $endTime, $status, 1);
+    $this->assertTrue($ret);
   }
 
   /**
@@ -91,10 +87,8 @@ class OrderTest extends PHPUnit_Framework_TestCase {
    * @todo Implement testGetOrders().
    */
   public function testGetOrders() {
-    // Remove the following lines when you implement this test.
-    $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-    );
+    $ret = $this->object->getOrders(1);
+    $this->assertNotEmpty($ret);
   }
 
 }

@@ -12,4 +12,5 @@ insert into status (type,value) values ('deliverable','in_progress');
 insert into status (type,value) values ('deliverable','closed');
 insert into status (type,value) values ('order','submitted');
 insert into status (type,value) values ('order','in_progress');
+insert into status (type,value) values ('order','accepted');
 insert into status (type,value) values ('order','closed');

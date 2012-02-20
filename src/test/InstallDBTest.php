@@ -460,6 +460,7 @@ ENGINE = MyISAM");
       CREATE  TABLE IF NOT EXISTS `order` (
   `ID` INT(10) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL ,
+  `project` INT(10) NOT NULL,
   `desc` TEXT NULL ,
   `submit_time` DATETIME NOT NULL ,
   `end_time` DATETIME NULL ,
