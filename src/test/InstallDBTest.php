@@ -447,10 +447,13 @@ ENGINE = MyISAM");
     $table28 = mysql_query("
       CREATE  TABLE IF NOT EXISTS `quality` (
   `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL,
   `desc` TEXT NULL ,
   `project` INT(10) NOT NULL ,
   `submitter` INT(10) NOT NULL ,
   `submitter_comments` TEXT NULL ,
+  `submit_time` DATETIME NOT NULL ,
+  `close_time` DATETIME NULL ,
   `type` TINYINT NOT NULL DEFAULT 1 COMMENT '1- Quality Complaints\n0 -  Corrective ActionRequestion' ,
   `status` INT(10) NOT NULL ,
   PRIMARY KEY (`ID`) )

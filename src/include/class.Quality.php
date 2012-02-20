@@ -19,16 +19,64 @@ class Quality {
     $this->myLog = new mylog;
   }
   
-  function add(){
-    
+  function add($name,$desc,$project,$submitter,$submitter_comments,$type,$status){
+    $name = mysql_escape_string($name);
+    $desc = mysql_escape_string($desc);
+    $submitter_comments = mysql_escape_string($submitter_comments);
+    $sql = "INSERT INTO `quality`
+            (
+            `name`,
+            `desc`,
+            `project`,
+            `submitter`,
+            `submitter_comments`,
+            `submit_time`,
+            `type`,
+            `status`)
+            VALUES
+            (
+            '$name',
+            '$desc',
+            $project,
+            '$submitter',
+            '$submitter_comments',
+            NOW(),
+            $type,
+            $status
+            )";
+    $ins = mysql_query($sql);
+    if($ins){
+      return mysql_insert_id();
+    }else{
+      return false;
+    }
+  }
+  function close($id){
+    $id = (int) $id;
+    $status = Status::getId("quality", "closed");
+    $sql = "update `quality` set `status` = $status where ID = $id";
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
   }
   
-  function update(){
-    
+  function update($id,$desc,$status){
+    $id = (int) $id;
+    $desc = mysql_escape_string($desc);
+    $sql = "update `quality` set `desc`='$desc',`status` = $status where ID = $id";
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
   }
   
-  function del(){
-    
+  function del($id){
+    return $this->close($id);
   }
 }
 
