@@ -20,3 +20,6 @@ insert into status (type,value) values ('phase','completed');
 insert into status (type,value) values ('quality','not_start');
 insert into status (type,value) values ('quality','in_progress');
 insert into status (type,value) values ('quality','closed');
+insert into status (type,value) values ('sampleRequest','need_approve');
+insert into status (type,value) values ('sampleRequest','approved');
+insert into status (type,value) values ('sampleRequest','rejected');

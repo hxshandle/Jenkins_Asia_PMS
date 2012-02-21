@@ -356,7 +356,7 @@ ENGINE = MyISAM");
     
     $table22 = mysql_query("
       CREATE  TABLE IF NOT EXISTS `sample_request` (
-  `ID` INT(10) NOT NULL ,
+  `ID` INT(10) NOT NULL AUTO_INCREMENT,
   `approved` TINYINT NOT NULL DEFAULT 0 ,
   `submit_time` DATETIME NOT NULL ,
   `submit_by` INT(10) NOT NULL ,
