@@ -156,17 +156,32 @@ class InstallDBTest extends PHPUnit_Framework_TestCase {
   KEY `milestone` (`milestone`)
 ) ENGINE=MyISAM");
 
-    $table8 = mysql_query("CREATE TABLE `projekte` (
-  `ID` int(10) NOT NULL auto_increment,
-  `name` varchar(255) NOT NULL default '',
-  `desc` text NOT NULL,
-  `start` varchar(255) NOT NULL default '',
-  `end` varchar(255) NOT NULL default '',
-  `status` tinyint(1) NOT NULL default '0',
-  `budget` float NOT NULL default '0',
-  PRIMARY KEY  (`ID`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM");
+    $table8 = mysql_query("CREATE  TABLE IF NOT EXISTS `projekte` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `desc` TEXT NOT NULL ,
+  `start` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `end` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `status` INT(10) NOT NULL ,
+  `budget` FLOAT NOT NULL DEFAULT '0' ,
+  `level` VARCHAR(255) NOT NULL DEFAULT 'A-All new' COMMENT 'A-All new\nB-Innovation\nC-Cosmetics' ,
+  `prioity` INT(1) NOT NULL DEFAULT 1 COMMENT '1~5' ,
+  `customer_name` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `supplier` VARCHAR(255) NULL DEFAULT '' ,
+  `target_fob` DOUBLE NULL ,
+  `target_fob_currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
+  `forecasted_annual_quantity_1` INT NULL DEFAULT 0 ,
+  `forecasted_annual_quantity_2` INT NULL DEFAULT 0 ,
+  `forecasted_annual_quantity_3` INT NULL DEFAULT 0 ,
+  `customer_leader` INT(10) NULL ,
+  `supplier_leader` INT(10) NULL ,
+  `project_leader` INT(10) NULL ,
+  `start_date` DATETIME NULL ,
+  `end_date` DATETIME NULL ,
+  `valid` TINYINT NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `status` (`status` ASC) )
+ENGINE = MyISAM");
 
     $table9 = mysql_query("CREATE TABLE `projekte_assigned` (
   `ID` int(10) NOT NULL auto_increment,

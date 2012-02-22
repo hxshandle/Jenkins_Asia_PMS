@@ -58,68 +58,6 @@ class project {
             return false;
         }
     }
-    
-    
-    function add2($name, $desc, $end, $budget,){
-      $sql = "INSERT INTO `jenkins_asia`.`projekte`
-              (`ID`,
-              `name`,
-              `desc`,
-              `start`,
-              `end`,
-              `status`,
-              `budget`,
-              `level`,
-              `prioity`,
-              `customer_name`,
-              `supplier`,
-              `target_fob`,
-              `target_fob_currency`,
-              `forecasted_annual_quantity_1`,
-              `forecasted_annual_quantity_2`,
-              `forecasted_annual_quantity_3`,
-              `customer_leader`,
-              `supplier_leader`,
-              `project_leader`,
-              `start_date`,
-              `end_date`,
-              `valid`)
-              VALUES
-              (
-              <{ID: }>,
-              <{name: }>,
-              <{desc: }>,
-              <{start: }>,
-              <{end: }>,
-              <{status: }>,
-              <{budget: 0}>,
-              <{level: A-All new}>,
-              <{prioity: 1}>,
-              <{customer_name: }>,
-              <{supplier: }>,
-              <{target_fob: }>,
-              <{target_fob_currency: RMB}>,
-              <{forecasted_annual_quantity_1: 0}>,
-              <{forecasted_annual_quantity_2: 0}>,
-              <{forecasted_annual_quantity_3: 0}>,
-              <{customer_leader: }>,
-              <{supplier_leader: }>,
-              <{project_leader: }>,
-              <{start_date: }>,
-              <{end_date: }>,
-              <{valid: 1}>
-              );
-              ";
-      $ins = mysql_query($sql);
-      if($ins){
-        return mysql_insert_id();
-      }else{
-        return FALSE;
-      }
-      
-    }
-    
-    
 
     /**
      * Imports a project from Basecamp into Collabtive
