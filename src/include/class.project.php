@@ -60,9 +60,24 @@ class project {
     }
     
     
-    function add2($name, $desc, $end, $budget,){
+    function add2($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
+      $name = mysql_real_escape_string($name);
+      $desc = mysql_real_escape_string($desc);
+      $end = mysql_real_escape_string($end);
+      $budget = (float) $budget;
+      $level = (int) $level;
+      $prioity = (int) $prioity;
+      $customerName = mysql_escape_string($customerName);
+      $supplier = mysql_escape_string($supplier);
+      $targetFOB = (double) $targetFOB;
+      $forecastedAnnualQuantity1 = (int) $forecastedAnnualQuantity1;
+      $forecastedAnnualQuantity2 = (int) $forecastedAnnualQuantity2;
+      $forecastedAnnualQuantity3 = (int) $forecastedAnnualQuantity3;
+      $customerLeader = (int) $customerLeader;
+      $supplierLeader = (int)$supplierLeader;
+      $projectLeader = (int) $projectLeader;
       $sql = "INSERT INTO `jenkins_asia`.`projekte`
-              (`ID`,
+              (
               `name`,
               `desc`,
               `start`,
@@ -86,28 +101,27 @@ class project {
               `valid`)
               VALUES
               (
-              <{ID: }>,
-              <{name: }>,
-              <{desc: }>,
-              <{start: }>,
-              <{end: }>,
-              <{status: }>,
-              <{budget: 0}>,
-              <{level: A-All new}>,
-              <{prioity: 1}>,
-              <{customer_name: }>,
-              <{supplier: }>,
-              <{target_fob: }>,
-              <{target_fob_currency: RMB}>,
-              <{forecasted_annual_quantity_1: 0}>,
-              <{forecasted_annual_quantity_2: 0}>,
-              <{forecasted_annual_quantity_3: 0}>,
-              <{customer_leader: }>,
-              <{supplier_leader: }>,
-              <{project_leader: }>,
-              <{start_date: }>,
-              <{end_date: }>,
-              <{valid: 1}>
+              '$name',
+              '$desc',
+              '$start',
+              '$end',
+              $status,
+              $budget,
+              '$level',
+              $prioity,
+              '$customerName',
+              '$supplier',
+              $targetFOB,
+              '$targetFOBCurrency',
+              $forecastedAnnualQuantity1,
+              $forecastedAnnualQuantity2,
+              $forecastedAnnualQuantity3,
+              $customerLeader,
+              $supplierLeader,
+              $projectLeader,
+              '$startDate',
+              '$endDate',
+              1
               );
               ";
       $ins = mysql_query($sql);
@@ -183,6 +197,39 @@ class project {
             return false;
         }
     }
+    
+    function edit2($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
+      $name = mysql_real_escape_string($name);
+      $desc = mysql_real_escape_string($desc);
+      $end = mysql_real_escape_string($end);
+      $budget = (float) $budget;
+      $level = (int) $level;
+      $prioity = (int) $prioity;
+      $customerName = mysql_escape_string($customerName);
+      $supplier = mysql_escape_string($supplier);
+      $targetFOB = (double) $targetFOB;
+      $forecastedAnnualQuantity1 = (int) $forecastedAnnualQuantity1;
+      $forecastedAnnualQuantity2 = (int) $forecastedAnnualQuantity2;
+      $forecastedAnnualQuantity3 = (int) $forecastedAnnualQuantity3;
+      $customerLeader = (int) $customerLeader;
+      $supplierLeader = (int)$supplierLeader;
+      $projectLeader = (int) $projectLeader;
+      $id = mysql_real_escape_string($id);
+      $name = mysql_real_escape_string($name);
+      $desc = mysql_real_escape_string($desc);
+      $end = mysql_real_escape_string($end);
+      $end = strtotime($end);
+      $id = (int) $id;
+      $budget = (float) $budget;
+      $sql = "";
+      $upd = mysql_query($sql);
+      if($upd){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    
 
     /**
      * Deletes a project including everything else that was assigned to it (e.g. Milestones, tasks, timetracker entries)
