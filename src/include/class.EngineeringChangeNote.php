@@ -27,7 +27,8 @@ class EngineeringChangeNote {
     $phaseId = (int) $phaseId;
     $deliverableItemId = (int) $deliverableItemId;
     $status = Status::getId("ECN", "need_approve");
-    $ins = mysql_query("insert into engineering_change_note (status,submitter,submit_time,submitter_comments,project,phase,deliverable) values($status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId )");
+    $sql = "insert into engineering_change_note (status,submitter,submit_time,submitter_comments,project,phase,deliverable) values($status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId )";
+    $ins = mysql_query($sql);
     if($ins){
       return mysql_insert_id();
     }else{
