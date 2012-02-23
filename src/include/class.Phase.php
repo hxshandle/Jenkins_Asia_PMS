@@ -71,6 +71,23 @@ class Phase {
       return false;
     }
   }
+  function delPhasesByProjectId($id){
+    $id = (int) $id;
+    $deliverable = new DeliverableItem();
+    $phases = $this->getPhasesByProjectId($id);
+    if(!empty($phases)){
+      foreach ($phases as $phase){
+        $deliverable->delDeliverableItemByPhaseId($phase["ID"]);
+      }
+    }
+    $del =  mysql_query("update `phase` set valid = 0 where `project` = $id");
+    if($del){
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
   
   function getPhasesByProjectId($projectId){
     $projectId = (int) $projectId;

@@ -20,47 +20,9 @@ class project {
     {
         $this->mylog = new mylog;
     }
-
-    /**
-     * Add a project
-     *
-     * @param string $name Name des Projekts
-     * @param string $desc Projektbeschreibung
-     * @param string $end Date on which the project is due
-     * @param int $assignme Assign yourself to the project
-     * @return int $insid ID des neu angelegten Projekts
-     */
-    function add($name, $desc, $end, $budget, $assignme = 0)
-    {
-        $name = mysql_real_escape_string($name);
-        $desc = mysql_real_escape_string($desc);
-        $end = mysql_real_escape_string($end);
-        $assignme = (int) $assignme;
-        $budget = (float) $budget;
-
-        if ($end > 0) {
-            $end = strtotime($end);
-        }
-        $now = time();
-
-        $ins1 = mysql_query("INSERT INTO projekte (`name`, `desc`, `end`, `start`, `status`, `budget`) VALUES ('$name','$desc','$end','$now',1,'$budget')");
-
-        $insid = mysql_insert_id();
-        if ($assignme == 1) {
-            $uid = $_SESSION['userid'];
-            $this->assign($uid, $insid);
-        }
-        if ($ins1) {
-            mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/$insid/", 0777);
-            $this->mylog->add($name, 'projekt', 1, $insid);
-            return $insid;
-        } else {
-            return false;
-        }
-    }
     
     
-    function add2($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
+    function add($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
       $end = mysql_real_escape_string($end);
@@ -169,36 +131,8 @@ class project {
         }
     }
 
-    /**
-     * Bearbeitet ein Projekt
-     *
-     * @param int $id Eindeutige Projektnummer
-     * @param string $name Name des Projekts
-     * @param string $desc Beschreibungstext
-     * @param string $end Date on which the project is due
-     * @return bool
-     */
-    function edit($id, $name, $desc, $end, $budget)
-    {
-        $id = mysql_real_escape_string($id);
-        $name = mysql_real_escape_string($name);
-        $desc = mysql_real_escape_string($desc);
-        $end = mysql_real_escape_string($end);
-        $end = strtotime($end);
-        $id = (int) $id;
-        $budget = (float) $budget;
-
-        $upd = mysql_query("UPDATE projekte SET name='$name',`desc`='$desc',`end`='$end',budget=$budget WHERE ID = $id");
-
-        if ($upd) {
-            $this->mylog->add($name, 'projekt' , 2, $id);
-            return true;
-        } else {
-            return false;
-        }
-    }
     
-    function edit2($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
+    function edit($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
       $end = mysql_real_escape_string($end);
@@ -221,7 +155,30 @@ class project {
       $end = strtotime($end);
       $id = (int) $id;
       $budget = (float) $budget;
-      $sql = "";
+      $sql = "UPDATE `jenkins_asia`.`projekte`
+              SET
+              `name` = $name,
+              `desc` = $desc,
+              `start` = $start,
+              `end` = $end,
+              `status` = $status,
+              `budget` = $budget,
+              `level` = $level,
+              `prioity` = $prioity,
+              `customer_name` = $customerName,
+              `supplier` = $supplier,
+              `target_fob` = $targetFOB,
+              `target_fob_currency` = '$targetFOBCurrency',
+              `forecasted_annual_quantity_1` = $forecastedAnnualQuantity1,
+              `forecasted_annual_quantity_2` = $forecastedAnnualQuantity2,
+              `forecasted_annual_quantity_3` = $forecastedAnnualQuantity3,
+              `customer_leader` = $customerLeader,
+              `supplier_leader` = $supplierLeader,
+              `project_leader` = $projectLeader,
+              `start_date` = $startDate,
+              `end_date` = $endDate
+              WHERE ID = $id;
+              ";
       $upd = mysql_query($sql);
       if($upd){
         return true;
@@ -242,6 +199,17 @@ class project {
         $userid = $_SESSION["userid"];
         $id = mysql_real_escape_string($id);
         $id = (int) $id;
+        // Delete Phases
+        $phase = new Phase();
+        $deliverable = new DeliverableItem();
+        $phases = $phase->getPhasesByProjectId($id);
+        if (!empty($phases)){
+          foreach ($phases as $pas) {
+            //delete deliverable items
+            $deliverableItems = $deliverable->getDeliverableItemsByPhaseId($pas["ID"], 10000);
+            $phase->del($pas["ID"]);
+          }
+        }
         // Delete assignments of tasks of this project to users
         $task = new task();
         $tasks = $task->getProjectTasks($id);
@@ -277,7 +245,7 @@ class project {
             return false;
         }
     }
-
+    
     /**
      * Mark a project as "active / open"
      *
