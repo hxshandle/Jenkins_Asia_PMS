@@ -76,6 +76,24 @@ class DeliverableItem {
       return FALSE;
     }
   }
+  function delDeliverableItemByPhaseId($id){
+    $id = (int) $id;
+    //delete tasks
+    $task = new task();
+    $deliverableItems = $this->getDeliverableItemsByPhaseId($id);
+    if(!empty($deliverableItems)){
+      foreach ($deliverableItems as $item) {
+        $task->delTasksByDeliverableItemId($item["ID"]);
+      }
+    }
+    $del = mysql_query("update `deliverable_item` set `valid` = 0 where `phase` = $id");
+    if($del){
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
 
   function getItem($id) {
     $id = (int) $id;
