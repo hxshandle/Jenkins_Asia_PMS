@@ -160,8 +160,6 @@ class InstallDBTest extends PHPUnit_Framework_TestCase {
   `ID` INT(10) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `desc` TEXT NOT NULL ,
-  `start` VARCHAR(255) NOT NULL DEFAULT '' ,
-  `end` VARCHAR(255) NOT NULL DEFAULT '' ,
   `status` INT(10) NOT NULL ,
   `budget` FLOAT NOT NULL DEFAULT '0' ,
   `level` VARCHAR(255) NOT NULL DEFAULT 'A-All new' COMMENT 'A-All new\nB-Innovation\nC-Cosmetics' ,
@@ -176,7 +174,7 @@ class InstallDBTest extends PHPUnit_Framework_TestCase {
   `customer_leader` INT(10) NULL ,
   `supplier_leader` INT(10) NULL ,
   `project_leader` INT(10) NULL ,
-  `start_date` DATETIME NULL ,
+  `start_date` DATETIME NOT NULL ,
   `end_date` DATETIME NULL ,
   `valid` TINYINT NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`ID`) ,
@@ -230,24 +228,24 @@ ENGINE = MyISAM");
   KEY `milestone` (`milestone`)
 ) ENGINE=MyISAM");
 
-    $table12 = mysql_query("CREATE TABLE `tasks` (
-  `ID` int(10) NOT NULL auto_increment,
-  `start` varchar(255) NOT NULL default '',
-  `end` varchar(255) NOT NULL default '',
-  `title` varchar(255) NOT NULL default '',
-  `text` text NOT NULL,
-  `liste` int(10) NOT NULL default '0',
-  `status` tinyint(1) NOT NULL default '0',
-  `project` int(10) NOT NULL default '0',
-  `deliverable_item` int(10) NOT NULL,
-  `parent` int(10),
-  `location` varchar(255) NOT NULL default 'Shanghai',
-  `vaild` tinyint(1) NOT NULL default 1,
-  PRIMARY KEY  (`ID`),
-  KEY `liste` (`liste`),
-  KEY `status` (`status`),
-  KEY `end` (`end`)
-) ENGINE=MyISAM");
+    $table12 = mysql_query("CREATE  TABLE `tasks` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `start_date` DATETIME NOT NULL ,
+  `end_date` DATETIME NOT NULL ,
+  `title` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `text` TEXT NOT NULL ,
+  `liste` INT(10) NOT NULL DEFAULT '0' ,
+  `status` INT(10) NOT NULL ,
+  `project` INT(10) NOT NULL DEFAULT '0' ,
+  `phase` INT(10) NOT NULL,
+  `deliverable_item` INT(10) NULL ,
+  `parent` INT(10) NULL ,
+  `location` VARCHAR(255) NOT NULL DEFAULT 'Shanghai' ,
+  `valid` TINYINT NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `liste` (`liste` ASC) ,
+  INDEX `status` (`status` ASC) )
+ENGINE = MyISAM");
 
     $table13 = mysql_query("CREATE TABLE `tasks_assigned` (
   `ID` int(10) NOT NULL auto_increment,
@@ -450,6 +448,7 @@ ENGINE = MyISAM");
   `status` INT(10) NOT NULL ,
   `start_date` DATETIME NULL ,
   `end_date` DATETIME NULL ,
+  `project` INT(10) NOT NULL,
   `phase` INT(10) NOT NULL ,
   `desc` TEXT NULL ,
   `valid` TINYINT(1) NOT NULL DEFAULT 1 ,

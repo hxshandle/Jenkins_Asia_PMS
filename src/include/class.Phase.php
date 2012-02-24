@@ -74,19 +74,22 @@ class Phase {
   function delPhasesByProjectId($id){
     $id = (int) $id;
     $deliverable = new DeliverableItem();
-    $phases = $this->getPhasesByProjectId($id);
-    if(!empty($phases)){
-      foreach ($phases as $phase){
-        $deliverable->delDeliverableItemByPhaseId($phase["ID"]);
-      }
-    }
+    $deliverable->delDeliverableItemByProjectId($id);
     $del =  mysql_query("update `phase` set valid = 0 where `project` = $id");
+    return $del;
+  }
+  
+  function closeByProjectId($id){
+    $id = (int) $id;
+    $deliverable = new DeliverableItem();
+    $deliverable->closeDeliverableItemByProjectId($id);
+    $status = Status::getId("phase", "closed");
+    $del =  mysql_query("update `phase` set `status`=$status where `project` = $id");
     if($del){
       return true;
     }else{
       return false;
-    }
-    
+    }  
   }
   
   function getPhasesByProjectId($projectId){

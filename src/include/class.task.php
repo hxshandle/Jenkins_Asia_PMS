@@ -25,48 +25,55 @@ class task
 
     }
 
-    /**
-     * Add a task
-     *
-     * @param string $end Date the task is due
-     * @param string $title Title of the task (optional)
-     * @param string $text Description of the task
-     * @param int $liste Tasklist the task is associated with
-     * @param int $assigned ID of the user who has to complete the task
-     * @param int $project ID of the project the task is associated with
-     * @return int $insid New task's ID
-     */
-    function add($end, $title, $text, $liste, $project)
-    {
-        $end = mysql_real_escape_string($end);
-        $title = mysql_real_escape_string($title);
-        $text = mysql_real_escape_string($text);
-        $liste = (int) $liste;
-        $project = (int) $project;
 
-        $end_fin = strtotime($end);
-
-        if (empty($end_fin))
-        {
-            $end_fin = $end;
-        }
-
-        $start = time();
-        // write to db
-        $ins = mysql_query("INSERT INTO tasks (start,end,title,text,liste,status,project) VALUES ('$start','$end_fin','$title','$text',$liste,1,$project)");
-        if ($ins)
-        {
-            $insid = mysql_insert_id();
-            // logentry
-            $nameproject = $this->getNameProject($insid);
-            $this->mylog->add($nameproject[0], 'task', 1, $nameproject[1]);
-            return $insid;
-        }
-        else
-        {
-            return false;
-        }
+    function add($startDate,$endDate,$title,$text,$liste,$status,$project,$phase,$deliverableItem,$parent,$location,$valid=1){
+      $title = mysql_escape_string($title);
+      $text = mysql_escape_string($text);
+      $status = $status == NULL ? Status::getId("task", "not_start"):(int)$status;
+      $project = (int) $project;
+      $deliverableItem = (int) $deliverableItem;
+      $parent = $parent == NULL ? 'NULL' : (int) $parent;
+      $location = mysql_escape_string($location);
+      $valid = (int) $valid;
+      $sql = "INSERT INTO `tasks`
+              (
+              `start_date`,
+              `end_date`,
+              `title`,
+              `text`,
+              `liste`,
+              `status`,
+              `project`,
+              `phase`,
+              `deliverable_item`,
+              `parent`,
+              `location`,
+              `valid`)
+              VALUES
+              (
+              '$startDate',
+              '$endDate',
+              '$title',
+              '$text',
+              $liste,
+              $status,
+              $project,
+              $phase,
+              $deliverableItem,
+              $parent,
+              '$location',
+              $valid
+              );
+              ";
+      $ins = mysql_query($sql);
+      if($ins){
+        return mysql_insert_id();
+      }else{
+        return false;
+      }
     }
+    
+    
 
     /**
      * Edit a task
@@ -127,6 +134,41 @@ class task
         {
             return false;
         }
+    }
+    
+    function delTasksByDeliverableItemId($id){
+      $id = (int) $id;
+      $del = mysql_query("update `tasks` set `valid` = 0 where `deliverable_item`=$id");
+      return $del;
+    }
+    function delTasksByProjectId($id){
+      $id = (int) $id;
+      $del = mysql_query("update `tasks` set `valid` = 0 where `project`=$id");
+      return $del;
+    }
+    function delTasksByPhaseId($id){
+      $id = (int) $id;
+      $del = mysql_query("update `tasks` set `valid` = 0 where `phase`=$id");
+      return $del;
+    }
+    function closeTasksByDeliverableItemId($id){
+      $id = (int) $id;
+      $status = Status::getId("task", "closed");
+      $del = mysql_query("update `tasks` set `status` = $status where `deliverable_item`=$id");
+      return $del;    
+    }
+    function closeTasksByPhaseId($id){
+      $id = (int) $id;
+      $status = Status::getId("task", "closed");
+      $del = mysql_query("update `tasks` set `status` = $status where `phase`=$id");
+      return $del;
+    }
+    
+   function closeTasksByProjectId($id){
+      $id = (int) $id;
+      $status = Status::getId("task", "closed");
+      $del = mysql_query("update `tasks` set `status` = $status where `project`=$id");
+      return $del;      
     }
 
     /**
@@ -318,10 +360,10 @@ class task
      * @param int $project Project ID
      * @return array $lists Tasks
      */
-    function getProjectTasks($project, $status = 1)
+    function getProjectTasks($project, $valid = 1)
     {
         $project = (int) $project;
-        $status = (int) $status;
+        $valid = (int) $valid;
 
         $lists = array();
         if ($status !== false)

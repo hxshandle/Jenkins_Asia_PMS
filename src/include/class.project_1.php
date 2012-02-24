@@ -9,7 +9,7 @@
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
-class project {
+class projectback {
     private $mylog;
 
     /**

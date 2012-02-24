@@ -19,17 +19,19 @@ class DeliverableItem {
     $this->myLog = new mylog;
   }
 
-  function add($name, $statusId, $startDate, $endDate, $phaseId, $desc, $valid = 1) {
+  function add($name, $statusId, $startDate, $endDate,$project, $phaseId, $desc, $valid = 1) {
     $name = mysql_real_escape_string($name);
     $statusId = (int) $statusId;
+    $project = (int) $project;
     $phaseId = (int) $phaseId;
     $desc = mysql_real_escape_string($desc);
     $valid = (int) $valid;
-    $ins = mysql_query("insert into deliverable_item (
+    $sql = "insert into deliverable_item (
             `name`,
             `status`,
             `start_date`,
             `end_date`,
+            `project`,
             `phase`,
             `desc`,
             `valid`
@@ -38,9 +40,11 @@ class DeliverableItem {
             $statusId,
             '$startDate',
             '$endDate',
+            $project,
             $phaseId,
             '$desc',
-            $valid)");
+            $valid)";
+    $ins = mysql_query($sql);
     if ($ins) {
       $insid = mysql_insert_id();
       return $insid;
@@ -76,23 +80,38 @@ class DeliverableItem {
       return FALSE;
     }
   }
+  
+  function delDeliverableItemByProjectId($id){
+    $id = (int) $id;
+    $task = new task();
+    $task->delTasksByProjectId($id);
+    $del = mysql_query("update `deliverable_item` set `valid` = 0 where `project` = $id");
+    return $del;
+  }
   function delDeliverableItemByPhaseId($id){
     $id = (int) $id;
     //delete tasks
     $task = new task();
-    $deliverableItems = $this->getDeliverableItemsByPhaseId($id);
-    if(!empty($deliverableItems)){
-      foreach ($deliverableItems as $item) {
-        $task->delTasksByDeliverableItemId($item["ID"]);
-      }
-    }
-    $del = mysql_query("update `deliverable_item` set `valid` = 0 where `phase` = $id");
-    if($del){
-      return true;
-    }else{
-      return false;
-    }
-    
+    $task->delTasksByPhaseId($id);
+    return mysql_query("update `deliverable_item` set `valid` = 0 where `phase` = $id");
+  }
+  
+  function closeDeliverableItemByProjectId($id){
+    $id = (int) $id;
+    //delete tasks
+    $task = new task();
+    $task->closeTasksByProjectId($id);
+    return mysql_query("update `deliverable_item` set `valid` = 0 where `project` = $id");
+  }
+  
+  function closeDeliverableItemByPhaseId($id){
+    $id = (int) $id;
+    //delete tasks
+    $task = new task();
+    $task->closeTasksByPhaseId($id);
+    $status = Status::getId("phase", "closed");
+    $del = mysql_query("update `deliverable_item` set `status` = $status where `phase` = $id");
+    return $del;
   }
 
   function getItem($id) {

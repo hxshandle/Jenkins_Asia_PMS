@@ -22,10 +22,9 @@ class project {
     }
     
     
-    function add($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
+    function add($name, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
-      $end = mysql_real_escape_string($end);
       $budget = (float) $budget;
       $level = (int) $level;
       $prioity = (int) $prioity;
@@ -42,8 +41,6 @@ class project {
               (
               `name`,
               `desc`,
-              `start`,
-              `end`,
               `status`,
               `budget`,
               `level`,
@@ -65,8 +62,6 @@ class project {
               (
               '$name',
               '$desc',
-              '$start',
-              '$end',
               $status,
               $budget,
               '$level',
@@ -132,10 +127,9 @@ class project {
     }
 
     
-    function edit($name, $desc,$start, $end, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
+    function edit($name, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
-      $end = mysql_real_escape_string($end);
       $budget = (float) $budget;
       $level = (int) $level;
       $prioity = (int) $prioity;
@@ -151,16 +145,12 @@ class project {
       $id = mysql_real_escape_string($id);
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
-      $end = mysql_real_escape_string($end);
-      $end = strtotime($end);
       $id = (int) $id;
       $budget = (float) $budget;
       $sql = "UPDATE `jenkins_asia`.`projekte`
               SET
               `name` = $name,
               `desc` = $desc,
-              `start` = $start,
-              `end` = $end,
               `status` = $status,
               `budget` = $budget,
               `level` = $level,
@@ -202,22 +192,8 @@ class project {
         // Delete Phases
         $phase = new Phase();
         $deliverable = new DeliverableItem();
-        $phases = $phase->getPhasesByProjectId($id);
-        if (!empty($phases)){
-          foreach ($phases as $pas) {
-            //delete deliverable items
-            $deliverableItems = $deliverable->getDeliverableItemsByPhaseId($pas["ID"], 10000);
-            $phase->del($pas["ID"]);
-          }
-        }
-        // Delete assignments of tasks of this project to users
-        $task = new task();
-        $tasks = $task->getProjectTasks($id);
-        if (!empty($tasks)) {
-            foreach ($tasks as $tas) {
-                $del_taskassign = mysql_query("DELETE FROM tasks_assigned WHERE task = $tas[ID]");
-            }
-        }
+        $phase->delPhasesByProjectId($id);
+  
         // Delete files and the assignments of these files to the messages they were attached to
         $fil = new datei();
         $files = $fil->getProjectFiles($id, 1000000);
@@ -257,7 +233,7 @@ class project {
         $id = mysql_real_escape_string($id);
         $id = (int) $id;
 
-        $upd = mysql_query("UPDATE projekte SET status=1 WHERE ID = $id");
+        $upd = mysql_query("UPDATE projekte SET `valid`=1 WHERE ID = $id");
         if ($upd) {
             $nam = mysql_query("SELECT name FROM projekte WHERE ID = $id");
             $nam = mysql_fetch_row($nam);
@@ -279,32 +255,11 @@ class project {
     {
         $id = mysql_real_escape_string($id);
         $id = (int) $id;
-
-        $mile = new milestone();
-        $milestones = $mile->getAllProjectMilestones($id, 100000);
-        if (!empty($milestones)) {
-            foreach ($milestones as $miles) {
-                $close_milestones = mysql_query("UPDATE milestones SET status = 0 WHERE ID = $miles[ID]");
-            }
-        }
-
-        $task = new task();
-        $tasks = $task->getProjectTasks($id);
-        if (!empty($tasks)) {
-            foreach ($tasks as $tas) {
-                $close_tasks = mysql_query("UPDATE tasks SET status = 0 WHERE ID = $tas[ID]");
-            }
-        }
-
-        $tasklist = new tasklist();
-        $tasklists = $tasklist->getProjectTasklists($id);
-        if (!empty($tasklists)) {
-            foreach ($tasklists as $tl) {
-                $close_tasklists = mysql_query("UPDATE tasklist SET status = 0 WHERE ID = $tl[ID]");
-            }
-        }
-
-        $upd = mysql_query("UPDATE projekte SET status=0 WHERE ID = $id");
+        //close phase
+        $phase = new Phase();
+        $phase->closeByProjectId($id);
+        $status = Status::getId("project", "closed");
+        $upd = mysql_query("UPDATE projekte SET `status`=$status WHERE ID = $id");
         if ($upd) {
             $nam = mysql_query("SELECT name FROM projekte WHERE ID = $id");
             $nam = mysql_fetch_row($nam);
@@ -356,20 +311,6 @@ class project {
         $id = (int) $id;
 
         $sql = "DELETE FROM projekte_assigned WHERE user = $user AND projekt = $id";
-
-        $milestone = new milestone();
-        $donemiles = $milestone->getDoneProjectMilestones($id);
-        if (!empty($donemiles)) {
-            foreach ($donemiles as $dm) {
-                $sql1 = mysql_query("DELETE FROM milestones_assigned WHERE user = $user AND milestone = $dm[ID]");
-            }
-        }
-        $openmiles = $milestone->getAllProjectMilestones($id, 100000);
-        if (!empty($openmiles)) {
-            foreach ($openmiles as $om) {
-                $sql2 = mysql_query("DELETE FROM milestones_assigned WHERE user = $user AND milestone = $om[ID]");
-            }
-        }
 
         $task = new task();
         $tasks = $task->getProjectTasks($id);
