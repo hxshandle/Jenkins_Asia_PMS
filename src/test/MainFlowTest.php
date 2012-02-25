@@ -26,6 +26,7 @@ class MainFlowTest extends PHPUnit_Framework_TestCase {
   protected $conn;
   protected $object;
   private $projectTaskList = array();
+  private $project1,$project2;
 
   /**
    * Sets up the fixture, for example, opens a network connection.
@@ -59,6 +60,8 @@ class MainFlowTest extends PHPUnit_Framework_TestCase {
     $endDate = date("Y-m-d H:i:s",strtotime("2012-02-01"));
     $project1=$project->add("project-1", "p1", $pStatus, 100, 1, 1, "customer-1", "supplier-1", 10, "USD", 200, 300, 400, 3, 4, 5, $startDate, $endDate);
     $project2=$project->add("project-2", "p1", $pStatus, 100, 1, 1, "customer-1", "supplier-1", 10, "USD", 200, 300, 400, 3, 4, 5, $startDate, $endDate);
+    $this->project1=$project1;
+    $this->project2=$project2;
     $this->buildTaskList($project1);
     $this->buildTaskList($project2);
     
@@ -166,6 +169,22 @@ class MainFlowTest extends PHPUnit_Framework_TestCase {
 //put your code here
   public function testEmptyFunc() {
     $this->assertEquals(TRUE, TRUE);
+  }
+  
+  public function testCloseProject(){
+    $project = new project();
+    print_r("close project --> ".$this->project1);
+    $ret = $project->close($this->project1);
+    $this->assertTrue($ret);
+  }
+  public function testEditProject(){
+    $project = new project();
+    print_r("edit project --> ".$this->project2);
+    $pStatus = Status::getId("project", "planning");
+    $startDate = date("Y-m-d H:i:s",strtotime("2012-02-01"));
+    $endDate = date("Y-m-d H:i:s",strtotime("2012-02-01"));
+    $ret = $project->edit($this->project2,"change......", "p1", $pStatus, 300, 1, 1, "customer-11", "supplier-11", 10, "USD", 200, 300, 400, 3, 4, 5, $startDate, $endDate);
+    $this->assertTrue($ret);
   }
 }
 

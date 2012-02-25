@@ -101,7 +101,8 @@ class DeliverableItem {
     //delete tasks
     $task = new task();
     $task->closeTasksByProjectId($id);
-    return mysql_query("update `deliverable_item` set `valid` = 0 where `project` = $id");
+    $status = Status::getId("deliverable", "closed");
+    return mysql_query("update `deliverable_item` set `status` = $status where `project` = $id");
   }
   
   function closeDeliverableItemByPhaseId($id){

@@ -127,7 +127,7 @@ class project {
     }
 
     
-    function edit($name, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
+    function edit($id,$name, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
       $budget = (float) $budget;
@@ -147,16 +147,16 @@ class project {
       $desc = mysql_real_escape_string($desc);
       $id = (int) $id;
       $budget = (float) $budget;
-      $sql = "UPDATE `jenkins_asia`.`projekte`
+      $sql = "UPDATE `projekte`
               SET
-              `name` = $name,
-              `desc` = $desc,
+              `name` = '$name',
+              `desc` = '$desc',
               `status` = $status,
               `budget` = $budget,
               `level` = $level,
               `prioity` = $prioity,
-              `customer_name` = $customerName,
-              `supplier` = $supplier,
+              `customer_name` = '$customerName',
+              `supplier` = '$supplier',
               `target_fob` = $targetFOB,
               `target_fob_currency` = '$targetFOBCurrency',
               `forecasted_annual_quantity_1` = $forecastedAnnualQuantity1,
@@ -165,8 +165,8 @@ class project {
               `customer_leader` = $customerLeader,
               `supplier_leader` = $supplierLeader,
               `project_leader` = $projectLeader,
-              `start_date` = $startDate,
-              `end_date` = $endDate
+              `start_date` = '$startDate',
+              `end_date` = '$endDate'
               WHERE ID = $id;
               ";
       $upd = mysql_query($sql);
