@@ -383,7 +383,7 @@ class project {
         $lim = (int) $lim;
 
         $projekte = array();
-        $sel = mysql_query("SELECT ID FROM projekte WHERE `status`=$status ORDER BY end ASC LIMIT $lim");
+        $sel = mysql_query("SELECT ID FROM projekte WHERE `valid`=$status ORDER BY end ASC LIMIT $lim");
 
         while ($projekt = mysql_fetch_array($sel)) {
             $project = $this->getProject($projekt["ID"]);

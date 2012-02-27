@@ -166,17 +166,30 @@ if (!$action) {
   KEY `milestone` (`milestone`)
 ) ENGINE=MyISAM");
 
-    $table8 = mysql_query("CREATE TABLE `projekte` (
-  `ID` int(10) NOT NULL auto_increment,
-  `name` varchar(255) NOT NULL default '',
-  `desc` text NOT NULL,
-  `start` varchar(255) NOT NULL default '',
-  `end` varchar(255) NOT NULL default '',
-  `status` tinyint(1) NOT NULL default '0',
-  `budget` float NOT NULL default '0',
-  PRIMARY KEY  (`ID`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM");
+    $table8 = mysql_query("CREATE  TABLE IF NOT EXISTS `projekte` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `desc` TEXT NOT NULL ,
+  `status` INT(10) NOT NULL ,
+  `budget` FLOAT NOT NULL DEFAULT '0' ,
+  `level` VARCHAR(255) NOT NULL DEFAULT 'A-All new' COMMENT 'A-All new\nB-Innovation\nC-Cosmetics' ,
+  `prioity` INT(1) NOT NULL DEFAULT 1 COMMENT '1~5' ,
+  `customer_name` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `supplier` VARCHAR(255) NULL DEFAULT '' ,
+  `target_fob` DOUBLE NULL ,
+  `target_fob_currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
+  `forecasted_annual_quantity_1` INT NULL DEFAULT 0 ,
+  `forecasted_annual_quantity_2` INT NULL DEFAULT 0 ,
+  `forecasted_annual_quantity_3` INT NULL DEFAULT 0 ,
+  `customer_leader` INT(10) NULL ,
+  `supplier_leader` INT(10) NULL ,
+  `project_leader` INT(10) NULL ,
+  `start_date` DATETIME NOT NULL ,
+  `end_date` DATETIME NULL ,
+  `valid` TINYINT NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `status` (`status` ASC) )
+ENGINE = MyISAM");
 
     $table9 = mysql_query("CREATE TABLE `projekte_assigned` (
   `ID` int(10) NOT NULL auto_increment,
@@ -225,20 +238,24 @@ if (!$action) {
   KEY `milestone` (`milestone`)
 ) ENGINE=MyISAM");
 
-    $table12 = mysql_query("CREATE TABLE `tasks` (
-  `ID` int(10) NOT NULL auto_increment,
-  `start` varchar(255) NOT NULL default '',
-  `end` varchar(255) NOT NULL default '',
-  `title` varchar(255) NOT NULL default '',
-  `text` text NOT NULL,
-  `liste` int(10) NOT NULL default '0',
-  `status` tinyint(1) NOT NULL default '0',
-  `project` int(10) NOT NULL default '0',
-  PRIMARY KEY  (`ID`),
-  KEY `liste` (`liste`),
-  KEY `status` (`status`),
-  KEY `end` (`end`)
-) ENGINE=MyISAM");
+    $table12 = mysql_query("CREATE  TABLE `tasks` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `start_date` DATETIME NOT NULL ,
+  `end_date` DATETIME NOT NULL ,
+  `title` VARCHAR(255) NOT NULL DEFAULT '' ,
+  `text` TEXT NOT NULL ,
+  `liste` INT(10) NOT NULL DEFAULT '0' ,
+  `status` INT(10) NOT NULL ,
+  `project` INT(10) NOT NULL DEFAULT '0' ,
+  `phase` INT(10) NOT NULL,
+  `deliverable_item` INT(10) NULL ,
+  `parent` INT(10) NULL ,
+  `location` VARCHAR(255) NOT NULL DEFAULT 'Shanghai' ,
+  `valid` TINYINT NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `liste` (`liste` ASC) ,
+  INDEX `status` (`status` ASC) )
+ENGINE = MyISAM");
 
     $table13 = mysql_query("CREATE TABLE `tasks_assigned` (
   `ID` int(10) NOT NULL auto_increment,
@@ -344,8 +361,142 @@ CREATE TABLE `roles_assigned` (
   `role` int(10) NOT NULL,
   PRIMARY KEY  (`ID`)
 ) ENGINE=MyISAM");
+    
+    //----------------------------Jenkins Table--------------------//
+    $table21=  mysql_query("
+      CREATE  TABLE IF NOT EXISTS `sample` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `status` INT(10) NOT NULL ,
+  `project` INT(10) NOT NULL ,
+  `total_count` INT NOT NULL DEFAULT 0 ,
+  `available_count` INT NOT NULL DEFAULT 0 ,
+  `tag_id` VARCHAR(255) NOT NULL ,
+  `description` TEXT NULL ,
+  `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM");
+    
+    $table22 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `sample_request` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT,
+  `approved` TINYINT NOT NULL DEFAULT 0 ,
+  `submit_time` DATETIME NOT NULL ,
+  `submit_by` INT(10) NOT NULL ,
+  `approved_by` INT(10) ,
+  `approved_time` DATETIME NULL ,
+  `submitter_comments` TEXT NULL ,
+  `approver_comments` TEXT NULL ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM");
+    
+    $table23 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `finance` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `project` INT(10) NOT NULL ,
+  `inner_cost` INT NULL ,
+  `inner_cost_currency` VARCHAR(3) NOT NULL DEFAULT 'RMB' ,
+  `external_cost` INT NULL ,
+  `external_cost_currency` VARCHAR(3) NOT NULL DEFAULT 'RMB' ,
+  `real_cost` INT NULL ,
+  `real_cost_currency` VARCHAR(3) NOT NULL DEFAULT 'RMB' ,
+  `approved` TINYINT NOT NULL DEFAULT 0 ,
+  `published` TINYINT NOT NULL DEFAULT 0 ,
+  `order` INT(10) NULL ,
+  `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `project` (`project` ASC) ,
+  INDEX `approved` (`approved` ASC) ,
+  INDEX `published` (`published` ASC) )
+ENGINE = MyISAM");
+    
+    $table24 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `status` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `type` VARCHAR(45) NOT NULL DEFAULT 'project' COMMENT 'project,phase,deliverable,task' ,
+  `value` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `type` (`type` ASC) )
+ENGINE = MyISAM");
+    
+    $table25 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `phase` (
+  `ID` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `desc` TEXT NULL ,
+  `project` INT(10) NOT NULL ,
+  `status` INT(10) NOT NULL ,
+  `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `project` (`project` ASC) ,
+  INDEX `status` (`status` ASC) )
+ENGINE = MyISAM");
+    
+    $table26 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `engineering_change_note` (
+  `ID` INT NOT NULL AUTO_INCREMENT ,
+  `status` INT(10) NOT NULL,
+  `submitter` INT(10) NOT NULL ,
+  `submit_time` DATETIME NOT NULL ,
+  `approver` INT(10) ,
+  `approve_time` DATETIME NULL ,
+  `submitter_comments` TEXT NULL ,
+  `approver_comments` TEXT NULL ,
+  `project` INT(10) NOT NULL ,
+  `phase` INT(10) NULL ,
+  `deliverable` INT(10) NULL ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `submitter` (`submitter` ASC) ,
+  INDEX `approver` (`approver` ASC) )
+ENGINE = MyISAM");
+    
+    $table27 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `deliverable_item` (
+  `ID` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `status` INT(10) NOT NULL ,
+  `start_date` DATETIME NULL ,
+  `end_date` DATETIME NULL ,
+  `project` INT(10) NOT NULL,
+  `phase` INT(10) NOT NULL ,
+  `desc` TEXT NULL ,
+  `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) ,
+  INDEX `phase` (`phase` ASC) ,
+  INDEX `status` (`status` ASC) ,
+  INDEX `name` (`name` ASC) )
+ENGINE = MyISAM");
+    
+    $table28 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `quality` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL,
+  `desc` TEXT NULL ,
+  `project` INT(10) NOT NULL ,
+  `submitter` INT(10) NOT NULL ,
+  `submitter_comments` TEXT NULL ,
+  `submit_time` DATETIME NOT NULL ,
+  `close_time` DATETIME NULL ,
+  `type` TINYINT NOT NULL DEFAULT 1 COMMENT '1- Quality Complaints\n0 -  Corrective ActionRequestion' ,
+  `status` INT(10) NOT NULL ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM");
+    
+    $table29 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `order` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `project` INT(10) NOT NULL,
+  `desc` TEXT NULL ,
+  `submit_time` DATETIME NOT NULL ,
+  `end_time` DATETIME NULL ,
+  `status` INT(10) NOT NULL ,
+  `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM;");
     // Checks if tables could be created
-    if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20) {
+    if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20 or !$table21 or !$table22 or !$table23 or !$table24 or !$table25 or !$table26 or !$table27 or !$table28 or !$table29) {
         $template->assign("errortext", "Error: Tables could not be created.");
         $template->display("error.tpl");
         die();

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.19, created on 2012-02-12 15:53:27
+<?php /* Smarty version 2.6.19, created on 2012-02-27 22:51:24
          compiled from addproject.tpl */ ?>
 <div class="block_in_wrapper">
 <h2><?php echo $this->_config[0]['vars']['addproject']; ?>
@@ -15,23 +15,32 @@
 
 	    <div class="clear_both_b"></div>
 
+    <div class = "row">
+      <label for="start"><?php echo $this->_config[0]['vars']['startDate']; ?>
+:</label>
+      <input type="text" class="text" name="start"  id="start"  realname="<?php echo $this->_config[0]['vars']['startDate']; ?>
+" regexp="<?php echo '\\d{2}.\\d{2}.\\d{4}'; ?>
+" />
+    </div>
+    <div class="datepick">
+			<div id = "start_date_picker" class="picker" style = "display:none;"></div>
+		</div>
+    
 		<div class="row">
 		<label for="end"><?php echo $this->_config[0]['vars']['due']; ?>
 :</label>
 		<input type="text" class="text" name="end"  id="end"  realname="<?php echo $this->_config[0]['vars']['due']; ?>
 " regexp="<?php echo '\\d{2}.\\d{2}.\\d{4}'; ?>
 " />
-		<br /><br />
-		<label for = "neverdue"></label><input type = "checkbox" class = "checkbox" value = "neverdue" name = "neverdue" id = "neverdue" onclick = "$('end').value='';$('end').disabled='disabled';"><?php echo $this->_config[0]['vars']['neverdue']; ?>
-
 		</div>
 
 		<div class="datepick">
 			<div id = "add_project" class="picker" style = "display:none;"></div>
 		</div>
 
+
 		<script type="text/javascript">
-		  	theCal = new calendar(<?php echo $this->_tpl_vars['theM']; ?>
+		  theCal = new calendar(<?php echo $this->_tpl_vars['theM']; ?>
 ,<?php echo $this->_tpl_vars['theY']; ?>
 );
 			theCal.dayNames = ["<?php echo $this->_config[0]['vars']['monday']; ?>
@@ -59,14 +68,118 @@
 			theCal.dateFormat = "<?php echo $this->_tpl_vars['settings']['dateformat']; ?>
 ";
 			theCal.getDatepicker("add_project");
+      
+      startCal = new calendar(<?php echo $this->_tpl_vars['theM']; ?>
+,<?php echo $this->_tpl_vars['theY']; ?>
+);
+			startCal.dayNames = ["<?php echo $this->_config[0]['vars']['monday']; ?>
+","<?php echo $this->_config[0]['vars']['tuesday']; ?>
+","<?php echo $this->_config[0]['vars']['wednesday']; ?>
+","<?php echo $this->_config[0]['vars']['thursday']; ?>
+","<?php echo $this->_config[0]['vars']['friday']; ?>
+","<?php echo $this->_config[0]['vars']['saturday']; ?>
+","<?php echo $this->_config[0]['vars']['sunday']; ?>
+"];
+			startCal.monthNames = ["<?php echo $this->_config[0]['vars']['january']; ?>
+","<?php echo $this->_config[0]['vars']['february']; ?>
+","<?php echo $this->_config[0]['vars']['march']; ?>
+","<?php echo $this->_config[0]['vars']['april']; ?>
+","<?php echo $this->_config[0]['vars']['may']; ?>
+","<?php echo $this->_config[0]['vars']['june']; ?>
+","<?php echo $this->_config[0]['vars']['july']; ?>
+","<?php echo $this->_config[0]['vars']['august']; ?>
+","<?php echo $this->_config[0]['vars']['september']; ?>
+","<?php echo $this->_config[0]['vars']['october']; ?>
+","<?php echo $this->_config[0]['vars']['november']; ?>
+","<?php echo $this->_config[0]['vars']['december']; ?>
+"];
+			startCal.relateTo = "start";
+			startCal.dateFormat = "<?php echo $this->_tpl_vars['settings']['dateformat']; ?>
+";
+			startCal.getDatepicker("start_date_picker");
 		</script>
-
-		<div class = "row">
-		<label for = "budget"><?php echo $this->_config[0]['vars']['budget']; ?>
+    
+    <div class="row">
+      <label for="projectLevel"><?php echo $this->_config[0]['vars']['projectLevel']; ?>
 :</label>
-		<input type = "text" class="text" name = "budget" id = "budget" />
+      <select id ="projectLevel" name = "projectLevel">
+        <option selected value="A"><?php echo $this->_config[0]['vars']['projectLevelA']; ?>
+</option>
+        <option value="B"><?php echo $this->_config[0]['vars']['projectLevelB']; ?>
+</option>
+        <option value="C"><?php echo $this->_config[0]['vars']['projectLevelC']; ?>
+</option>
+      </select>
 		</div>
-
+    
+    <div class="row">
+      <label for="projectPriority"><?php echo $this->_config[0]['vars']['projectPriority']; ?>
+:</label>
+      <select id ="projectPriority" name = "projectPriority">
+        <option selected value="1">1</option>
+        <option value="1">2</option>
+        <option value="1">3</option>
+        <option value="1">4</option>
+        <option value="1">5</option>
+      </select>
+		</div>
+      
+    <div class="row">
+      <label for="customer"><?php echo $this->_config[0]['vars']['customer']; ?>
+:</label>
+      <input type="text" class="text" name="customer"  id="customer"  realname="<?php echo $this->_config[0]['vars']['customer']; ?>
+" />
+		</div>
+    <div class="row">
+      <label for="supplier"><?php echo $this->_config[0]['vars']['supplier']; ?>
+:</label>
+      <input type="text" class="text" name="supplier"  id="supplier"  realname="<?php echo $this->_config[0]['vars']['supplier']; ?>
+" />
+		</div>
+      
+		<div class = "row">
+		  <label for = "targetFOB"><?php echo $this->_config[0]['vars']['targetFOB']; ?>
+:</label>
+		  <input type = "text" class="text" name = "targetFOB" id = "targetFOB" />
+		</div>
+      
+ 		<div class = "row">
+		  <label for = "forecastedAnnualQuality"><?php echo $this->_config[0]['vars']['forecastedAnnualQuality']; ?>
+:</label>
+      <table cellpadding=0 cellspacing=0 class="forecastedAnnualQualityAddTable">
+        <tr>
+          <th><?php echo $this->_config[0]['vars']['year1']; ?>
+</th>
+          <th><?php echo $this->_config[0]['vars']['year2']; ?>
+</th>
+          <th><?php echo $this->_config[0]['vars']['year3']; ?>
+</th>
+        </tr>
+        <tr>
+          <td><input type = "text" class="text" name = "forecastedAnnualQuality1" id = "forecastedAnnualQuality1" value = "0"></td>
+          <td><input type = "text" class="text" name = "forecastedAnnualQuality2" id = "forecastedAnnualQuality2" value = "0"></td>
+          <td><input type = "text" class="text" name = "forecastedAnnualQuality3" id = "forecastedAnnualQuality3" value = "0"></td>
+        </tr>
+      </table>
+		</div>
+		<div class = "row">
+		  <label for = "projectLeader"><?php echo $this->_config[0]['vars']['projectLeader']; ?>
+:</label>
+      <input type = "text" class="text" name = "projectLeader" id = "projectLeader" /><a class="add" href="#"><?php echo $this->_config[0]['vars']['add']; ?>
+</a>
+		</div>
+		<div class = "row">
+		  <label for = "customerLeader"><?php echo $this->_config[0]['vars']['customerLeader']; ?>
+:</label>
+		  <input type = "text" class="text" name = "customerLeader" id = "customerLeader" /><a class="add" href="#"><?php echo $this->_config[0]['vars']['add']; ?>
+</a>
+		</div>
+		<div class = "row">
+		  <label for = "supplierLeader"><?php echo $this->_config[0]['vars']['supplierLeader']; ?>
+:</label>
+      <input type = "text" class="text" name = "supplierLeader" id = "supplierLeader" /><a class="add" href="#"><?php echo $this->_config[0]['vars']['add']; ?>
+</a>
+		</div>
 		<div class="row"><label><?php echo $this->_config[0]['vars']['members']; ?>
 :</label>
 		<div style="float:left;">

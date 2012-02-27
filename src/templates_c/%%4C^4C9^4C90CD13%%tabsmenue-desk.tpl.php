@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.19, created on 2012-02-12 15:53:27
+<?php /* Smarty version 2.6.19, created on 2012-02-27 22:20:18
          compiled from tabsmenue-desk.tpl */ ?>
 <div class="tabswrapper">
 

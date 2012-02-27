@@ -2875,3 +2875,26 @@ span.info {
 
 
 /* ## Footer ## end ## */
+
+/*****************Jenkins Asia Special***********************/
+table.forecastedAnnualQualityAddTable{
+  width:50%;
+  text-align:center;
+
+}
+table.forecastedAnnualQualityAddTable td,table.forecastedAnnualQualityAddTable th{
+  width:33%;
+  border-right:none;
+  padding:0;
+}
+
+table.forecastedAnnualQualityAddTable input{
+  width:87px;
+  text-align:right;
+}
+a.add{
+  cursor:pointer;
+  padding-left:5px;
+}
+
+/*****************Jenkins Asia Special***********************/
