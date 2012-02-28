@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.19, created on 2012-02-27 22:51:24
+<?php /* Smarty version 2.6.19, created on 2012-02-28 22:56:00
          compiled from addproject.tpl */ ?>
 <div class="block_in_wrapper">
 <h2><?php echo $this->_config[0]['vars']['addproject']; ?>
@@ -19,7 +19,7 @@
       <label for="start"><?php echo $this->_config[0]['vars']['startDate']; ?>
 :</label>
       <input type="text" class="text" name="start"  id="start"  realname="<?php echo $this->_config[0]['vars']['startDate']; ?>
-" regexp="<?php echo '\\d{2}.\\d{2}.\\d{4}'; ?>
+" regexp="<?php echo '\\d{4}-\\d{2}-\\d{2}'; ?>
 " />
     </div>
     <div class="datepick">
@@ -30,7 +30,7 @@
 		<label for="end"><?php echo $this->_config[0]['vars']['due']; ?>
 :</label>
 		<input type="text" class="text" name="end"  id="end"  realname="<?php echo $this->_config[0]['vars']['due']; ?>
-" regexp="<?php echo '\\d{2}.\\d{2}.\\d{4}'; ?>
+" regexp="<?php echo '\\d{4}-\\d{2}-\\d{2}'; ?>
 " />
 		</div>
 
@@ -140,7 +140,12 @@
 		<div class = "row">
 		  <label for = "targetFOB"><?php echo $this->_config[0]['vars']['targetFOB']; ?>
 :</label>
-		  <input type = "text" class="text" name = "targetFOB" id = "targetFOB" />
+      <input type = "text" class="text" style="width:237px;text-align: right" name = "targetFOB" id = "targetFOB" />
+      <select id="targetFOBCurrentcy" name="targetFOBCurrentcy" style="margin:0 0 0 10px;width:60px">
+        <option selected value="RMB">RMB</option>
+        <option value="USD">USD</option>
+        <option value="EUD">EUD</option>
+      </select>
 		</div>
       
  		<div class = "row">

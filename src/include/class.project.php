@@ -26,7 +26,7 @@ class project {
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
       $budget = (float) $budget;
-      $level = (int) $level;
+      $level =  mysql_real_escape_string($level);
       $prioity = (int) $prioity;
       $customerName = mysql_escape_string($customerName);
       $supplier = mysql_escape_string($supplier);
@@ -37,7 +37,7 @@ class project {
       $customerLeader = (int) $customerLeader;
       $supplierLeader = (int)$supplierLeader;
       $projectLeader = (int) $projectLeader;
-      $sql = "INSERT INTO `jenkins_asia`.`projekte`
+      $sql = "INSERT INTO `projekte`
               (
               `name`,
               `desc`,
@@ -83,6 +83,7 @@ class project {
               ";
       $ins = mysql_query($sql);
       if($ins){
+        $this->mylog->add($name, 'projekt', 1, $ins);
         return mysql_insert_id();
       }else{
         return FALSE;
@@ -110,7 +111,7 @@ class project {
         $status = (int) $status;
 
         $start = strtotime($start);
-        $tod = date("d.m.Y");
+        $tod = date("Y-m-d");
         $now = strtotime($tod . " +1week");
 
         $ins1 = mysql_query("INSERT INTO projekte (`name`, `desc`,`end`, `start`, `status`) VALUES ('$name','$desc','$now','$start','$status')");
@@ -346,10 +347,10 @@ class project {
         $project = mysql_fetch_array($sel, MYSQL_ASSOC);
 
         if (!empty($project)) {
-            if ($project["end"]) {
-                $daysleft = $this->getDaysLeft($project["end"]);
+            if ($project["end_date"]) {
+                $daysleft = $this->getDaysLeft($project["end_date"]);
                 $project["daysleft"] = $daysleft;
-                $endstring = date("d.m.Y", $project["end"]);
+                $endstring = date("Y-m-d", $project["end_date"]);
                 $project["endstring"] = $endstring;
             } else {
                 $project["daysleft"] = "";
@@ -415,7 +416,7 @@ class project {
         $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY ID ASC");
 
         while ($projs = mysql_fetch_row($sel)) {
-            $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND status=$status"), MYSQL_ASSOC);
+            $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND valid=$status"), MYSQL_ASSOC);
             if ($projekt) {
                 $project = $this->getProject($projekt["ID"]);
                 array_push($myprojekte, $project);
@@ -570,9 +571,9 @@ class project {
      */
     private function getDaysLeft($end)
     {
-        $tod = date("d.m.Y");
+        $tod = date("Y-m-d");
         $start = strtotime($tod);
-        $diff = $end - $start;
+        $diff = strtotime($end) - $start;
         return floor($diff / 86400);
     }
 

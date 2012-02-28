@@ -14,9 +14,9 @@ function calendar(theMonth,theYear,options)
 	this.dayNames = ["Mo","Di","Mi","Do","Fr","Sa","So"];
 	this.monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
 	this.keepEmpty = false;
-	this.dateSeparator = ".";
+	this.dateSeparator = "-";
 	this.relateTo = "";
-	this.dateFormat = "d.m.Y";
+	this.dateFormat = "Y-m-d";
 
 
 	this.calendar = [];
@@ -203,9 +203,10 @@ calendar.prototype.getDatepicker = function(theDiv)
 			strDay = this.currday;
 		}
 
-        if(this.dateFormat == "d.m.Y" || this.dateFormat == "d.m.y")
+        if(this.dateFormat == "Y-m-d" || this.dateFormat == "y-m-d")
         {
-		  initStr = strDay + this.dateSeparator + strMon + this.dateSeparator + this.curryear;
+		  initStr = this.curryear+ this.dateSeparator+ strMon+ this.dateSeparator+strDay;
+      
 		}
 		else if(this.dateFormat == "m/d/Y" || this.dateFormat == "m/d/y")
 		{
@@ -236,9 +237,9 @@ calendar.prototype.getDatepicker = function(theDiv)
 					strMon = this.month+1;
 				}
 
-                if(this.dateFormat == "d.m.Y" || this.dateFormat == "d.m.y")
+                if(this.dateFormat == "Y-m-d" || this.dateFormat == "y-m-d")
                 {
-        		  dstring = strDay + this.dateSeparator + strMon + this.dateSeparator + this.year;
+              dstring = this.year + this.dateSeparator + strMon + this.dateSeparator + strDay;
         		}
         		else if(this.dateFormat == "m/d/Y" || this.dateFormat == "m/d/y")
         		{

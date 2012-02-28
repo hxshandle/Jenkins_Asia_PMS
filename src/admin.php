@@ -38,6 +38,20 @@ $role = getArrayVal($_POST, "role");
 $rssuser = getArrayVal($_POST, "rssuser");
 $rsspass = getArrayVal($_POST, "rsspass");
 
+$startDate = getArrayVal($_POST, "start");
+$projectLevel = getArrayVal($_POST, "projectLevel");
+$projectPriority = getArrayVal($_POST, "projectPriority");
+$customer = getArrayVal($_POST, "customer");
+$supplier = getArrayVal($_POST, "supplier");
+$targetFOB = getArrayVal($_POST, "targetFOB");
+$targetFOBCurrentcy = getArrayVal($_POST, "targetFOBCurrentcy");
+$forecastedAnnualQuality1 = getArrayVal($_POST, "forecastedAnnualQuality1");
+$forecastedAnnualQuality2 = getArrayVal($_POST, "forecastedAnnualQuality2");
+$forecastedAnnualQuality3 = getArrayVal($_POST, "forecastedAnnualQuality3");
+$projectLeader = getArrayVal($_POST, "projectLeader");
+$customerLeader = getArrayVal($_POST, "customerLeader");
+$supplierLeader = getArrayVal($_POST, "supplierLeader");
+
 $template->assign("mode", $mode);
 // get the available languages
 $languages = getAvailableLanguages();
@@ -476,7 +490,11 @@ elseif ($action == "addpro")
 		$end = 0;
 	}
 
-    $add = $project->add($name, $desc, $end, $budget, 0);
+    //$add = $project->add($name, $desc, $end, $budget, 0);
+    $status = Status::getId("project", "planning");
+    $startDate = date(CL_DATEFORMAT,  strtotime($startDate));
+    $endDate = date(CL_DATEFORMAT,  strtotime($end));
+    $add = $project->add($name, $desc, $status,$budget,$projectLevel,$projectPriority,$customer,$supplier,$targetFOB,$targetFOBCurrentcy,$forecastedAnnualQuality1,$forecastedAnnualQuality2,$forecastedAnnualQuality3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate);
     if ($add)
     {
         foreach ($assignto as $member)

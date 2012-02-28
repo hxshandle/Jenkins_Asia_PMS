@@ -46,7 +46,7 @@
 				<label for="dateformat">{#dateformat#}:</label>
 				<select name = "dateformat" id = "dateformat">
 					<option value = "{$settings.dateformat}" selected>{$settings.dateformat}</option>
-					<option value = "d.m.Y">d.m.Y</option>
+					<option value = "Y-m-d">Y-m-d</option>
 					<option value = "d.m.y">d.m.y</option>
 					<option value = "m/d/Y">m/d/Y</option>
 					<option value = "m/d/y">m/d/y</option>

@@ -10,7 +10,7 @@
 
     <div class = "row">
       <label for="start">{#startDate#}:</label>
-      <input type="text" class="text" name="start"  id="start"  realname="{#startDate#}" regexp="{literal}\d{2}.\d{2}.\d{4}{/literal}" />
+      <input type="text" class="text" name="start"  id="start"  realname="{#startDate#}" regexp="{literal}\d{4}-\d{2}-\d{2}{/literal}" />
     </div>
     <div class="datepick">
 			<div id = "start_date_picker" class="picker" style = "display:none;"></div>
@@ -18,7 +18,7 @@
     
 		<div class="row">
 		<label for="end">{#due#}:</label>
-		<input type="text" class="text" name="end"  id="end"  realname="{#due#}" regexp="{literal}\d{2}.\d{2}.\d{4}{/literal}" />
+		<input type="text" class="text" name="end"  id="end"  realname="{#due#}" regexp="{literal}\d{4}-\d{2}-\d{2}{/literal}" />
 		</div>
 
 		<div class="datepick">
@@ -73,7 +73,12 @@
       
 		<div class = "row">
 		  <label for = "targetFOB">{#targetFOB#}:</label>
-		  <input type = "text" class="text" name = "targetFOB" id = "targetFOB" />
+      <input type = "text" class="text" style="width:237px;text-align: right" name = "targetFOB" id = "targetFOB" />
+      <select id="targetFOBCurrentcy" name="targetFOBCurrentcy" style="margin:0 0 0 10px;width:60px">
+        <option selected value="RMB">RMB</option>
+        <option value="USD">USD</option>
+        <option value="EUD">EUD</option>
+      </select>
 		</div>
       
  		<div class = "row">
