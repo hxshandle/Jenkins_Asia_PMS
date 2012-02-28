@@ -71,7 +71,7 @@ class search
     {
         $query = mysql_real_escape_string($query);
 
-        $sel = mysql_query("SELECT `ID`,`name`,`desc`,`status` FROM projekte WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' OR ID = '$query' HAVING status=1");
+        $sel = mysql_query("SELECT `ID`,`name`,`desc`,`status` FROM projekte WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' OR ID = '$query' and valid=1");
 
         $projects = array();
         while ($result = mysql_fetch_array($sel))
@@ -104,11 +104,11 @@ class search
 
         if ($project > 0)
         {
-            $sel = mysql_query("SELECT `ID`,`name`,`desc`,`status`,`project` FROM milestones WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' HAVING project = $project AND status=1 ");
+            $sel = mysql_query("SELECT `ID`,`name`,`desc`,`status`,`project` FROM milestones WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' HAVING project = $project AND valid=1 ");
         }
         else
         {
-            $sel = mysql_query("SELECT `ID`,`name`,`desc`,`status`,`project` FROM milestones WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' HAVING status=1");
+            $sel = mysql_query("SELECT `ID`,`name`,`desc`,`status`,`project` FROM milestones WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' HAVING valid=1");
         }
 
         $milestones = array();
