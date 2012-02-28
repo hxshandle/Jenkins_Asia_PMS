@@ -83,8 +83,9 @@ class project {
               ";
       $ins = mysql_query($sql);
       if($ins){
+        $insId = mysql_insert_id();
         $this->mylog->add($name, 'projekt', 1, $ins);
-        return mysql_insert_id();
+        return $insId;
       }else{
         return FALSE;
       }
