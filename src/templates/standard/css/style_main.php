@@ -2896,5 +2896,24 @@ a.add{
   cursor:pointer;
   padding-left:5px;
 }
+.row4{
+  clear:both;
+}
+div.row4 input{
+  width:190px;
+  margin: 0 10px;
+}
+div.row4 label{
+  width:100px;
+}
+
+div.row4 label:hover{
+  cursor:auto;
+}
+
+div.row4 select{
+  width:197px;
+  margin: 0 10px;
+}
 
 /*****************Jenkins Asia Special***********************/

@@ -657,7 +657,8 @@ if ($action == "editform")
 
     $template->assign("log", $log);
     SmartyPaginate::assign($template);
-    $template->display("project.tpl");
+    //$template->display("project.tpl");
+    $template->display("project_jenkins.tpl");
 } elseif ($action == "cal")
 {
     if (!chkproject($userid, $id))
