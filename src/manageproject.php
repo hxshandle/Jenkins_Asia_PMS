@@ -656,8 +656,14 @@ if ($action == "editform")
     $template->assign("today", $today);
 
     $template->assign("log", $log);
+    $projectStatus = Status::getStatusByType("project");
+    $template->assign("projectStatus",$projectStatus);
+    
+    $template->assign("projectLevels",  ProjectLevel::$Levels);
+    $template->assign("projectPrioritys",  ProjectPriority::$Priority);
+    $template->assign("currency",Currency::$Currencys);
+    
     SmartyPaginate::assign($template);
-    //$template->display("project.tpl");
     $template->display("project_jenkins.tpl");
 } elseif ($action == "cal")
 {

@@ -2915,5 +2915,28 @@ div.row4 select{
   width:197px;
   margin: 0 10px;
 }
+div.row4 input.number{
+  text-align:right;
+  width:130px;
+}
+div.row4 select.currency{
+  width:50px;
+  margin:0 10px 0 0;
+}
 
+div.row4 input.forecastedAnnualQuality{
+  width:44px;
+}
+
+div.row4 table.forecastedAnnualQualityAddTable{
+  width:100px;
+}
+
+
+.datepick .row4pickerRight{
+  left:430px;
+}
+.datepick .row4pickerLeft{
+  left:110px;
+}
 /*****************Jenkins Asia Special***********************/
