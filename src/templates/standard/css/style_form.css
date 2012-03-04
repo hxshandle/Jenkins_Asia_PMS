@@ -404,4 +404,47 @@ form.main .row .editor {
 	border: 1px solid #000;
 }
 
+ul.subsection_tabs{
+  border-bottom: 1px solid #CCCCCC;
+  clear:both;
+  height:20px;
+  list-style: none;
+  margin: 0 0 5px;
+  padding:0;
+}
+
+
+ul.subsection_tabs li.tab{
+  float:left;
+  margin-right: 7px;
+  text-align: center;
+}
+
+ul.subsection_tabs li.tab a.active{
+  background-color: #FFFFFF;
+}
+
+ul.subsection_tabs li.tab a{
+  display: block;
+  height: 20px;
+  padding:0 6px;
+}
+
+.phaseMenualBar{
+ height: 25px;
+}
+
+.modalContainer{
+  display: none;
+}
+
+#modal_container.dlgmodal {
+    background: none repeat scroll 0 0 #3F7174;
+    border-radius: 6px 6px 6px 6px;
+    color: #365A76;
+    margin: -50px 0 0 -126px;
+    min-height: 150px;
+    padding: 6px 12px 12px;
+    width: 550px;
+}
 /* ## Editor ## end */

@@ -59,10 +59,17 @@
 					{include file="editform.tpl" showhtml="no" }
 				</div>
 			{/if}
-				<div id = "form_edit" class="addmenue" style = "clear:both;">
+        {* base info*}
+				<div id = "project-base-form" class="addmenue" style = "clear:both;">
 					<div class="content-spacer"></div>
 					{include file="projectbaseinfo.tpl" showhtml="no" }
 				</div>
+        
+        {* advance tabs info*}
+        <div id = "project-details-tabs" class="addmenue" style="clear:both;">
+          <div class="content-spacer"></div>
+          {include file="projectdetailstabs.tpl"}
+        </div>
 
 <div class="nosmooth" id="sm_project_desc">
 		<div id="descript" class="descript" style="display:none;">
