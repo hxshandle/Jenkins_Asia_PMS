@@ -1,5 +1,5 @@
 <div class="phaseMenualBar">
-  <button id="btnAddPhase">Add Phase</button>
+  <button id="btnAddPhase">{#addphase#}</button>
 </div>
 <div id="addPhaseDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addphase.tpl" title="add phase"}
