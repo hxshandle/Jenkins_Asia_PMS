@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.19, created on 2012-03-01 20:52:03
+<?php /* Smarty version 2.6.19, created on 2012-03-06 21:10:21
          compiled from header_main.tpl */ ?>
 <div id="sitebody">
 
