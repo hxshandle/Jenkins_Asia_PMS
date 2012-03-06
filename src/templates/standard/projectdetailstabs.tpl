@@ -14,24 +14,24 @@
 <div  id ="projectdetailstab" class="block_in_wrapper">
   
   <ul id="tabs_example_one" class="subsection_tabs">  
-    <li class="tab"><a href="#phase">{#phase#}</a></li>  
-    <li class="tab"><a href="#finance">{#finance#}</a></li>
-    <li class="tab"><a href="#sample">{#sample#}</a></li>
-    <li class="tab"><a href="#teammember">{#teammember#}</a></li>
-    <li class="tab"><a href="#task">{#task#}</a></li>
-    <li class="tab"><a href="#ecn">{#ecn#}</a></li>
-    <li class="tab"><a href="#quality">{#quality#}</a></li>
-    <li class="tab"><a href="#order">{#order#}</a></li>
+    <li class="tab"><a href="#tabphase">{#phase#}</a></li>  
+    <li class="tab"><a href="#tabfinance">{#finance#}</a></li>
+    <li class="tab"><a href="#tabsample">{#sample#}</a></li>
+    <li class="tab"><a href="#tabteammember">{#teammember#}</a></li>
+    <li class="tab"><a href="#tabtask">{#task#}</a></li>
+    <li class="tab"><a href="#tabecn">{#ecn#}</a></li>
+    <li class="tab"><a href="#tabquality">{#quality#}</a></li>
+    <li class="tab"><a href="#taborder">{#order#}</a></li>
   </ul>
   
-  <div id="phase">{include file="phasetab.tpl"}</div>
-  <div id="finance">{include file="financetab.tpl"}</div>
-  <div id="sample">{include file="sampletab.tpl"}</div>
-  <div id="teammember">{include file="teammembertab.tpl"}</div>
-  <div id="task">{include file="tasktab.tpl"}</div>
-  <div id="ecn">{include file="ecntab.tpl"}</div>
-  <div id="quality">{include file="qualitytab.tpl"}</div>
-  <div id="order">{include file="ordertab.tpl"}</div>
+  <div id="tabphase">{include file="phasetab.tpl"}</div>
+  <div id="tabfinance">{include file="financetab.tpl"}</div>
+  <div id="tabsample">{include file="sampletab.tpl"}</div>
+  <div id="tabteammember">{include file="teammembertab.tpl"}</div>
+  <div id="tabtask">{include file="tasktab.tpl"}</div>
+  <div id="tabecn">{include file="ecntab.tpl"}</div>
+  <div id="tabquality">{include file="qualitytab.tpl"}</div>
+  <div id="taborder">{include file="ordertab.tpl"}</div>
   
   
 </div>
