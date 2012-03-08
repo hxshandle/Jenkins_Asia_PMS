@@ -24,6 +24,7 @@ if (!empty($db_name) and !empty($db_user))
 }
 // Start template engine
 $template = new Smarty();
+$template->register_function('dispstatus','display_status');
 // get the available languages
 $languages = getAvailableLanguages();
 // get URL to collabtive
@@ -32,6 +33,15 @@ $template->assign("url", $url);
 $template->assign("languages", $languages);
 $template->assign("myversion", "0.7");
 $template->assign("cl_config", CL_CONFIG);
+Status::load();
+
+
+function display_status($params){
+  $AllStatus = Status::$ALL_STATUS;
+  extract($params);
+  $id = (int)$statusId;
+  echo "{#".$AllStatus[$id]."#}";
+}
 // Assign globals to all templates
 if (isset($_SESSION["userid"]))
 {

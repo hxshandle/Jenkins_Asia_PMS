@@ -662,6 +662,11 @@ if ($action == "editform")
     $template->assign("projectLevels",  ProjectLevel::$Levels);
     $template->assign("projectPrioritys",  ProjectPriority::$Priority);
     $template->assign("currency",Currency::$Currencys);
+    $tabs = new ProjectTabs();
+    $tabsData =  $tabs->getTabsData($id);
+    $phaseTab = $tabs->getPhaseTab($id);
+    $template->assign("tabsData", $tabsData);
+    $template->assign("phaseTab", $phaseTab);
     
     SmartyPaginate::assign($template);
     $template->display("project_jenkins.tpl");

@@ -15,6 +15,7 @@ class Status {
   //put your code here
   private $myLog;
   private static $ARR_STATUS = array();
+  public static $ALL_STATUS=array();
 
   function __construct() {
     $this->myLog = new mylog;
@@ -56,6 +57,7 @@ class Status {
       $id= $arr['ID'];
       $type = $arr['type'];
       $value = $arr['value'];
+      self::$ALL_STATUS["".$id] = $value;
       if(empty(self::$ARR_STATUS["$type"])){
         self::$ARR_STATUS["$type"] = array();
       }

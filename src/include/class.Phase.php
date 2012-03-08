@@ -78,6 +78,20 @@ class Phase {
     $del =  mysql_query("update `phase` set valid = 0 where `project` = $id");
     return $del;
   }
+  function getPhasesDetailsByProjectId($id){
+    $phases = $this->getPhasesByProjectId($id);
+    $deliverableItem = new DeliverableItem();
+    $ret = array();
+    foreach ($phases as $phase) {
+      $deliverableItems = $deliverableItem->getDeliverableItemsByPhaseId($phase["ID"], 100);
+      if(!$deliverableItems){
+        $deliverableItems = array();
+      }
+      $phase["deliverableItems"] = $deliverableItems;
+      array_push($ret, $phase);
+    }
+    return $ret;
+  }
   
   function closeByProjectId($id){
     $id = (int) $id;

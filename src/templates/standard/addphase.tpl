@@ -49,7 +49,7 @@
 		  method: 'post',
 		  postBody:thePost,
 		  onSuccess:function(payload) {
-		    if (payload.responseText == "Ok"){
+		    if (payload.responseText == "Ok"){ 
             alert("ok");
             Control.Modal.close();
           }
