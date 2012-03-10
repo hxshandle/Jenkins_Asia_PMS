@@ -19,7 +19,7 @@
           {/capture}
           
           <td>{eval var=$stname}</td>
-          <td>{$phaseTab[phase].deliverableItems[deliverable].start_date|truncate:"10":""}</td>
+          <td>{$phaseTab[phase].deliverableItems[deliverable].\start_date|truncate:"10":""}</td>
           <td>{$phaseTab[phase].deliverableItems[deliverable].end_date|truncate:"10":""}</td>
         </tr>
       {/section}
