@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.19, created on 2012-03-06 21:10:30
+<?php /* Smarty version 2.6.19, created on 2012-03-10 13:54:06
          compiled from addproject.tpl */ ?>
 <div class="block_in_wrapper">
 <h2><?php echo $this->_config[0]['vars']['addproject']; ?>
