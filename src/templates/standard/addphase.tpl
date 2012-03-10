@@ -24,12 +24,7 @@
       var b = $(arg);
       b.parentNode.parentNode.remove();
     }
-    function addDeliverableItem(){
-      var templateStr= '<tr class="newDeliverableItem"><td><input value = ""></input></td><td><input value = ""></input></td><td><input value = ""></input></td><td><a class="tool_del" href="javascript:void(0);"onclick="delDeliverableItem(this);"></a></td></tr>';
-      var tRoot = $("deliverableItemTbody");
-      tRoot.insert(templateStr);  
-    }
-      
+
     function savePhase(){
       var theUrl = "manageprojectajax.php";
       var thePost = "action=addPhase&projectId="+__projectId;

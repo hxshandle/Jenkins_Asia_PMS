@@ -76,6 +76,11 @@
       }
     });  
   }
-          
+    function addDeliverableItem(){
+      var templateStr= '<tr class="newDeliverableItem"><td><input value = ""></input></td><td><input value = ""></input></td><td><input value = ""></input></td><td><a class="tool_del" href="javascript:void(0)" onclick="delDeliverableItem(this);"></a></td></tr>';
+      var tRoot = $("deliverableItemTbody");
+      tRoot.insert(templateStr);  
+    }
+              
 </script>
 {/literal}
