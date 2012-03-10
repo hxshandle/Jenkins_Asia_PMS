@@ -663,9 +663,7 @@ if ($action == "editform")
     $template->assign("projectPrioritys",  ProjectPriority::$Priority);
     $template->assign("currency",Currency::$Currencys);
     $tabs = new ProjectTabs();
-    $tabsData =  $tabs->getTabsData($id);
     $phaseTab = $tabs->getPhaseTab($id);
-    $template->assign("tabsData", $tabsData);
     $template->assign("phaseTab", $phaseTab);
     
     SmartyPaginate::assign($template);

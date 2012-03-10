@@ -1,6 +1,11 @@
 {include file="header.tpl" jsload = "ajax" stage = "project" jsload1 = "tinymce"}
 
 {include file="tabsmenue-project.tpl" projecttab = "active"}
+
+<script type = "text/javascript">
+  var __projectId= {$project.ID};
+</script>
+
 <div id="content-left">
 <div id="content-left-in">
 <div class="projects">
@@ -175,8 +180,11 @@
 
 {include file="sidebar-a.tpl" showcloud="1"}
 
+
+
 {literal}
 	<script type = "text/javascript">
+    
 		Event.observe(window,"load",function()
 		{
 			new Effect.Morph('completed', {

@@ -16,9 +16,6 @@
 <button id="dlgBtnSavePhase" onclick="savePhase();">{#save#}</button>
 <button id="dlgBtnAddPhase" onclick="addDeliverableItem();">{#addDeliverableItem#}</button>
 </div>
-<script>
-  var __projectId= {$project.ID};
-</script>
 
 {literal}
   <script type="text/javascript">
@@ -50,7 +47,7 @@
 		  postBody:thePost,
 		  onSuccess:function(payload) {
 		    if (payload.responseText == "Ok"){ 
-            alert("ok");
+            reloadPhase();
             Control.Modal.close();
           }
         }

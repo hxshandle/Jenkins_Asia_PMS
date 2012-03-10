@@ -18,6 +18,18 @@ class Phase {
     $this->myLog = new mylog;
   }
   
+  
+  function get($id){
+    $id = (int) $id;
+    $sql = "select * from phase where `id` = '$id'";
+    $query = mysql_query($sql);
+    $ret = array();
+    if(!empty($query)){
+      $ret = mysql_fetch_array($query);
+    }
+    return $ret;
+  }
+  
   function add($name,$desc,$project,$status,$valid=1){
     $name = mysql_escape_string($name);
     $desc = mysql_escape_string($desc);

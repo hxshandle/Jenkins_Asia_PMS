@@ -4,31 +4,10 @@
 <div id="addPhaseDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addphase.tpl" title="add phase"}
 </div>
-<div class="phaseList">
-  <table style="width: 100%" cellspadding=0 cellspacing=0>
-  {section name = phase loop = $phaseTab}
-    <tr>
-      <td>{$phaseTab[phase].name}</td>
-      <td>
-        <table style="width:100%">
-      {section name =deliverable loop=$phaseTab[phase].deliverableItems}
-        <tr>
-          <td>{$phaseTab[phase].deliverableItems[deliverable].name}</td>
-          {capture name=st assign=stname}
-            {dispstatus statusId =$phaseTab[phase].deliverableItems[deliverable].status}
-          {/capture}
-          
-          <td>{eval var=$stname}</td>
-          <td>{$phaseTab[phase].deliverableItems[deliverable].start_date|truncate:"10":""}</td>
-          <td>{$phaseTab[phase].deliverableItems[deliverable].end_date|truncate:"10":""}</td>
-        </tr>
-      {/section}
-      </table>
-      </td>
-    </tr>
-  {/section}
-  </table>
+<div class="phaseList" id="phaseList">
+  {include file = "phasedetails.tpl"}
 </div>
+<div id = "editPhaseDlg"></div>
 
 {literal}
 <script type="text/javascript">
@@ -43,6 +22,60 @@
                                 containerClassName: 'dlgmodal',
                                 overlayClassName: 'tasksoverlay'
                              });
+                               
+  function reloadPhase(){
+    var theUrl = "manageprojectajax.php?action=reloadphase&id="+__projectId;
+    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+		    if (payload.responseText != ""){ 
+            $("phaseList").innerHTML=payload.responseText;
+          }
+        }
+      });
+  }
+    
+  function delPhase(id){
+    var phaseId = id;
+    var theUrl = "manageprojectajax.php?action=delphase&id="+phaseId;
+    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+		    if (payload.responseText == "Ok"){ 
+          reloadPhase();
+        }else{
+          alert("del faild");
+        }
+      }
+    });
+  }
+    
+    
+  function showPhaseDlg(ctx){
+    var dlg = new Control.Modal("editPhaseDlg",{
+                                "contents":ctx,
+                                fade:true,
+                                opacity: 0.8,
+                                containerClassName: 'dlgmodal',
+                                overlayClassName: 'tasksoverlay'
+                             });
+   dlg.open();      
+  }  
+  
+  function showEditPhaseDlg(id){
+    var phaseId = id;
+    var theUrl = "manageprojectajax.php?action=editPhase&id="+phaseId;
+    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+		    if (payload.responseText != ""){ 
+          showPhaseDlg(payload.responseText);
+        }else{
+          alert("del faild");
+        }
+      }
+    });  
+  }
           
 </script>
 {/literal}
