@@ -62,8 +62,21 @@ class DeliverableItem {
     $phaseId = (int) $phaseId;
     $desc = mysql_real_escape_string($desc);
     $valid = (int) $valid;
+    $sql = "update deliverable_item set ";
+    if(null != $statusId){
+      $sql = $sql." `status`=$statusId,";
+    }
+    $sql = $sql." `name`='$name',";
+    $sql = $sql." `start_date`='$startDate',";
+    $sql = $sql." `end_date`='$endDate',";
+    $sql = $sql." `phase`=$phaseId,";
+    $sql = $sql." `desc`='$desc',";
+    $sql = $sql." `valid`=$valid";
+    $sql = $sql." where ID = $id";
+    
 
-    $upd = mysql_query("update deliverable_item set `name`='$name', `status`=$statusId, `start_date`='$startDate', `end_date`='$endDate', `phase`=$phaseId, `desc`='$desc', `valid`=$valid where ID = $id");
+    //$upd = mysql_query("update deliverable_item set `name`='$name', `status`=$statusId, `start_date`='$startDate', `end_date`='$endDate', `phase`=$phaseId, `desc`='$desc', `valid`=$valid where ID = $id");
+    $upd = mysql_query($sql);
     if ($upd) {
       return TRUE;
     } else {

@@ -54,7 +54,7 @@ class DeliverableItemTest extends PHPUnit_Framework_TestCase {
     $status = Status::getId("deliverable", "not_start");
     $startDate = date("Y-m-d H:i:s",strtotime("2012-02-01"));
     $endDate = date("Y-m-d H:i:s",strtotime("2012-9-1"));
-    $ret = $this->object->add("test_deliverable_item", $status, $startDate, $endDate,1,"test deliverable desc");
+    $ret = $this->object->add("test_deliverable_item", $status, $startDate, $endDate,1,1,"test deliverable desc");
     $this->assertNotEmpty($ret);
   }
 
