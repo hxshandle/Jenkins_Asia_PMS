@@ -123,6 +123,7 @@
       <div class="row4">
         <label for="customerLeader">{#customerLeader#}</label>
         <input type="text" class="text" name="customerLeader" id="customerLeader" required="1" realname="{#customerLeader#}" value = "{$project.customer_leader}" />
+        
         <label for="projectLeader">{#projectLeader#}</label>
         <input type="text" class="text" name="projectLeader" id="projectLeader" realname="{#projectLeader#}" value = "{$project.project_leader}" />
       </div>
@@ -131,8 +132,16 @@
         <label for="supplierLeader">{#supplierLeader#}</label>
         <input type="text" class="text" name="supplierLeader" id="supplierLeader" realname="{#supplierLeader#}" value = "{$project.supplier_leader}" />
       </div>      
-
+       <div id="autoCompChoice" class="autoComp"></div>
 
     </fieldset>
   </form>
 </div>
+      
+{literal}
+  <script type="text/javascript">
+    new Ajax.Autocompleter('customerLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2});
+    new Ajax.Autocompleter('projectLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2});
+    new Ajax.Autocompleter('supplierLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2});
+  </script>
+{/literal}  
