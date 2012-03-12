@@ -126,6 +126,28 @@ switch ($action){
       echo "Fail";
     }
     break;
+ case "updatePhase":
+   $phaseId = getArrayVal($_POST, "id");
+   $newItems = getArrayVal($_POST, "newItems");
+   $updatedItems = getArrayVal($_POST, "updatedItems");
+   $project = getArrayVal($_POST, "projectId");
+   $deliverableItem = new DeliverableItem();
+   if(!empty($newItems)){
+     $newDeliverables = explode(",",$newItems);
+     foreach ($updateItems_ as $item) {
+       list($name,$startDate,$endDate)=explode(":",$item);
+       $deliverableItem->add($name, $deliverableItemStatus, $startDate, $endDate, $project, $phaseId, "");
+     }
+   }
+   if(!empty($updatedItems)){
+     $updateItems_ = explode(",",$updatedItems);
+     foreach ($updateItems_ as $item) {
+       list($id,$name,$startDate,$endDate)=explode(":",$item);
+       $deliverableItem->update($id, $name, null, $startDate, $endDate, $phaseId, "");
+     }
+   }
+   echo 'Ok';
+   break;
   default:
     break;
 }

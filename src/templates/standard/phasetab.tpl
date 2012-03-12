@@ -81,6 +81,38 @@
       var tRoot = $("deliverableItemTbody");
       tRoot.insert(templateStr);  
     }
+      
+      
+  function updatePhase(id){
+    var newItems =$$("tr.newDeliverableItem");
+    var newItemsStr="";
+    newItems.each(function(tr){
+        var children=tr.childElements();
+        newItemsStr +=""+children[0].firstChild.value+":"+children[1].firstChild.value+":"+children[2].firstChild.value+","
+      });
+    newItemsStr = newItemsStr.substr(0,newItemsStr.length-1);
+        
+    var updatedItem = $$("tr.deliverableItem");
+    var updatedItemsStr="";
+    updatedItem.each(function(tr){
+        var children=tr.childElements();
+        updatedItemsStr +=""+children[0].lastChild.value+":"+children[0].firstChild.value+":"+children[1].firstChild.value+":"+children[2].firstChild.value+","
+      });
+    updatedItemsStr = updatedItemsStr.substr(0,updatedItemsStr.length-1);
+    
+    var theUrl = "manageprojectajax.php";
+    var thePost = "action=updatePhase&projectId="+__projectId+"&id="+id+"&newItems="+newItemsStr+"&updatedItems="+updatedItemsStr;
+    new Ajax.Request(theUrl, {
+            method: 'post',
+            postBody:thePost,
+            onSuccess:function(payload) {
+              if (payload.responseText == "Ok"){
+                reloadPhase();
+                Control.Modal.close();
+              }
+            }
+        });
+  }
               
 </script>
 {/literal}
