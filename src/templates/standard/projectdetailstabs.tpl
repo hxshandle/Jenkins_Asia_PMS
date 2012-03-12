@@ -35,6 +35,7 @@
   
   
 </div>
+<div class="content-spacer"></div>
   
 <script type="text/javascript">
   var __tabs=new Control.Tabs('tabs_example_one');

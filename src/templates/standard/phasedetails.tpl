@@ -1,9 +1,21 @@
-  <table style="width: 100%" cellspadding=0 cellspacing=0>
+{config_load file=lng.conf section = "strings" scope="global" }  
+<table style="width: 100%" cellspadding=0 cellspacing=0>
   {section name = phase loop = $phaseTab}
-    <tr>
-      <td>{$phaseTab[phase].name}</td>
+    {if $smarty.section.phase.index % 2 == 0}
+      <tr class="color-a">
+    {else}
+      <tr class="color-b">
+    {/if}
+    
+      <td  class="bold center">{$phaseTab[phase].name}</td>
       <td>
         <table style="width:100%">
+          <tr class="bold">
+            <td>{#deliverableItems#}</td>
+             <td>{#status#}</td>
+            <td>{#startDate#}</td>
+            <td>{#ended#}</td>
+          </tr>
       {section name =deliverable loop=$phaseTab[phase].deliverableItems}
         <tr>
           <td>{$phaseTab[phase].deliverableItems[deliverable].name}</td>

@@ -134,7 +134,8 @@ switch ($action){
    $deliverableItem = new DeliverableItem();
    if(!empty($newItems)){
      $newDeliverables = explode(",",$newItems);
-     foreach ($updateItems_ as $item) {
+     $deliverableItemStatus = Status::getId("deliverable", "not_start");
+     foreach ($newDeliverables as $item) {
        list($name,$startDate,$endDate)=explode(":",$item);
        $deliverableItem->add($name, $deliverableItemStatus, $startDate, $endDate, $project, $phaseId, "");
      }
@@ -147,6 +148,16 @@ switch ($action){
      }
    }
    echo 'Ok';
+   break;
+ case "delDeliverableItem":
+   $id = getArrayVal($_GET, "id");
+   $deliverableItem = new DeliverableItem();
+   $ret = $deliverableItem->del($id);
+   if($ret){
+     echo "Ok";
+   }else{
+     echo "Fail";
+   }
    break;
   default:
     break;

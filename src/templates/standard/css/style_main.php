@@ -2939,4 +2939,11 @@ div.row4 table.forecastedAnnualQualityAddTable{
 .datepick .row4pickerLeft{
   left:110px;
 }
+
+.bold{
+  font-weight:bold;
+}
+.center{
+  text-align:center;
+}
 /*****************Jenkins Asia Special***********************/
