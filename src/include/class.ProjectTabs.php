@@ -25,6 +25,13 @@ class ProjectTabs {
     $phaseData = $phase->getPhasesDetailsByProjectId($projectId);
     return $phaseData;
   }
+  
+  //get Finance by msj
+  function getFinanceTab($projectId){
+    $finance = new Finance();
+    $financeData = $finance->getFinanceDetailsByProjectId($projectId);
+    return $financeData;
+  }
 }
 
 ?>

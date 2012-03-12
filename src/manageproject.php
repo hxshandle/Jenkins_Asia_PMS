@@ -662,10 +662,12 @@ if ($action == "editform")
     $template->assign("projectLevels",  ProjectLevel::$Levels);
     $template->assign("projectPrioritys",  ProjectPriority::$Priority);
     $template->assign("currency",Currency::$Currencys);
+    $template->assign("flag",Flag::$Flags);
     $tabs = new ProjectTabs();
     $phaseTab = $tabs->getPhaseTab($id);
     $template->assign("phaseTab", $phaseTab);
-    
+    $financeTab = $tabs->getFinanceTab($id); 
+    $template->assign("financeTab", $financeTab);
     SmartyPaginate::assign($template);
     $template->display("project_jenkins.tpl");
 } elseif ($action == "cal")
