@@ -159,6 +159,38 @@ switch ($action){
      echo "Fail";
    }
    break;
+  case "updateProject":
+    $id                       = getArrayVal($_POST, "id");
+    $assignto                 = getArrayVal($_POST, "assignto");
+    $name                     = getArrayVal($_POST, "name");
+    $desc                     = getArrayVal($_POST, "desc");
+    $startDate                = getArrayVal($_POST, "start");
+    $endDate                  = getArrayVal($_POST, "endDate");
+    $status                   = getArrayVal($_POST, "projectStatus");
+    $user                     = getArrayVal($_POST, "user");
+    $assign                   = getArrayVal($_POST, "assginme");
+    $budget                   = getArrayVal($_POST, "budget");
+    $projectStatus            = getArrayVal($_POST,"projectStatus");
+    $projectLevel             = getArrayVal($_POST,"projectLevel");
+    $projectPriority          = getArrayVal($_POST,"projectPriority");
+    $customer                 = getArrayVal($_POST,"customer");
+    $suppler                  = getArrayVal($_POST,"supplier");
+    $targetFOB                = getArrayVal($_POST, "targetFOB");
+    $targetFOBCurrency       = getArrayVal($_POST, "targetFOBCurrency");
+    $forecastedAnnualQuality1 = getArrayVal($_POST, "forecastedAnnualQuality1");
+    $forecastedAnnualQuality2 = getArrayVal($_POST, "forecastedAnnualQuality2");
+    $forecastedAnnualQuality3 = getArrayVal($_POST, "forecastedAnnualQuality3");
+    $projectLeader            = getArrayVal($_POST, "projectLeaderId");
+    $customerLeader           = getArrayVal($_POST, "customerLeaderId");
+    $supplierLeader           = getArrayVal($_POST, "supplierLeaderId");
+    $project = new Project();
+    $upd=$project->edit($id, $name, $desc, $projectStatus, $budget, $projectLevel, $projectPriority, $customer, $suppler, $targetFOB, $targetFOBCurrency, $forecastedAnnualQuality1, $forecastedAnnualQuality2, $forecastedAnnualQuality3, $customerLeader, $supplierLeader, $projectLeader, $startDate, $endDate);
+    if($upd){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
   default:
     break;
 }

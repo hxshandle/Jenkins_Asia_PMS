@@ -559,6 +559,15 @@ class user
             return array();
         }
     }
+    
+    function getName($id){
+      $id = (int) $id;
+      $sql = "select name from user where `id` = $id";
+      $sel = mysql_query($sql);
+      $name = mysql_fetch_row($sel);
+      $name = $name[0];
+      return $name;
+    }
 }
 
 ?>

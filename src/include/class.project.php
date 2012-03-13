@@ -133,7 +133,7 @@ class project {
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
       $budget = (float) $budget;
-      $level = (int) $level;
+      $level =  mysql_real_escape_string($level);
       $prioity = (int) $prioity;
       $customerName = mysql_escape_string($customerName);
       $supplier = mysql_escape_string($supplier);
@@ -155,7 +155,7 @@ class project {
               `desc` = '$desc',
               `status` = $status,
               `budget` = $budget,
-              `level` = $level,
+              `level` = '$level',
               `prioity` = $prioity,
               `customer_name` = '$customerName',
               `supplier` = '$supplier',
@@ -348,6 +348,7 @@ class project {
         $project = mysql_fetch_array($sel, MYSQL_ASSOC);
 
         if (!empty($project)) {
+            $user = new User();
             if ($project["end_date"]) {
                 $daysleft = $this->getDaysLeft($project["end_date"]);
                 $project["daysleft"] = $daysleft;
@@ -363,7 +364,9 @@ class project {
             $project["name"] = stripslashes($project["name"]);
             $project["desc"] = stripslashes($project["desc"]);
             $project["done"] = $this->getProgress($project["ID"]);
-
+            $project["project_leader_name"] = $user->getName($project["project_leader"]);
+            $project["customer_leader_name"] = $user->getName($project["customer_leader"]);
+            $project["supplier_leader_name"] = $user->getName($project["supplier_leader"]);
             return $project;
         } else {
             return false;

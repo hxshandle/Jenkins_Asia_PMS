@@ -142,9 +142,9 @@
       
 {literal}
   <script type="text/javascript">
-  	function setProjectLeaderId(text,li){
-  		$("projectLeaderId").value=li.id;
-  	}
+    function setProjectLeaderId(text,li){
+      $("projectLeaderId").value=li.id;
+    }
   	function setCustomerLeaderId(text,li){
   		$("customerLeaderId").value=li.id;
   	}

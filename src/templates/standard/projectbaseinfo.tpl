@@ -12,12 +12,11 @@
 			</div>
 <div  id ="projectbaseinfo" class="block_in_wrapper">
 	<h2>{#editproject#}</h2>
-	<form class="main" method="post" action="manageproject.php?action=edit&amp;id={$project.ID}" {literal}onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
+	<form class="main" id = "projectbaseinfoform" name="projectbaseinfoform" {literal}onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
     <fieldset>
-
 	    <div class="row4">
-        <label for="name">{#name#}:</label>
-        <input type="text" class="text" disabled name="name" id="name" required="1" realname="{#name#}" value = "{$project.name}" />
+        <label for="projectName">{#name#}:</label>
+        <input type="text" class="text" disabled name="projectName" id="projectName" required="1" realname="{#name#}" value = "{$project.name}" />
         <label for="status">{#status#}:</label>
         <select id = "projectStatus" name ="projectStatus">
           {section name = idx loop=$projectStatus}
@@ -44,7 +43,7 @@
         <label for="projectPriority">{#projectPriority#}:</label>
         <select id = "projectPriority" name ="projectPriority">
           {section name = idx loop=$projectPrioritys}
-            {if $projectPrioritys[idx].id == $project.level}
+            {if $projectPrioritys[idx].id == $project.prioity}
               <option selected value = "{$projectPrioritys[idx].id}">{$projectPrioritys[idx].value}</option>
             {else}
               <option value = "{$projectPrioritys[idx].id}">{$projectPrioritys[idx].value}</option>
@@ -122,26 +121,56 @@
           
       <div class="row4">
         <label for="customerLeader">{#customerLeader#}</label>
-        <input type="text" class="text" name="customerLeader" id="customerLeader" required="1" realname="{#customerLeader#}" value = "{$project.customer_leader}" />
+        <input type="text" class="text" name="customerLeader" id="customerLeader" required="1" realname="{#customerLeader#}" value = "{$project.customer_leader_name}" /><input id="customerLeaderId" name="customerLeaderId" value = "{$project.customer_leader}" type="hidden"/>
         
         <label for="projectLeader">{#projectLeader#}</label>
-        <input type="text" class="text" name="projectLeader" id="projectLeader" realname="{#projectLeader#}" value = "{$project.project_leader}" />
+        <input type="text" class="text" name="projectLeader" id="projectLeader" realname="{#projectLeader#}" value = "{$project.project_leader_name}" /><input id="projectLeaderId" name="projectLeaderId" value = "{$project.project_leader}" type="hidden"/>
       </div>
       
       <div class="row4">
         <label for="supplierLeader">{#supplierLeader#}</label>
-        <input type="text" class="text" name="supplierLeader" id="supplierLeader" realname="{#supplierLeader#}" value = "{$project.supplier_leader}" />
+        <input type="text" class="text" name="supplierLeader" id="supplierLeader" realname="{#supplierLeader#}" value = "{$project.supplier_leader_name}" /><input id="supplierLeaderId" name = "supplierLeaderId" value = "{$project.supplier_leader}" type="hidden" />
       </div>      
        <div id="autoCompChoice" class="autoComp"></div>
 
     </fieldset>
+    <div class="phaseMenualBar">
+      {if $isProjectLeader and $project.status == 9}
+      {*project in planning*}
+      <a class= "butn_link" id="btnSaveProject" onclick="saveBaseInfo();" href="javascript:void(0)">{#save#}</a>
+      {/if}
+    </div>
   </form>
 </div>
       
 {literal}
   <script type="text/javascript">
-    new Ajax.Autocompleter('customerLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2});
-    new Ajax.Autocompleter('projectLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2});
-    new Ajax.Autocompleter('supplierLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2});
+    function setProjectLeaderId(text,li){
+      $("projectLeaderId").value=li.id;
+    }
+    function setCustomerLeaderId(text,li){
+      $("customerLeaderId").value=li.id;
+    }
+    function setSupplierLeaderId(text,li){
+      $("supplierLeaderId").value=li.id;
+    }
+    new Ajax.Autocompleter('customerLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setCustomerLeaderId});
+    new Ajax.Autocompleter('projectLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setProjectLeaderId});
+    new Ajax.Autocompleter('supplierLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setSupplierLeaderId});
+
+    function saveBaseInfo(){
+      var theUrl = "manageprojectajax.php";
+      var projectName=$("projectName").value;
+      var thePost ="action=updateProject&id=" + __projectId + "&name=" + projectName + "&" + $("projectbaseinfoform").serialize();
+      new Ajax.Request(theUrl, {
+        method: 'post',
+        postBody:thePost,
+        onSuccess:function(payload) {
+          if (payload.responseText == "Ok"){
+            alert("saved");
+          }
+        }
+      });
+    }
   </script>
 {/literal}  
