@@ -13,7 +13,14 @@ if(!$action){
 
 switch ($action){
   case "findUser":
-    echo "<ul><li>abc</li><li>efg</li><li>hh</li></ul>";
+    $query = getArrayVal($_POST, "query");
+    $user = new User();
+    $ret = $user->searchUser($query);
+    echo "<ul>";
+    foreach ($ret as $item) {
+      echo '<li id="'.$item["ID"].'">'.$item["name"].'</li>';
+    }
+    echo "</ul>";
     break;
   default:
     break;

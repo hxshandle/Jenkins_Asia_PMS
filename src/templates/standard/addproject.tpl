@@ -98,16 +98,17 @@
 		</div>
 		<div class = "row">
 		  <label for = "projectLeader">{#projectLeader#}:</label>
-      <input type = "text" class="text" name = "projectLeader" id = "projectLeader" /><a class="add" href="#">{#add#}</a>
+      <input type = "text" class="text" name = "projectLeader" id = "projectLeader" /><input id="projectLeaderId" type="hidden"/><a class="add" href="#">{#add#}</a>
 		</div>
 		<div class = "row">
 		  <label for = "customerLeader">{#customerLeader#}:</label>
-		  <input type = "text" class="text" name = "customerLeader" id = "customerLeader" /><a class="add" href="#">{#add#}</a>
+		  <input type = "text" class="text" name = "customerLeader" id = "customerLeader" /><input id="customerLeaderId" type="hidden"/><a class="add" href="#">{#add#}</a>
 		</div>
 		<div class = "row">
 		  <label for = "supplierLeader">{#supplierLeader#}:</label>
-      <input type = "text" class="text" name = "supplierLeader" id = "supplierLeader" /><a class="add" href="#">{#add#}</a>
+      <input type = "text" class="text" name = "supplierLeader" id = "supplierLeader" /><input id="supplierLeaderId" type="hidden"/><a class="add" href="#">{#add#}</a>
 		</div>
+    <div id = "userChoice" class = "autoComp"></div>
 		<div class="row"><label>{#members#}:</label>
 		<div style="float:left;">
         {section name=user loop=$users}
@@ -137,3 +138,21 @@
 	</form>
 
 </div> {*block_in_wrapper end*}
+
+      
+{literal}
+  <script type="text/javascript">
+  	function setProjectLeaderId(text,li){
+  		$("projectLeaderId").value=li.id;
+  	}
+  	function setCustomerLeaderId(text,li){
+  		$("customerLeaderId").value=li.id;
+  	}
+  	function setSupplierLeaderId(text,li){
+  		$("supplierLeaderId").value=li.id;
+  	}
+    new Ajax.Autocompleter('projectLeader', 'userChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2, afterUpdateElement : setProjectLeaderId});
+    new Ajax.Autocompleter('customerLeader', 'userChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setCustomerLeaderId});
+    new Ajax.Autocompleter('supplierLeader', 'userChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setSupplierLeaderId});
+  </script>
+{/literal}  
