@@ -270,6 +270,9 @@ if ($action == "addform") {
 
     $milestone = new milestone;
     $milestones = $milestone->getAllProjectMilestones($id);
+    
+    $deliverable = new DeliverableItem();
+    $deliverableItems = $deliverable->getDeliverableItemsByProjectId($id);
 
     $pro = $myproject->getProject($id);
     $projectname = $pro["name"];
@@ -277,6 +280,7 @@ if ($action == "addform") {
 
     $template->assign("title", $title);
     $template->assign("milestones", $milestones);
+    $template->assign("deliverableItems", $deliverableItems);
     $template->assign("projectname", $projectname);
     $template->assign("assignable_users", $project_members);
 

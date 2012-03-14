@@ -18,6 +18,7 @@ $name = getArrayVal($_POST, "name");
 $desc = getArrayVal($_POST, "desc");
 $access = getArrayVal($_POST, "email");
 $milestone = getArrayVal($_POST, "milestone");
+$deliverableItems = getArrayVal($_POST, "deliverableItems");
 
 $project = array();
 $project['ID'] = $id;
@@ -53,7 +54,7 @@ if ($action == "addform")
     $template->display("addtasklist.tpl");
 } elseif ($action == "add")
 {
-    if ($liste->add_liste($id, $name, $desc, 0, $milestone))
+    if ($liste->add_liste($id, $name, $desc, 0, $milestone,$deliverableItems))
     {
         $loc = $url . "managetask.php?action=showproject&id=$id&mode=listadded";
         header("Location: $loc");

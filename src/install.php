@@ -233,9 +233,11 @@ ENGINE = MyISAM");
   `status` tinyint(1) NOT NULL default '0',
   `access` tinyint(4) NOT NULL default '0',
   `milestone` int(10) NOT NULL default '0',
+  `deliverable_item` int(10) NOT NULL default '0',
   PRIMARY KEY  (`ID`),
   KEY `status` (`status`),
-  KEY `milestone` (`milestone`)
+  KEY `milestone` (`milestone`),
+  KEY `deliverable_item` (`deliverable_item`)
 ) ENGINE=MyISAM");
 
     $table12 = mysql_query("CREATE  TABLE `tasks` (

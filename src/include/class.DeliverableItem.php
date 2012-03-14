@@ -164,6 +164,17 @@ class DeliverableItem {
       return FALSE;
     }
   }
+  
+  function getDeliverableItemsByProjectId($id){
+    $id = (int) $id;
+    $sql = "select * from deliverable_item where `project` = $id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($items = mysql_fetch_array($sel)){
+      array_push($ret,$items);
+    }
+    return $ret;
+  }
 
 }
 
