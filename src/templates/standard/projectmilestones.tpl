@@ -1,5 +1,8 @@
 {include file="header.tpl" jsload="ajax"  jsload1="tinymce"}
 {include file="tabsmenue-project.tpl" milestab = "active"}
+<link type="text/css" rel="stylesheet" href="include/js/gantt/dhtmlxgantt.css">
+<script type="text/javascript" language="JavaScript" src="include/js/gantt/dhtmlxcommon.js"></script>
+<script type="text/javascript" language="JavaScript" src="include/js/gantt/dhtmlxgantt.js"></script>
 
 <div id="content-left">
 	<div id="content-left-in">
@@ -263,6 +266,16 @@
 				</div>
 			</div> {*block End*}
 
+			{*Gantt chart*}
+			<div class="content-spacer"></div>
+			<div class="headline">
+				<a href="javascript:void(0);" id="gantt_toggle" class="win_block" onclick = "toggleBlock('gantt');"></a>
+				<h2><img src="./templates/standard/images/symbols/miles.png" alt="" />{#milestones#}</h2>
+			</div>
+			<div id ="gantt" style="height:600px;">
+
+			</div>
+
 			{literal}
 				<script type = "text/javascript">
 					try{
@@ -288,6 +301,16 @@
 		<div class="content-spacer"></div>
 	</div> {*content-left-in END*}
 </div> {*content-left END*}
+
+<script type="text/javascript">
+	  var gantt = new GanttChart();
+        gantt.setImagePath("include/js/gantt/imgs/");
+        gantt.create("gantt");
+        gantt.showDescTask(true,'n,s-f');
+        gantt.showDescProject(true,'n,d');
+        gantt.loadData("data.xml",true,true);
+</script>
+
 
 {include file="sidebar-a.tpl"}
 {include file="footer.tpl"}
