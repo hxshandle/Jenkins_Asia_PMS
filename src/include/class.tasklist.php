@@ -32,7 +32,7 @@ class tasklist
      * @param int $milestone ID of the associated milestone (0 = no association)
      * @return bool
      */
-    function add_liste($project, $name, $desc, $access = 0, $milestone = 0)
+    function add_liste($project, $name, $desc, $access = 0, $milestone = 0,$deliverableItems = 0)
     {
         $name = mysql_real_escape_string($name);
         $desc = mysql_real_escape_string($desc);
@@ -42,7 +42,7 @@ class tasklist
 
         $start = time();
 
-        $ins = mysql_query("INSERT INTO tasklist (`project`,`name`,`desc`,`start`,`status`,`access`,`milestone`) VALUES ($project,'$name','$desc','$start',1,$access,$milestone)");
+        $ins = mysql_query("INSERT INTO tasklist (`project`,`name`,`desc`,`start`,`status`,`access`,`milestone`,`deliverable_item`) VALUES ($project,'$name','$desc','$start',1,$access,$milestone,$deliverableItems)");
 
         if ($ins)
         {

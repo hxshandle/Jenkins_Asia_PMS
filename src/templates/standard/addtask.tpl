@@ -6,20 +6,34 @@
 
 	<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" name="title" id="title"  realname = "{#title#}" required = "1"  /></div>
 	<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text" rows="3" cols="1" ></textarea></div></div>
+
+	<div class="row"><label for="location{$lists[list].ID}">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location{$lists[list].ID}" required = "1" /></div>
+
+	<div class="row"><label for="start{$lists[list].ID}">{#startDate#}:</label><input type="text" class="text" name="end" realname="{#startDate#}"  id="start{$lists[list].ID}" required = "1" /></div>
 	<div class="row"><label for="end{$lists[list].ID}">{#due#}:</label><input type="text" class="text" name="end" realname="{#due#}"  id="end{$lists[list].ID}" required = "1" /></div>
 
+	<div class="datepick">
+		<div id = "datepicker_taskStart{$lists[list].ID}" class="picker" style = "display:none;"></div>
+	</div>
 
 	<div class="datepick">
-		<div id = "datepicker_task{$lists[list].ID}" class="picker" style = "display:none;"></div>
+		<div id = "datepicker_taskEnd{$lists[list].ID}" class="picker" style = "display:none;"></div>
 	</div>
 
 	<script type="text/javascript">
-	  	theCal{$lists[list].ID} = new calendar({$theM},{$theY});
-		theCal{$lists[list].ID}.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
-		theCal{$lists[list].ID}.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
-		theCal{$lists[list].ID}.relateTo = "end{$lists[list].ID}";
-		theCal{$lists[list].ID}.dateFormat = "{$settings.dateformat}";
-		theCal{$lists[list].ID}.getDatepicker("datepicker_task{$lists[list].ID}");
+		theCalStart{$lists[list].ID} = new calendar({$theM},{$theY});
+		theCalStart{$lists[list].ID}.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+		theCalStart{$lists[list].ID}.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+		theCalStart{$lists[list].ID}.relateTo = "start{$lists[list].ID}";
+		theCalStart{$lists[list].ID}.dateFormat = "{$settings.dateformat}";
+		theCalStart{$lists[list].ID}.getDatepicker("datepicker_taskStart{$lists[list].ID}");
+
+		theCalEnd{$lists[list].ID} = new calendar({$theM},{$theY});
+		theCalEnd{$lists[list].ID}.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+		theCalEnd{$lists[list].ID}.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+		theCalEnd{$lists[list].ID}.relateTo = "end{$lists[list].ID}";
+		theCalEnd{$lists[list].ID}.dateFormat = "{$settings.dateformat}";
+		theCalEnd{$lists[list].ID}.getDatepicker("datepicker_taskEnd{$lists[list].ID}");
 	</script>
 
 	<div class="row">

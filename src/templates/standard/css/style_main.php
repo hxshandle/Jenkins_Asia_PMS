@@ -2939,4 +2939,42 @@ div.row4 table.forecastedAnnualQualityAddTable{
 .datepick .row4pickerLeft{
   left:110px;
 }
+
+.bold{
+  font-weight:bold;
+}
+.center{
+  text-align:center;
+}
+.autoComp{
+  z-index:10000;
+}
+.autoComp ul {
+    background: url("../images/color-a.png") repeat scroll 0 0 transparent;
+    float: left;
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 0 1px;
+    width: 198px;
+    border: medium none;
+    color: #0A182F;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.autoComp li {
+    background: url("../images/autocomplete-bg-a.png") repeat-x scroll 0 0 transparent;
+    float: left;
+    height: 31px;
+    line-height: 31px;
+    margin-top: 1px;
+    padding: 2px;
+    width: 194px;
+}
+.autoComp li:hover{
+  background-position:0 -36px;
+  cursor:pointer;
+}
 /*****************Jenkins Asia Special***********************/

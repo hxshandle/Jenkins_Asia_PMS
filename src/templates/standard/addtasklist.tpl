@@ -7,11 +7,11 @@
 	
 	
 			<div class="row">
-				<label for="milestone">{#milestone#}: </label>
-				<select name="milestone" id="milestone" >
+				<label for="deliverableItems">{#deliverableItems#}: </label>
+				<select name="deliverableItems" id="deliverableItems" >
 				<option value="0" selected="selected">{#chooseone#}</option>
-				{section name=stone loop=$milestones}
-					<option value="{$milestones[stone].ID}">{$milestones[stone].name}</option>
+				{section name=stone loop=$deliverableItems}
+					<option value="{$deliverableItems[stone].ID}">{$deliverableItems[stone].name}</option>
 				{/section}
 				</select>
 			</div>

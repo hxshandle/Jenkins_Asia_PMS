@@ -10,18 +10,33 @@ if (!isset($_SESSION['userid']))
 
 $project = (object) new project();
 
-$action = getArrayVal($_GET, "action");
-$redir = getArrayVal($_GET, "redir");
-$id = getArrayVal($_GET, "id");
-$usr = getArrayVal($_GET, "user");
+$action   = getArrayVal($_GET, "action");
+$redir    = getArrayVal($_GET, "redir");
+$id       = getArrayVal($_GET, "id");
+$usr      = getArrayVal($_GET, "user");
 $assignto = getArrayVal($_POST, "assignto");
-$name = getArrayVal($_POST, "name");
-$desc = getArrayVal($_POST, "desc");
-$end = getArrayVal($_POST, "end");
-$status = getArrayVal($_POST, "status");
-$user = getArrayVal($_POST, "user");
-$assign = getArrayVal($_POST, "assginme");
-$budget = getArrayVal($_POST, "budget");
+$name     = getArrayVal($_POST, "name");
+$desc     = getArrayVal($_POST, "desc");
+$end      = getArrayVal($_POST, "end");
+$status   = getArrayVal($_POST, "status");
+$user     = getArrayVal($_POST, "user");
+$assign   = getArrayVal($_POST, "assginme");
+$budget   = getArrayVal($_POST, "budget");
+
+$projectStatus            = getArrayVal($_POST,"projectStatus");
+$projectLevel             = getArrayVal($_POST,"projectLevel");
+$projectPriority          = getArrayVal($_POST,"projectPriority");
+$customer                 = getArrayVal($_POST,"customer");
+$suppler                  = getArrayVal($_POST,"suppler");
+$targetFOB                = getArrayVal($_POST, "targetFOB");
+$targetFOBCurrentcy       = getArrayVal($_POST, "targetFOBCurrentcy");
+$forecastedAnnualQuality1 = getArrayVal($_POST, "forecastedAnnualQuality1");
+$forecastedAnnualQuality2 = getArrayVal($_POST, "forecastedAnnualQuality2");
+$forecastedAnnualQuality3 = getArrayVal($_POST, "forecastedAnnualQuality3");
+$projectLeader            = getArrayVal($_POST, "projectLeaderId");
+$customerLeader           = getArrayVal($_POST, "customerLeaderId");
+$supplierLeader           = getArrayVal($_POST, "supplierLeaderId");
+
 
 $projectid = array();
 $projectid['ID'] = $id;
@@ -676,6 +691,12 @@ if ($action == "editform")
         $sampleRequestTab = $tabs->getSampleRequestTab($id,$_SESSION['userid']);
     }
     $template->assign("sampleRequestTab", $sampleRequestTab);
+    $isProjectLeader = $_SESSION['userid'] == $tproject['project_leader'];
+    $isCustomerLeader = $_SESSION['userid'] == $tproject['customer_leader'];
+    $isSupplierLeader = $_SESSION['userid'] == $tproject['supplier_leader'];
+    $template->assign("isProjectLeader",$isProjectLeader);
+    $template->assign("isCustomerLeader",$isCustomerLeader);
+    $template->assign("isSupplierLeader",$isSupplierLeader);
     SmartyPaginate::assign($template);
     $template->display("project_jenkins.tpl");
 } elseif ($action == "cal")

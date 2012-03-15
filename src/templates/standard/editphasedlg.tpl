@@ -16,7 +16,7 @@
       <td><input value = "{$deliverableItem[p].name}"></input><input type ="hidden" value = "{$deliverableItem[p].ID}"></input></td>
       <td><input value = "{$deliverableItem[p].start_date|truncate:"10":""}"></input></td>
       <td><input value = "{$deliverableItem[p].end_date|truncate:"10":""}"></input></td>
-      <td><a class="tool_del" href="javascript:void(0)" onclick="delDeliverableItemViaAjax({$deliverableItem[p].ID});"></a></td>
+      <td><a class="tool_del" href="javascript:void(0)" onclick="delDeliverableItemViaAjax({$deliverableItem[p].ID},this);"></a></td>
     </tr>
   {/section}
   </tbody>

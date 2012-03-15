@@ -213,6 +213,17 @@ class user
             return false;
         }
     }
+    
+    function searchUser($queryStr){
+        $queryStr = mysql_escape_string($queryStr);
+        $sql = "select * from user where name like '%$queryStr%' or email like '%$queryStr%'";
+        $sel = mysql_query($sql);
+        $ret = array();
+        while ($items = mysql_fetch_array($sel)) {
+            array_push($ret, $items);
+        }
+        return $ret;
+    }
 
     /**
      * Change password as admin
@@ -547,6 +558,15 @@ class user
         {
             return array();
         }
+    }
+    
+    function getName($id){
+      $id = (int) $id;
+      $sql = "select name from user where `id` = $id";
+      $sel = mysql_query($sql);
+      $name = mysql_fetch_row($sel);
+      $name = $name[0];
+      return $name;
     }
 }
 

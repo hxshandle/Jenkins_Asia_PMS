@@ -113,6 +113,21 @@
             }
         });
   }
+    
+  function delDeliverableItemViaAjax(id,el){
+    var element=el;
+    var theUrl = "manageprojectajax.php?action=delDeliverableItem&&id="+id;
+    new Ajax.Request(theUrl, {
+            method: 'get',
+            onSuccess:function(payload) {
+              if (payload.responseText == "Ok"){
+                reloadPhase();
+                var b = $(element);
+                b.parentNode.parentNode.remove();
+              }
+            }
+        });    
+  }
               
 </script>
 {/literal}
