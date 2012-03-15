@@ -122,8 +122,7 @@
         }
       });
     }
-        
-        approveRequestDlg
-        
+  
+
 </script>
 {/literal}

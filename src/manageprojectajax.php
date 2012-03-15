@@ -248,6 +248,21 @@ switch ($action){
       echo "Fail";
     }
     break;
+ case "addSampleRequest":
+    $project = getArrayVal($_POST, "projectId");
+    $sample = getArrayVal($_POST,"sampleId"); 
+    $newSampleRequestDescription = getArrayVal($_POST,"samplerequestcomment");
+    $sampleRequest = new SampleRequest();
+    $sampleRequestId=$sampleRequest->add($_SESSION['userid'],$newSampleRequestDescription,$project,$sample);
+    if($sampleRequestId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;    
+    
+    
+    
   default:
     break;
 }

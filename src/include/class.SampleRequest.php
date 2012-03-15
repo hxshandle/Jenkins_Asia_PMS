@@ -18,13 +18,15 @@ class SampleRequest {
     $this->myLog = new mylog;
   }
   
-  function add($submitter,$comments){
+  function add($submitter,$comments,$project,$sample){
     $sql = "INSERT INTO `sample_request`
             (
             `approved`,
             `submit_time`,
             `submit_by`,
-            `submitter_comments`)
+            `submitter_comments`,
+            `project`,
+            `sample`)
             VALUES
             (
             0,

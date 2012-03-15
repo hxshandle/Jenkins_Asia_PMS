@@ -27,3 +27,21 @@
     </tr>
   {/section}
 </table>
+<div id = "approveSampleDlg"></div>
+{literal}
+  <script type="text/javascript">
+
+  function approveRequestDlg(){
+        var dlgRequest = new Control.Modal("approveSampleDlg",{
+                                "contents":"approve",
+                                fade:true,
+                                opacity: 0.8,
+                                containerClassName: 'dlgmodal',
+                                overlayClassName: 'tasksoverlay'
+                             });
+        dlgRequest.open();     
+  }      
+
+  </script>
+   
+{/literal}
