@@ -34,7 +34,7 @@
 		  postBody:thePost,
 		  onSuccess:function(payload) {
 		    if (payload.responseText == "Ok"){ 
-            reloadSample();
+            reloadSampleRequest();
             Control.Modal.close();
           }
         }

@@ -260,9 +260,13 @@ switch ($action){
       echo "Fail";
     }
     break;    
-    
-    
-    
+ case "reloadsamplesample":
+    $projectId = getArrayVal($_GET, "id");
+    $projectTabs = new ProjectTabs;
+    $samplesRequest = $projectTabs->getSampleRequestTab($projectId);
+    $template->assign("sampleRequestTab", $samplesRequest);
+    $template->display("samplerequestdetails.tpl");
+    break;
   default:
     break;
 }

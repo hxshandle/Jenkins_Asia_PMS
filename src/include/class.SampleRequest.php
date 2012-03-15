@@ -29,10 +29,12 @@ class SampleRequest {
             `sample`)
             VALUES
             (
-            0,
+            1,
             NOW(),
             $submitter,
-            '$comments'
+            '$comments',
+            $project,
+            $sample  
             );
             ";
     $ins = mysql_query($sql);
