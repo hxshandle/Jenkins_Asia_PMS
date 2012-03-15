@@ -122,5 +122,17 @@
         }
       });
     }
+        
+  function reloadSampleRequest(){
+    var theUrl = "manageprojectajax.php?action=reloadsamplesample&id="+__projectId;
+    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+		    if (payload.responseText != ""){ 
+            $("sampleRequestList").innerHTML=payload.responseText;
+          }
+        }
+      });
+  }
 </script>
 {/literal}
