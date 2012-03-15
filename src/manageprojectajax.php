@@ -267,6 +267,71 @@ switch ($action){
     $template->assign("sampleRequestTab", $samplesRequest);
     $template->display("samplerequestdetails.tpl");
     break;
+ case "editApproveRequest":
+    $sampleRequestId = getArrayVal($_GET, "id");
+    $sampleRequest = new SampleRequest();
+    $sampleRequestObj = $sampleRequest->get($sampleRequestId);
+    $template->assign("sampleRequest",$sampleRequestObj);
+    $template->assign("templateName", "approveSampleDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+ case "approveSample":
+   $sampleRequestId = getArrayVal($_POST, "sampleRequestId");
+   $commit = getArrayVal($_POST, "commit");
+   $sampleRequest = new SampleRequest();
+   $sample = new Sample();
+   $sampleRequestTmp = $sampleRequest->get($sampleRequestId);
+   $sampleTmp = $sample->get($sampleRequestTmp[sample]);
+   if($sampleTmp[available_count]<=0){
+       echo "notenough";
+       break;
+   }
+   $ret1 = $sampleRequest->approve($sampleRequestId,$_SESSION['userid'],$commit);
+   $ret2 = $sample->reduceCount($sampleRequestTmp[sample]);
+   if($ret2&&$ret1){
+     echo "Ok";
+   }else{
+     echo "Fail";
+   }
+    break;
+ case "editRejectRequest":
+    $sampleRequestId = getArrayVal($_GET, "id");
+    $sampleRequest = new SampleRequest();
+    $sampleRequestObj = $sampleRequest->get($sampleRequestId);
+    $template->assign("sampleRequest",$sampleRequestObj);
+    $template->assign("templateName", "rejectSampleDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+ case "retrievesample":
+   $sampleRequestId = getArrayVal($_GET, "id");
+   $sampleRequest = new SampleRequest();
+   $sample = new Sample();
+   $sampleRequestTmp = $sampleRequest->get($sampleRequestId);
+   $sampleTmp = $sample->get($sampleRequestTmp[sample]);
+   $ret1 = $sampleRequest->retrive($sampleRequestId);
+   $ret2 = $sample->addCount($sampleRequestTmp[sample]);
+   if($ret2&&$ret1){
+     echo "Ok";
+   }else{
+     echo "Fail";
+   }
+    break; 
+ case "rejectSample":
+   $sampleRequestId = getArrayVal($_POST, "sampleRequestId");
+   $commit = getArrayVal($_POST, "commit");
+   $sampleRequest = new SampleRequest();
+   $sample = new Sample();
+   $sampleRequestTmp = $sampleRequest->get($sampleRequestId);
+   $sampleTmp = $sample->get($sampleRequestTmp[sample]);
+   $ret1 = $sampleRequest->reject($sampleRequestId,$_SESSION['userid'],$commit);
+   if(ret1){
+     echo "Ok";
+   }else{
+     echo "Fail";
+   }
+    break;     
+    
+    
   default:
     break;
 }

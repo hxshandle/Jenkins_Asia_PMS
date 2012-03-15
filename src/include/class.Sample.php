@@ -106,6 +106,28 @@ class Sample {
     }
     return $ret;
   }
+  
+  function reduceCount($id){
+    $id = (int) $id;
+    $sql = "update `sample` set `available_count` = `available_count` - 1 where ID = $id";
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+  function addCount($id){
+    $id = (int) $id;
+    $sql = "update `sample` set `available_count` = `available_count` + 1 where ID = $id";
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }
 
 ?>

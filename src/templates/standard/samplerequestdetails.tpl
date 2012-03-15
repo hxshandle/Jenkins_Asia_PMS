@@ -12,28 +12,52 @@
       <th>{#createby#}</th>
       <th>{#status#}</th>
       <th>{#createtime#}</th>
+      <th>{#operate#}</th>
     <tr>
   {section name = sampleRequest loop = $sampleRequestTab}
     <tr>
       <td>
-        <a class="tool_edit" title="{#approved#}" href=javascript:void(0);" onclick="approveRequestDlg({$sampleRequestTab[sampleRequest].ID});"></a>
-        <a class="tool_del"  title="{#rejected#}" href="javascript:void(0);"onclick="rejectRequestDlg({$sampleRequestTab[sampleRequest].ID});"></a>
+        {if $sampleRequestTab[sampleRequest].approveId == 25}
+        <a class="tool_edit" title="{#approved#}" href=javascript:void(0);" onclick="approveEditRequestDlg({$sampleRequestTab[sampleRequest].ID});"></a>
+        <a class="tool_del"  title="{#rejected#}" href="javascript:void(0);"onclick="rejectEditRequestDlg({$sampleRequestTab[sampleRequest].ID});"></a>
+        {/if}
       </td>
       <td align  = "center">{$sampleRequestTab[sampleRequest].samplename}</td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].projectname}</td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].submit_by}</td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].approved}</td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].submit_time}</td>
+      <td>
+        {if $sampleRequestTab[sampleRequest].approveId == 26}
+          <a class="tool_del"  title="{#retrieve#}" href="javascript:void(0);"onclick="retrieveSample({$sampleRequestTab[sampleRequest].ID});"></a>
+         {/if}
+      </td>
     </tr>
   {/section}
 </table>
 <div id = "approveSampleDlg"></div>
+<div id = "rejectSampleDlg"></div>
+
 {literal}
   <script type="text/javascript">
-
-  function approveRequestDlg(){
+      
+   function approveEditRequestDlg(id){
+    var sampleRequestId = id;
+    var theUrl = "manageprojectajax.php?action=editApproveRequest&id="+sampleRequestId;
+    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+		    if (payload.responseText != ""){ 
+          approveRequestDlg(payload.responseText);
+        }else{
+          alert("show failed");
+        }
+      }
+    });  
+  }     
+  function approveRequestDlg(ctx){
         var dlgRequest = new Control.Modal("approveSampleDlg",{
-                                "contents":"approve",
+                                "contents":ctx,
                                 fade:true,
                                 opacity: 0.8,
                                 containerClassName: 'dlgmodal',
@@ -41,7 +65,30 @@
                              });
         dlgRequest.open();     
   }      
-
+   function rejectEditRequestDlg(id){
+    var sampleRequestId = id;
+    var theUrl = "manageprojectajax.php?action=editRejectRequest&id="+sampleRequestId;
+    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+		    if (payload.responseText != ""){ 
+          rejectRequestDlg(payload.responseText);
+        }else{
+          alert("show failed");
+        }
+      }
+    });  
+  }     
+  function rejectRequestDlg(ctx){
+        var dlgRejectRequest = new Control.Modal("rejectSampleDlg",{
+                                "contents":ctx,
+                                fade:true,
+                                opacity: 0.8,
+                                containerClassName: 'dlgmodal',
+                                overlayClassName: 'tasksoverlay'
+                             });
+        dlgRejectRequest.open();     
+  }    
   </script>
    
 {/literal}
