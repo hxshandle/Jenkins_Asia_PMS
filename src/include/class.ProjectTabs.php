@@ -32,6 +32,20 @@ class ProjectTabs {
     $financeData = $finance->getFinanceDetailsByProjectId($projectId);
     return $financeData;
   }
+  
+    //get Sample by msj
+  function getSampleTab($projectId){
+    $sample = new Sample();
+    $sampleData = $sample->getSampleDetailsByProjectId($projectId);
+    return $sampleData;
+  }
+  
+ //get SampleRequest by msj
+  function getSampleRequestTab($projectId,$currentUserId){
+    $sampleRequest = new SampleRequest();
+    $sampleRequestData = $sampleRequest->getSampleRequestDetailsByProjectId($projectId,$currentUserId);
+    return $sampleRequestData;
+  }
 }
 
 ?>

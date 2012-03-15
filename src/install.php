@@ -382,6 +382,8 @@ ENGINE = MyISAM");
   `ID` INT(10) NOT NULL AUTO_INCREMENT,
   `approved` TINYINT NOT NULL DEFAULT 0 ,
   `submit_time` DATETIME NOT NULL ,
+  `sample` INT(10) NOT NULL ,
+  `project` INT(10) NOT NULL ,
   `submit_by` INT(10) NOT NULL ,
   `approved_by` INT(10) ,
   `approved_time` DATETIME NULL ,

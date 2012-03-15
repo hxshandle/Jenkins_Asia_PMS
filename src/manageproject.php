@@ -668,6 +668,14 @@ if ($action == "editform")
     $template->assign("phaseTab", $phaseTab);
     $financeTab = $tabs->getFinanceTab($id); 
     $template->assign("financeTab", $financeTab);
+    $sampleTab = $tabs->getSampleTab($id); 
+    $template->assign("sampleTab", $sampleTab);
+    if(true){
+        $sampleRequestTab = $tabs->getSampleRequestTab($id,null); 
+    }else{
+        $sampleRequestTab = $tabs->getSampleRequestTab($id,$_SESSION['userid']);
+    }
+    $template->assign("sampleRequestTab", $sampleRequestTab);
     SmartyPaginate::assign($template);
     $template->display("project_jenkins.tpl");
 } elseif ($action == "cal")

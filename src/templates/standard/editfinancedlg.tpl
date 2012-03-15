@@ -86,9 +86,5 @@
 <div  style="margin:10px 0 0 0">
 
 <button id="dlgBtnEditFinance" onclick="editFinance({$finance.ID});">{#save#}</button>
-{literal}
-  <script type="text/javascript">
 
-  </script>
-{/literal}
 </div>

@@ -86,9 +86,9 @@ switch ($action){
     $template->display("financedetails.tpl");
     break;
   case "delfinance":
-    $phaseId = getArrayVal($_GET, "id");
+    $financeId = getArrayVal($_GET, "id");
     $finance = new Finance();
-    $ret=$finance->del($phaseId);
+    $ret=$finance->del($financeId);
     if($ret){
       echo "Ok";
     }else{
@@ -148,6 +148,63 @@ switch ($action){
    }
    echo 'Ok';
    break;
+ case "addSample":
+    $project = getArrayVal($_POST, "projectId");
+    $newSampleName = getArrayVal($_POST,"sampleName");
+    $newSampleTag = getArrayVal($_POST,"sampleTag");
+    $newSampleAvailablecount = getArrayVal($_POST,"sampleAvailablecount");
+    $newSampleTotalcount = getArrayVal($_POST,"sampleTotalcount");    
+    $newSampleDescription = getArrayVal($_POST,"sampleDescription");
+    $sample = new Sample();
+    $sampleId=$sample->add($newSampleName,'',$project, $newSampleTotalcount,$newSampleAvailablecount,$newSampleTag,$newSampleDescription);
+    if($sampleId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
+ case "reloadsample":
+    $projectId = getArrayVal($_GET, "id");
+    $projectTabs = new ProjectTabs;
+    $samples = $projectTabs->getSampleTab($projectId);
+    $template->assign("sampleTab", $samples);
+    $template->display("sampledetails.tpl");
+    break;
+ case "delsample":
+    $sampleId = getArrayVal($_GET, "id");
+    $sample = new Sample();
+    $ret=$sample->del($sampleId);
+    if($ret){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;   
+ case "editSample":
+    $sampleId = getArrayVal($_GET, "id");
+    $sample = new Sample();
+    $projectTmp = new project();
+    $sampleObj = $sample->get($sampleId);
+    $project = $projectTmp->getProject($sampleObj[project]);
+    $template->assign("project", $project);
+    $template->assign("sampleTab", $samples);
+    $template->assign("sample",$sampleObj);
+    $template->assign("templateName", "editsampledlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+  case "updateSample":
+    $project = getArrayVal($_POST, "projectId");
+    $editSampleId = getArrayVal($_POST,"sampleId");
+    $editSampleAvailablecount = getArrayVal($_POST,"sampleAvailablecount"); 
+    $editSampleTotalcount = getArrayVal($_POST,"sampleTotalcount"); 
+    $sample = new Sample();
+    $sampleId=$sample->updateCount($editSampleId,$editSampleTotalcount,$editSampleAvailablecount);
+    if($sampleId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
   default:
     break;
 }
