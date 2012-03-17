@@ -124,7 +124,7 @@
     }
         
   function reloadSampleRequest(){
-    var theUrl = "manageprojectajax.php?action=reloadsamplesample&id="+__projectId;
+    var theUrl = "manageprojectajax.php?action=reloadsamplerequest&id="+__projectId;
     new Ajax.Request(theUrl, {
 		  method: 'get',
 		  onSuccess:function(payload) {
@@ -134,5 +134,68 @@
         }
       });
   }
+      
+    function approveSample(sampleRequestId){
+      var theUrl = "manageprojectajax.php";
+      var thePost = "action=approveSample&sampleRequestId="+sampleRequestId;
+      var jsapproveSampleDescription = $("approveSampleDescription").value;
+      thePost +="&commit="+jsapproveSampleDescription;
+      new Ajax.Request(theUrl, {
+		  method: 'post',
+		  postBody:thePost,
+		  onSuccess:function(payload) {
+          if (payload.responseText == "Ok"){ 
+            reloadSample();
+            reloadSampleRequest();
+            Control.Modal.close();
+          }else if(payload.responseText == notenough){
+              alert("{/literal}{#notenough#}{literal}");
+              return;
+          }else{
+            alert("failed");
+            return;
+          }
+        }
+      });
+    }
+    function closeWindows(){
+        window.close();
+    }     
+    function rejectSample(sampleRequestId){
+      var theUrl = "manageprojectajax.php";
+      var thePost = "action=rejectSample&sampleRequestId="+sampleRequestId;
+      var jsrejectSampleDescription = $("rejectSampleDescription").value;
+      thePost +="&commit="+jsrejectSampleDescription;
+      new Ajax.Request(theUrl, {
+		  method: 'post',
+		  postBody:thePost,
+		  onSuccess:function(payload) {
+          if (payload.responseText == "Ok"){ 
+            reloadSampleRequest();
+            Control.Modal.close();
+          }else{
+            alert("failed");
+            return;
+          }
+        }
+      });
+    }
+        
+  function retrieveSample(id){
+    var sampleRequestId = id;
+    var theUrl = "manageprojectajax.php?action=retrievesample&id="+sampleRequestId;
+    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+		    if (payload.responseText == "Ok"){ 
+          reloadSample();
+          reloadSampleRequest();
+        }else{
+          alert("del faild");
+        }
+      }
+    });
+  }     
+        
 </script>
 {/literal}

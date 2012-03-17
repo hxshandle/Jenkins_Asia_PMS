@@ -568,6 +568,17 @@ class user
       $name = $name[0];
       return $name;
     }
+    
+    function getAvailableUser($projectId){
+      $sql = "select ID,name from user where `id` not in(select user from projekte_assigned where projekt = $projectId)";
+      $sel = mysql_query($sql);
+      $users = array();
+      while($availableUsers = mysql_fetch_array($sel)){
+        array_push($users, $availableUsers);
+      }
+      return $users;
+    }
+    
 }
 
 ?>

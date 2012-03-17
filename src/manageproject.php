@@ -691,6 +691,12 @@ if ($action == "editform")
         $sampleRequestTab = $tabs->getSampleRequestTab($id,$_SESSION['userid']);
     }
     $template->assign("sampleRequestTab", $sampleRequestTab);
+    $memberTab = $tabs->getMemberTab($id); 
+    $template->assign("memberTab", $memberTab);
+    $myuser = new user();
+    $availableUsers = $myuser->getAvailableUser($id);
+    $template->assign("availableUsers", $availableUsers);
+    $template->assign("projectStatus",$projectStatus);
     $isProjectLeader = $_SESSION['userid'] == $tproject['project_leader'];
     $isCustomerLeader = $_SESSION['userid'] == $tproject['customer_leader'];
     $isSupplierLeader = $_SESSION['userid'] == $tproject['supplier_leader'];

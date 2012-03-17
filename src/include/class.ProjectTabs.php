@@ -46,6 +46,13 @@ class ProjectTabs {
     $sampleRequestData = $sampleRequest->getSampleRequestDetailsByProjectId($projectId,$currentUserId);
     return $sampleRequestData;
   }
+  
+  //get MemberTeam by msj
+  function getMemberTab($projectId){
+    $project = new Project();
+    $memberData = $project->getProjectMembers($projectId);
+    return $memberData;
+  }
 }
 
 ?>

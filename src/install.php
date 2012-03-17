@@ -391,6 +391,7 @@ ENGINE = MyISAM");
   `approved_time` DATETIME NULL ,
   `submitter_comments` TEXT NULL ,
   `approver_comments` TEXT NULL ,
+  `isretrieve` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM");
     

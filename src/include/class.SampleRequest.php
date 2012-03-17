@@ -29,7 +29,7 @@ class SampleRequest {
             `sample`)
             VALUES
             (
-            1,
+            25,
             NOW(),
             $submitter,
             '$comments',
@@ -82,9 +82,9 @@ class SampleRequest {
   function getSampleRequestByProjectId($projectId,$currentUserId){
     $projectId = (int) $projectId;
     if($currentUserId!=null){
-      $sql = "select t.ID,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d  where t.project = $projectId  and `submit_by` = $currentUserId and t.sample = f.ID and d.ID = t.project";  
+      $sql = "select t.ID,t.approved as approveId,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d  where t.project = $projectId  and `submit_by` = $currentUserId and t.sample = f.ID and d.ID = t.project and and t.isretrieve = 1";  
     }else{
-      $sql = "select  t.ID,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d where t.project = $projectId and t.sample = f.ID and d.ID = t.project";  
+      $sql = "select  t.ID,t.approved as approveId,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d where t.project = $projectId and t.sample = f.ID and d.ID = t.project and t.isretrieve = 1";  
     }
     $query = mysql_query($sql);
     $arr = array();
@@ -93,6 +93,27 @@ class SampleRequest {
     }
     return $arr;
   }
+  
+    function get($id){
+    $id = (int) $id;
+    $sql = "select * from sample_request where `id` = '$id'";
+    $query = mysql_query($sql);
+    $ret = array();
+    if(!empty($query)){
+      $ret = mysql_fetch_array($query);
+    }
+    return $ret;
+  }
+  
+    function retrive($id){
+    $sql = "update `sample_request` set isretrieve = 0 where ID = $id";
+    $retrive = mysql_query($sql);
+    if($retrive){
+      return true;
+    }else{
+      return false;
+    }
+  } 
 }
 
 ?>
