@@ -48,7 +48,7 @@
               <option value = "-1">{#chooseone#}</option>
               {section name=parentTask loop=$parentTasks}
                 {if $parentTasks[parentTask].ID != $task.ID}
-                <option value = "{$parentTasks[parentTask].ID}">{$parentTasks[parentTask].title}</option>
+                <option value = "{$parentTasks[parentTask].ID}" {if $parentTasks[parentTask].ID==$task.parent}selected{/if}>{$parentTasks[parentTask].title}</option>
                 {/if}
               {/section}
             </select>
@@ -84,7 +84,7 @@
             </script>
 
 					<div class="row"><label for="tasklist">{#tasklist#}:</label>
-						<select name="tasklist" class="select" id="tasklist" required="1" realname="{#tasklist#}">
+						<select name="tasklist" class="select" id="tasklist" required="1" realname="{#tasklist#}" disabled>
 						{section name=tasklist loop=$tasklists}
 						<option value="{$tasklists[tasklist].ID}" {if $task.listid == $tasklists[tasklist].ID}selected = "selected"{/if}>{$tasklists[tasklist].name}</option>
 						{/section}</select>

@@ -151,8 +151,9 @@ if ($action == "addform") {
         $template->display("error.tpl");
         die();
     }
+    $upd = $task->edit($tid,$start,$end, $title, $text,$taskStatus,$parentTask,$location);
     // edit the task
-    if ($task->edit($tid, $end, $title, $text, $tasklist)) {
+    if ($upd) {
         $redir = urldecode($redir);
         if (!empty($assigned)) {
             foreach($assigned as $assignee) {
