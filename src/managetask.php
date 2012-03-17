@@ -18,9 +18,14 @@ $assigned = getArrayVal($_POST, "assigned");
 $tasklist = getArrayVal($_POST, "tasklist");
 $text = getArrayVal($_POST, "text");
 $title = getArrayVal($_POST, "title");
+$start = getArrayVal($_POST, "start");
+$location = getArrayVal($_POST, "location");
+$parentTask = getArrayVal($_POST, "parent");
+$taskStatus = getArrayVal($_POST, "status");
+
 $redir = getArrayVal($_GET, "redir");
 $id = getArrayVal($_GET, "id");
-
+$deliverableId = getArrayVal($_GET, "deliverableId");
 $project = array();
 $project['ID'] = $id;
 $template->assign("project", $project);
@@ -67,8 +72,11 @@ if ($action == "addform") {
         $template->display("error.tpl");
         die();
     }
+    $projectId = $id;
+    $deliverableItem = new DeliverableItem();
+    $deliverableItemObj = $deliverableItem->getItem($deliverableId);
     // add the task
-    $tid = $task->add($end, $title, $text, $tasklist, $id);
+    $tid = $task->add($start,$end, $title, $text, $tasklist,$taskStatus, $projectId,$deliverableItemObj["phase"],$deliverableItemObj["ID"],$parentTask,$location);
     // if tasks was added and mailnotify is activated, send an email
     if ($tid) {
         foreach($assigned as $member) {
@@ -283,6 +291,8 @@ if ($action == "addform") {
     $template->assign("deliverableItems", $deliverableItems);
     $template->assign("projectname", $projectname);
     $template->assign("assignable_users", $project_members);
+    $taskStatus = Status::getStatusByType("task");
+    $template->assign("taskStatus",$taskStatus);
 
     $template->assign("lists", $lists);
     $template->assign("oldlists", $oldlists);

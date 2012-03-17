@@ -1,7 +1,7 @@
 <div class="block_in_wrapper">
 
 	<h2>{#addtask#}</h2>
-	<form name = "addtaskform{$lists[list].ID}" id = "addtaskform{$lists[list].ID}" class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}"  {literal}onsubmit="return validateCompleteForm(this,'input_error');{/literal}">
+	<form name = "addtaskform{$lists[list].ID}" id = "addtaskform{$lists[list].ID}" class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}&amp;deliverableId={$lists[list].deliverable_item}"  {literal}onsubmit="return validateCompleteForm(this,'input_error');{/literal}">
 	<fieldset>
 
 	<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" name="title" id="title"  realname = "{#title#}" required = "1"  /></div>
@@ -9,7 +9,28 @@
 
 	<div class="row"><label for="location{$lists[list].ID}">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location{$lists[list].ID}" required = "1" /></div>
 
-	<div class="row"><label for="start{$lists[list].ID}">{#startDate#}:</label><input type="text" class="text" name="end" realname="{#startDate#}"  id="start{$lists[list].ID}" required = "1" /></div>
+	<div class="row"><label for="status{$lists[list].ID}">{#status#}:</label>
+		<select type="text" class="text" name="status" realname="{#location#}"  id="status{$lists[list].ID}" required = "1" >
+		{section name = idx loop=$taskStatus}
+            {if $taskStatus[idx].id == $project.status}
+              <option selected value = "{$taskStatus[idx].id}">{$taskStatus[idx].value}</option>
+            {else}
+              <option value = "{$taskStatus[idx].id}">{$taskStatus[idx].value}</option>
+            {/if}
+    {/section}
+		</select>
+	</div>
+
+	<div class="row"><label for="parent{$lists[list].ID}">{#parentTask#}:</label>
+		<select type="text" class="text" name="parent" realname="{#parent#}"  id="parent{$lists[list].ID}" required = "1" >
+			<option value = "-1">{#chooseone#}</option>
+      {section name=parentTask loop=$lists[list].tasks}
+	      <option value = "{$lists[list].tasks[parentTask].ID}">{$lists[list].tasks[parentTask].name}</option>
+	    {/section}
+		</select>
+	</div>
+
+	<div class="row"><label for="start{$lists[list].ID}">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start{$lists[list].ID}" required = "1" /></div>
 	<div class="row"><label for="end{$lists[list].ID}">{#due#}:</label><input type="text" class="text" name="end" realname="{#due#}"  id="end{$lists[list].ID}" required = "1" /></div>
 
 	<div class="datepick">
