@@ -500,19 +500,11 @@ class project {
         } else {
             $start = 0;
         }
-        $sel1 = mysql_query("SELECT user FROM projekte_assigned WHERE projekt = $project LIMIT $start,$lim");
-
-        $usr = new user();
-        while ($user = mysql_fetch_array($sel1)) {
-            $theuser = $usr->getProfile($user[0]);
-            array_push($members, $theuser);
+        $sql1 = mysql_query("SELECT p.ID,p.user,p.projekt as project,u.name,u.title,t.location,u.email,u.tel1,u.tel2 FROM user u,projekte_assigned p left join tasks_assigned ta on p.user = ta.user left join tasks t on ta.task = t.ID where p.user = u.ID and projekt = $project LIMIT $start,$lim");
+        while($row = mysql_fetch_array($sql1)){
+             array_push($members, $row);
         }
-
-        if (!empty($members)) {
-            return $members;
-        } else {
-            return false;
-        }
+        return $members;
     }
 
     function countMembers($project)
@@ -655,6 +647,15 @@ class project {
             return false;
         }
     }
+  function delMember($id){
+    $sql = "delete from `projekte_assigned` where ID = $id";
+    $del = mysql_query($sql);
+    if($del){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }
 
 ?>

@@ -124,7 +124,7 @@
     }
         
   function reloadSampleRequest(){
-    var theUrl = "manageprojectajax.php?action=reloadsamplesample&id="+__projectId;
+    var theUrl = "manageprojectajax.php?action=reloadsamplerequest&id="+__projectId;
     new Ajax.Request(theUrl, {
 		  method: 'get',
 		  onSuccess:function(payload) {

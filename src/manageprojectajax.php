@@ -260,7 +260,7 @@ switch ($action){
       echo "Fail";
     }
     break;    
- case "reloadsamplesample":
+ case "reloadsamplerequest":
     $projectId = getArrayVal($_GET, "id");
     $projectTabs = new ProjectTabs;
     $samplesRequest = $projectTabs->getSampleRequestTab($projectId);
@@ -330,8 +330,42 @@ switch ($action){
      echo "Fail";
    }
     break;     
-    
-    
+ case "delmember":
+    $userId = getArrayVal($_GET, "userId");
+    $projectId = getArrayVal($_GET, "projectId");
+    $project = new Project();
+    $project->
+    $ret=$project->deassign($userId,$projectId);
+    if($ret){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
+  case "reloadmember":
+    $projectId = getArrayVal($_GET, "id");
+    $projectTabs = new ProjectTabs;
+    $members = $projectTabs->getMemberTab($projectId);
+    $template->assign("memberTab", $members);
+    $template->display("memberdetails.tpl");
+    break;
+
+ case "addMember":
+    $projectTmp = getArrayVal($_POST, "projectId");
+    $availablemembers =  getArrayVal($_POST, "members");
+    $members = explode(",",$availablemembers);
+    $project = new project();
+    $flag = false;
+    foreach ($members as $member){
+       $projectId=$project->assign($member,$projectTmp);
+       $flag = true;
+    }
+    if($flag){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
   default:
     break;
 }
