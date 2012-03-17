@@ -117,6 +117,7 @@ if ($action == "addform") {
     $tl = $tasklist->getTasklist($thistask['liste']);
     $thistask['listid'] = $tl['ID'];
     $thistask['listname'] = $tl['name'];
+    $parentTasks = $tasklist->getTasksFromList($thistask['liste']);
 
     $user = $task->getUser($thistask['ID']);
     $thistask['username'] = $user[1];
@@ -136,6 +137,10 @@ if ($action == "addform") {
     $template->assign("tl", $tl);
     $template->assign("task", $thistask);
     $template->assign("pid", $id);
+    $taskStatus = Status::getStatusByType("task");
+    $template->assign("taskStatus",$taskStatus);
+    $template->assign("parentTasks",$parentTasks);
+    
     $template->display("edittask.tpl");
 } elseif ($action == "edit") {
     // check if user has appropriate permissions

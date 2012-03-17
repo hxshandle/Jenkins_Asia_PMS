@@ -228,14 +228,14 @@ class tasklist
         $taskobj = new task();
         while ($list = mysql_fetch_array($sel))
         {
-            $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND valid=1 ORDER BY `end` ASC");
+            $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND valid=1 ORDER BY `end_date` ASC");
             $list['tasks'] = array();
             while ($tasks = mysql_fetch_array($sel2))
             {
                 array_push($list['tasks'], $taskobj->getTask($tasks["ID"]));
             }
 
-            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND valid=0 ORDER BY `end` ASC");
+            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND valid=0 ORDER BY `end_date` ASC");
             $list['oldtasks'] = array();
             while ($oldtasks = mysql_fetch_array($sel3))
             {
@@ -297,7 +297,7 @@ class tasklist
 
         $taskobj = new task();
 
-        $sel = mysql_query("SELECT ID FROM tasks WHERE `liste` = $id AND `status` = $status ORDER BY ID DESC");
+        $sel = mysql_query("SELECT ID FROM tasks WHERE `liste` = $id AND `valid` = $status ORDER BY ID DESC");
         $tasks = array();
         while ($task = mysql_fetch_array($sel))
         {

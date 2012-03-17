@@ -25,7 +25,7 @@
 		<select type="text" class="text" name="parent" realname="{#parent#}"  id="parent{$lists[list].ID}" required = "1" >
 			<option value = "-1">{#chooseone#}</option>
       {section name=parentTask loop=$lists[list].tasks}
-	      <option value = "{$lists[list].tasks[parentTask].ID}">{$lists[list].tasks[parentTask].name}</option>
+	      <option value = "{$lists[list].tasks[parentTask].ID}">{$lists[list].tasks[parentTask].title}</option>
 	    {/section}
 		</select>
 	</div>
