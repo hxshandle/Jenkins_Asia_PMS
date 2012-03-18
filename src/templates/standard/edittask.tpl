@@ -29,36 +29,76 @@
 
 					<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" value="{$task.title}" name="title" id="title" realname="{#title#}" required="1" /></div>
 					<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text"   rows="3" cols="0" >{$task.text}</textarea></div></div>
-					<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" value="{$task.endstring}" name="end"  id="end"  /></div>
+          <div class="row"><label for="location">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location" required = "1" value = "{$task.location}" /></div>
 
-					<div class="datepick">
-						<div id = "datepicker_task" class="picker" style = "display:none;"></div>
-					</div>
+          <div class="row"><label for="status">{#status#}:</label>
+            <select type="text" class="text" name="status" realname="{#status#}"  id="status" required = "1" >
+            {section name = idx loop=$taskStatus}
+              {if $taskStatus[idx].id == $task.status}
+                <option selected value = "{$taskStatus[idx].id}">{$taskStatus[idx].value}</option>
+              {else}
+                <option value = "{$taskStatus[idx].id}">{$taskStatus[idx].value}</option>
+              {/if}
+            {/section}
+            </select>
+          </div>
+          {*parent task*}
+          <div class="row"><label for="parent">{#parentTask#}:</label>
+            <select type="text" class="text" name="parent" realname="{#parent#}"  id="parent" required = "1" >
+              <option value = "-1">{#chooseone#}</option>
+              {section name=parentTask loop=$parentTasks}
+                {if $parentTasks[parentTask].ID != $task.ID}
+                <option value = "{$parentTasks[parentTask].ID}" {if $parentTasks[parentTask].ID==$task.parent}selected{/if}>{$parentTasks[parentTask].title}</option>
+                {/if}
+              {/section}
+            </select>
+          </div>
 
-					<script type="text/javascript">
-					  	theCal{$lists[list].ID} = new calendar({$theM},{$theY});
-						theCal{$lists[list].ID}.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
-						theCal{$lists[list].ID}.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
-						theCal{$lists[list].ID}.relateTo = "end";
-						theCal{$lists[list].ID}.getDatepicker("datepicker_task");
-					</script>
+          {*start date*}
+          <div class="row"><label for="start">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start" value = "{$task.start_date|truncate:"10":""}" required = "1" /></div>
+
+					<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" value="{$task.end_date|truncate:"10":""}" name="end"  id="end"  /></div>
+
+            <div class="datepick">
+              <div id = "datepicker_taskStart" class="picker" style = "display:none;"></div>
+            </div>
+
+            <div class="datepick">
+              <div id = "datepicker_taskEnd" class="picker" style = "display:none;"></div>
+            </div>
+
+            <script type="text/javascript">
+              theCalStart = new calendar({$theM},{$theY});
+              theCalStart.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+              theCalStart.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+              theCalStart.relateTo = "start";
+              theCalStart.dateFormat = "{$settings.dateformat}";
+              theCalStart.getDatepicker("datepicker_taskStart");
+
+              theCalEnd = new calendar({$theM},{$theY});
+              theCalEnd.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+              theCalEnd.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+              theCalEnd.relateTo = "end";
+              theCalEnd.dateFormat = "{$settings.dateformat}";
+              theCalEnd.getDatepicker("datepicker_taskEnd");
+            </script>
 
 					<div class="row"><label for="tasklist">{#tasklist#}:</label>
-						<select name="tasklist" class="select" id="tasklist" required="1" realname="{#tasklist#}">
+						<select name="tasklist" class="select" id="tasklist" required="1" realname="{#tasklist#}" disabled>
 						{section name=tasklist loop=$tasklists}
 						<option value="{$tasklists[tasklist].ID}" {if $task.listid == $tasklists[tasklist].ID}selected = "selected"{/if}>{$tasklists[tasklist].name}</option>
 						{/section}</select>
 					</div>
 
-                                        <div class="row">
-                                                <label for="assigned" >{#assignto#}:</label>
-                                                <select name = "assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}">
-                                                        <option value="-1">{#chooseone#}</option>
-                                                        {section name=member loop=$members}
-                                                                <option value="{$members[member].ID}" {if in_array($members[member].ID, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
-                                                        {/section}
-                                                </select>
-                                        </div>
+          <div class="row">
+                  <label for="assigned" >{#assignto#}:</label>
+                  <select name = "assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}">
+                          <option value="-1">{#chooseone#}</option>
+                          {section name=member loop=$members}
+                                  <option value="{$members[member].ID}" {if in_array($members[member].ID, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
+                          {/section}
+                  </select>
+          </div>
 
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
