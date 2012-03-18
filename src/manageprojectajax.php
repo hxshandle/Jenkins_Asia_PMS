@@ -366,6 +366,74 @@ switch ($action){
       echo "Fail";
     }
     break;
+  case "addOrder":
+    $project = getArrayVal($_POST, "projectId");
+    $orderName = getArrayVal($_POST,"orderName"); 
+    $orderQuantity = getArrayVal($_POST,"orderQuantity");
+    $orderTime = getArrayVal($_POST,"orderTime"); 
+    $orderDesc = getArrayVal($_POST,"orderDesc");
+    $order = new Order();
+    $orderId=$order->add($orderName,$project,$orderQuantity,$orderDesc,$orderTime,14);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;     
+ case "priceOrder":
+    $orderId = getArrayVal($_GET, "id");
+    $order = new Order();
+    $orderObj = $order->get($orderId);
+    $template->assign("order",$orderObj);
+    $template->assign("currency",Currency::$Currencys);
+    $template->assign("templateName", "priceOrderDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;    
+ case "saveOrder":
+    $project = getArrayVal($_POST, "projectId");
+    $editOrderId = getArrayVal($_POST,"orderId");
+    $editCurrencyInner = getArrayVal($_POST,"currencyInner");
+    $editCurrencyExt = getArrayVal($_POST,"currencyExt");
+    $editInnerCost = getArrayVal($_POST,"innerCost");    
+    $editExternalCost = getArrayVal($_POST,"externalCost");
+    $finance = new Finance();
+    $financeId=$finance->add('',$project, $editInnerCost,$editCurrencyInner,$editExternalCost,$editCurrencyExt,1,1,$editOrderId);
+    $order = new Order();
+    $orderId=$order->agree($editOrderId);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
+ case "reloadorder":
+    $projectId = getArrayVal($_GET, "id");
+    $projectTabs = new ProjectTabs;
+    $orders = $projectTabs->getOrderTabByCustomer($projectId,$_SESSION['userid']);
+    $template->assign("orderTab", $orders);
+    $template->display("orderdetails.tpl");
+    break; 
+
+ case "agreeOrder":
+    $editOrderId = getArrayVal($_GET,"orderId");
+    $order = new Order();
+    $orderId=$order->accept($editOrderId);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }   
+    break; 
+ case "closeOrder":
+    $editOrderId = getArrayVal($_GET,"orderId");
+    $order = new Order();
+    $orderId=$order->close($editOrderId);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }   
+    break; 
   default:
     break;
 }

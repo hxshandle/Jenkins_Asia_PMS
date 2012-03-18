@@ -53,6 +53,13 @@ class ProjectTabs {
     $memberData = $project->getProjectMembers($projectId);
     return $memberData;
   }
+  
+    //get ORder by msj
+  function getOrderTabByCustomer($projectId,$customerId){
+    $order = new Order();
+    $orderData = $order->getOrdersByCustomer($projectId,$customerId);
+    return $orderData;
+  }
 }
 
 ?>

@@ -498,6 +498,7 @@ ENGINE = MyISAM");
   `end_time` DATETIME NULL ,
   `status` INT(10) NOT NULL ,
   `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `quantity` INT(10) NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM;");
     // Checks if tables could be created
