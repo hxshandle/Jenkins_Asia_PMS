@@ -443,6 +443,7 @@ ENGINE = MyISAM");
   `ID` INT NOT NULL AUTO_INCREMENT ,
   `status` INT(10) NOT NULL,
   `submitter` INT(10) NOT NULL ,
+  `name` VARCHAR(255) NOT NULL ,
   `submit_time` DATETIME NOT NULL ,
   `approver` INT(10) ,
   `approve_time` DATETIME NULL ,
@@ -498,6 +499,7 @@ ENGINE = MyISAM");
   `end_time` DATETIME NULL ,
   `status` INT(10) NOT NULL ,
   `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `quantity` INT(10) NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM;");
     // Checks if tables could be created

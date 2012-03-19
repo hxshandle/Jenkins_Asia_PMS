@@ -53,6 +53,20 @@ class ProjectTabs {
     $memberData = $project->getProjectMembers($projectId);
     return $memberData;
   }
+  
+    //get ORder by msj
+  function getOrderTabByCustomer($projectId,$customerId){
+    $order = new Order();
+    $orderData = $order->getOrdersByCustomer($projectId,$customerId);
+    return $orderData;
+  }
+  
+      //get Ecn by msj
+  function getEcnTab($projectId,$customerId){
+    $ecn = new EngineeringChangeNote();
+    $ecnData = $ecn->getEcnsByProjectId($projectId,$customerId);
+    return $ecnData;
+  }
 }
 
 ?>

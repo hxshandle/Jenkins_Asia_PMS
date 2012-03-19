@@ -366,6 +366,136 @@ switch ($action){
       echo "Fail";
     }
     break;
+  case "addOrder":
+    $project = getArrayVal($_POST, "projectId");
+    $orderName = getArrayVal($_POST,"orderName"); 
+    $orderQuantity = getArrayVal($_POST,"orderQuantity");
+    $orderTime = getArrayVal($_POST,"orderTime"); 
+    $orderDesc = getArrayVal($_POST,"orderDesc");
+    $order = new Order();
+    $orderId=$order->add($orderName,$project,$orderQuantity,$orderDesc,$orderTime,14);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;     
+ case "priceOrder":
+    $orderId = getArrayVal($_GET, "id");
+    $order = new Order();
+    $orderObj = $order->get($orderId);
+    $template->assign("order",$orderObj);
+    $template->assign("currency",Currency::$Currencys);
+    $template->assign("templateName", "priceOrderDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;    
+ case "saveOrder":
+    $project = getArrayVal($_POST, "projectId");
+    $editOrderId = getArrayVal($_POST,"orderId");
+    $editCurrencyInner = getArrayVal($_POST,"currencyInner");
+    $editCurrencyExt = getArrayVal($_POST,"currencyExt");
+    $editInnerCost = getArrayVal($_POST,"innerCost");    
+    $editExternalCost = getArrayVal($_POST,"externalCost");
+    $finance = new Finance();
+    $financeId=$finance->add('',$project, $editInnerCost,$editCurrencyInner,$editExternalCost,$editCurrencyExt,1,1,$editOrderId);
+    $order = new Order();
+    $orderId=$order->agree($editOrderId);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
+ case "reloadorder":
+    $projectId = getArrayVal($_GET, "id");
+    $projectTabs = new ProjectTabs;
+    $orders = $projectTabs->getOrderTabByCustomer($projectId,$_SESSION['userid']);
+    $template->assign("orderTab", $orders);
+    $template->display("orderdetails.tpl");
+    break;
+ case "agreeOrder":
+    $editOrderId = getArrayVal($_GET,"orderId");
+    $order = new Order();
+    $orderId=$order->accept($editOrderId);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }   
+    break; 
+ case "closeOrder":
+    $editOrderId = getArrayVal($_GET,"orderId");
+    $order = new Order();
+    $orderId=$order->close($editOrderId);
+    if($orderId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }   
+    break;
+   case "addEcn":
+    $project = getArrayVal($_POST, "projectId");
+    $ecnName = getArrayVal($_POST,"ecnName"); 
+    $description = getArrayVal($_POST,"ecnDescription");
+    $deliverable = getArrayVal($_POST,"deliverable"); 
+    $deliverableTmp = new DeliverableItem();
+    $deliverableObj = $deliverableTmp->getItem($deliverable);
+    $enc = new EngineeringChangeNote();
+    $encId=$enc->add($ecnName,$description,$project,$deliverableObj[phase],$deliverable);
+    if($encId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
+ case "reloadecn":
+    $projectId = getArrayVal($_GET, "id");
+    $projectTabs = new ProjectTabs;
+    $eccs = $projectTabs->getEcnTab($projectId,$_SESSION['userid']);
+    $template->assign("ecnTab", $eccs);
+    $template->display("ecndetails.tpl");
+    break;
+
+ case "editApproveEcn":
+    $ecnId = getArrayVal($_GET, "id");
+    $ecn = new EngineeringChangeNote();
+    $ecnObj = $ecn->get($ecnId);
+    $template->assign("ecn",$ecnObj);
+    $template->assign("templateName", "approveEcnDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+ case "editRejectEcn":
+    $ecnId = getArrayVal($_GET, "id");
+    $ecn = new EngineeringChangeNote();
+    $ecnObj = $ecn->get($ecnId);
+    $template->assign("ecn",$ecnObj);
+    $template->assign("templateName", "rejectEcnDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+
+ case "approveEcn":
+   $ecnId = getArrayVal($_POST, "ecnId");
+   $commit = getArrayVal($_POST, "commit");
+   $ecn = new EngineeringChangeNote();
+   $ret1 = $ecn->approve($ecnId,$_SESSION['userid'],$commit);
+   if($ret1){
+     echo "Ok";
+   }else{
+     echo "Fail";
+   }
+   break;
+ case "rejectEcn":
+   $ecnId = getArrayVal($_POST, "ecnId");
+   $commit = getArrayVal($_POST, "commit");
+   $ecn = new EngineeringChangeNote();
+   $ret1 = $ecn->reject($ecnId,$_SESSION['userid'],$commit);
+   if($ret1){
+     echo "Ok";
+   }else{
+     echo "Fail";
+   }
+   break;
+
   default:
     break;
 }

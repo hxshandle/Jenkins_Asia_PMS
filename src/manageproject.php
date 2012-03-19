@@ -693,9 +693,16 @@ if ($action == "editform")
     $template->assign("sampleRequestTab", $sampleRequestTab);
     $memberTab = $tabs->getMemberTab($id); 
     $template->assign("memberTab", $memberTab);
+    $ecnTab = $tabs->getEcnTab($id,$_SESSION['userid']);
+    $template->assign("ecnTab", $ecnTab);
+    $deliverableTmp = new DeliverableItem();
+    $deliverables = $deliverableTmp->getDeliverableItemsByProjectId($id);
+    $template->assign("deliverables", $deliverables);
     $myuser = new user();
     $availableUsers = $myuser->getAvailableUser($id);
     $template->assign("availableUsers", $availableUsers);
+    $orderTab = $tabs->getOrderTabByCustomer($id,$_SESSION['userid']); 
+    $template->assign("orderTab", $orderTab);
     $template->assign("projectStatus",$projectStatus);
     $isProjectLeader = $_SESSION['userid'] == $tproject['project_leader'];
     $isCustomerLeader = $_SESSION['userid'] == $tproject['customer_leader'];
