@@ -443,6 +443,7 @@ ENGINE = MyISAM");
   `ID` INT NOT NULL AUTO_INCREMENT ,
   `status` INT(10) NOT NULL,
   `submitter` INT(10) NOT NULL ,
+  `name` VARCHAR(255) NOT NULL ,
   `submit_time` DATETIME NOT NULL ,
   `approver` INT(10) ,
   `approve_time` DATETIME NULL ,

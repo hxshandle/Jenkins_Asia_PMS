@@ -167,7 +167,7 @@ class DeliverableItem {
   
   function getDeliverableItemsByProjectId($id){
     $id = (int) $id;
-    $sql = "select * from deliverable_item where `project` = $id";
+    $sql = "select * from deliverable_item where `project` = $id and valid = 1";
     $sel = mysql_query($sql);
     $ret = array();
     while($items = mysql_fetch_array($sel)){

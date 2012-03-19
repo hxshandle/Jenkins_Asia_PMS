@@ -60,6 +60,13 @@ class ProjectTabs {
     $orderData = $order->getOrdersByCustomer($projectId,$customerId);
     return $orderData;
   }
+  
+      //get Ecn by msj
+  function getEcnTab($projectId,$customerId){
+    $ecn = new EngineeringChangeNote();
+    $ecnData = $ecn->getEcnsByProjectId($projectId,$customerId);
+    return $ecnData;
+  }
 }
 
 ?>
