@@ -500,7 +500,7 @@ class project {
         } else {
             $start = 0;
         }
-        $sql1 = mysql_query("SELECT p.ID,p.user,p.projekt as project,u.name,u.title,t.location,u.email,u.tel1,u.tel2 FROM user u,projekte_assigned p left join tasks_assigned ta on p.user = ta.user left join tasks t on ta.task = t.ID where p.user = u.ID and projekt = $project LIMIT $start,$lim");
+        $sql1 = mysql_query("SELECT distinct p.ID,p.user,p.projekt as project,u.name,u.title,t.location,u.email,u.tel1,u.tel2 FROM user u,projekte_assigned p left join tasks_assigned ta on p.user = ta.user left join tasks t on ta.task = t.ID where p.user = u.ID and projekt = $project LIMIT $start,$lim");
         while($row = mysql_fetch_array($sql1)){
              array_push($members, $row);
         }

@@ -308,7 +308,7 @@
         gantt.create("gantt");
         gantt.showDescTask(true,'n,s-f');
         gantt.showDescProject(true,'n,d');
-        gantt.loadData("data.xml",true,true);
+        gantt.loadData("ganttservice.php?action=load&&id=1",true,true);
 </script>
 
 

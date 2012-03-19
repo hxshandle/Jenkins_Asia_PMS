@@ -24,8 +24,20 @@ class Phase {
     $sql = "select * from phase where `id` = '$id'";
     $query = mysql_query($sql);
     $ret = array();
+    $start="";
+    $end="";
     if(!empty($query)){
       $ret = mysql_fetch_array($query);
+      $sql1 = "select min(start_date), max(end_date) from deliverable_item where phase =$id";
+      $q1 = mysql_query($sql1);
+      if($q1){
+        $row = mysql_fetch_row($q1);
+        $start = $row[0];
+        $end = $row[1];
+      }
+      $ret["start_date"]=$start;
+      $ret["end_date"]=$end;
+      
     }
     return $ret;
   }
@@ -124,7 +136,8 @@ class Phase {
     $query = mysql_query($sql);
     $arr = array();
     while ($row = mysql_fetch_array($query)) {
-      array_push($arr, $row);
+      $phase = $this->get($row["ID"]);
+      array_push($arr, $phase);
     }
     return $arr;
   }
