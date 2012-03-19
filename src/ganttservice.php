@@ -19,6 +19,7 @@ switch ($action){
     $project = new project();
     $ganttBuilder = new GanttXml();
     $text = $ganttBuilder->buildProject($projectId);
+    header( 'Content-Type:   text/xml '); 
     echo $text;
     break;
   default:

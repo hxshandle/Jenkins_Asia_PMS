@@ -272,7 +272,7 @@
 				<a href="javascript:void(0);" id="gantt_toggle" class="win_block" onclick = "toggleBlock('gantt');"></a>
 				<h2><img src="./templates/standard/images/symbols/miles.png" alt="" />{#milestones#}</h2>
 			</div>
-			<div id ="gantt" style="height:600px;">
+			<div id ="gantt" style="height:500px;">
 
 			</div>
 
@@ -308,7 +308,7 @@
         gantt.create("gantt");
         gantt.showDescTask(true,'n,s-f');
         gantt.showDescProject(true,'n,d');
-        gantt.loadData("ganttservice.php?action=load&&id=1",true,true);
+        gantt.loadData("ganttservice.php?action=load&&id={$project.ID}",true,true);
 </script>
 
 

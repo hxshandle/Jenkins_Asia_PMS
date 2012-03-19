@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<projects>
+  <project id="1" name="Project-A" startdate="2011,01,01">
+    <task id="1">
+      <name>Phase 1 </name>
+      <est>2012,01,03</est>
+      <duration>696</duration>
+      <percentcompleted>20</percentcompleted>
+      <predecessortasks/>
+      <childtasks/>
+    </task>
+    <task id="2">
+      <name>Phase2</name>
+      <est>2012,04,01</est>
+      <duration>32</duration>
+      <percentcompleted>20</percentcompleted>
+      <predecessortasks/>
+      <childtasks/>
+    </task>
+    <task id="3">
+      <name>phase 4</name>
+      <est>2012,05,01</est>
+      <duration>40</duration>
+      <percentcompleted>20</percentcompleted>
+      <predecessortasks/>
+      <childtasks/>
+    </task>
+  </project>
+</projects>
