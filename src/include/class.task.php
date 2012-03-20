@@ -472,6 +472,16 @@ class task
         }
     }
 
+    function getTasksByDeliverableId($id){
+      $id = (int) $id;
+      $sql = "select * from tasks where deliverable_item = $id";
+      $sel = mysql_query($sql);
+      $ret = array();
+      while($row = mysql_fetch_array($sel)){
+        array_push($ret, $row);
+      }
+      return $ret;
+    }
     /**
      * Returns all late tasks of a user from a given project
      *

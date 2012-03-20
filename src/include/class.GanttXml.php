@@ -29,41 +29,73 @@ class GanttXml {
 
     $projects = $doc->createElement('projects');
     $projects = $doc->appendChild($projects);
-    
-    $projectEl = $doc->createElement("project");
-    $projectEl->setAttribute("id", $projectObj["ID"]);
-    $projectEl->setAttribute("name", $projectObj["name"]);
-    $startDate = str_replace("-", ",", $projectObj["start_date"]);
-    $startDate = substr($startDate, 0, 10);
-    $projectEl->setAttribute("startdate", $startDate);
-    $projects->appendChild($projectEl);
+
     
     foreach ($phaseObjs as $phaseItem) {
-      $phaseEl = $doc->createElement("task");
-      $phaseEl->setAttribute("id", $phaseItem["ID"]);
-      
-      $phaseNameEl=$doc->createElement("name",$phaseItem["name"]);
-      $phaseEl->appendChild($phaseNameEl);
-      
+      $phaseEl = $doc->createElement("project");
+      $phaseEl->setAttribute("id", "phase-".$phaseItem["ID"]);
+      $phaseEl->setAttribute("name", $phaseItem["name"]);
       $phaseStartDate = str_replace("-", ",", substr($phaseItem["start_date"],0,10));
-      $estEl = $doc->createElement("est",$phaseStartDate);
-      $phaseEl->appendChild($estEl);
+      $phaseEl->setAttribute("startdate", $phaseStartDate);
+ 
+      //build deliverable items
+      $deliverableItems = $deliverableItem->getDeliverableItemsByPhaseId($phaseItem["ID"], 1000);
+      foreach ($deliverableItems as $deliverItem) {
+        $deliverItemEl=$doc->createElement("task");
+        $deliverItemEl->setAttribute("id", "deliverable-".$deliverItem["ID"]);
+        
+        $deliverItemNameEl=$doc->createElement("name",$deliverItem["name"]);
+        $deliverItemEl->appendChild($deliverItemNameEl);
+        
+        $deliverItemStartDate = str_replace("-", ",", substr($deliverItem["start_date"],0,10));
+        $deliverItemEstEl = $doc->createElement("est",$deliverItemStartDate);
+        $deliverItemEl->appendChild($deliverItemEstEl);
+        
+        $deliverItemDruation =  $this->getDurationHours($deliverItem["start_date"], $deliverItem["end_date"]);
+        $deliverItemDurEl = $doc->createElement("duration",$deliverItemDruation);
+        $deliverItemEl->appendChild($deliverItemDurEl);
+        
+        $deliverItemCompletedPer = 30;
+        $deliverItemCompletedEl = $doc->createElement("percentcompleted",$deliverItemCompletedPer);
+        $deliverItemEl->appendChild($deliverItemCompletedEl);
+        
+        $deliverItemPreEl = $doc->createElement("predecessortasks");
+        $deliverItemEl->appendChild($deliverItemPreEl);
+        
+        $tasksEl = $doc->createElement("childtasks");
+        
+        $tasks = $task->getTasksByDeliverableId($deliverItem["ID"]);
+        foreach($tasks as $t){
+          $taskEl=$doc->createElement("task");
+          $taskEl->setAttribute("id", "task-".$t["ID"]);
+          
+          $taskNameEl = $doc->createElement("name",$t["title"]);
+          $taskEl->appendChild($taskNameEl);
+          
+          $taskStartDate = str_replace("-", ",", substr($t["start_date"],0,10));
+          $taskEstEl = $doc->createElement("est",$taskStartDate);
+          $taskEl->appendChild($taskEstEl);
+          
+          $taskDuration = $this->getDurationHours($t["start_date"], $t["end_date"]);
+          $taskDurEl = $doc->createElement("duration",$taskDuration);
+          $taskEl->appendChild($taskDurEl);
+          
+          $taskCompletedPer = 40;
+          $taskCompletedEl = $doc->createElement("percentcompleted",$taskCompletedPer);
+          $taskEl->appendChild($taskCompletedEl);
+          
+          $taskEl->appendChild($doc->createElement("predecessortasks"));
+          $taskEl->appendChild($doc->createElement("childtasks"));
+          
+          
+          $tasksEl->appendChild($taskEl);
+        }
+        $deliverItemEl->appendChild($tasksEl);
+        $phaseEl->appendChild($deliverItemEl);
+        
+      }
       
-      $phaseDruation= $this->getDurationHours($phaseItem["start_date"], $phaseItem["end_date"]);
-      $phaseDruationEl = $doc->createElement("duration",$phaseDruation);
-      $phaseEl->appendChild($phaseDruationEl);
-      
-      $phaseCompletedPer = 20;
-      $phaseCompletedEl = $doc->createElement("percentcompleted",$phaseCompletedPer);
-      $phaseEl->appendChild($phaseCompletedEl);
-      
-      $phasePreEl = $doc->createElement("predecessortasks");
-      $phaseEl->appendChild($phasePreEl);
-      
-      $deliverableItemsEl = $doc->createElement("childtasks");
-      $phaseEl->appendChild($deliverableItemsEl);
-      
-      $projectEl->appendChild($phaseEl);
+      $projects->appendChild($phaseEl);
     }
      return $doc->saveXML();
     
