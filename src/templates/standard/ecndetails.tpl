@@ -9,7 +9,11 @@
       <th>{#createtime#}</th>
     <tr>
   {section name = ecn loop = $ecnTab}
-    <tr>
+    {if $smarty.section.ecn.index % 2 == 0}
+      <tr class="color-a">
+    {else}
+      <tr class="color-b">
+    {/if}
       <td>
         {if $ecnTab[ecn].approveId == 1}
         <a class="tool_edit" title="{#approved#}" href=javascript:void(0);" onclick="approveEditEcnDlg({$ecnTab[ecn].ID});"></a>

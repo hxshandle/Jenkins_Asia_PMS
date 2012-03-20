@@ -1,5 +1,8 @@
 {config_load file=lng.conf section = "strings" scope="global" }
   
+
+
+
 <table style="width: 100%" cellspadding=0 cellspacing=0>
     <tr>   
       <th>{#financename#}</th>
@@ -11,7 +14,11 @@
   {section name = finance loop = $financeTab}
   {assign var="sumCost" value=$financeTab[finance].inner_cost+$sumCost}
 
-    <tr>
+    {if $smarty.section.finance.index % 2 == 0}
+      <tr class="color-a">
+    {else}
+      <tr class="color-b">
+    {/if}
       <td align  = "center">{$financeTab[finance].name}</td>
       <td  align  = "center">{$financeTab[finance].inner_cost_currency}{$financeTab[finance].inner_cost}</td>
       <td  align  = "center">{$financeTab[finance].external_cost_currency}{$financeTab[finance].external_cost}</td>

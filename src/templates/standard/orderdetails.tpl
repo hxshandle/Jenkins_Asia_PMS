@@ -11,7 +11,11 @@
       <th>{#status#}</th>
     <tr>
   {section name = order loop = $orderTab}
-    <tr>
+    {if $smarty.section.order.index % 2 == 0}
+      <tr class="color-a">
+    {else}
+      <tr class="color-b">
+    {/if}
       <td align  = "center">{$orderTab[order].name}</td>
       <td  align  = "center">{$orderTab[order].quantity}</td>
       <td  align  = "center">{$orderTab[order].customerlead}</td>
