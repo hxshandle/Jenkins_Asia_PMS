@@ -15,7 +15,11 @@
       <th>{#operate#}</th>
     <tr>
   {section name = sampleRequest loop = $sampleRequestTab}
-    <tr>
+    {if $smarty.section.sampleRequest.index % 2 == 0}
+      <tr class="color-a">
+    {else}
+      <tr class="color-b">
+    {/if}
       <td>
         {if $sampleRequestTab[sampleRequest].approveId == 25}
         <a class="tool_edit" title="{#approved#}" href=javascript:void(0);" onclick="approveEditRequestDlg({$sampleRequestTab[sampleRequest].ID});"></a>

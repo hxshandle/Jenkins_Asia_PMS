@@ -8,7 +8,11 @@
       <th>{#phone#}</th>
     <tr>
   {section name = member loop = $memberTab}
-    <tr>
+     {if $smarty.section.member.index % 2 == 0}
+      <tr class="color-a">
+    {else}
+      <tr class="color-b">
+    {/if}
       <td align  = "center">{$memberTab[member].name}</td>
       <td  align  = "center">{$memberTab[member].title}</td>
       <td  align  = "center">{$memberTab[member].location}</td>

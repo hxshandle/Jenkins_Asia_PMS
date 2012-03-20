@@ -11,8 +11,12 @@
       <th>{#totalcount#}</th>
       <th>{#availablecount#}</th>
     <tr>
-  {section name = sample loop = $sampleTab}
-    <tr>
+  {section name = sample loop = $sampleTab}    
+   {if $smarty.section.sample.index % 2 == 0}
+      <tr class="color-a">
+    {else}
+      <tr class="color-b">
+    {/if}
       <td align  = "center">{$sampleTab[sample].name}</td>
       <td  align  = "center">{$sampleTab[sample].total_count}</td>
       <td  align  = "center">{$sampleTab[sample].available_count}</td>
