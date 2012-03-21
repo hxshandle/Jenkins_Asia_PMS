@@ -7,8 +7,8 @@
 				<input type="text" name="name" id="name" required="1" realname="{#name#}" />
 			</div>
 			<div class="row">
-				<label for="company">{#company#}:</label>
-				<input type="text" name="company" id="company" realname="{#company#}" />
+				<label for="company">{#title#}:</label>
+				<input type="text" name="title" id="title" realname="{#title#}" />
 			</div>
 			<div class="row">
 				<label for="email">{#email#}:</label>
@@ -17,10 +17,6 @@
 			<div class="row">
 				<label for="pass">{#password#}:</label>
 				<input type="text" name="pass" id="pass" required="1" realname="{#password#}" />
-			</div>
-			<div class = "row">
-				<label id = "rate">{#rate#}:</label>
-				<input type = "text" name = "rate" id = "rate" />
 			</div>
 
 			{if $projects} {*only show this block if there are any projects to choose*}
@@ -40,16 +36,25 @@
 				<div class="clear_both_b"></div>
 			{/if}
 			
+
 			<div class="row">
 				<label>{#role#}:</label>
-				<select name = "role" realname = "{#role#}" required="1" exclude = "-1" id = "roleselect">
+				<select name = "roletype" realname = "{#role#}" required="1" exclude = "-1" id = "roletypeselect">
 					<option value="-1" selected="selected">{#chooseone#}</option>
-					{section name = role loop=$roles}
-						<option value = "{$roles[role].ID}" id="role{$roles[role].ID}">{$roles[role].name}</option>
-					{/section}
+					
+						<option value = "1" >{#superAdmin#}</option>
+            <option value = "2" >{#admin#}</option>
+            <option value = "3" >{#manageLv1#}</option>
+            <option value = "4" >{#manageLv2#}</option>
+            <option value = "5" >{#staff#}</option>
+            <option value = "6" >{#customerLv1#}</option>
+            <option value = "7" >{#customerLv2#}</option>
+            <option value = "8" >{#supplierLv1#}</option>
+            <option value = "9" >{#supplierLv2#}</option>
+            
+					
 				</select>
 			</div>
-			
 			<div class="clear_both_b"></div>
 			
 			<div class="row">

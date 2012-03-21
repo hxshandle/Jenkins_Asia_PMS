@@ -159,27 +159,9 @@
 
 	<div class="content-spacer"></div>
 
-{* Rollen *}
-{include file = "rolesadmin.tpl"}
-{*Roles End*}
-
-				<div class="tablemenue">
-					<div class="tablemenue-in">
-						{if $userpermissions.admin.add}
-						<a class="butn_link" href="javascript:blindtoggle('form_addmyroles');" id="add_butn_myprojects" onclick="toggleClass('addrolelink','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_myprojects','smooth','nosmooth');">{#addrole#}</a>
-						{/if}
 
 
-					</div>
-				</div>
 
-		</div> {*block END*}
-
-{literal}
-	<script type = "text/javascript">
-		var accord_roles = new accordion('acc-roles');
-	</script>
-	{/literal}
 
 <div class="content-spacer"></div>
 
