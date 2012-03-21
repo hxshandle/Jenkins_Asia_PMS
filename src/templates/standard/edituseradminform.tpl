@@ -50,6 +50,20 @@
 														<td class="right"><input type = "text" class="text" value = "{$user.name}" name = "name" id="name" required="1" realname="{#name#}" tabindex="1" /></td>
 													</tr>
 												</tbody>
+                        
+                        <tbody class="color-b">
+													<tr>
+														<td><label for = "fullName">{#fullName#}:</label></td>
+														<td class="right"><input type = "text" class="text" value = "{$user.full_name}" name = "fullName" id="fullName" required="1" realname="{#fullName#}" tabindex="2" /></td>
+													</tr>
+												</tbody>
+                        
+                        <tbody class="color-a">
+													<tr>
+														<td><label for = "title">{#title#}:</label></td>
+														<td class="right"><input type = "text" class="text" value = "{$user.title}" name = "title" id="title" required="1" realname="{#title#}" tabindex="2" /></td>
+													</tr>
+												</tbody>
 
 												<tbody class="color-b">
 													<tr>
@@ -232,10 +246,17 @@
 													<tr>
 														<td><label>{#permissions#}:</label></td>
 														<td class="right">
-															<select name = "role">
-																{section name = role loop=$roles}
-																	<option value = "{$roles[role].ID}" {if $roles[role].ID == $user.role.ID}selected{/if}>{$roles[role].name}</option>
-																{/section}
+															<select name = "roleType">
+																<option value = "1" {if $user.role_type == "1"}selected{/if}>{#superAdmin#}</option>
+                                <option value = "2" {if $user.role_type == "2"}selected{/if}>{#admin#}</option>
+                                <option value = "3" {if $user.role_type == "3"}selected{/if}>{#manageLv1#}</option>
+                                <option value = "4" {if $user.role_type == "4"}selected{/if}>{#manageLv2#}</option>
+                                <option value = "5" {if $user.role_type == "5"}selected{/if}>{#staff#}</option>
+                                <option value = "6" {if $user.role_type == "6"}selected{/if}>{#customerLv1#}</option>
+                                <option value = "7" {if $user.role_type == "7"}selected{/if}>{#customerLv2#}</option>
+                                <option value = "8" {if $user.role_type == "8"}selected{/if}>{#supplierLv1#}</option>
+                                <option value = "9" {if $user.role_type == "9"}selected{/if}>{#supplierLv2#}</option>
+
 															</select>
 														</td>
 													</tr>

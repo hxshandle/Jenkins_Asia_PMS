@@ -33,7 +33,7 @@ class user
 	 * @param float $rate Hourly rate
      * @return int $insid ID of the newly created member
      */
-    function add($name, $email, $company, $pass, $locale = "", $tags = "", $rate = 0.0)
+    function add($name,$fullName, $title,$roletype,$email, $company="", $pass, $locale = "", $tags = "", $rate = 0.0)
     {
         $name = mysql_real_escape_string($name);
         $email = mysql_real_escape_string($email);
@@ -45,7 +45,7 @@ class user
 
         $pass = sha1($pass);
 
-        $ins1 = mysql_query("INSERT INTO user (name,email,company,pass,locale,tags,rate) VALUES ('$name','$email','$company','$pass','$locale','$tags','$rate')");
+        $ins1 = mysql_query("INSERT INTO user (name,full_name,title,role_type,email,company,pass,locale,tags,rate) VALUES ('$name','$fullName','$title',$roletype,'$email','$company','$pass','$locale','$tags','$rate')");
 
         if ($ins1)
         {

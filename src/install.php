@@ -272,6 +272,9 @@ ENGINE = MyISAM");
 CREATE TABLE `user` (
   `ID` int(10)  auto_increment,
   `name` varchar(255) default '',
+  `full_name` varchar(255) default '',
+  `title` varchar(255) default '',
+  `role_type` INT(2) default 0,
   `email` varchar(255) default '',
   `tel1` varchar(255),
   `tel2` varchar(255) ,

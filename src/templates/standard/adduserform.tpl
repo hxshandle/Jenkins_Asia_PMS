@@ -3,11 +3,15 @@
 		<fieldset>
 
 			<div class="row">
-				<label for="name">{#name#}:</label>
-				<input type="text" name="name" id="name" required="1" realname="{#name#}" />
+				<label for="name">{#userName#}:</label>
+				<input type="text" name="name" id="name" required="1" realname="{#userName#}" />
+			</div>
+      <div class="row">
+				<label for="fullName">{#fullName#}:</label>
+				<input type="text" name="fullName" id="fullName" required="1" realname="{#fullName#}" />
 			</div>
 			<div class="row">
-				<label for="company">{#title#}:</label>
+				<label for="title">{#title#}:</label>
 				<input type="text" name="title" id="title" realname="{#title#}" />
 			</div>
 			<div class="row">

@@ -52,6 +52,10 @@ $projectLeader = getArrayVal($_POST, "projectLeader");
 $customerLeader = getArrayVal($_POST, "customerLeader");
 $supplierLeader = getArrayVal($_POST, "supplierLeader");
 
+$userTitle = getArrayVal($_POST, "title");
+$roleType = getArrayVal($_POST, "roletype");
+$fullName = getArrayVal($_POST, "fullName");
+
 $template->assign("mode", $mode);
 // get the available languages
 $languages = getAvailableLanguages();
@@ -144,7 +148,7 @@ if ($action == "index")
     }
     $sysloc = $settings["locale"];
 
-	$newid = $user->add($name, $email, $company, $pass, $sysloc, $tags, $rate);
+	$newid = $user->add($name,$fullName,$userTitle,$roleType, $email, $company, $pass, $sysloc, $tags, $rate);
     if ($newid)
     {
         if (!empty($assignto))
@@ -155,7 +159,9 @@ if ($action == "index")
             }
         }
         $roleobj = (object) new roles();
-        $roleobj->assign($role, $newid);
+        //$roleobj->assign($role, $newid);
+        //default set admin role, because now we use user.role_type to control
+        $roleobj->assign(1, $newid);
 
         if ($settings["mailnotify"])
         {
