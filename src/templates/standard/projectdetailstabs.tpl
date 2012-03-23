@@ -22,6 +22,7 @@
     <li class="tab"><a href="#tabecn">{#ecn#}</a></li>
     <li class="tab"><a href="#tabquality">{#quality#}</a></li>
     <li class="tab"><a href="#taborder">{#order#}</a></li>
+    <li class="tab"><a href="#tabpurchase">{#purchase#}</a></li>
   </ul>
   
   <div id="tabphase">{include file="phasetab.tpl"}</div>
@@ -32,7 +33,7 @@
   <div id="tabecn">{include file="ecntab.tpl"}</div>
   <div id="tabquality">{include file="qualitytab.tpl"}</div>
   <div id="taborder">{include file="ordertab.tpl"}</div>
-  
+  <div id="tabpurchase">{include file="purchasetab.tpl"}</div>
   
 </div>
 <div class="content-spacer"></div>

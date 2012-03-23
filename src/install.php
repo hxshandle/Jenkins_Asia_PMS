@@ -503,10 +503,32 @@ ENGINE = MyISAM");
   `status` INT(10) NOT NULL ,
   `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
   `quantity` INT(10) NOT NULL DEFAULT 0 ,
+  `inner_cost` INT(11)  ,
+  `inner_cost_currency` VARCHAR(3) ,
+  `external_cost` INT(11)  ,
+  `external_cost_currency` VARCHAR(3) ,
+  `published` TINYINT(4)  ,
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM;");
+    
+    $table30 = mysql_query("
+      CREATE  TABLE IF NOT EXISTS `purchase` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `project` INT(10) NOT NULL,
+  `desc` TEXT NULL ,
+  `submit_time` DATETIME NOT NULL ,
+  `end_time` DATETIME NULL ,
+  `status` INT(10) NOT NULL ,
+  `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `quantity` INT(10) NOT NULL DEFAULT 0 ,
+  `price` INT(11)  ,
+  `price_currency` VARCHAR(3) ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM;");    
+    
     // Checks if tables could be created
-    if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20 or !$table21 or !$table22 or !$table23 or !$table24 or !$table25 or !$table26 or !$table27 or !$table28 or !$table29) {
+    if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20 or !$table21 or !$table22 or !$table23 or !$table24 or !$table25 or !$table26 or !$table27 or !$table28 or !$table29 or !$table30) {
         $template->assign("errortext", "Error: Tables could not be created.");
         $template->display("error.tpl");
         die();

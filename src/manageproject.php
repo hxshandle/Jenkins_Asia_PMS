@@ -703,6 +703,8 @@ if ($action == "editform")
     $template->assign("availableUsers", $availableUsers);
     $orderTab = $tabs->getOrderTabByCustomer($id,$_SESSION['userid']); 
     $template->assign("orderTab", $orderTab);
+    $purchaseTab = $tabs->getPurchaseTab($id); 
+    $template->assign("purchaseTab", $purchaseTab);
     $template->assign("projectStatus",$projectStatus);
     $isProjectLeader = $_SESSION['userid'] == $tproject['project_leader'];
     $isCustomerLeader = $_SESSION['userid'] == $tproject['customer_leader'];

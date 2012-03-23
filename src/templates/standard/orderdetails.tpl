@@ -24,12 +24,11 @@
       <td  align  = "center">{$orderTab[order].external_cost_currency}{$orderTab[order].external_cost}</td>
       <td  align  = "center">{$orderTab[order].status}</td>
       <td>
-        {if $orderTab[order].statusId == 14}
+        {if $orderTab[order].statusId == 14 || $orderTab[order].statusId == 17}
         <a class="tool_edit" title="{#price#}" href=javascript:void(0);" onclick="priceOrderDlg({$orderTab[order].ID});"></a>
         {elseif $orderTab[order].statusId == 15}
         <a class="tool_edit" title="{#agree#}" href=javascript:void(0);" onclick="agreeOrderDlg({$orderTab[order].ID});"></a>
-        {elseif $orderTab[order].statusId == 16}
-        <a class="tool_edit" title="{#close#}" href=javascript:void(0);" onclick="closeOrderDlg({$orderTab[order].ID});"></a>
+        <a class="tool_edit" title="{#reject#}" href=javascript:void(0);" onclick="rejectOrderDlg({$orderTab[order].ID});"></a>
         {/if}
         </td>
     </tr>

@@ -67,6 +67,13 @@ class ProjectTabs {
     $ecnData = $ecn->getEcnsByProjectId($projectId,$customerId);
     return $ecnData;
   }
+  
+  function getPurchaseTab($projectId){
+    $purchase = new Purchase();
+    $purchaseData = $purchase->getPurchasesByProjectId($projectId);
+    return $purchaseData;
+  }
+  
 }
 
 ?>

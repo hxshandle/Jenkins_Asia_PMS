@@ -61,8 +61,8 @@ class Order {
     $status = Status::getId("order", "in_progress");
     return $this->updateStatus($id, $status);
   } 
-  function close($id){
-    $status = Status::getId("order", "closed");
+  function reject($id){
+    $status = Status::getId("order", "rejected");
     return $this->updateStatus($id, $status);  
   }
   private function updateStatus($id,$status){
@@ -88,6 +88,22 @@ class Order {
       return FALSE;
     }
   }
+  
+ function updatePrice($id,$endTime,$innercost,$innercostcurrency,$externalcost,$externalcostcurrency,$published){
+    $status = Status::getId("order", "in_progress");
+    $id = (int) $id;
+    $desc = mysql_escape_string($desc);
+    $sql = "update `order` set `inner_cost_currency`='$innercostcurrency',`inner_cost`=$innercost,`external_cost_currency`='$externalcostcurrency',`external_cost`='$externalcost',`published`='$published',`end_time`='$endTime',`status`=$status where ID = $id";
+    $upd = mysql_query($sql);
+    if($upd){
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
+  
+  
+  
   function getOrders($projectId){
     $sql = "select * from `order` where `project`=$projectId and `valid`=1";
     $query = mysql_query($sql);
@@ -99,7 +115,7 @@ class Order {
   }
   
   function getOrdersByCustomer($projectId,$customerId){
-    $sql = "select o.ID,o.name,o.quantity,(select u.name from user u where p.customer_leader = u.ID) as customerlead,p.supplier_leader as supplierlead,f.inner_cost,f.inner_cost_currency,f.external_cost,f.external_cost_currency,(select value from status s where o.status = s.ID) as status,o.status as statusId from `projekte` p,`order` o left join finance f on o.ID = f.order where o.project = p.ID and o.valid = 1 and p.customer_leader = $customerId and o.project=$projectId ";
+    $sql = "select o.ID,o.name,o.quantity,(select u.name from user u where p.customer_leader = u.ID) as customerlead,p.supplier_leader as supplierlead,o.inner_cost,o.inner_cost_currency,o.external_cost,o.external_cost_currency,(select value from status s where o.status = s.ID) as status,o.status as statusId,o.published from `projekte` p,`order` o  where o.project = p.ID and o.valid = 1 and p.customer_leader = $customerId and o.project=$projectId ";
     $query = mysql_query($sql);
     $arrOrder = array();
     while ($row = mysql_fetch_array($query)) {

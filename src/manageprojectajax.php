@@ -386,20 +386,21 @@ switch ($action){
     $orderObj = $order->get($orderId);
     $template->assign("order",$orderObj);
     $template->assign("currency",Currency::$Currencys);
+    $template->assign("flag",Flag::$Flags);
     $template->assign("templateName", "priceOrderDlg.tpl");
     $template->display("dlgmodal.tpl");
     break;    
  case "saveOrder":
     $project = getArrayVal($_POST, "projectId");
     $editOrderId = getArrayVal($_POST,"orderId");
+    $editEndTime = getArrayVal($_POST,"endTime");
     $editCurrencyInner = getArrayVal($_POST,"currencyInner");
+    $editPublished = getArrayVal($_POST,"published");
     $editCurrencyExt = getArrayVal($_POST,"currencyExt");
     $editInnerCost = getArrayVal($_POST,"innerCost");    
     $editExternalCost = getArrayVal($_POST,"externalCost");
-    $finance = new Finance();
-    $financeId=$finance->add('',$project, $editInnerCost,$editCurrencyInner,$editExternalCost,$editCurrencyExt,1,1,$editOrderId);
     $order = new Order();
-    $orderId=$order->agree($editOrderId);
+    $orderId=$order->updatePrice($editOrderId,$editEndTime, $editInnerCost,$editCurrencyInner,$editExternalCost,$editCurrencyExt,$editPublished);
     if($orderId){
       echo "Ok";
     }else{
@@ -423,10 +424,10 @@ switch ($action){
       echo "Fail";
     }   
     break; 
- case "closeOrder":
+ case "rejectOrder":
     $editOrderId = getArrayVal($_GET,"orderId");
     $order = new Order();
-    $orderId=$order->close($editOrderId);
+    $orderId=$order->reject($editOrderId);
     if($orderId){
       echo "Ok";
     }else{
@@ -495,6 +496,71 @@ switch ($action){
      echo "Fail";
    }
    break;
+case "addPurchase":
+    $project = getArrayVal($_POST, "projectId");
+    $purchaseName = getArrayVal($_POST,"purchaseName"); 
+    $purchaseQuantity = getArrayVal($_POST,"purchaseQuantity");
+    $purchaseDesc = getArrayVal($_POST,"purchaseDesc");
+    $purchase = new Purchase();
+    $purchaseId=$purchase->add($purchaseName,$project,$purchaseQuantity,$purchaseDesc,32);
+    if($purchaseId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
+    
+   case "reloadpurchase":
+    $projectId = getArrayVal($_GET, "id");
+    $projectTabs = new ProjectTabs;
+    $purchases = $projectTabs->getPurchaseTab($projectId);
+    $template->assign("purchaseTab", $purchases);
+    $template->display("purchasedetails.tpl");
+    break;  
+   case "pricePurchase":
+    $purchaseId = getArrayVal($_GET, "id");
+    $purchase = new Purchase();
+    $purchaseObj = $purchase->get($purchaseId);
+    $template->assign("purchase",$purchaseObj);
+    $template->assign("currency",Currency::$Currencys);
+    $template->assign("templateName", "pricePurchaseDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+
+ case "savePurchase":
+    $project = getArrayVal($_POST, "projectId");
+    $editPurchaseId = getArrayVal($_POST,"purchaseId");
+    $editEndTime = getArrayVal($_POST,"endTime");
+    $editCurrencyPrice = getArrayVal($_POST,"currencyPrice");
+    $editPrice = getArrayVal($_POST,"price");    
+    $purchase = new Purchase();
+    $purchaseId=$purchase->updatePrice($editPurchaseId,$editEndTime, $editPrice,$editCurrencyPrice);
+    if($purchaseId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }
+    break;
+ case "agreePurchase":
+    $editPurchaseId = getArrayVal($_GET,"purchaseId");
+    $purchase = new Purchase();
+    $purchaseId=$purchase->accept($editPurchaseId);
+    if($purchaseId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }   
+    break; 
+ case "rejectPurchase":
+    $editPurchaseId = getArrayVal($_GET,"purchaseId");
+    $purchase = new Purchase();
+    $purchaseId=$purchase->reject($editPurchaseId);
+    if($purchaseId){
+      echo "Ok";
+    }else{
+      echo "Fail";
+    }   
+    break;
 
   default:
     break;
