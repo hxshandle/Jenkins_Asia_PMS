@@ -24,7 +24,7 @@
 		<h1>{#desktop#}</h1>
 
 		{*Projects*}
-		{if $projectnum > 0}
+		{if $smarty.session.userRole != 7 && $smarty.session.userRole != 9}
 			<div class="projects">
 				<div class="headline">
 					<a href="javascript:void(0);" id="projecthead_toggle" class="{$projectbar}" onclick = "toggleBlock('projecthead');"></a>
@@ -69,7 +69,7 @@
 							{/if}
 								<tr {if $myprojects[project].daysleft < 0 && $myprojects[project].daysleft != ""} class="marker-late"{elseif $myprojects[project].daysleft == "0"} class="marker-today"{/if}>
 									<td>
-										{if $userpermissions.projects.close}
+										{if $smarty.session.userRole < 5}
 											<a class="butn_check" href="javascript:closeElement('proj_{$myprojects[project].ID}','manageproject.php?action=close&amp;id={$myprojects[project].ID}');" title="{#close#}"></a>
 										{/if}
 									</td>
@@ -89,9 +89,9 @@
 									</td>
 									<td style="text-align:right">{$myprojects[project].daysleft}&nbsp;&nbsp;</td>
 									<td class="tools">
-										{if $userpermissions.projects.edit}
+										{if $smarty.session.userRole < 5}
 											<a class="tool_edit" href="manageproject.php?action=editform&amp;id={$myprojects[project].ID}" title="{#edit#}" ></a>{/if}
-										{if $userpermissions.projects.del}
+										{if $smarty.session.userRole < 5}
 											<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'proj_{$myprojects[project].ID}\',\'manageproject.php?action=del&amp;id={$myprojects[project].ID}\')');"  title="{#delete#}"></a>
 										{/if}
 									</td>
@@ -126,7 +126,7 @@
 		{/if}{*Projects End*}
 
 		{*Tasks*}
-		{if $tasknum > 0}
+		{if 1 > 0}
 			<div class="tasks">
 				<div class="headline">
 					<a href="javascript:void(0);" id="taskhead_toggle" class="{$taskbar}" onclick = "toggleBlock('taskhead');"></a>
@@ -226,30 +226,10 @@
 			<div class="content-spacer"></div>
 		{/if}{*Tasks End*}
 
-		{*Milestones*}
-		<div class="miles">
-			<div class="headline">
-				<a href="javascript:void(0);" id="mileshead_toggle" class="{$milebar}" onclick = "toggleBlock('mileshead');"></a>
 
-				<div class="wintools">
-					<div class = "progress" id = "progress" style = "display:none;">
-						<img src = "templates/standard/images/symbols/loader-cal.gif" />
-					</div>
-				</div>
-
-				<h2>
-					<img src="./templates/standard/images/symbols/miles.png" alt="" />{#calendar#}
-				</h2>
-			</div>
-
-			<div class="block" id="mileshead" style = "{$tmilestyle}">
-				<div id = "thecal" class="bigcal"></div>
-			</div> {*block End*}
-		</div>	{*miles End*}
-		<div class="content-spacer"></div>{*Milestons END*}
 
 		{*Messages*}
-		{if $msgnum > 0}
+		{if 1 > 0}
 			<div class="msgs">
 				<div class="headline">
 					<a href="javascript:void(0);" id="activityhead_toggle" class="{$actbar}" onclick = "toggleBlock('activityhead');"></a>
