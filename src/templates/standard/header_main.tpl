@@ -25,7 +25,8 @@
 							<li class="profil-male"><a class = "{$mainclasses.profil}" href="manageuser.php?action=profile&amp;id={$userid}"><span>{#myaccount#}</span></a></li>
 							{/if}
 
-							 {if $userpermissions.admin.add}
+							 {*if $userpermissions.admin.add*}
+							 {if $smarty.session.userRole == "1" || $smarty.session.userRole == "2"} 
 							<li class="admin"><a class = "{$mainclasses.admin}" href="admin.php?action=projects"><span>{#administration#}</span><span class="submenarrow"></span></a>
 								<div class="submen">
 									<ul>
