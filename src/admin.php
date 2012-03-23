@@ -221,7 +221,7 @@ if ($action == "index")
     $tags = $thetag->formatInputTags($tags);
 
     $roleobj = new roles();
-    $roleobj->assign($role, $id);
+    $roleobj->assign(1, $id);
     if ($id == $userid)
     {
         $_SESSION['userlocale'] = $locale;
@@ -280,7 +280,7 @@ if ($action == "index")
             $avatar = $fname;
         }
 
-        if ($user->edit($id, $name, "" , $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, $tags, $locale, $avatar, $rate))
+        if ($user->edit($id, $name,$fullName,$userTitle,$roleType, "" , $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, $tags, $locale, $avatar, $rate))
         {
             if (!empty($newpass) and !empty($repeatpass))
             {
@@ -291,7 +291,7 @@ if ($action == "index")
     }
     else
     {
-        if ($user->edit($id, $name, "", $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, $tags, $locale, "", $rate))
+        if ($user->edit($id, $name,$fullName,$userTitle,$roleType, "", $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, $tags, $locale, "", $rate))
         {
             if (!empty($newpass) and !empty($repeatpass))
             {

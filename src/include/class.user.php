@@ -79,9 +79,12 @@ class user
      * @param string $avatar Avatar
      * @return bool
      */
-    function edit($id, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $url, $address1, $address2, $state, $country, $tags, $locale, $avatar = "", $rate = 0.0)
+    function edit($id, $name,$fullName,$title,$roleType, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $url, $address1, $address2, $state, $country, $tags, $locale, $avatar = "", $rate = 0.0)
     {
         $name = mysql_real_escape_string($name);
+        $fullName = mysql_escape_string($fullName);
+        $title = mysql_escape_string($title);
+        $roleType = (int) $roleType;
         $realname = mysql_real_escape_string($realname);
 		$company = mysql_real_escape_string($company);
         $email = mysql_real_escape_string($email);
@@ -103,11 +106,11 @@ class user
 
         if ($avatar != "")
         {
-            $upd = mysql_query("UPDATE user SET name='$name',email='$email',tel1='$tel1', tel2='$tel2',company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',avatar='$avatar',rate='$rate' WHERE ID = $id");
+            $upd = mysql_query("UPDATE user SET name='$name',full_name='$fullName',title = '$title',role_type = $roleType,email='$email',tel1='$tel1', tel2='$tel2',company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',avatar='$avatar',rate='$rate' WHERE ID = $id");
         }
         else
         {
-            $upd = mysql_query("UPDATE user SET name='$name',email='$email', tel1='$tel1', tel2='$tel2', company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',rate='$rate' WHERE ID = $id");
+            $upd = mysql_query("UPDATE user SET name='$name',full_name='$fullName',title = '$title',role_type = $roleType,email='$email', tel1='$tel1', tel2='$tel2', company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',rate='$rate' WHERE ID = $id");
         }
         if ($upd)
         {

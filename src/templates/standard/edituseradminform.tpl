@@ -246,7 +246,7 @@
 													<tr>
 														<td><label>{#permissions#}:</label></td>
 														<td class="right">
-															<select name = "roleType">
+															<select name = "roletype" id="roletype">
 																<option value = "1" {if $user.role_type == "1"}selected{/if}>{#superAdmin#}</option>
                                 <option value = "2" {if $user.role_type == "2"}selected{/if}>{#admin#}</option>
                                 <option value = "3" {if $user.role_type == "3"}selected{/if}>{#manageLv1#}</option>
