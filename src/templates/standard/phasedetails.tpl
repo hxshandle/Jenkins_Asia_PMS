@@ -31,8 +31,12 @@
       </table>
       </td>
       <td>
+        {if $editPhase}
         <a class="tool_edit" title="{#edit#}" href=javascript:void(0);" onclick="showEditPhaseDlg({$phaseTab[phase].ID});"></a>
+        {/if}
+        {if $project.status ==9}
         <a class="tool_del" href="javascript:void(0);"onclick="delPhase({$phaseTab[phase].ID});"></a>
+        {/if}
       </td>
     </tr>
   {/section}

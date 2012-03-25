@@ -685,6 +685,7 @@ if ($action == "editform")
     $template->assign("financeTab", $financeTab);
     $sampleTab = $tabs->getSampleTab($id); 
     $template->assign("sampleTab", $sampleTab);
+    
     if(true){
         $sampleRequestTab = $tabs->getSampleRequestTab($id,null); 
     }else{
@@ -694,6 +695,7 @@ if ($action == "editform")
     $memberTab = $tabs->getMemberTab($id); 
     $template->assign("memberTab", $memberTab);
     $ecnTab = $tabs->getEcnTab($id,$_SESSION['userid']);
+    //$ecnTab = array();
     $template->assign("ecnTab", $ecnTab);
     $deliverableTmp = new DeliverableItem();
     $deliverables = $deliverableTmp->getDeliverableItemsByProjectId($id);
@@ -712,6 +714,14 @@ if ($action == "editform")
     $template->assign("isProjectLeader",$isProjectLeader);
     $template->assign("isCustomerLeader",$isCustomerLeader);
     $template->assign("isSupplierLeader",$isSupplierLeader);
+    $editBaseInfo = false;
+    $_roleType = $_SESSION['userRole'];
+    $editBaseInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
+    $template->assign("editBaseInfo",$editBaseInfo);
+    
+    $editPhase = false;
+    $editPhase = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
+    $template->assign("editPhase",$editPhase);
     SmartyPaginate::assign($template);
     $template->display("project_jenkins.tpl");
 } elseif ($action == "cal")

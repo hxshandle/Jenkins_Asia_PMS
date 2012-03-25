@@ -1,5 +1,7 @@
 <div class="phaseMenualBar">
+  {if $project.status == 9}
   <button id="btnAddPhase">{#addphase#}</button>
+  {/if}
 </div>
 <div id="addPhaseDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addphase.tpl" title="add phase"}
@@ -8,9 +10,48 @@
   {include file = "phasedetails.tpl"}
 </div>
 <div id = "editPhaseDlg"></div>
+<div class="datepick" id = "addPhaseDatePickers"></div>
+<script type="text/javascript">
+  function bindDatePicker(idx){literal}{{/literal}
+    //insert date picker div
+
+    var pickEl = document.createElement("div");
+    pickEl.setAttribute("id","deliverItemStartDatePicker-"+idx);
+    pickEl.setAttribute("class","picker");
+    var pickers = $("addPhaseDatePickers");
+    pickers.insert(pickEl);
+
+    startCal = new calendar({$theM},{$theY});
+    startCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+    startCal.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+    startCal.relateTo = "deliverItemStartDate-"+idx;
+    startCal.dateFormat = "{$settings.dateformat}";
+    startCal.getDatepicker("deliverItemStartDatePicker-"+idx);
+    pickEl.style.display="none";
+
+    var pickEndEl = document.createElement("div");
+    pickEndEl.setAttribute("id","deliverItemEndDatePicker-"+idx);
+    pickEndEl.setAttribute("class","picker");
+    pickers.insert(pickEndEl);
+
+    endCal = new calendar({$theM},{$theY});
+    endCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+    endCal.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+    endCal.relateTo = "deliverItemEndDate-"+idx;
+    endCal.dateFormat = "{$settings.dateformat}";
+    endCal.getDatepicker("deliverItemEndDatePicker-"+idx);
+    pickEndEl.style.display="none";
+
+  {literal}}{/literal}
+</script>
+
 
 {literal}
 <script type="text/javascript">
+
+  function clearDatePickers(){
+    $("addPhaseDatePickers").innerHTML="";
+  }
   if(!window.__addPhaseDlgContent){
     window.__addPhaseDlgContent=$("addPhaseDlg").innerHTML;
     $("addPhaseDlg").remove(); 
@@ -18,6 +59,7 @@
   new Control.Modal("btnAddPhase",{
                                 "contents":window.__addPhaseDlgContent,
                                 fade:true,
+                                beforeOpen:clearDatePickers,
                                 opacity: 0.8,
                                 containerClassName: 'dlgmodal',
                                 overlayClassName: 'tasksoverlay'
@@ -52,6 +94,8 @@
     
     
   function showPhaseDlg(ctx){
+    $("addPhaseDatePickers").innerHTML="";
+    
     var dlg = new Control.Modal("editPhaseDlg",{
                                 "contents":ctx,
                                 fade:true,
@@ -76,11 +120,15 @@
       }
     });  
   }
-    function addDeliverableItem(){
-      var templateStr= '<tr class="newDeliverableItem"><td><input value = ""></input></td><td><input value = ""></input></td><td><input value = ""></input></td><td><a class="tool_del" href="javascript:void(0)" onclick="delDeliverableItem(this);"></a></td></tr>';
-      var tRoot = $("deliverableItemTbody");
-      tRoot.insert(templateStr);  
-    }
+
+  function addDeliverableItem(){
+    var count = $$(".newDeliverableItem").length;
+    var templateStr= '<tr class="newDeliverableItem"><td><input id = "deliverItemName-'+count+'" value = ""></input></td><td><input id = "deliverItemStartDate-'+count+'" value = ""></input></td><td><input id = "deliverItemEndDate-'+count+'" value = ""></input></td><td><a class="tool_del" href="javascript:void(0)" onclick="delDeliverableItem(this);"></a></td></tr>';
+    var tRoot = $("deliverableItemTbody");
+    tRoot.insert(templateStr); 
+    bindDatePicker(count); 
+  }
+
       
       
   function updatePhase(id){

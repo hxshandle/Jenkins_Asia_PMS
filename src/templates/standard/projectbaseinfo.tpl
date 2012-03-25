@@ -13,7 +13,7 @@
 <div  id ="projectbaseinfo" class="block_in_wrapper">
 	<h2>{#editproject#}</h2>
 	<form class="main" id = "projectbaseinfoform" name="projectbaseinfoform" {literal}onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
-    <fieldset>
+    <fieldset {if !$editBaseInfo} disabled {/if}>
 	    <div class="row4">
         <label for="projectName">{#name#}:</label>
         <input type="text" class="text" disabled name="projectName" id="projectName" required="1" realname="{#name#}" value = "{$project.name}" />
@@ -135,7 +135,8 @@
 
     </fieldset>
     <div class="phaseMenualBar">
-      {if $isProjectLeader and $project.status == 9}
+      {$eidtBaseInfo}
+      {if $editBaseInfo}
       {*project in planning*}
       <a class= "butn_link" id="btnSaveProject" onclick="saveBaseInfo();" href="javascript:void(0)">{#save#}</a>
       {/if}

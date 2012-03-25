@@ -12,6 +12,7 @@
   </tr>
   </tbody>
 </table>
+
 <div  style="margin:10px 0 0 0">
 <button id="dlgBtnSavePhase" onclick="savePhase();">{#save#}</button>
 <button id="dlgBtnAddPhase" onclick="addDeliverableItem();">{#addDeliverableItem#}</button>
@@ -25,7 +26,36 @@
       b.parentNode.parentNode.remove();
     }
 
+    function addPhaseValidator(){
+      var ret = true;
+      var newPhaseName = $('newPhaseName').value;
+      if(newPhaseName.length<1){
+        $('newPhaseName').style.border="2px solid red";
+        ret = false;
+      }
+      $$(".newDeliverableItem").each(function(tr){
+        var children=tr.childElements();
+        var name = children[0].firstChild.value;
+        if(name.length <1){
+          children[0].firstChild.style.border="2px solid red";
+          ret = false;
+        }
+        var startDate = children[1].firstChild.value;
+        var endDate = children[2].firstChild.value;
+        startDate = new Date(Date.parse(startDate));
+        endDate = new Date(Date.parse(endDate));
+        if(startDate > endDate){
+          ret = false;
+          children[2].firstChild.style.border="2px solid red";
+        }
+      });
+      return ret;
+    }
+
     function savePhase(){
+      if(!addPhaseValidator()){
+        return;
+      }
       var theUrl = "manageprojectajax.php";
       var thePost = "action=addPhase&projectId="+__projectId;
       var phaseName = $("newPhaseName").value;
