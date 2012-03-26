@@ -135,7 +135,6 @@
 
     </fieldset>
     <div class="phaseMenualBar">
-      {$eidtBaseInfo}
       {if $editBaseInfo}
       {*project in planning*}
       <a class= "butn_link" id="btnSaveProject" onclick="saveBaseInfo();" href="javascript:void(0)">{#save#}</a>

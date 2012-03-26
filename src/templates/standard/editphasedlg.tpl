@@ -14,8 +14,8 @@
   {section name=p loop=$deliverableItem}
     <tr class="deliverableItem">
       <td><input value = "{$deliverableItem[p].name}"></input><input type ="hidden" value = "{$deliverableItem[p].ID}"></input></td>
-      <td><input value = "{$deliverableItem[p].start_date|truncate:"10":""}"></input></td>
-      <td><input value = "{$deliverableItem[p].end_date|truncate:"10":""}"></input></td>
+      <td><input id = "exist-deliverItemStartDate-{$smarty.section.p.index}" value = "{$deliverableItem[p].start_date|truncate:"10":""}"></input></td>
+      <td><input id = "exist-deliverItemEndDate-{$smarty.section.p.index}" value = "{$deliverableItem[p].end_date|truncate:"10":""}"></input></td>
       <td><a class="tool_del" href="javascript:void(0)" onclick="delDeliverableItemViaAjax({$deliverableItem[p].ID},this);"></a></td>
     </tr>
   {/section}
@@ -25,3 +25,12 @@
 <button id="dlgBtnSavePhase" onclick="updatePhase({$phase.ID});">{#save#}</button>
 <button id="dlgBtnAddPhase" onclick="addDeliverableItem();">{#addDeliverableItem#}</button>
 </div>
+<script>
+(function(){literal}{{/literal}
+  var __len = parseInt({$smarty.section.p.total});
+  for (var i = 0 ; i < __len ; i++){literal}{{/literal}
+    bindDatePicker(i,'exist-');
+  {literal}}{/literal}
+
+{literal}}{/literal})();
+</script>
