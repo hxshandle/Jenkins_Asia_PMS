@@ -37,6 +37,15 @@ switch ($action){
     $projectTabs = new ProjectTabs;
     $phases = $projectTabs->getPhaseTab($projectId);
     $template->assign("phaseTab", $phases);
+    $tprojectObj = $project->getProject($projectId);
+    $template->assign("project", $tprojectObj);
+    $_roleType = $_SESSION['userRole'];
+    $editBaseInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
+    $template->assign("editBaseInfo",$editBaseInfo);
+    
+    $editPhase = false;
+    $editPhase = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
+    $template->assign("editPhase",$editPhase);
     $template->display("phasedetails.tpl");
     break;
   case "delphase":

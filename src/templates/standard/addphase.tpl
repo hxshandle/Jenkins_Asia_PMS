@@ -49,6 +49,23 @@
           children[2].firstChild.style.border="2px solid red";
         }
       });
+      $$(".deliverableItem").each(function(tr){
+        var children=tr.childElements();
+        var name = children[0].firstChild.value;
+        if(name.length <1){
+          children[0].firstChild.style.border="2px solid red";
+          ret = false;
+        }
+        var startDate = children[1].firstChild.value;
+        var endDate = children[2].firstChild.value;
+        startDate = new Date(Date.parse(startDate));
+        endDate = new Date(Date.parse(endDate));
+        if(startDate > endDate){
+          ret = false;
+          children[2].firstChild.style.border="2px solid red";
+        }
+      });
+      
       return ret;
     }
 

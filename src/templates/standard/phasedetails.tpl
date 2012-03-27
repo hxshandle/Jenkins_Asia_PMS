@@ -19,11 +19,9 @@
       {section name =deliverable loop=$phaseTab[phase].deliverableItems}
         <tr>
           <td>{$phaseTab[phase].deliverableItems[deliverable].name}</td>
-          {capture name=st assign=stname}
-            {dispstatus statusId =$phaseTab[phase].deliverableItems[deliverable].status}
-          {/capture}
+
           
-          <td>{eval var=$stname}</td>
+          <td>{dispstatus statusId =$phaseTab[phase].deliverableItems[deliverable].status}</td>
           <td>{$phaseTab[phase].deliverableItems[deliverable].start_date|truncate:"10":""}</td>
           <td>{$phaseTab[phase].deliverableItems[deliverable].end_date|truncate:"10":""}</td>
         </tr>

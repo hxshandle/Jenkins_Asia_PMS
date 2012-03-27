@@ -2977,4 +2977,11 @@ div.row4 table.forecastedAnnualQualityAddTable{
   background-position:0 -36px;
   cursor:pointer;
 }
+.hiErrorField{
+	border:2px solid red !important;
+}
+.tipsMsg{
+	font-size:14px;
+	margin-left:10px;
+}
 /*****************Jenkins Asia Special***********************/

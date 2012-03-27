@@ -1,9 +1,8 @@
 <div class="block_in_wrapper">
 
 	<h2>{#addtask#}</h2>
-	<form name = "addtaskform{$lists[list].ID}" id = "addtaskform{$lists[list].ID}" class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}&amp;deliverableId={$lists[list].deliverable_item}"  {literal}onsubmit="return validateCompleteForm(this,'input_error');{/literal}">
+	<form name = "addtaskform{$lists[list].ID}" id = "addtaskform{$lists[list].ID}" class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}&amp;deliverableId={$lists[list].deliverable_item}"  {literal}onsubmit="return J.validationAddTask(this,'hiErrorField',{/literal}'{$deliverStartDate|truncate:"10":""}','{$deliverEndDate|truncate:"10":""}'{literal});{/literal}">
 	<fieldset>
-
 	<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" name="title" id="title"  realname = "{#title#}" required = "1"  /></div>
 	<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text" rows="3" cols="1" ></textarea></div></div>
 
@@ -30,8 +29,8 @@
 		</select>
 	</div>
 
-	<div class="row"><label for="start{$lists[list].ID}">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start{$lists[list].ID}" required = "1" /></div>
-	<div class="row"><label for="end{$lists[list].ID}">{#due#}:</label><input type="text" class="text" name="end" realname="{#due#}"  id="end{$lists[list].ID}" required = "1" /></div>
+	<div class="row"><label for="start{$lists[list].ID}">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start{$lists[list].ID}" required = "1" /> <span class="tipsMsg"> > {$deliverStartDate|truncate:"10":""}</span></div>
+	<div class="row"><label for="end{$lists[list].ID}">{#due#}:</label><input type="text" class="text" name="end" realname="{#due#}"  id="end{$lists[list].ID}" required = "1" /><span class="tipsMsg"> < {$deliverEndDate|truncate:"10":""}</span></div>
 
 	<div class="datepick">
 		<div id = "datepicker_taskStart{$lists[list].ID}" class="picker" style = "display:none;"></div>

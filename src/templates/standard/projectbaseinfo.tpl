@@ -21,9 +21,9 @@
         <select id = "projectStatus" name ="projectStatus">
           {section name = idx loop=$projectStatus}
             {if $projectStatus[idx].id == $project.status}
-              <option selected value = "{$projectStatus[idx].id}">{$projectStatus[idx].value}</option>
+              <option selected value = "{$projectStatus[idx].id}">{dispstatus statusId=$projectStatus[idx].id}</option>
             {else}
-              <option value = "{$projectStatus[idx].id}">{$projectStatus[idx].value}</option>
+              <option value = "{$projectStatus[idx].id}">{dispstatus statusId=$projectStatus[idx].id}</option>
             {/if}
           {/section}
         </select>

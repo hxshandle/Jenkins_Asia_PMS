@@ -153,6 +153,9 @@
       
       
   function updatePhase(id){
+    if(!addPhaseValidator()){
+      return;
+    }
     var newItems =$$("tr.newDeliverableItem");
     var newItemsStr="";
     newItems.each(function(tr){

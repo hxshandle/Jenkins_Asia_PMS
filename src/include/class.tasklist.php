@@ -228,6 +228,12 @@ class tasklist
         $taskobj = new task();
         while ($list = mysql_fetch_array($sel))
         {
+            $sel4 = mysql_query("select start_date,end_date from deliverable_item where id = $list[deliverable_item]");
+            if($sel4){
+              $deliverRow = mysql_fetch_row($sel4);
+              $list['start_date'] = $deliverRow[0];
+              $list['end_date'] = $deliverRow[1];
+            }
             $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND valid=1 ORDER BY `end_date` ASC");
             $list['tasks'] = array();
             while ($tasks = mysql_fetch_array($sel2))
@@ -243,6 +249,9 @@ class tasklist
             }
 
             array_push($tasklists, $list);
+            
+            
+            
         }
 
         if (!empty($tasklists))

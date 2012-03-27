@@ -29,6 +29,7 @@ deleteEndcolor = '#c62424';
 <script type="text/javascript" src="include/js/chat.js"></script>
 <script type="text/javascript" src="include/js/livepipe.js"></script>
 <script type="text/javascript" src="include/js/tabs.js"></script>
+<script type="text/javascript" src="include/js/jenkinsasia.js"></script>
      <script type = "text/javascript">
         function _jsVal_Language() {
             this.err_enter = "{/literal}{#wrongfield#}{literal}";
