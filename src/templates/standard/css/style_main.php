@@ -1478,6 +1478,9 @@ ul.tabs li.tasks a {
 ul.tabs li.msgs a {
 	background-image: url(../images/symbols/tab-msgs.png);
 }
+ul.tabs li.cal a {
+	background-image: url(../images/symbols/tab-timetracking.png);
+}
 
 ul.tabs li.user-male a {
 	background-image: url(../images/symbols/tab-userprofil-male.png);

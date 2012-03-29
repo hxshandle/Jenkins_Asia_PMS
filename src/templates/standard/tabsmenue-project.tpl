@@ -31,6 +31,7 @@ shortcut.add("Alt+M", function() {
 		<li class="msgs"><a {if $msgstab == "active" }class="active"{/if} href="managemessage.php?action=showproject&amp;id={$project.ID}"><span>{#messages#}</span></a></li>
 		<li class="files"><a {if $filestab == "active" }class="active"{/if} href="managefile.php?action=showproject&amp;id={$project.ID}"><span>{#files#}</span></a></li>
 		<li class="user"><a {if $userstab == "active" }class="active"{/if} href="manageuser.php?action=showproject&amp;id={$project.ID}"><span>{#user#}</span></a></li>
+		<li class="cal"><a {if $calendartab == "active" }class="active"{/if} href="resourcecalendar.php?action=showproject&amp;id={$project.ID}"><span>{#resourceCal#}</span></a></li>
 		<!--
 		<li class="timetrack"><a {if $timetab == "active" }class="active"{/if} href="managetimetracker.php?action=showproject&amp;id={$project.ID}"><span>{#timetracker#}</span></a></li>
 		-->
