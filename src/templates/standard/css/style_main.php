@@ -2987,4 +2987,15 @@ div.row4 table.forecastedAnnualQualityAddTable{
 	font-size:14px;
 	margin-left:10px;
 }
+td.hastask{
+	background-color:#CA4040 !important;
+	color:#FFFFFF !important;
+}
+
+td.hastask a{
+	color:#FFFFFF !important;
+}
+td.hastask .calcontent{
+	font-size:10px;
+}
 /*****************Jenkins Asia Special***********************/

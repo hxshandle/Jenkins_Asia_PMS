@@ -7,12 +7,13 @@ class ResourceCalendar {
   private $month;
   private $year;
   private $project;
+  private $user;
   public $calendar;
   function __construct() {
     $this->calendar = array();
   }
 
-  public function getCal($month, $year, $project = 0) {
+  public function getCal($month, $year, $project = 0,$userId = 0) {
     $this->month = $month;
     $this->year = $year;
     
@@ -25,6 +26,7 @@ class ResourceCalendar {
     $this->weeksInMonth = ceil($tempDays/7);
     
     $this->project = $project;
+    $this->user = $userId;
     
     return $this->buildCal();
   }
@@ -33,6 +35,7 @@ class ResourceCalendar {
     $counter = 0;
     $ms = new milestone();
     $tsk = new task();
+    
     for($j=0;$j<$this->weeksInMonth;$j++) {
       for($i=0;$i<7;$i++) {
         $counter++;
@@ -50,17 +53,23 @@ class ResourceCalendar {
         }
         else
         {
-          $miles = $ms->getTodayMilestones($this->month,$this->year,$theday,$this->project);
-          $milesnum = count($miles);
-          $tasks = $tsk->getTodayTasks($this->month,$this->year,$theday,$this->project);
+          $tasks = $tsk->getTodayTasksByUserAndProject($this->month,$this->year,$theday,$this->project,$this->user,1000);
+          $taskNames = "";
+          $locationStr = "";
+          foreach ($tasks as $tk) {
+            $taskNames=$taskNames.$tk['title'].",";
+            $locationStr=$locationStr.$tk['location'].",";
+          }
+          $taskNames = substr($taskNames,0,-1);
+          $locationStr = substr($locationStr,0,-1);
           $tasksnum = count($tasks);
           
           $this->calendar[$j][$i] = array(
                         "val"=>$theday,
-                        "milestones"=>$miles,
-                        "milesnum"=>$milesnum,
                         "tasks"=>$tasks,
                         "tasksnum"=>$tasksnum,
+                        "taskname"=>$taskNames,
+                        "location"=>$locationStr,
                         "currmonth"=>1
                         );
         }

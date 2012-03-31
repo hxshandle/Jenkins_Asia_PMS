@@ -11,6 +11,7 @@ if(!$action){
   $action = getArrayVal($_GET, "action");
 }
 $projectId = getArrayVal($_GET,"id");
+$userId = getArrayVal($_GET, "userId");
 switch ($action){
   case "getcal":
 
@@ -44,7 +45,7 @@ switch ($action){
     $today = date("d");
 
     $rc = new ResourceCalendar();
-    $cal = $rc->getCal($m, $y,$projectId);
+    $cal = $rc->getCal($m, $y,$projectId,$userId);
     $weeks = $cal->calendar;
     $mstring = strtolower(date('F', mktime(0, 0, 0, $m, 1, $y)));
     $mstring = $langfile[$mstring];
@@ -65,8 +66,11 @@ switch ($action){
     break;
   case "showproject":
     $project = new project();
+    
+    $users = $project->getProjectMembers($projectId);
     $tproject = $project->getProject($projectId);
     $template->assign("project", $tproject);
+    $template->assign("users", $users);
     $template->display("resourcecal.tpl");
     break;
 }

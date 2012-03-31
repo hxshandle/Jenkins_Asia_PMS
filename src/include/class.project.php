@@ -524,12 +524,13 @@ class project {
     {
         $project = mysql_real_escape_string($project);
         $project = (int) $project;
-
-        $otasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status = 1");
+        $st1 = Status::getId("task", "completed");
+        $st2 = Status::getId("task", "closed");
+        $otasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status not in ($st1,$st2)");
         $otasks = mysql_fetch_row($otasks);
         $otasks = $otasks[0];
 
-        $clotasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status = 0");
+        $clotasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status in ($st1,$st2)");
         $clotasks = mysql_fetch_row($clotasks);
         $clotasks = $clotasks[0];
 

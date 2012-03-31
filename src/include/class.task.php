@@ -401,16 +401,19 @@ class task
      * @param int $limit Number of tasks to return
      * @return array $lists Tasks
      */
-    function getMyProjectTasks($project, $limit = 10)
+    function getMyProjectTasks($project, $limit = 10,$userId =-1)
     {
         $project = (int) $project;
         $limit = (int) $limit;
-
         $user = $_SESSION['userid'];
+        if($userId != -1){
+          $user = $userId;
+        }
+        
         $lists = array();
         $now = time();
-
-        $sel2 = mysql_query("SELECT ID FROM tasks WHERE project = $project AND status=1 AND end > $now ORDER BY `end` ASC LIMIT $limit");
+        
+        $sel2 = mysql_query("SELECT ID FROM tasks WHERE project = $project AND status!=$st AND end > $now ORDER BY `end` ASC LIMIT $limit");
 
         while ($tasks = mysql_fetch_array($sel2, MYSQL_ASSOC))
         {
@@ -431,6 +434,21 @@ class task
         {
             return false;
         }
+    }
+    
+    function getTodayTasksByUserAndProject($m, $y, $d,$project,$user,$limit=100){
+      $project = (int) $project;
+      $user = (int) $user;
+      $st1 = Status::getId("task", "completed");
+      $st2 = Status::getId("task","closed");
+      $dt = $y."-".$m."-".$d;
+      $sql = "SELECT t.* FROM tasks t, tasks_assigned ta WHERE t.id = ta.task and ta.user=$user and t.project = $project AND t.status not in ($st1,$st2) and t.start_date<= '$dt' and t.end_date >= '$dt' ORDER BY t.end_date ASC LIMIT $limit";
+      $sel = mysql_query($sql);
+      $ret = array();
+      while($tk = mysql_fetch_array($sel)){
+        array_push($ret, $tk);
+      }
+      return $ret;
     }
 
     /**
@@ -594,7 +612,7 @@ class task
      * @param int $project Project ID (Default: 0 = all projects)
      * @return array $timeline Tasks
      */
-    function getTodayTasks($m, $y, $d, $project = 0)
+    function getTodayTasks($m, $y, $d, $project = 0,$userId=-1)
     {
         $m = (int) $m;
         $y = (int) $y;
@@ -610,6 +628,9 @@ class task
         $starttime = strtotime($startdate);
 
         $user = (int) $_SESSION["userid"];
+        if($userId != -1){
+          $user = $userId;
+        }
         $timeline = array();
 
         if ($project > 0)
