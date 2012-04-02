@@ -32,7 +32,7 @@
         {if $editPhase}
         <a class="tool_edit" title="{#edit#}" href=javascript:void(0);" onclick="showEditPhaseDlg({$phaseTab[phase].ID});"></a>
         {/if}
-        {if $project.status ==9}
+        {if $project.status ==9 and $smarty.session.userRole < 5 }
         <a class="tool_del" href="javascript:void(0);"onclick="delPhase({$phaseTab[phase].ID});"></a>
         {/if}
       </td>

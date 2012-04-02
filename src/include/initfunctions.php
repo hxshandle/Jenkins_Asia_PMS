@@ -16,6 +16,9 @@ function __autoload($class_name)
 
 function chkproject($user, $project)
 {
+  if($_SESSION['userRole'] == 1 || $_SESSION['userRole'] == 3){
+    return true;
+  }
 	$user = (int) $user;
 	$project = (int) $project;
     $sel = @mysql_query("SELECT ID FROM projekte_assigned WHERE projekt = $project AND user = $user");
