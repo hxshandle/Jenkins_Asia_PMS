@@ -418,7 +418,10 @@ class project {
 
         $myprojekte = array();
         $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY ID ASC");
-
+        if($_SESSION["userRole"] == 3 || $_SESSION["userRole"] ==1){
+          $sel = mysql_query("SELECT id FROM projekte ORDER BY ID ASC");
+        }
+        
         while ($projs = mysql_fetch_row($sel)) {
             $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND valid=$status"), MYSQL_ASSOC);
             if ($projekt) {
