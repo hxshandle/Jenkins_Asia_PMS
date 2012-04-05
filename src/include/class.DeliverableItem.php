@@ -132,16 +132,27 @@ class DeliverableItem {
     $id = (int) $id;
     $sel = mysql_query("select * from deliverable_item where ID = $id and valid =1");
     $item = mysql_fetch_array($sel);
+    $count=0;
+    $doneCount=0;
+    $st1 = Status::getId("task", "completed");
+    $st2 = Status::getId("task", "closed");
     if (!empty($item)) {
       $taskq = mysql_query("select * from tasks where deliverable_item = $item[ID]");
       $arrTask = array();
       while ($row = mysql_fetch_array($taskq)) {
+        if($row['status'] == $st1 || $row['status'] == $st2){
+          $doneCount++;
+        }else{
+          $count++;
+        }
         array_push($arrTask,$row);
       }
       if (!empty($arrTask)) {
         $item['tasks'] = $arrTask;
+        $item['percentcompleted'] =floor(($doneCount/($doneCount+$count))*100) ;
       } else {
         $item['tasks'] = array();
+        $item['percentcompleted'] =100;
       }
       return $item;
     } else {

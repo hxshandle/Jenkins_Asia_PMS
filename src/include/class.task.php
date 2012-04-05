@@ -495,7 +495,29 @@ class task
       $sql = "select * from tasks where deliverable_item = $id";
       $sel = mysql_query($sql);
       $ret = array();
+      $st1 = Status::getId("task", "completed");
+      $st2 = Status::getId("task", "closed");
+      $st3 = Status::getId("task", "not_start");
       while($row = mysql_fetch_array($sel)){
+        $sd = strtotime($row['start_date']);
+        $ed = strtotime($row['end_date']);
+        $totalDays = round(($ed-$sd)/3600/24);
+        $now = time();
+        $tpc = 100;
+        if($now < $sd){
+          $tpc = 0;
+        }
+        if($now < $ed && $now > $sd){
+          $done = round(($now-$sd)/3600/24);
+          $tpc = floor(($done/$totalDays)*100);
+        }
+        if($now > $ed && ($row['status'] == $st1 || $row['status'] == $st2)){
+          $tpc = 99;
+        }
+        if($row['status'] == $st3){
+          $tpc = 0;
+        }
+        $row["percentcompleted"] = $tpc;
         array_push($ret, $row);
       }
       return $ret;
