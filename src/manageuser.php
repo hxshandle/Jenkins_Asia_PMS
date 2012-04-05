@@ -346,7 +346,7 @@ elseif ($action == "login")
 
     foreach($alluser as $all)
     {
-        if (!chkproject($all['ID'], $id))
+        if (!chkproject($all['ID'], $id,false))
         {
             array_push($users, $all);
         }

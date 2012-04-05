@@ -101,6 +101,14 @@ tinyMCE.init({
 
 <div id = "jslog" style = "color:red;position:absolute;top:70%;right:5%;width:300px;"></div>
 
+<script type="text/javascript">
+	{literal}
+  var MSGS={};
+  {/literal}
+  {foreach from=$langfile key=k item=v}
+  	MSGS["{$k}"]='{$v}';
+  {/foreach}
+</script>
 {if $showheader != "no"}
 	{include file="header_main.tpl"}
 {/if}

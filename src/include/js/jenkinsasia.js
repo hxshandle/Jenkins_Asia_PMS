@@ -20,6 +20,23 @@ J.validationAddTask=function(form,errCss,startDate,endDate){
   return ret;
 }
 
+J.approveProject=function(projectId){
+  document.submitForm.action="manageproject.php?action=approveProject&id="+projectId;
+  document.submitForm.method="POST";
+  document.submitForm.submit();
+}
+
+J.rejectProject=function(projectId){
+  document.submitForm.action="manageproject.php?action=rejectProject&id="+projectId;
+  document.submitForm.method="POST";
+  document.submitForm.submit();
+}
+
+J.showSystemMsg=function(msg,isWarning){
+  var _str = '<span class="info_in_green">'+msg+'</span>';
+  $("systemmsg").innerHTML=_str;
+  systemMsg('systemmsg');
+}
 J.testFunc=function(scope){
   scope.blur();
 }
