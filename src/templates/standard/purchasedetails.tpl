@@ -24,9 +24,9 @@
             {if $pricePurchase}
         <a class="tool_edit" title="{#price#}" href=javascript:void(0);" onclick="pricePurchaseDlg({$purchaseTab[purchase].ID});"></a>
              {/if}
-            {elseif $purchaseTab[purchase].statusId == 33 && $editBaseInfo}
+            {elseif $purchaseTab[purchase].statusId == 33 and $editBaseInfo}
         <a class="tool_edit" title="{#agree#}" href=javascript:void(0);" onclick="agreePurchaseDlg({$purchaseTab[purchase].ID});"></a>
-        <a class="tool_edit" title="{#reject#}" href=javascript:void(0);" onclick="rejectPurchaseDlg({$purchaseTab[purchase].ID});"></a>
+        <a class="tool_del" title="{#reject#}" href=javascript:void(0);" onclick="rejectPurchaseDlg({$purchaseTab[purchase].ID});"></a>
         {/if}
         </td>
     </tr>

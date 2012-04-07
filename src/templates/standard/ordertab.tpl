@@ -9,7 +9,7 @@
 <div class="orderList" id="orderList">
   {if $orderDetailInfo}
   {include file = "orderdetails.tpl"}
-  {if}
+  {/if}
 </div>
 <div id = "priceOrderDlg"></div>
 
@@ -31,9 +31,9 @@
   function reloadOrder(){  
 var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
     new Ajax.Request(theUrl, {
-		  method: 'get',
-		  onSuccess:function(payload) {
-		    if (payload.responseText != ""){ 
+      method: 'get',
+      onSuccess:function(payload) {
+        if (payload.responseText != ""){ 
             $("orderList").innerHTML=payload.responseText;
           }
         }
@@ -56,9 +56,9 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
     var orderId = id;
     var theUrl = "manageprojectajax.php?action=priceOrder&id="+orderId;
     new Ajax.Request(theUrl, {
-		  method: 'get',
-		  onSuccess:function(payload) {
-		    if (payload.responseText != ""){ 
+      method: 'get',
+      onSuccess:function(payload) {
+        if (payload.responseText != ""){ 
                      showOrderDlg(payload.responseText);
                      }else{
                          alert("faild");
@@ -88,10 +88,10 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
       var jsendTime = $("newEndTime").value;
       thePost +="&endTime="+jsendTime;
          new Ajax.Request(theUrl, {
-		  method: 'post',
-		  postBody:thePost,
-		  onSuccess:function(payload) {
-		    if (payload.responseText == "Ok"){ 
+      method: 'post',
+      postBody:thePost,
+      onSuccess:function(payload) {
+        if (payload.responseText == "Ok"){ 
             reloadOrder();
             Control.Modal.close();
           }
@@ -102,9 +102,9 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
   function agreeOrderDlg(orderId){
     var theUrl = "manageprojectajax.php?action=agreeOrder&orderId="+orderId;
     new Ajax.Request(theUrl, {
-		  method: 'get',
-		  onSuccess:function(payload) {
-		    if (payload.responseText == "Ok"){ 
+      method: 'get',
+      onSuccess:function(payload) {
+        if (payload.responseText == "Ok"){ 
           reloadOrder();
         }else{
           alert("del faild");
@@ -116,9 +116,9 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
    function rejectOrderDlg(orderId){
     var theUrl = "manageprojectajax.php?action=rejectOrder&orderId="+orderId;
     new Ajax.Request(theUrl, {
-		  method: 'get',
-		  onSuccess:function(payload) {
-		    if (payload.responseText == "Ok"){ 
+      method: 'get',
+      onSuccess:function(payload) {
+        if (payload.responseText == "Ok"){ 
           reloadOrder();
         }else{
           alert("del faild");

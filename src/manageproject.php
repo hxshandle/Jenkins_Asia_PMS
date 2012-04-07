@@ -690,15 +690,19 @@ if ($action == "editform")
     $sampleTab = $tabs->getSampleTab($id); 
     $template->assign("sampleTab", $sampleTab);
     
-    if($isProjectLeader){
+    if(($_SESSION['userRole'] == 4 && $isProjectLeader) || $_SESSION['userRole'] == 1 || $_SESSION['userRole'] == 3){
         $sampleRequestTab = $tabs->getSampleRequestTab($id,null); 
-    }else if($isCustomerLeader){
+    }else{
         $sampleRequestTab = $tabs->getSampleRequestTab($id,$_SESSION['userid']);
     }
     $template->assign("sampleRequestTab", $sampleRequestTab);
     $memberTab = $tabs->getMemberTab($id); 
     $template->assign("memberTab", $memberTab);
-    $ecnTab = $tabs->getEcnTab($id,$_SESSION['userid']);
+    if(($_SESSION['userRole'] == 4 && $isProjectLeader) || $_SESSION['userRole'] == 1 || $_SESSION['userRole'] == 3){
+    $ecnTab = $tabs->getEcnTab($id,null);
+    }else{
+      $ecnTab = $tabs->getEcnTab($id,$_SESSION['userid']);
+    }
     //$ecnTab = array();
     $template->assign("ecnTab", $ecnTab);
     $deliverableTmp = new DeliverableItem();
@@ -710,13 +714,17 @@ if ($action == "editform")
     if($isCustomerLeader){
         $orderTab = $tabs->getOrderTabByCustomer($id,$_SESSION['userid']);
     }else if($isProjectLeader){
-        $orderTab = $tabs->getOrderTab($id,$_SESSION['userid']);
+        $orderTab = $tabs->getOrderTab($id);
+    }else{
+      $orderTab = $tabs->getOrderTab($id);
     }
     $template->assign("orderTab", $orderTab);
     if($isProjectLeader){
         $purchaseTab = $tabs->getPurchaseTab($id);
     }else if($isSupplierLeader){
         $purchaseTab = $tabs->getPurchaseTabBySupplier($id,$_SESSION['userid']);
+    }else{
+        $purchaseTab = $tabs->getPurchaseTab($id);
     }
     $template->assign("purchaseTab", $purchaseTab);
 

@@ -1,5 +1,5 @@
 <div class="phaseMenualBar">
- {if editBaseInfo}
+ {if $editBaseInfo}
     <button id="btnAddPurchase">{#add#}</button>
  {/if}
 </div>
@@ -9,7 +9,7 @@
 <div class="purchaseList" id="purchaseList">
  {if $editPurchaseInfo}
     {include file = "purchasedetails.tpl"}
- {if}
+ {/if}
 </div>
 <div id = "pricePurchaseDlg"></div>
 

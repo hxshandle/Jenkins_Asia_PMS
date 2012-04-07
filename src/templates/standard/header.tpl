@@ -106,7 +106,7 @@ tinyMCE.init({
   var MSGS={};
   {/literal}
   {foreach from=$langfile key=k item=v}
-  	MSGS["{$k}"]='{$v}';
+  	MSGS["{$k}"]=escape("{$v}");
   {/foreach}
 </script>
 {if $showheader != "no"}

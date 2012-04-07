@@ -63,7 +63,7 @@ class ProjectTabs {
   //get Order by msj
   function getOrderTab($projectId){
     $order = new Order();
-    $orderData = $order->getOrders($projectId);
+    $orderData = $order->getOrdersByManager($projectId);
     return $orderData;
   }
       //get Ecn by msj

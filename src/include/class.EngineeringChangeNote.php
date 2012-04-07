@@ -76,7 +76,7 @@ class EngineeringChangeNote {
     if($currentUserId!=null){
       $sql = "select t.ID,t.name,t.status as approveId,(select e.value from `status` e where t.status = e.ID) as approved,(select g.name from `user` g where g.ID= t.submitter) as submit_by,t.submit_time,d.name as projectname from `engineering_change_note` t,`projekte` d  where t.project = $projectId  and `submitter` = $currentUserId  and d.ID = t.project ";  
     }else{
-      $sql = "select t.ID,t.name,t.status as approveId,(select e.value from `status` e where t.status = e.ID) as approved,(select g.name from `user` g where g.ID= t.submitter) as submit_by,t.submit_time,d.name as projectname from `engineering_change_note` t,`projekte` d where t.project = $projectId  and d.ID = t.project and t.isretrieve = 1";  
+      $sql = "select t.ID,t.name,t.status as approveId,(select e.value from `status` e where t.status = e.ID) as approved,(select g.name from `user` g where g.ID= t.submitter) as submit_by,t.submit_time,d.name as projectname from `engineering_change_note` t,`projekte` d where t.project = $projectId  and d.ID = t.project";  
     }
     $query = mysql_query($sql);
     $arr = array();

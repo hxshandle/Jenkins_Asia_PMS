@@ -7,7 +7,9 @@
     <tr>   
       <th>{#financename#}</th>
       <th>{#innercost#}</th>
+      {if $smarty.session.userRole ==1 || $smarty.session.userRole == 3}
       <th>{#externalcost#}</th>
+      {/if}
       <th>{#approved#}</th>
       <th>{#published#}</th>
     <tr>
@@ -20,9 +22,9 @@
       <tr class="color-b">
     {/if}
       <td align  = "center">{$financeTab[finance].name}</td>
-      <td  align  = "center">{$financeTab[finance].inner_cost_currency}{$financeTab[finance].inner_cost}</td>
-      {if $onethree}
-      <td  align  = "center">{$financeTab[finance].external_cost_currency}{$financeTab[finance].external_cost}</td>
+      <td  align  = "center">{$financeTab[finance].inner_cost_currency}:{$financeTab[finance].inner_cost}</td>
+      {if $smarty.session.userRole ==1 || $smarty.session.userRole == 3}
+      <td  align  = "center">{$financeTab[finance].external_cost_currency}:{$financeTab[finance].external_cost}</td>
       {/if}
       <td  align  = "center">
         {if $financeTab[finance].approved ==1}

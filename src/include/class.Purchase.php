@@ -90,7 +90,7 @@ class Purchase {
   }
 
   function getPurchasesBySupplier($projectId,$supplierId){
-    $sql = "select o.ID,o.name,o.quantity,p.supplier_leader as supplierlead,o.price,o.price_currency,(select value from status s where o.status = s.ID) as status,o.status as statusId from `projekte` p,`purchase` o  where o.project = p.ID and o.valid = 1 and p.supplier_leader = $supplierId and o.project=$projectId ";
+    $sql = "select o.ID,o.name,o.quantity,(select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.price,o.price_currency,(select value from status s where o.status = s.ID) as status,o.status as statusId from `projekte` p,`purchase` o  where o.project = p.ID and o.valid = 1 and p.supplier_leader = $supplierId and o.project=$projectId ";
     $query = mysql_query($sql);
     $arrPurchase = array();
     while ($row = mysql_fetch_array($query)) {
@@ -99,7 +99,7 @@ class Purchase {
     return $arrPurchase;
   }
   function getPurchasesByProjectId($projectId){
-    $sql = "select o.ID,o.name,o.quantity,p.supplier_leader as supplierlead,o.price,o.price_currency,(select value from status s where o.status = s.ID) as status,o.status as statusId from `projekte` p,`purchase` o  where o.project = p.ID and o.valid = 1 and  `project`=$projectId ";
+    $sql = "select o.ID,o.name,o.quantity,(select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.price,o.price_currency,(select value from status s where o.status = s.ID) as status,o.status as statusId from `projekte` p,`purchase` o  where o.project = p.ID and o.valid = 1 and  `project`=$projectId ";
     $query = mysql_query($sql);
     $arrPurchase = array();
     while ($row = mysql_fetch_array($query)) {
