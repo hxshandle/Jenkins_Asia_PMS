@@ -95,7 +95,7 @@
                   <select name = "assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}">
                           <option value="-1">{#chooseone#}</option>
                           {section name=member loop=$members}
-                                  <option value="{$members[member].ID}" {if in_array($members[member].ID, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
+                                  <option value="{$members[member].user}" {if in_array($members[member].user, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
                           {/section}
                   </select>
           </div>

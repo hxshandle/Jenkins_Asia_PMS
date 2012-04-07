@@ -824,5 +824,13 @@ if ($action == "editform")
     $template->assign("weeks", $weeks);
     $template->assign("id", $id);
     $template->display("calbody_project.tpl");
+}elseif($action == "approveProject"){
+    $project = new project();
+    $project->approveProject($id);
+    header("Location: manageproject.php?action=showproject&id=$id");
+}elseif($action == "rejectProject"){
+    $project = new project();
+    $project->rejectProject($id);
+    header("Location: manageproject.php?action=showproject&id=$id");
 }
 

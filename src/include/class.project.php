@@ -418,7 +418,15 @@ class project {
 
         $myprojekte = array();
         $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY ID ASC");
-
+        if($_SESSION["userRole"] == 3 || $_SESSION["userRole"] ==1){
+          $sel = mysql_query("SELECT id FROM projekte ORDER BY ID ASC");
+        }
+        if($_SESSION["userRole"] == 6 ){
+          $st1 = Status::getId("project", "planning");
+          $st2 = Status::getId("project", "closed");
+          $sel = mysql_query("SELECT projekt FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and  pa.user = $user and p.status not in ($st1,$st2) ORDER BY pa.ID ASC");
+        }
+        
         while ($projs = mysql_fetch_row($sel)) {
             $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND valid=$status"), MYSQL_ASSOC);
             if ($projekt) {
@@ -524,12 +532,13 @@ class project {
     {
         $project = mysql_real_escape_string($project);
         $project = (int) $project;
-
-        $otasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status = 1");
+        $st1 = Status::getId("task", "completed");
+        $st2 = Status::getId("task", "closed");
+        $otasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status not in ($st1,$st2)");
         $otasks = mysql_fetch_row($otasks);
         $otasks = $otasks[0];
 
-        $clotasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status = 0");
+        $clotasks = mysql_query("SELECT COUNT(*) FROM tasks WHERE project = $project AND status in ($st1,$st2)");
         $clotasks = mysql_fetch_row($clotasks);
         $clotasks = $clotasks[0];
 
@@ -656,6 +665,31 @@ class project {
       return false;
     }
   }
+  function approveProject($id){
+    $id = (int) $id;
+    $st = Status::getId("project", "approved");
+    $sql = "update projekte set status = $st where id = $id";
+    $del = mysql_query($sql);
+    if($del){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
+  function rejectProject($id){
+    $id = (int) $id;
+    $st = Status::getId("project", "rejected");
+    $sql = "update projekte set status = $st where id = $id";
+    $del = mysql_query($sql);
+    if($del){
+      return true;
+    }else{
+      return false;
+    }    
+  }
 }
+
+
 
 ?>

@@ -564,6 +564,28 @@ class user
         }
     }
     
+        function getRoleType($user){
+        $user = mysql_real_escape_string($user);
+
+        $sel = mysql_query("SELECT role_type FROM user WHERE name = '$user'");
+        $id = mysql_fetch_row($sel);
+        $id = $id[0];
+
+        $theRole = array();
+
+        $theRole["roleType"] = $id;
+
+        if($id > 0)
+        {
+            return $theRole;
+        }
+        else
+        {
+            return array();
+        }
+    }
+    
+    
     function getName($id){
       $id = (int) $id;
       $sql = "select name from user where `id` = $id";

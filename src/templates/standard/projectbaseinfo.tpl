@@ -21,9 +21,9 @@
         <select id = "projectStatus" name ="projectStatus">
           {section name = idx loop=$projectStatus}
             {if $projectStatus[idx].id == $project.status}
-              <option selected value = "{$projectStatus[idx].id}">{$projectStatus[idx].value}</option>
+              <option selected value = "{$projectStatus[idx].id}">{dispstatus statusId=$projectStatus[idx].id}</option>
             {else}
-              <option value = "{$projectStatus[idx].id}">{$projectStatus[idx].value}</option>
+              <option value = "{$projectStatus[idx].id}">{dispstatus statusId=$projectStatus[idx].id}</option>
             {/if}
           {/section}
         </select>
@@ -135,14 +135,18 @@
 
     </fieldset>
     <div class="phaseMenualBar">
-      {$eidtBaseInfo}
       {if $editBaseInfo}
       {*project in planning*}
       <a class= "butn_link" id="btnSaveProject" onclick="saveBaseInfo();" href="javascript:void(0)">{#save#}</a>
       {/if}
+      {if $smarty.session.userRole==6 and $project.status == 4}
+      <a class= "butn_link" id="btnApproveProject" onclick="J.approveProject({$project.ID});" href="javascript:void(0)">{#approved#}</a>
+      <a class= "butn_link" id="btnRejectProject" onclick="J.rejectProject({$project.ID});" href="javascript:void(0)">{#rejected#}</a>
+      {/if}
     </div>
   </form>
 </div>
+<form id="submitForm" name="submitForm"></form>
       
 {literal}
   <script type="text/javascript">
@@ -168,7 +172,7 @@
         postBody:thePost,
         onSuccess:function(payload) {
           if (payload.responseText == "Ok"){
-            alert("saved");
+            J.showSystemMsg(MSGS['projectwasedited']);
           }
         }
       });

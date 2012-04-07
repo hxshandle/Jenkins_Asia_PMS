@@ -36,12 +36,6 @@ $template->assign("cl_config", CL_CONFIG);
 Status::load();
 
 
-function display_status($params){
-  $AllStatus = Status::$ALL_STATUS;
-  extract($params);
-  $id = (int)$statusId;
-  echo "{#".$AllStatus[$id]."#}";
-}
 // Assign globals to all templates
 if (isset($_SESSION["userid"]))
 {
@@ -134,6 +128,15 @@ if (isset($userid))
 	$project = new project();
 	$myOpenProjects = $project->getMyProjects($userid);
 	$template->assign("openProjects", $myOpenProjects);
+}
+
+
+function display_status($params){
+  $AllStatus = Status::$ALL_STATUS;
+  extract($params);
+  $id = (int)$statusId;
+  //echo "{#".$AllStatus[$id]."#}";
+  echo $GLOBALS["langfile"][$AllStatus[$id]];
 }
 
 // clear session data for pagination

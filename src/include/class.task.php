@@ -297,17 +297,17 @@ class task
         {
             // format datestring according to dateformat option
 
-            if (is_numeric($task['end'])) {
-            	$endstring = date(CL_DATEFORMAT, $task["end"]);
+            if (is_numeric($task['end_date'])) {
+            	$endstring = date(CL_DATEFORMAT, $task["end_date"]);
             } else {
-            	$endstring = date(CL_DATEFORMAT, strtotime($task["end"]));
+            	$endstring = date(CL_DATEFORMAT, strtotime($task["end_date"]));
             }
             // get list and projectname of the task
             $details = $this->getTaskDetails($task);
             $list = $details["list"];
             $pname = $details["pname"];
             // get remainig days until due date
-            $tage = $this->getDaysLeft($task['end']);
+            $tage = $this->getDaysLeft($task['end_date']);
 
             $usel = mysql_query("SELECT user FROM tasks_assigned WHERE task = $task[ID]");
             $users = array();
@@ -401,16 +401,19 @@ class task
      * @param int $limit Number of tasks to return
      * @return array $lists Tasks
      */
-    function getMyProjectTasks($project, $limit = 10)
+    function getMyProjectTasks($project, $limit = 10,$userId =-1)
     {
         $project = (int) $project;
         $limit = (int) $limit;
-
         $user = $_SESSION['userid'];
+        if($userId != -1){
+          $user = $userId;
+        }
+        
         $lists = array();
         $now = time();
-
-        $sel2 = mysql_query("SELECT ID FROM tasks WHERE project = $project AND status=1 AND end > $now ORDER BY `end` ASC LIMIT $limit");
+        
+        $sel2 = mysql_query("SELECT ID FROM tasks WHERE project = $project AND status!=$st AND end_date > $now ORDER BY `end_date` ASC LIMIT $limit");
 
         while ($tasks = mysql_fetch_array($sel2, MYSQL_ASSOC))
         {
@@ -431,6 +434,21 @@ class task
         {
             return false;
         }
+    }
+    
+    function getTodayTasksByUserAndProject($m, $y, $d,$project,$user,$limit=100){
+      $project = (int) $project;
+      $user = (int) $user;
+      $st1 = Status::getId("task", "completed");
+      $st2 = Status::getId("task","closed");
+      $dt = $y."-".$m."-".$d;
+      $sql = "SELECT t.* FROM tasks t, tasks_assigned ta WHERE t.id = ta.task and ta.user=$user and t.project = $project AND t.status not in ($st1,$st2) and t.start_date<= '$dt' and t.end_date >= '$dt' ORDER BY t.end_date ASC LIMIT $limit";
+      $sel = mysql_query($sql);
+      $ret = array();
+      while($tk = mysql_fetch_array($sel)){
+        array_push($ret, $tk);
+      }
+      return $ret;
     }
 
     /**
@@ -477,7 +495,29 @@ class task
       $sql = "select * from tasks where deliverable_item = $id";
       $sel = mysql_query($sql);
       $ret = array();
+      $st1 = Status::getId("task", "completed");
+      $st2 = Status::getId("task", "closed");
+      $st3 = Status::getId("task", "not_start");
       while($row = mysql_fetch_array($sel)){
+        $sd = strtotime($row['start_date']);
+        $ed = strtotime($row['end_date']);
+        $totalDays = round(($ed-$sd)/3600/24);
+        $now = time();
+        $tpc = 100;
+        if($now < $sd){
+          $tpc = 0;
+        }
+        if($now < $ed && $now > $sd){
+          $done = round(($now-$sd)/3600/24);
+          $tpc = floor(($done/$totalDays)*100);
+        }
+        if($now > $ed && ($row['status'] == $st1 || $row['status'] == $st2)){
+          $tpc = 99;
+        }
+        if($row['status'] == $st3){
+          $tpc = 0;
+        }
+        $row["percentcompleted"] = $tpc;
         array_push($ret, $row);
       }
       return $ret;
@@ -499,7 +539,7 @@ class task
         $tod = date("d.m.Y");
         $now = strtotime($tod);
 
-        $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project  AND status=1 AND end < $now ORDER BY `end` ASC LIMIT $limit");
+        $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project  AND status=1 AND end_date < $now ORDER BY `end_date` ASC LIMIT $limit");
         while ($tasks = mysql_fetch_array($sel2, MYSQL_ASSOC))
         {
             $task = $this->getTask($tasks["ID"]);
@@ -533,7 +573,7 @@ class task
         $lists = array();
         $now = strtotime($tod);
 
-        $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project  AND status=1 AND end = '$now' ORDER BY `end` ASC LIMIT $limit");
+        $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project  AND status=1 AND end_date = '$now' ORDER BY `end_date` ASC LIMIT $limit");
 
         while ($tasks = mysql_fetch_array($sel2, MYSQL_ASSOC))
         {
@@ -567,7 +607,7 @@ class task
         $lists = array();
         $now = time();
 
-        $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project AND status=0 ORDER BY `end` ASC LIMIT $limit");
+        $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project AND status=0 ORDER BY `end_date` ASC LIMIT $limit");
 
         while ($tasks = mysql_fetch_array($sel2, MYSQL_ASSOC))
         {
@@ -594,7 +634,7 @@ class task
      * @param int $project Project ID (Default: 0 = all projects)
      * @return array $timeline Tasks
      */
-    function getTodayTasks($m, $y, $d, $project = 0)
+    function getTodayTasks($m, $y, $d, $project = 0,$userId=-1)
     {
         $m = (int) $m;
         $y = (int) $y;
@@ -610,21 +650,24 @@ class task
         $starttime = strtotime($startdate);
 
         $user = (int) $_SESSION["userid"];
+        if($userId != -1){
+          $user = $userId;
+        }
         $timeline = array();
 
         if ($project > 0)
         {
-            $sql = "SELECT * FROM tasks  WHERE status=1 AND project = $project AND end = '$starttime'";
+            $sql = "SELECT * FROM tasks  WHERE status=1 AND project = $project AND end_date = '$starttime'";
         }
         else
         {
-			$sql = "SELECT tasks.*,tasks_assigned.user,projekte.name AS pname FROM tasks,tasks_assigned,projekte WHERE tasks.ID = tasks_assigned.task AND tasks.project = projekte.ID HAVING tasks_assigned.user = $user AND status=1 AND end = '$starttime'";
+			$sql = "SELECT tasks.*,tasks_assigned.user,projekte.name AS pname FROM tasks,tasks_assigned,projekte WHERE tasks.ID = tasks_assigned.task AND tasks.project = projekte.ID HAVING tasks_assigned.user = $user AND status=1 AND end_date = '$starttime'";
         }
         $sel1 = mysql_query($sql);
 
         while ($stone = mysql_fetch_array($sel1, MYSQL_ASSOC))
         {
-            $stone["daysleft"] = $this->getDaysLeft($stone["end"]);
+            $stone["daysleft"] = $this->getDaysLeft($stone["end_date"]);
             array_push($timeline, $stone);
         }
 
@@ -748,12 +791,12 @@ class task
             $min = date("i", $etask["start"]);
             $sek = date("s", $etask["start"]);
             // split date in Y / M / D / h / min / sek variables
-            $ejahr = date("Y", $etask['end']);
-            $emonat = date("m", $etask['end']);
-            $etag = date("d", $etask['end']);
-            $estd = date("h", $etask['end']);
-            $emin = date("i", $etask['end']);
-            $esek = date("s", $etask['end']);
+            $ejahr = date("Y", $etask['end_date']);
+            $emonat = date("m", $etask['end_date']);
+            $etag = date("d", $etask['end_date']);
+            $estd = date("h", $etask['end_date']);
+            $emin = date("i", $etask['end_date']);
+            $esek = date("s", $etask['end_date']);
 
             $e = new vevent();
             $e->setProperty('categories' , $etask['list']);
@@ -812,9 +855,10 @@ class task
      */
     private function getDaysLeft($end)
     {
-        $tod = date("d.m.Y");
+        $tod = date("Y-m-d");
         $now = strtotime($tod);
-        $diff = $end - $now;
+        $endDate = strtotime($end);
+        $diff = $endDate - $now;
         $days = floor($diff / 86400);
         return $days;
     }

@@ -1478,6 +1478,9 @@ ul.tabs li.tasks a {
 ul.tabs li.msgs a {
 	background-image: url(../images/symbols/tab-msgs.png);
 }
+ul.tabs li.cal a {
+	background-image: url(../images/symbols/tab-timetracking.png);
+}
 
 ul.tabs li.user-male a {
 	background-image: url(../images/symbols/tab-userprofil-male.png);
@@ -2976,5 +2979,23 @@ div.row4 table.forecastedAnnualQualityAddTable{
 .autoComp li:hover{
   background-position:0 -36px;
   cursor:pointer;
+}
+.hiErrorField{
+	border:2px solid red !important;
+}
+.tipsMsg{
+	font-size:14px;
+	margin-left:10px;
+}
+td.hastask{
+	background-color:#CA4040 !important;
+	color:#FFFFFF !important;
+}
+
+td.hastask a{
+	color:#FFFFFF !important;
+}
+td.hastask .calcontent{
+	font-size:10px;
 }
 /*****************Jenkins Asia Special***********************/

@@ -92,11 +92,10 @@
 			</div>
 
 			<div id="block-{$lists[list].ID}" class="block">
-
 				{*Add Task*}
 				{if $userpermissions.tasks.add}
 					<div id = "form_{$lists[list].ID}" class="addmenue" style = "display:none;">
-						{include file="addtask.tpl" }
+						{include file="addtask.tpl" deliverStartDate = $lists[list].start_date deliverEndDate=$lists[list].end_date} 
 					</div>
 				{/if}
 

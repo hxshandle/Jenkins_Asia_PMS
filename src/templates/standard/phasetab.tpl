@@ -11,35 +11,38 @@
 </div>
 <div id = "editPhaseDlg"></div>
 <div class="datepick" id = "addPhaseDatePickers"></div>
-<script type="text/javascript">
-  function bindDatePicker(idx){literal}{{/literal}
-    //insert date picker div
 
+<script type="text/javascript">
+  function bindDatePicker(idx,prefix){literal}{{/literal}
+    //insert date picker div
+    prefix = prefix || "";
+    var pos1 = $(prefix+"deliverItemStartDate-"+idx).positionedOffset();
     var pickEl = document.createElement("div");
-    pickEl.setAttribute("id","deliverItemStartDatePicker-"+idx);
+    pickEl.setAttribute("id",prefix+"deliverItemStartDatePicker-"+idx);
     pickEl.setAttribute("class","picker");
+
     var pickers = $("addPhaseDatePickers");
     pickers.insert(pickEl);
 
     startCal = new calendar({$theM},{$theY});
     startCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
     startCal.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
-    startCal.relateTo = "deliverItemStartDate-"+idx;
+    startCal.relateTo = prefix+"deliverItemStartDate-"+idx;
     startCal.dateFormat = "{$settings.dateformat}";
-    startCal.getDatepicker("deliverItemStartDatePicker-"+idx);
+    startCal.getDatepicker(prefix+"deliverItemStartDatePicker-"+idx);
     pickEl.style.display="none";
 
     var pickEndEl = document.createElement("div");
-    pickEndEl.setAttribute("id","deliverItemEndDatePicker-"+idx);
+    pickEndEl.setAttribute("id",prefix+"deliverItemEndDatePicker-"+idx);
     pickEndEl.setAttribute("class","picker");
     pickers.insert(pickEndEl);
 
     endCal = new calendar({$theM},{$theY});
     endCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
     endCal.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
-    endCal.relateTo = "deliverItemEndDate-"+idx;
+    endCal.relateTo = prefix+"deliverItemEndDate-"+idx;
     endCal.dateFormat = "{$settings.dateformat}";
-    endCal.getDatepicker("deliverItemEndDatePicker-"+idx);
+    endCal.getDatepicker(prefix+"deliverItemEndDatePicker-"+idx);
     pickEndEl.style.display="none";
 
   {literal}}{/literal}
@@ -91,7 +94,23 @@
       }
     });
   }
-    
+  
+  function positionDatePicker(){
+    $$(".deliverableItem").each(function(tr){
+      var children=tr.childElements();
+      var startDateEl = children[1].firstChild;
+      var endDateEl = children[2].firstChild;
+      var sPos = Element.positionedOffset($(startDateEl.id));
+      var ePos = Element.positionedOffset($(endDateEl.id));
+      var _ids = startDateEl.id.split('-');
+      var sPicker = $(_ids[0]+"-deliverItemStartDatePicker-"+_ids[2]);
+      var ePicker = $(_ids[0]+"-deliverItemEndDatePicker-"+_ids[2]);
+      sPicker.style.left = sPos[0]+'px';
+      sPicker.style.top = sPos[1]+'px';
+      ePicker.style.left = ePos[0]+'px';
+      ePicker.style.top = ePos[1]+'px';
+    });
+  }  
     
   function showPhaseDlg(ctx){
     $("addPhaseDatePickers").innerHTML="";
@@ -99,11 +118,13 @@
     var dlg = new Control.Modal("editPhaseDlg",{
                                 "contents":ctx,
                                 fade:true,
+                                beforeOpen:clearDatePickers,
                                 opacity: 0.8,
                                 containerClassName: 'dlgmodal',
                                 overlayClassName: 'tasksoverlay'
                              });
-   dlg.open();      
+   dlg.open();
+   setTimeout(positionDatePicker,1000);      
   }  
   
   function showEditPhaseDlg(id){
@@ -132,6 +153,9 @@
       
       
   function updatePhase(id){
+    if(!addPhaseValidator()){
+      return;
+    }
     var newItems =$$("tr.newDeliverableItem");
     var newItemsStr="";
     newItems.each(function(tr){

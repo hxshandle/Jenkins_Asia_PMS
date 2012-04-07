@@ -8,7 +8,9 @@
 					<div class="logo">
 						<h1>
 							<a href="index.php" title="{#desktop#}"><img src="./templates/standard/images/logo-b.png" alt="" /></a>
-							<span class="title">{$settings.name}<span class="subtitle">{if $settings.subtitle}/ {$settings.subtitle} {/if}</span></span>
+							<span class="title">{$settings.name}<span class="subtitle">{if $settings.subtitle}/ {$settings.subtitle} {/if}</span>
+							<span>{$smarty.session.username}|{$smarty.session.userid}</span>
+							</span>
 						</h1>
 					</div>
 

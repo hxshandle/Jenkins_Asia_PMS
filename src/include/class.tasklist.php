@@ -221,21 +221,30 @@ class tasklist
     {
         $project = (int) $project;
         $status = (int) $status;
-
+        
+        
         $sel = mysql_query("SELECT * FROM tasklist WHERE project = $project AND status=$status");
         $tasklists = array();
 
         $taskobj = new task();
+        $st1 = Status::getId("task", "completed");
+        $st2 = Status::getId("task", "closed");
         while ($list = mysql_fetch_array($sel))
         {
-            $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND valid=1 ORDER BY `end_date` ASC");
+            $sel4 = mysql_query("select start_date,end_date from deliverable_item where id = $list[deliverable_item]");
+            if($sel4){
+              $deliverRow = mysql_fetch_row($sel4);
+              $list['start_date'] = $deliverRow[0];
+              $list['end_date'] = $deliverRow[1];
+            }
+            $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status not in ($st1,$st2)  ORDER BY `end_date` ASC");
             $list['tasks'] = array();
             while ($tasks = mysql_fetch_array($sel2))
             {
                 array_push($list['tasks'], $taskobj->getTask($tasks["ID"]));
             }
 
-            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND valid=0 ORDER BY `end_date` ASC");
+            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status in ($st1,$st2) ORDER BY `end_date` ASC");
             $list['oldtasks'] = array();
             while ($oldtasks = mysql_fetch_array($sel3))
             {
@@ -243,6 +252,9 @@ class tasklist
             }
 
             array_push($tasklists, $list);
+            
+            
+            
         }
 
         if (!empty($tasklists))
