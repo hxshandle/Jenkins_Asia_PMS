@@ -21,7 +21,9 @@
     {/if}
       <td align  = "center">{$financeTab[finance].name}</td>
       <td  align  = "center">{$financeTab[finance].inner_cost_currency}{$financeTab[finance].inner_cost}</td>
+      {if $onethree}
       <td  align  = "center">{$financeTab[finance].external_cost_currency}{$financeTab[finance].external_cost}</td>
+      {/if}
       <td  align  = "center">
         {if $financeTab[finance].approved ==1}
             {#yes#}
@@ -37,8 +39,10 @@
         {/if}
       </td>
       <td>
+        {if $editBaseInfo}
         <a class="tool_edit" title="{#edit#}" href=javascript:void(0);" onclick="showEditFinanceDlg({$financeTab[finance].ID});"></a>
         <a class="tool_del" href="javascript:void(0);"onclick="delFinance({$financeTab[finance].ID});"></a>
+        {/if}
       </td>
     </tr>
   {/section}

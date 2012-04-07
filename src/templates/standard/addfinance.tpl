@@ -19,6 +19,7 @@
     </select>
     <input id="newInnerCost"></input>
 </div>
+{if $onethree}
 <div class="dlgRow">
     <label style="margin:0 50px 0 0">{#externalcost#}</label>
     <select id = "targetFOBCurrencyExt" name="targetFOBCurrencyExt" class="currency">
@@ -32,6 +33,7 @@
     </select>
     <input id="newExternalCost"></input>
 </div>
+{/if}
 <div class="dlgRow">
     <label style="margin:0 50px 0 0">{#approved#}</label>
     <select id = "approvedFlag" name="approvedFlag" class="currency">

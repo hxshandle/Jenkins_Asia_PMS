@@ -659,11 +659,15 @@ if ($action == "editform")
     {
         $template->assign("cloud", $thecloud);
     }
-
+    $isProjectLeader = $_SESSION['userid'] == $tproject['project_leader'];
+    $isCustomerLeader = $_SESSION['userid'] == $tproject['customer_leader'];
+    $isSupplierLeader = $_SESSION['userid'] == $tproject['supplier_leader'];
+    $template->assign("isProjectLeader",$isProjectLeader);
+    $template->assign("isCustomerLeader",$isCustomerLeader);
+    $template->assign("isSupplierLeader",$isSupplierLeader);
     $title = $langfile['project'];
     $title = $title . " " . $tproject["name"];
     $template->assign("title", $title);
-
     $template->assign("project", $tproject);
     $template->assign("done", $done);
 
@@ -686,9 +690,9 @@ if ($action == "editform")
     $sampleTab = $tabs->getSampleTab($id); 
     $template->assign("sampleTab", $sampleTab);
     
-    if(true){
+    if($isProjectLeader){
         $sampleRequestTab = $tabs->getSampleRequestTab($id,null); 
-    }else{
+    }else if($isCustomerLeader){
         $sampleRequestTab = $tabs->getSampleRequestTab($id,$_SESSION['userid']);
     }
     $template->assign("sampleRequestTab", $sampleRequestTab);
@@ -703,25 +707,51 @@ if ($action == "editform")
     $myuser = new user();
     $availableUsers = $myuser->getAvailableUser($id);
     $template->assign("availableUsers", $availableUsers);
-    $orderTab = $tabs->getOrderTabByCustomer($id,$_SESSION['userid']); 
+    if($isCustomerLeader){
+        $orderTab = $tabs->getOrderTabByCustomer($id,$_SESSION['userid']);
+    }else if($isProjectLeader){
+        $orderTab = $tabs->getOrderTab($id,$_SESSION['userid']);
+    }
     $template->assign("orderTab", $orderTab);
-    $purchaseTab = $tabs->getPurchaseTab($id); 
+    if($isProjectLeader){
+        $purchaseTab = $tabs->getPurchaseTab($id);
+    }else if($isSupplierLeader){
+        $purchaseTab = $tabs->getPurchaseTabBySupplier($id,$_SESSION['userid']);
+    }
     $template->assign("purchaseTab", $purchaseTab);
+
     $template->assign("projectStatus",$projectStatus);
-    $isProjectLeader = $_SESSION['userid'] == $tproject['project_leader'];
-    $isCustomerLeader = $_SESSION['userid'] == $tproject['customer_leader'];
-    $isSupplierLeader = $_SESSION['userid'] == $tproject['supplier_leader'];
-    $template->assign("isProjectLeader",$isProjectLeader);
-    $template->assign("isCustomerLeader",$isCustomerLeader);
-    $template->assign("isSupplierLeader",$isSupplierLeader);
     $editBaseInfo = false;
     $_roleType = $_SESSION['userRole'];
     $editBaseInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
     $template->assign("editBaseInfo",$editBaseInfo);
-    
+    $editSampleInfo = false;
+    $editSampleInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4);
+    $template->assign("editSampleInfo",$editSampleInfo);
+    $editSampleRequestInfo = false;
+    $editSampleRequestInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4)|| ($_roleType == 5);
+    $template->assign("editSampleRequestInfo",$editSampleRequestInfo);
+    $editTeamInfo = false;
+    $editTeamInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4)|| ($_roleType == 5)|| ($_roleType == 6);
+    $template->assign("editTeamInfo",$editTeamInfo);
+    $addEcnInfo = false;
+    $addEcnInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader) || ($_roleType == 5);
+    $template->assign("addEcnInfo",$addEcnInfo);
     $editPhase = false;
     $editPhase = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
     $template->assign("editPhase",$editPhase);
+    $addOrder = false;
+    $addOrder = $_roleType == 6 ;
+    $template->assign("addOrder",$addOrder);
+    $pricePurchase = false;
+    $pricePurchase = $_roleType == 8 ;
+    $template->assign("pricePurchase",$pricePurchase);
+    $orderDetailInfo = false;
+    $orderDetailInfo =  $_roleType == 1 || $_roleType ==3 || ($_roleType == 4)|| ($_roleType == 6); ;
+    $template->assign("orderDetailInfo",$orderDetailInfo); 
+    $editPurchaseInfo = false;
+    $editPurchaseInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader)|| ($_roleType == 8);
+    $template->assign("editPurchaseInfo",$editPurchaseInfo);
     SmartyPaginate::assign($template);
     $template->display("project_jenkins.tpl");
 } elseif ($action == "cal")

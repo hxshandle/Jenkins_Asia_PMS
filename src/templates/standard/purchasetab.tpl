@@ -1,11 +1,15 @@
 <div class="phaseMenualBar">
-  <button id="btnAddPurchase">{#add#}</button>
+ {if editBaseInfo}
+    <button id="btnAddPurchase">{#add#}</button>
+ {/if}
 </div>
 <div id="addPurchaseDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addpurchase.tpl" title="add Purchase"}
 </div>
 <div class="purchaseList" id="purchaseList">
-  {include file = "purchasedetails.tpl"}
+ {if $editPurchaseInfo}
+    {include file = "purchasedetails.tpl"}
+ {if}
 </div>
 <div id = "pricePurchaseDlg"></div>
 

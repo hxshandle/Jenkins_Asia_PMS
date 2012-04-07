@@ -54,13 +54,18 @@ class ProjectTabs {
     return $memberData;
   }
   
-    //get ORder by msj
+    //get Order by msj
   function getOrderTabByCustomer($projectId,$customerId){
     $order = new Order();
     $orderData = $order->getOrdersByCustomer($projectId,$customerId);
     return $orderData;
   }
-  
+  //get Order by msj
+  function getOrderTab($projectId){
+    $order = new Order();
+    $orderData = $order->getOrders($projectId);
+    return $orderData;
+  }
       //get Ecn by msj
   function getEcnTab($projectId,$customerId){
     $ecn = new EngineeringChangeNote();
@@ -74,6 +79,11 @@ class ProjectTabs {
     return $purchaseData;
   }
   
+  function getPurchaseTabBySupplier($projectId,$supplierId){
+    $purchase = new Purchase();
+    $purchaseData = $purchase->getPurchasesBySupplier($projectId,$supplierId);
+    return $purchaseData;
+  }
 }
 
 ?>

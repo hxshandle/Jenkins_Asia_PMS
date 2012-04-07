@@ -32,9 +32,10 @@
       <td  align  = "center">{$sampleRequestTab[sampleRequest].approved}</td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].submit_time}</td>
       <td>
-        {if $sampleRequestTab[sampleRequest].approveId == 26}
+        {if $sampleRequestTab[sampleRequest].approveId == 26 && $editBaseInfo}
           <a class="tool_del"  title="{#retrieve#}" href="javascript:void(0);"onclick="retrieveSample({$sampleRequestTab[sampleRequest].ID});"></a>
          {/if}
+
       </td>
     </tr>
   {/section}

@@ -15,7 +15,7 @@
       <tr class="color-b">
     {/if}
       <td>
-        {if $ecnTab[ecn].approveId == 1}
+        {if $ecnTab[ecn].approveId == 1 && $editBaseInfo}
         <a class="tool_edit" title="{#approved#}" href=javascript:void(0);" onclick="approveEditEcnDlg({$ecnTab[ecn].ID});"></a>
         <a class="tool_del"  title="{#rejected#}" href="javascript:void(0);"onclick="rejectEditEcnDlg({$ecnTab[ecn].ID});"></a>
         {/if}

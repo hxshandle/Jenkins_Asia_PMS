@@ -1,5 +1,7 @@
 <div class="phaseMenualBar">
-  <button id="btnAddFinance">{#addphase#}</button>
+  {if $editBaseInfo}
+    <button id="btnAddFinance">{#addphase#}</button>
+   {/if}
 </div>
 <div id="addFinanceDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addfinance.tpl" title="add finance"}

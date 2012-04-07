@@ -25,8 +25,10 @@
       <td  align  = "center">{$orderTab[order].status}</td>
       <td>
         {if $orderTab[order].statusId == 14 || $orderTab[order].statusId == 17}
+         {if editBaseInfo}
         <a class="tool_edit" title="{#price#}" href=javascript:void(0);" onclick="priceOrderDlg({$orderTab[order].ID});"></a>
-        {elseif $orderTab[order].statusId == 15}
+         {/if}
+        {elseif $orderTab[order].statusId == 15 && $addOrder}
         <a class="tool_edit" title="{#agree#}" href=javascript:void(0);" onclick="agreeOrderDlg({$orderTab[order].ID});"></a>
         <a class="tool_edit" title="{#reject#}" href=javascript:void(0);" onclick="rejectOrderDlg({$orderTab[order].ID});"></a>
         {/if}

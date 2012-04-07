@@ -1,11 +1,16 @@
 <div class="phaseMenualBar">
-  <button id="btnAddSample">{#addphase#}</button>
-</div>
+  {if $editBaseInfo}
+    <button id="btnAddSample">{#addphase#}</button>
+  {/if}
+  </div>
 <div id="addSampleDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addsample.tpl" title="add Sample"}
 </div>
+
 <div class="sampleList" id="sampleList">
-  {include file = "sampledetails.tpl"}
+ {if $editSampleInfo}
+    {include file = "sampledetails.tpl"}
+ {/if}
 </div>
 <div class="phaseMenualBar">
   <button id="btnAddSampleRequest">{#addsamplerequest#}</button>
@@ -15,7 +20,9 @@
 </div>
 
 <div class="sampleRequestList" id="sampleRequestList">
-  {include file = "samplerequestdetails.tpl"}
+   {if $editSampleRequestInfo}
+    {include file = "samplerequestdetails.tpl"}
+   {/if}
 </div>
 <div id = "editsampleDlg"></div>
 

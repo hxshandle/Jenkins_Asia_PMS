@@ -21,8 +21,10 @@
       <td  align  = "center">{$purchaseTab[purchase].status}</td>
       <td>
         {if $purchaseTab[purchase].statusId == 32 || $purchaseTab[purchase].statusId == 35}
+            {if $pricePurchase}
         <a class="tool_edit" title="{#price#}" href=javascript:void(0);" onclick="pricePurchaseDlg({$purchaseTab[purchase].ID});"></a>
-        {elseif $purchaseTab[purchase].statusId == 33}
+             {/if}
+            {elseif $purchaseTab[purchase].statusId == 33 && $editBaseInfo}
         <a class="tool_edit" title="{#agree#}" href=javascript:void(0);" onclick="agreePurchaseDlg({$purchaseTab[purchase].ID});"></a>
         <a class="tool_edit" title="{#reject#}" href=javascript:void(0);" onclick="rejectPurchaseDlg({$purchaseTab[purchase].ID});"></a>
         {/if}

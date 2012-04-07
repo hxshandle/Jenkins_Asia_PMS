@@ -21,9 +21,11 @@
       <td  align  = "center">{$sampleTab[sample].total_count}</td>
       <td  align  = "center">{$sampleTab[sample].available_count}</td>
       <td>
+      {if $editBaseInfo}
         <a class="tool_edit" title="{#edit#}" href=javascript:void(0);" onclick="showEditSampleDlg({$sampleTab[sample].ID});"></a>
         <a class="tool_del" href="javascript:void(0);"onclick="delSample({$sampleTab[sample].ID});"></a>
-      </td>
+      {/if}
+          </td>
     </tr>
   {/section}
 </table>

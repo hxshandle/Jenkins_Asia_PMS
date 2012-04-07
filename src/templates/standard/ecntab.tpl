@@ -1,11 +1,15 @@
 <div class="phaseMenualBar">
-  <button id="btnAddEcn">{#add#}</button>
+  {if $addEcnInfo}
+    <button id="btnAddEcn">{#add#}</button>
+   {/if}
 </div>
 <div id="addEcnDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addecn.tpl" title="add ecn"}
 </div>
 <div class="ecnList" id="ecnList">
-  {include file = "ecndetails.tpl"}
+  {if $editSampleRequestInfo}
+    {include file = "ecndetails.tpl"}
+  {/if}
 </div>
 <div id = "editEcnDlg"></div>
 

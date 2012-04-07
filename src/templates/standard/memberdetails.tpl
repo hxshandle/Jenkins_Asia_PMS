@@ -23,8 +23,10 @@
           {$memberTab[member].tel2}
       </td>
       <td align  = "center">
-        <a class="tool_del" href="javascript:void(0);"onclick="delMember({$memberTab[member].user},{$memberTab[member].project});"></a>
-      </td>
+        {if $editBaseInfo}
+          <a class="tool_del" href="javascript:void(0);"onclick="delMember({$memberTab[member].user},{$memberTab[member].project});"></a>
+        {/if}
+        </td>
     </tr>
   {/section}
 </table>
