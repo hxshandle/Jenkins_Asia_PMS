@@ -49,6 +49,7 @@ if (isset($_SESSION["userid"]))
     $locale = $_SESSION["userlocale"];
     // gender
     $gender = $_SESSION["usergender"];
+    $_SESSION['sessionId']=session_id();
     // what the user may or may not do
     $userpermissions = $_SESSION["userpermissions"];
     // assign it all to the templates

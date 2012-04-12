@@ -1,11 +1,6 @@
 <?php
 include("./init.php");
 // check if user is logged in
-if (!isset($_SESSION["userid"])) {
-    $template->assign("loginerror", 0);
-    $template->display("login.tpl");
-    die();
-}
 $myfile = new datei();
 
 $POST_MAX_SIZE = ini_get('post_max_size');
@@ -265,6 +260,23 @@ if ($action == "upload") {
 
     $target = $_GET["target"];
     $myfile->moveFile($file, $target);
+} elseif ($action == "uploadfile"){
+    if (isset($_POST["PHPSESSID"])) {
+    session_id($_POST["PHPSESSID"]);
+    } else if (isset($_GET["PHPSESSID"])) {
+    session_id($_GET["PHPSESSID"]);
+    }
+    session_start();
+    
+    if ($upfolder) {
+        $thefolder = $myfile->getFolder($upfolder);
+        $thefolder = $thefolder["name"];
+        $upath = "files/" . CL_CONFIG . "/$id/" . $thefolder;
+    } else {
+        $upath = "files/" . CL_CONFIG . "/$id";
+        $upfolder = 0;
+    }
+    $myfile->upload("file1","",$id,0);
 }
 
 ?>
