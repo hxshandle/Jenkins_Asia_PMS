@@ -235,8 +235,8 @@ class datei
         $typ = $_FILES[$fname]['type'];
         $size = $_FILES[$fname]['size'];
         $tmp_name = $_FILES[$fname]['tmp_name'];
-        $tstr = $fname . "-title";
-        $tastr = $fname . "-tags";
+        $tstr ="title";
+        $tastr ="tags";
         $visible = $_POST["visible"];
 
         if (!empty($visible[0]))
@@ -259,7 +259,7 @@ class datei
         }
 
         $desc = $_POST['desc'];
-
+        
         $tagobj = new tags();
         $tags = $tagobj->formatInputTags($tags);
         // find the extension
@@ -298,7 +298,6 @@ class datei
         $name = $subname . "_" . $randval . "." . $erweiterung;
         $datei_final = $root . "/" . $ziel . "/" . $name;
         $datei_final2 = $ziel . "/" . $name;
-
         if (!file_exists($datei_final))
         {
             if (move_uploaded_file($tmp_name, $datei_final))
@@ -312,7 +311,9 @@ class datei
                      * add the file to the database, add the upload event to the log and return the file ID.
                      */
                     chmod($datei_final, 0755);
+                    //echo $name." : ".$desc." : ".$project." : ".$tags." : ".$datei_final2." : ".$typ." : ".$title." : ".$folder." : ".$visstr;
                     $fid = $this->add_file($name, $desc, $project, 0, "$tags", $datei_final2, "$typ", $title, $folder, $visstr);
+                    echo "insert -> ".$fid;
 					if(!empty($title))
 					{
 						$this->mylog->add($title, 'file', 1, $project);
@@ -643,13 +644,14 @@ class datei
         $project = (int) $project;
         $milestone = (int) $milestone;
         $folder = (int) $folder;
-        $userid = $_SESSION["userid"];
+        $userid = getArrayVal($_POST, "userId");
         $type = mysql_real_escape_string($type);
         $title = mysql_real_escape_string($title);
         $now = time();
-
-        $ins = mysql_query("INSERT INTO files (`name`,`desc`,`project`,`milestone`,`user`,`tags`,`added`,`datei`,`type`,`title`,`folder`,`visible`) VALUES ('$name','$desc',$project,$milestone,$userid,'$tags','$now','$datei','$type','$title','$folder','$visstr')");
-
+        $sql = "INSERT INTO files (`name`,`desc`,`project`,`milestone`,`user`,`tags`,`added`,`datei`,`type`,`title`,`folder`,`visible`) VALUES ('$name','$desc',$project,$milestone,$userid,'$tags','$now','$datei','$type','$title','$folder','$visstr')";
+        $ins = mysql_query($sql);
+        echo "sql-> ".$sql;
+        echo "-->ins : ".$ins;
         if ($ins)
         {
             $insid = mysql_insert_id();

@@ -2,7 +2,7 @@
 
 	<h2>{#addfile#}</h2>
 	{#maxsize#}: {$postmax}<br/><br/>
-	<form class="main" action="managefile.php?action=upload&amp;id={$project.ID}" method="post" enctype="multipart/form-data" {literal} onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
+	<form class="main" id="fileForm" name="fileForm" action="managefile.php?action=upload&amp;id={$project.ID}" method="post" enctype="multipart/form-data" {literal} onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
 	<fieldset>
 		<div class="row">
 			<label for = "numfiles">{#count#}:</label>
@@ -31,20 +31,9 @@
 		</div>
 
 		<div id = "inputs">
-			<div class="row"><label for = "title">{#title#}:</label><input type = "text" name = "userfile1-title" id="title" /></div>
-				<div class="row"><label for="file">{#file#}:</label>
-					<div class="fileinput" >
-						<input type="file" class="file" name="userfile1" id="filer"  realname="{#file#}" size="19" onchange = "file.value = this.value;" />
-						<table class = "faux" cellpadding="0" cellspacing="0" border="0" style="padding:0;margin:0;border:none;">
-							<tr>
-								<td><input type="text" class="text-file" name="userfile1" id="file" required="1" realname="{#file#}"></td>
-								<td class="choose"><button class="inner" onclick="return false;">{#chooseone#}</button></td>
-							</tr>
-						</table>
-					</div>
-				</div>
+			<div class="row"><label for = "title">{#title#}:</label><input type = "text" name = "title" id="title" /></div>
 				<div class="row">
-					<label for = "tags">{#tags#}:</label><input type = "text" name = "userfile1-tags" id="tags" />
+					<label for = "tags">{#tags#}:</label><input type = "text" name = "tags" id="tags" />
 				</div>
 			</div>
 
@@ -54,7 +43,7 @@
 
 			<div class = "row">
 				<label>{#visibility#}:</label>
-				<select name = "visible[]" multiple style = "height:80px;">
+				<select name = "visible" multiple style = "height:80px;">
 					<option value = "0" selected>{#all#}</option>
 				  <option value = "1" >{#superAdmin#}</option>
           <option value = "2" >{#admin#}</option>
@@ -98,14 +87,17 @@
 	</fieldset>
 	</form>
 
+
 <div class="fieldset flash" id="fsUploadProgress">
-	<span class="legend">Upload Queue</span>
+  <span class="legend">Upload Queue</span>
 </div>
 <div id="divStatus">0 Files Uploaded</div>
 <div>
   <span id="spanButtonPlaceHolder"></span>
   <input id="btnCancel" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" />
 </div>
+
+
 <script type="text/javascript" src="include/swfupload/swfupload.js"></script>
 <script type="text/javascript" src="include/swfupload/swfupload.queue.js"></script>
 <script type="text/javascript" src="include/js/fileprogress.js"></script>
@@ -113,6 +105,7 @@
 <script type="text/javascript">
   var __projectId = {$project.ID};
   var __sesionId = "{$smarty.session.sessionId}";
+  var __userId = "{$smarty.session.userid}";
 </script>
 {literal}
 <script type="text/javascript">
@@ -123,7 +116,7 @@
       flash_url : "include/swfupload/swfupload.swf",
       flash9_url : "include/swfupload/swfupload_fp9.swf",
       upload_url: "uploadfileajax.php",
-      post_params: {"PHPSESSID" : __sesionId,"id":__projectId},
+      post_params: {"PHPSESSID" : __sesionId,"id":__projectId,"userId":__userId},
       file_size_limit : "100 MB",
       file_types : "*.*",
       file_types_description : "All Files",

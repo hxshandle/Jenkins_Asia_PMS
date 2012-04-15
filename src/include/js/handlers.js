@@ -89,6 +89,11 @@ function uploadStart(file) {
 		It's important to update the UI here because in Linux no uploadProgress events are called. The best
 		we can do is say we are uploading.
 		 */
+		var postParams = $('fileForm').serialize(true);
+		for (var p in postParams){
+			swfu.addPostParam(p,postParams[p]);	
+		}
+		
 		var progress = new FileProgress(file, this.customSettings.progressTarget);
 		progress.setStatus("Uploading...");
 		progress.toggleCancel(true, this);
