@@ -4,21 +4,6 @@
 	{#maxsize#}: {$postmax}<br/><br/>
 	<form class="main" id="fileForm" name="fileForm" action="managefile.php?action=upload&amp;id={$project.ID}" method="post" enctype="multipart/form-data" {literal} onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
 	<fieldset>
-		<div class="row">
-			<label for = "numfiles">{#count#}:</label>
-			<select name = "numfiles" id = "numfiles" onchange = "make_inputs(this.value);">
-				<option value = "1" selected="selected">1</option>
-				<option value = "2">2</option>
-				<option value = "3">3</option>
-				<option value = "4">4</option>
-				<option value = "5">5</option>
-				<option value = "6">6</option>
-				<option value = "7">7</option>
-				<option value = "8">8</option>
-				<option value = "9">9</option>
-				<option value = "10">10</option>
-			</select>
-		</div>
 
 		<div class = "row">
 			<label for = "upfolder">{#folder#}:</label>
@@ -76,11 +61,20 @@
 	<div class="row-butn-bottom">
 		<label>&nbsp;</label>
 		<img id = "fakeprogress" src = "templates/standard/images/symbols/ajax-loader.gif" alt = "fakeprogress" style = "display:none;" />
-
+    <!--
 		<div id = "filesubmit" >
 			<button type="submit" onclick = "$('filesubmit').hide();$('fakeprogress').show();" onfocus="this.blur();">{#addbutton#}</button>
 			<button type="reset" onclick="blindtoggle('form_file');toggleClass('addfile','addfile-active','addfile');toggleClass('add_file_butn','butn_link_active','butn_link');toggleClass('sm_files','smooth','nosmooth');return false;" onfocus="this.blur();">{#cancel#}</button>
 		</div>
+    -->
+    <div class="fieldset flash" id="fsUploadProgress">
+      <span class="legend">Upload Queue</span>
+    </div>
+    <div id="divStatus">0 Files Uploaded</div>
+    <div>
+      <span id="spanButtonPlaceHolder"></span>
+      <input id="btnCancel" type="button" class = "butn_link" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;width:auto;" />
+    </div>
 	</div>
 
 
@@ -88,14 +82,6 @@
 	</form>
 
 
-<div class="fieldset flash" id="fsUploadProgress">
-  <span class="legend">Upload Queue</span>
-</div>
-<div id="divStatus">0 Files Uploaded</div>
-<div>
-  <span id="spanButtonPlaceHolder"></span>
-  <input id="btnCancel" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" />
-</div>
 
 
 <script type="text/javascript" src="include/swfupload/swfupload.js"></script>
@@ -117,7 +103,7 @@
       flash9_url : "include/swfupload/swfupload_fp9.swf",
       upload_url: "uploadfileajax.php",
       post_params: {"PHPSESSID" : __sesionId,"id":__projectId,"userId":__userId},
-      file_size_limit : "100 MB",
+      file_size_limit : "1000 MB",
       file_types : "*.*",
       file_types_description : "All Files",
       file_upload_limit : 100,
@@ -133,7 +119,7 @@
       button_width: "65",
       button_height: "29",
       button_placeholder_id: "spanButtonPlaceHolder",
-      button_text: '<span class="theFont">'+MSGS.upload+'</span>',
+      button_text: '<span class="butn_link">'+MSGS.upload+'</span>',
       button_text_style: ".theFont { font-size: 16; }",
       button_text_left_padding: 12,
       button_text_top_padding: 3,

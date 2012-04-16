@@ -2998,4 +2998,5 @@ td.hastask a{
 td.hastask .calcontent{
 	font-size:10px;
 }
+
 /*****************Jenkins Asia Special***********************/
