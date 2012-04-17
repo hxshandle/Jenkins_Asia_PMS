@@ -24,7 +24,7 @@
         {/if}
         {/section}
     </select>
-    <input id="newInnerCost" value ={$order.inner_cost}></input>
+    <input id="newInnerCost" value ="{$order.inner_cost}"  regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
     <label style="margin:0 50px 0 0">{#externalcost#}</label>
@@ -33,7 +33,7 @@
           <option value="{$currency[curr]}">{$currency[curr]}</option>
         {/section}
     </select>
-    <input id="newExternalCost" value ={$order.external_cost} ></input>
+    <input id="newExternalCost" value ="{$order.external_cost}" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
   <label style="margin:0 50px 0 0">{#endtime#}</label>

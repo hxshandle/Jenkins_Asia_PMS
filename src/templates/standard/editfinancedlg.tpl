@@ -20,7 +20,7 @@
         {/if}
         {/section}
     </select>
-    <input id="newInnerCost" value={$finance.inner_cost}></input>
+    <input id="newInnerCost" value="{$finance.inner_cost}"></input>
 </div>
 <div class="dlgRow" {if $smarty.session.userRole != 1 and $smarty.session.userRole != 3}style="display:none"{/if}>
     <label style="margin:0 50px 0 0">{#externalcost#}</label>
@@ -33,7 +33,7 @@
         {/if}
         {/section}
     </select>
-    <input id="newExternalCost" value = {$finance.external_cost}></input>
+    <input id="newExternalCost" value = "{$finance.external_cost}" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
     <label style="margin:0 50px 0 0">{#approved#}</label>
