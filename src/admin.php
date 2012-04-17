@@ -48,9 +48,9 @@ $targetFOBCurrentcy = getArrayVal($_POST, "targetFOBCurrentcy");
 $forecastedAnnualQuality1 = getArrayVal($_POST, "forecastedAnnualQuality1");
 $forecastedAnnualQuality2 = getArrayVal($_POST, "forecastedAnnualQuality2");
 $forecastedAnnualQuality3 = getArrayVal($_POST, "forecastedAnnualQuality3");
-$projectLeader = getArrayVal($_POST, "projectLeader");
-$customerLeader = getArrayVal($_POST, "customerLeader");
-$supplierLeader = getArrayVal($_POST, "supplierLeader");
+$projectLeader = getArrayVal($_POST, "projectLeaderId");
+$customerLeader = getArrayVal($_POST, "customerLeaderId");
+$supplierLeader = getArrayVal($_POST, "supplierLeaderId");
 
 $userTitle = getArrayVal($_POST, "title");
 $roleType = getArrayVal($_POST, "roletype");

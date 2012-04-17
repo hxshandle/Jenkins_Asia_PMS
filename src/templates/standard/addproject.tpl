@@ -98,15 +98,15 @@
 		</div>
 		<div class = "row">
 		  <label for = "projectLeader">{#projectLeader#}:</label>
-      <input type = "text" class="text" name = "projectLeader" id = "projectLeader" /><input id="projectLeaderId" type="hidden"/><a class="add" href="#">{#add#}</a>
+      <input type = "text" class="text" name = "projectLeader" id = "projectLeader" /><input id="projectLeaderId" type="hidden" name="projectLeaderId"/>
 		</div>
 		<div class = "row">
 		  <label for = "customerLeader">{#customerLeader#}:</label>
-		  <input type = "text" class="text" name = "customerLeader" id = "customerLeader" /><input id="customerLeaderId" type="hidden"/><a class="add" href="#">{#add#}</a>
+		  <input type = "text" class="text" name = "customerLeader" id = "customerLeader" /><input id="customerLeaderId" type="hidden" name="customerLeaderId"/>
 		</div>
 		<div class = "row">
 		  <label for = "supplierLeader">{#supplierLeader#}:</label>
-      <input type = "text" class="text" name = "supplierLeader" id = "supplierLeader" /><input id="supplierLeaderId" type="hidden"/><a class="add" href="#">{#add#}</a>
+      <input type = "text" class="text" name = "supplierLeader" id = "supplierLeader" /><input id="supplierLeaderId" type="hidden" name="supplierLeaderId"/>
 		</div>
     <div id = "userChoice" class = "autoComp"></div>
 		<div class="row"><label>{#members#}:</label>
@@ -118,7 +118,6 @@
 	    {/section}
 	    </div>
 		</div>
-
 		<input type="hidden" name="assignme" value="1" />
 
 	    <div class="clear_both_b"></div>
