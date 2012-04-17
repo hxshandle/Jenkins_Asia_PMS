@@ -8,11 +8,11 @@
 </div>
 <div class="dlgRow">
   <label style="margin:0 50px 0 0">{#totalcount#}</label>
-  <input id="newSampleTotalcount"></input>
+  <input id="newSampleTotalcount" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
   <label style="margin:0 23px 0 0">{#availablecount#}</label>
-  <input id="newSampleAvailablecount"></input>
+  <input id="newSampleAvailablecount" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
   <label style="margin:0 50px 0 0">{#sampledescription#}</label>
@@ -29,8 +29,23 @@
 
 {literal}
   <script type="text/javascript">
-    function saveSample(){
-      
+    function addSampleValidator(){
+      var ret = true;
+      var newSampleName = $('newSampleName').value;
+      if(newSampleName.length<1){
+        $('newSampleName').style.border="2px solid red";
+        ret = false;
+      }
+       return ret;
+    }    
+
+
+
+
+function saveSample(){
+      if(!addSampleValidator()){
+         return false;
+      }
       var theUrl = "manageprojectajax.php";
       var thePost = "action=addSample&projectId="+__projectId;
       var jssampleName = $("newSampleName").value;

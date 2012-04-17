@@ -4,7 +4,7 @@
 </div>
 <div class="dlgRow">
   <label style="margin:0 75px 0 0">{#quantity#}</label>
-  <input id="newOrderQuantity"></input>
+  <input id="newOrderQuantity"   regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
   <label style="margin:0 50px 0 0">{#ordertime#}</label>
@@ -20,7 +20,22 @@
 
 {literal}
   <script type="text/javascript">
+    
+    function addOrderValidator(){
+      var ret = true;
+      var newOrderName = $('newOrderName').value;
+      if(newOrderName.length<1){
+        $('newOrderName').style.border="2px solid red";
+        ret = false;
+      }
+       return ret;
+    }
+      
+      
     function saveOrder(){
+        if( addOrderValidator()){
+               return false;
+        }
       var theUrl = "manageprojectajax.php";
       var thePost = "action=addOrder&projectId="+__projectId;
       var jsorderName = $("newOrderName").value;

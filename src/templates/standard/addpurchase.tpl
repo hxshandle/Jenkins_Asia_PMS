@@ -4,7 +4,7 @@
 </div>
 <div class="dlgRow">
   <label style="margin:0 75px 0 0">{#quantity#}</label>
-  <input id="newPurchaseQuantity"></input>
+  <input id="newPurchaseQuantity" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
   <label style="margin:0 75px 0 0">{#description#}</label>
@@ -16,7 +16,21 @@
 
 {literal}
   <script type="text/javascript">
+    function addPurchaseValidator(){
+      var ret = true;
+      var newPurchaseName = $('newPurchaseName').value;
+      if(newPurchaseName.length<1){
+        $('newPurchaseName').style.border="2px solid red";
+        ret = false;
+      }
+       return ret;
+    }  
+      
+      
     function savePurchase(){
+       if(! addPurchaseValidator()){
+           return false;
+}
       var theUrl = "manageprojectajax.php";
       var thePost = "action=addPurchase&projectId="+__projectId;
       var jspurchaseName = $("newPurchaseName").value;

@@ -17,7 +17,7 @@
         {/if}
         {/section}
     </select>
-    <input id="newInnerCost"></input>
+    <input id="newInnerCost" regexp="{literal}\d+{/literal}"></input>
 </div>
 
 <div class="dlgRow" {if $smarty.session.userRole != 1 and $smarty.session.userRole != 3}style="display:none"{/if}>
@@ -31,7 +31,7 @@
         {/if}
         {/section}
     </select>
-    <input id="newExternalCost"></input>
+    <input id="newExternalCost" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
     <label style="margin:0 50px 0 0">{#approved#}</label>
@@ -88,7 +88,21 @@
 
 {literal}
   <script type="text/javascript">
-    function saveFinance(){
+
+    function addFinanceValidator(){
+      var ret = true;
+      var newFinanceName = $('newFinanceName').value;
+      if(newFinanceName.length<1){
+        $('newFinanceName').style.border="2px solid red";
+        ret = false;
+      }
+       return ret;
+    }
+
+function saveFinance(){
+    if(!addFinanceValidator()){
+        return false;
+    }
       var theUrl = "manageprojectajax.php";
       var thePost = "action=addFinance&projectId="+__projectId;
       var jsfinanceName = $("newFinanceName").value;

@@ -24,7 +24,7 @@
         {/if}
         {/section}
     </select>
-    <input id="newPrice" value ={$purchase.price}></input>
+    <input id="newPrice" value ="{$purchase.price}" regexp="{literal}\d+{/literal}"></input>
 </div>
 
 <div class="dlgRow">

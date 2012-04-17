@@ -27,7 +27,21 @@
 
 {literal}
   <script type="text/javascript">
+      
+      
+    function addEcnValidator(){
+      var ret = true;
+      var newEcnName = $('newEcnName').value;
+      if(newEcnName.length<1){
+        $('newEcnName').style.border="2px solid red";
+        ret = false;
+      }
+       return ret;
+    }
     function saveEcn(){
+        if(!addEcnValidator()){
+           return false;
+        }
       var theUrl = "manageprojectajax.php";
       var thePost = "action=addEcn&projectId="+__projectId;
       var jsecnName = $("newEcnName").value;

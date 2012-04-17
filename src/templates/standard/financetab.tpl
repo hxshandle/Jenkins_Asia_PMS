@@ -13,6 +13,9 @@
 
 {literal}
 <script type="text/javascript">
+
+    
+    
   if(!window.__addFinanceDlgContent){
     window.__addFinanceDlgContent=$("addFinanceDlg").innerHTML;
     $("addFinanceDlg").remove(); 
