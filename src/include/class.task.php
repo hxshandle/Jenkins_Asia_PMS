@@ -370,9 +370,9 @@ class task
         $valid = (int) $valid;
 
         $lists = array();
-        if ($status !== false)
+        if ($valid !== false)
         {
-            $sel2 = mysql_query("SELECT ID FROM tasks WHERE project = $project AND status=$status");
+            $sel2 = mysql_query("SELECT ID FROM tasks WHERE project = $project AND valid=$valid");
         }
         else
         {
