@@ -14,7 +14,7 @@ if(!$action){
 switch ($action){
   case "findUser":
     $query = getArrayVal($_POST, "query");
-    $user = new User();
+    $user = new user();
     $ret = $user->searchUser($query);
     echo "<ul>";
     foreach ($ret as $item) {

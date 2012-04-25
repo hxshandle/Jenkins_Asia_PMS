@@ -348,7 +348,7 @@ class project {
         $project = mysql_fetch_array($sel, MYSQL_ASSOC);
 
         if (!empty($project)) {
-            $user = new User();
+            $user = new user();
             if ($project["end_date"]) {
                 $daysleft = $this->getDaysLeft($project["end_date"]);
                 $project["daysleft"] = $daysleft;
