@@ -1,7 +1,9 @@
 var J = {};
 
-J.validationAddTask=function(form,errCss,startDate,endDate){
+J.validationAddTask=function(form,errCss){
   var ret = true;
+  var startDate = substr($("tips_startDate").innerHTML,2);
+  var endDate = substr($("tips_endDate").innerHTML,2);
   var deliverStartDate = new Date(Date.parse(startDate));
   var deliverEndDate = new Date(Date.parse(endDate));
   var taskStartDate = new Date(Date.parse(document.getElementsByName("start")[0].value));

@@ -503,6 +503,9 @@ elseif ($action == "addpro")
     $add = $project->add($name, $desc, $status,$budget,$projectLevel,$projectPriority,$customer,$supplier,$targetFOB,$targetFOBCurrentcy,$forecastedAnnualQuality1,$forecastedAnnualQuality2,$forecastedAnnualQuality3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate);
     if ($add)
     {
+        //create task list
+        $liste = (object) new tasklist();
+        $liste->add_liste($add, "tasklist", "", 0, 0,0);
         foreach ($assignto as $member)
         {
             $project->assign($member, $add);

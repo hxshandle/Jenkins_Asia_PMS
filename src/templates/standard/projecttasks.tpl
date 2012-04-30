@@ -55,7 +55,9 @@
 
 	{if $userpermissions.tasks.add}
 		<div class="add-main">
+			<!--
 			<a id="addtasklists" class="add" href="javascript:blindtoggle('addlist');" onclick="toggleClass(this,'add-active','add');"><span>{#addtasklist#}</span></a>
+		-->
 		</div>
 	{/if}
 
@@ -72,6 +74,7 @@
 				<a href="javascript:void(0);" id="block-{$lists[list].ID}_toggle" class="win_block" onclick = "toggleBlock('block-{$lists[list].ID}');"></a>
 
 				<div class="wintools">
+					<!--
 					{if $userpermissions.tasks.close}
 						<a class="close" href="managetasklist.php?action=close&amp;tlid={$lists[list].ID}&amp;id={$project.ID}"><span>{#close#}</span></a>
 					{/if}
@@ -81,6 +84,7 @@
 					{if $userpermissions.tasks.del}
 						<a class="del" href="javascript:confirmit('{#confirmdel#}','managetasklist.php?action=del&amp;tlid={$lists[list].ID}&amp;id={$project.ID}');"><span>{#delete#}</span></a>
 					{/if}
+				-->
 					{if $userpermissions.tasks.add}
 						<a class="add" href="javascript:blindtoggle('form_{$lists[list].ID}');" id="add_{$lists[list].ID}" onclick="toggleClass(this,'add-active','add');toggleClass('add_butn_{$lists[list].ID}','butn_link_active','butn_link');toggleClass('sm_{$lists[list].ID}','smooth','nosmooth');"><span>{#addtask#}</span></a>
 					{/if}

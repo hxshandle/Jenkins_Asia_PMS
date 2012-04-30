@@ -25,7 +25,7 @@ $taskStatus = getArrayVal($_POST, "status");
 
 $redir = getArrayVal($_GET, "redir");
 $id = getArrayVal($_GET, "id");
-$deliverableId = getArrayVal($_GET, "deliverableId");
+$deliverableId = getArrayVal($_POST, "deliverableItems");
 $project = array();
 $project['ID'] = $id;
 $template->assign("project", $project);

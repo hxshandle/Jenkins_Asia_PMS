@@ -850,7 +850,31 @@ switch ($action) {
       echo "Fail";
     }
     break;
-
+  case "getTasksBydeliverableId":
+    $deliverableId = getArrayVal($_GET,"deliverableId");
+    $deliverableItem = new DeliverableItem();
+    $deliverableObj = $deliverableItem->getItem($deliverableId);
+    $tasks = $deliverableObj["tasks"];
+    $startDate = substr($deliverableObj['start_date'],0,10);
+    $endDate = substr($deliverableObj['end_date'],0,10);
+    echo "{";
+    echo "'startDate':'$startDate',";
+    echo "'endDate':'$endDate',";
+    echo "'tasks':[";
+    $str = "";
+    foreach ($tasks as $tk) {
+        $tkId = $tk["ID"];
+        $tkName = $tk["title"];
+        $str = $str."{";
+        $str = $str."'id':'$tkId',";
+        $str = $str."'name':'$tkName'";
+        $str = $str."},";
+    }
+    $str = substr($str,0, -1);
+    echo $str;
+    echo "]";
+    echo "}";
+    break;
   default:
     break;
 }

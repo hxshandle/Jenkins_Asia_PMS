@@ -1,7 +1,7 @@
 <div class="block_in_wrapper">
 
 	<h2>{#addtask#}</h2>
-	<form name = "addtaskform{$lists[list].ID}" id = "addtaskform{$lists[list].ID}" class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}&amp;deliverableId={$lists[list].deliverable_item}"  {literal}onsubmit="return J.validationAddTask(this,'hiErrorField',{/literal}'{$deliverStartDate|truncate:"10":""}','{$deliverEndDate|truncate:"10":""}'{literal});{/literal}">
+	<form name = "addtaskform{$lists[list].ID}" id = "addtaskform{$lists[list].ID}" class="main" method="post" action="managetask.php?action=add&amp;id={$project.ID}"  onsubmit="return J.validationAddTask(this,'hiErrorField'">
 	<fieldset>
 	<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" name="title" id="title"  realname = "{#title#}" required = "1"  /></div>
 	<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text" rows="3" cols="1" ></textarea></div></div>
@@ -20,17 +20,25 @@
 		</select>
 	</div>
 
+	<div class="row">
+				<label for="deliverableItems">{#deliverableItems#}: </label>
+				<select name="deliverableItems" id="deliverableItems" onchange="deliverItemChanged(this)">
+				<option value="-1" selected="selected">{#chooseone#}</option>
+				{section name=stone loop=$deliverableItems}
+					<option value="{$deliverableItems[stone].ID}">{$deliverableItems[stone].name}</option>
+				{/section}
+				</select>
+	</div>	
 	<div class="row"><label for="parent{$lists[list].ID}">{#parentTask#}:</label>
-		<select type="text" class="text" name="parent" realname="{#parent#}"  id="parent{$lists[list].ID}" required = "1" >
+		<select type="text" class="text" name="parent" realname="{#parent#}"  id="parent" required = "1" >
 			<option value = "-1">{#chooseone#}</option>
-      {section name=parentTask loop=$lists[list].tasks}
-	      <option value = "{$lists[list].tasks[parentTask].ID}">{$lists[list].tasks[parentTask].title}</option>
-	    {/section}
 		</select>
 	</div>
 
-	<div class="row"><label for="start{$lists[list].ID}">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start{$lists[list].ID}" required = "1" /> <span class="tipsMsg"> > {$deliverStartDate|truncate:"10":""}</span></div>
-	<div class="row"><label for="end{$lists[list].ID}">{#due#}:</label><input type="text" class="text" name="end" realname="{#due#}"  id="end{$lists[list].ID}" required = "1" /><span class="tipsMsg"> < {$deliverEndDate|truncate:"10":""}</span></div>
+
+
+	<div class="row"><label for="start{$lists[list].ID}">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start{$lists[list].ID}" required = "1" /> <span class="tipsMsg" id="tips_startDate">  {$deliverStartDate|truncate:"10":""}</span></div>
+	<div class="row"><label for="end{$lists[list].ID}">{#due#}:</label><input type="text" class="text" name="end" realname="{#due#}"  id="end{$lists[list].ID}" required = "1" /><span class="tipsMsg" id="tips_endDate"> {$deliverEndDate|truncate:"10":""}</span></div>
 
 	<div class="datepick">
 		<div id = "datepicker_taskStart{$lists[list].ID}" class="picker" style = "display:none;"></div>
@@ -61,7 +69,7 @@
 		<select name="assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}" >
 			<option value="-1">{#chooseone#}</option>
 			{section name=user loop=$assignable_users}
-				<option value="{$assignable_users[user].ID}" {if $assignable_users[user].ID == $userid}selected{/if}>{$assignable_users[user].name}</option>
+				<option value="{$assignable_users[user].user}" {if $assignable_users[user].user == $userid}selected{/if}>{$assignable_users[user].name}</option>
 			{/section}
 		</select>
 	</div>
@@ -82,3 +90,33 @@
 	</form>
 
 </div> {*block_in_wrapper end*}
+{literal}
+<script>
+  function deliverItemChanged(arg){
+  	var theUrl = "manageprojectajax.php?action=getTasksBydeliverableId&deliverableId="+arg.value;
+    new Ajax.Request(theUrl, {
+	  method: 'get',
+	  onSuccess:function(payload) {
+			var jsonObj = eval("("+payload.responseText+")");
+	  	$("tips_startDate").innerHTML = " > "+jsonObj['startDate'];
+	  	$("tips_endDate").innerHTML = " < "+jsonObj['endDate'];
+	  	var tasks = jsonObj['tasks'];
+	  	var parentTaskEl = $("parent");
+	  	parentTaskEl.innerHTML = "";
+	  	parentTaskEl.value = "-1";
+	  	var optionEl = document.createElement("option");
+	  	optionEl.value = "-1";
+	  	optionEl.innerHTML = unescape(MSGS.chooseone);
+	  	parentTaskEl.appendChild(optionEl);
+	  	for (var i = 0; i < tasks.length; i++) {
+	  		var tk = tasks[i];
+	  		var optionEl = document.createElement("option");
+		  	optionEl.value = ""+tk['id'];
+		  	optionEl.innerHTML = ""+tk['name'];
+		  	parentTaskEl.appendChild(optionEl);
+	  	};
+    }
+    });
+  }
+</script>
+{/literal}
