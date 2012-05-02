@@ -53,7 +53,7 @@
         gantt.create("gantt");
         gantt.showDescTask(true,'n,s-f');
         gantt.showDescProject(true,'n,d');
-        gantt.loadData("ganttservice.php?action=load&&id={$project.ID}",false,true);
+        gantt.loadData("ganttservice.php?action=load&&id={$project.ID}",true,true);
 </script>
 
 
