@@ -184,12 +184,14 @@ dtmlXMLLoaderObject.prototype.loadXML=function(filePath, postMode, postVars, rpc
 	if ((!_isIE)&&(window.XMLHttpRequest))
 		this.xmlDoc=new XMLHttpRequest();
 	else {
+		/* comment to fix IE9 issue
 		if (document.implementation&&document.implementation.createDocument){
 			this.xmlDoc=document.implementation.createDocument("", "", null);
 			this.xmlDoc.onload=new this.waitLoadFunction(this);
 			this.xmlDoc.load(filePath);
 			return;
 		} else
+		*/
 			this.xmlDoc=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 
