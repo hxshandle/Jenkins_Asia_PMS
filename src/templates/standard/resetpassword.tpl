@@ -3,7 +3,7 @@
 <div class="login">
 	<div class="login-in">
 		<div class="logo-name">
-			<h1><img src="./templates/standard/images/logo-b.png" alt="{$settings.name}" /></h1>
+			<h1><img src="./templates/standard/images/logo-b1.png" alt="{$settings.name}" /></h1>
 			<h2>{$settings.subtitle}</h2>
 		</div>
 
