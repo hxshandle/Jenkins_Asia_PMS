@@ -3,6 +3,28 @@
   <label style="margin:0 50px 0 0">{#phasename#}</label>
   <input id="newPhaseName" value = "{$phase.name}"></input>
  </div>
+  <div class="dlgRow">
+    <label style="margin:0 50px 0 0">{#parentPhase#}</label>
+    <select name="parentPhase" id = "parentPhase">
+      <option value="-1" {if $phase.parentPhase == "-1"}selected="selected"{/if}>{#chooseone#}</option>
+      {section name = "pPhase" loop = $phaseTab}
+        {if $phase.ID != $phaseTab[pPhase].ID}
+          <option value="{$phaseTab[pPhase].ID}" {if $phase.parentPhase == $phaseTab[pPhase].ID}selected="selected"{/if}>{$phaseTab[pPhase].name}</option>
+        {/if}
+      {/section}
+    </select>
+  </div>
+  <div class="dlgRow">
+    <label style="margin:0 50px 0 0">{#childPhase#}</label>
+    <select name="childPhase" id = "childPhase">
+      <option value="-1" {if $phase.childPhase=="-1"}selected="selected"{/if}>{#chooseone#}</option>
+      {section name = "cPhase" loop = $phaseTab}
+        {if $phase.ID != $phaseTab[cPhase].ID}
+          <option value="{$phaseTab[cPhase].ID}" {if $phase.childPhase == $phaseTab[cPhase].ID}selected="selected"{/if}>{$phaseTab[cPhase].name}</option>
+        {/if}
+      {/section}
+    </select>
+  </div>
 <table cellpadding=0 cellspacing=0 id="deliverableItemTable" style="width:100%">
   <tbody id ="deliverableItemTbody">
   <tr>

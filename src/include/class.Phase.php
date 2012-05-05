@@ -42,24 +42,30 @@ class Phase {
     return $ret;
   }
   
-  function add($name,$desc,$project,$status,$valid=1){
+  function add($name,$desc,$project,$status,$valid=1,$parentPhase=-1,$childPhase=-1){
     $name = mysql_escape_string($name);
     $desc = mysql_escape_string($desc);
     $project = (int) $project;
     $status = (int) $status;
+    $parentPhase= (int) $parentPhase;
+    $childPhase = (int) $childPhase;
     $sql = "INSERT INTO `phase`
             (`name`,
             `desc`,
             `project`,
             `status`,
-            `valid`)
+            `valid`,
+            `parentPhase`,
+            `childPhase`)
             VALUES
             (
             '$name',
             '$desc',
             $project,
             $status,
-            $valid
+            $valid,
+            $parentPhase,
+            $childPhase
             )";
     $ins = mysql_query($sql);
     if($ins){
@@ -69,14 +75,18 @@ class Phase {
     }
   }
   
-  function update($id,$desc,$status,$valid){
+  function update($id,$desc,$status,$valid,$parentPhase=-1,$childPhase=-1){
     $id = (int) $id;
     $desc = mysql_escape_string($desc);
+    $parentPhase = (int) $parentPhase;
+    $childPhase = (int) $childPhase;
     $sql = "UPDATE `phase`
             SET
             `desc` = '$desc',
             `status` = $status,
-            `valid` = $valid
+            `valid` = $valid,
+            `parentPhase` = $parentPhase,
+            `childPhase` = $childPhase 
             WHERE ID = $id";
     $upd = mysql_query($sql);
     if($upd){

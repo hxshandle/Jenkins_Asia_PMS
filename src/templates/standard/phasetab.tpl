@@ -1,11 +1,13 @@
 <div class="phaseMenualBar">
   {if $project.status == 9}
-  <button id="btnAddPhase">{#addphase#}</button>
+  <button id="btnAddPhase" onclick="showAddPhaseDlg()">{#addphase#}</button>
   {/if}
 </div>
+<!--
 <div id="addPhaseDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addphase.tpl" title="add phase"}
 </div>
+-->
 <div class="phaseList" id="phaseList">
   {include file = "phasedetails.tpl"}
 </div>
@@ -55,10 +57,12 @@
   function clearDatePickers(){
     $("addPhaseDatePickers").innerHTML="";
   }
+  /*
   if(!window.__addPhaseDlgContent){
     window.__addPhaseDlgContent=$("addPhaseDlg").innerHTML;
     $("addPhaseDlg").remove(); 
   }
+  
   new Control.Modal("btnAddPhase",{
                                 "contents":window.__addPhaseDlgContent,
                                 fade:true,
@@ -67,7 +71,7 @@
                                 containerClassName: 'dlgmodal',
                                 overlayClassName: 'tasksoverlay'
                              });
-                               
+  */                             
   function reloadPhase(){
     var theUrl = "manageprojectajax.php?action=reloadphase&id="+__projectId;
     new Ajax.Request(theUrl, {
@@ -78,6 +82,20 @@
           }
         }
       });
+  }
+
+  function showAddPhaseDlg(){
+    var theUrl = "manageprojectajax.php?action=getAddPhaseDlgContent&projectId="+__projectId;
+    new Ajax.Request(theUrl, {
+      method: 'get',
+      onSuccess:function(payload) {
+        if (payload.responseText != ""){ 
+          showPhaseDlg(payload.responseText);
+        }else{
+          alert("faild");
+        }
+      }
+    }); 
   }
     
   function delPhase(id){
@@ -174,6 +192,8 @@
     
     var theUrl = "manageprojectajax.php";
     var thePost = "action=updatePhase&projectId="+__projectId+"&id="+id+"&newItems="+newItemsStr+"&updatedItems="+updatedItemsStr;
+    thePost +="&parentPhase="+$("parentPhase").value;
+    thePost +="&childPhase="+$("childPhase").value;
     new Ajax.Request(theUrl, {
             method: 'post',
             postBody:thePost,
@@ -202,4 +222,96 @@
   }
               
 </script>
+{/literal}
+
+
+{literal}
+  <script type="text/javascript">
+    
+    function delDeliverableItem(arg){
+      var b = $(arg);
+      b.parentNode.parentNode.remove();
+    }
+
+    function addPhaseValidator(){
+      var ret = true;
+      var newPhaseName = $('newPhaseName').value;
+      if(newPhaseName.length<1){
+        $('newPhaseName').style.border="2px solid red";
+        ret = false;
+      }
+      $$(".newDeliverableItem").each(function(tr){
+        var children=tr.childElements();
+        var name = children[0].firstChild.value;
+        if(name.length <1){
+          children[0].firstChild.style.border="2px solid red";
+          ret = false;
+        }
+        var startDate = children[1].firstChild.value;
+        var endDate = children[2].firstChild.value;
+        startDate = new Date(Date.parse(startDate));
+        endDate = new Date(Date.parse(endDate));
+        if(startDate > endDate){
+          ret = false;
+          children[2].firstChild.style.border="2px solid red";
+        }
+      });
+      $$(".deliverableItem").each(function(tr){
+        var children=tr.childElements();
+        var name = children[0].firstChild.value;
+        if(name.length <1){
+          children[0].firstChild.style.border="2px solid red";
+          ret = false;
+        }
+        var startDate = children[1].firstChild.value;
+        var endDate = children[2].firstChild.value;
+        startDate = new Date(Date.parse(startDate));
+        endDate = new Date(Date.parse(endDate));
+        if(startDate > endDate){
+          ret = false;
+          children[2].firstChild.style.border="2px solid red";
+        }
+      });
+      var pPhase = $("parentPhase");
+      var cPhase = $("childPhase");
+      if(pPhase.value == cPhase.value && pPhase.value != -1){
+        ret = false;
+        pPhase.style.border = "2px solid red";
+        cPhase.style.border = "2px solid red";
+      }
+      
+      return ret;
+    }
+
+    function savePhase(){
+      if(!addPhaseValidator()){
+        return;
+      }
+      var theUrl = "manageprojectajax.php";
+      var thePost = "action=addPhase&projectId="+__projectId;
+      var phaseName = $("newPhaseName").value;
+      thePost +="&phaseName="+phaseName;
+      thePost +="&parentPhase="+$("parentPhase").value;
+      thePost +="&childPhase="+$("childPhase").value;
+      var newItems =$$("tr.newDeliverableItem");
+      var newItemsStr="";
+      newItems.each(function(tr){
+        var children=tr.childElements();
+        newItemsStr +=""+children[0].firstChild.value+":"+children[1].firstChild.value+":"+children[2].firstChild.value+","
+      });
+      thePost +="&newDeliverableItems="+ newItemsStr.substr(0,newItemsStr.length-1);
+      new Ajax.Request(theUrl, {
+      method: 'post',
+      postBody:thePost,
+      onSuccess:function(payload) {
+        if (payload.responseText == "Ok"){ 
+            reloadPhase();
+            Control.Modal.close();
+          }
+        }
+      });
+    }
+      
+      
+  </script>
 {/literal}

@@ -16,11 +16,13 @@ switch ($action) {
   case "addPhase":
     $project = getArrayVal($_POST, "projectId");
     $newPhaseName = getArrayVal($_POST, "phaseName");
+    $parentPhase = getArrayVal($_POST, "parentPhase");
+    $childPhase = getArrayVal($_POST, "childPhase");
     $newDeliverableItems = explode(",", getArrayVal($_POST, "newDeliverableItems"));
     $phase = new Phase();
     $deliverableItem = new DeliverableItem();
     $status = Status::getId("phase", "not_start");
-    $phaseId = $phase->add($newPhaseName, "", $project, $status);
+    $phaseId = $phase->add($newPhaseName, "", $project, $status,1,$parentPhase,$childPhase);
     if ($phaseId) {
       $deliverableItemStatus = Status::getId("deliverable", "not_start");
       foreach ($newDeliverableItems as $item) {
@@ -68,6 +70,8 @@ switch ($action) {
     $deliverableItem = new DeliverableItem();
     $phase = new Phase();
     $phaseObj = $phase->get($phaseId);
+    $projectTabs = new ProjectTabs;
+    $phases = $projectTabs->getPhaseTab($phaseObj['project']);
     $template->assign("phaseTab", $phases);
     $deliverableItems = $deliverableItem->getDeliverableItemsByPhaseId($phaseId, 1000);
     $template->assign("deliverableItem", $deliverableItems);
@@ -178,12 +182,26 @@ switch ($action) {
       echo "Fail";
     }
     break;
+  case "getAddPhaseDlgContent":
+    $projectId = getArrayVal($_GET, "projectId");
+    $phase = new Phase();
+    $projectTabs = new ProjectTabs();
+    $phases = $projectTabs->getPhaseTab($projectId);
+    $template->assign("phaseTab", $phases);
+    $template->assign("templateName", "addphase.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
   case "updatePhase":
     $phaseId = getArrayVal($_POST, "id");
     $newItems = getArrayVal($_POST, "newItems");
+    $parentPhase = getArrayVal($_POST, "parentPhase");
+    $childPhase = getArrayVal($_POST, "childPhase");
     $updatedItems = getArrayVal($_POST, "updatedItems");
     $project = getArrayVal($_POST, "projectId");
     $deliverableItem = new DeliverableItem();
+    $phase = new Phase();
+    $originalPhase = $phase->get($phaseId);
+    $phase->update($phaseId, $originalPhase['desc'], $originalPhase['status'], $originalPhase['valid'], $parentPhase, $childPhase);
     if (!empty($newItems)) {
       $newDeliverables = explode(",", $newItems);
       $deliverableItemStatus = Status::getId("deliverable", "not_start");
