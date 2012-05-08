@@ -297,6 +297,7 @@ if ($action == "addform") {
     $template->assign("deliverableItems", $deliverableItems);
     $template->assign("projectname", $projectname);
     $template->assign("projectId",$id);
+    $template->assign("uploadType","task");
     $template->assign("assignable_users", $project_members);
     $taskStatus = Status::getStatusByType("task");
     $template->assign("taskStatus",$taskStatus);

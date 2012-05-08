@@ -30,5 +30,6 @@ if ($upfolder) {
     $upath = "files/" . CL_CONFIG . "/$id";
     $upfolder = 0;
 }
-$myfile->upload("Filedata",$upath,$id,$upfolder);
+$ret = $myfile->upload("Filedata",$upath,$id,$upfolder);
+echo $ret;
 ?>

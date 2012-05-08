@@ -16,6 +16,7 @@
   var __sesionId = "{$smarty.session.sessionId}";
   var __projectId = {$projectId};
   var __userId = "{$smarty.session.userid}";
+  var __uploadType = "{$uploadType}";
 </script>
 {literal}
 <script type="text/javascript">
@@ -26,7 +27,7 @@
       flash_url : "include/swfupload/swfupload.swf",
       flash9_url : "include/swfupload/swfupload_fp9.swf",
       upload_url: "uploadfileajax.php",
-      post_params: {"PHPSESSID" : __sesionId,"userId":__userId},
+      post_params: {"PHPSESSID" : __sesionId,"userId":__userId,'type':__uploadType},
       file_size_limit : "1000 MB",
       file_types : "*.*",
       file_types_description : "All Files",
