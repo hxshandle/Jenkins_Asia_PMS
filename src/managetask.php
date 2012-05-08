@@ -296,6 +296,7 @@ if ($action == "addform") {
     $template->assign("milestones", $milestones);
     $template->assign("deliverableItems", $deliverableItems);
     $template->assign("projectname", $projectname);
+    $template->assign("projectId",$id);
     $template->assign("assignable_users", $project_members);
     $taskStatus = Status::getStatusByType("task");
     $template->assign("taskStatus",$taskStatus);

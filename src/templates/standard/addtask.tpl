@@ -73,7 +73,10 @@
 			{/section}
 		</select>
 	</div>
-
+	<div class="row">
+		<label for="uploadfile" >{#upload#}:</label>
+		{include file = "uploadfile.tpl"}
+	</div>
 	{if $lists[list].ID != ""}
 	<input type="hidden" value="{$lists[list].ID }" name="tasklist" />
 	{else}
