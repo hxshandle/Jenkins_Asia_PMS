@@ -77,6 +77,7 @@
 		<label for="uploadfile" >{#upload#}:</label>
 		{include file = "uploadfile.tpl"}
 	</div>
+	<input type = "hidden" id = "fileId" name = "fileId"></input>
 	{if $lists[list].ID != ""}
 	<input type="hidden" value="{$lists[list].ID }" name="tasklist" />
 	{else}

@@ -21,13 +21,17 @@
 {literal}
 <script type="text/javascript">
   var swfu;
-
+  function onUploadSuccess(file, serverData, responseReceived){
+    var fileId = serverData;
+    $("fileId").value = fileId;
+    uploadSuccess.call(this,file,serverData);
+  }
   window.onload = function() {
     var settings = {
       flash_url : "include/swfupload/swfupload.swf",
       flash9_url : "include/swfupload/swfupload_fp9.swf",
       upload_url: "uploadfileajax.php",
-      post_params: {"PHPSESSID" : __sesionId,"userId":__userId,'type':__uploadType},
+      post_params: {"PHPSESSID" : __sesionId,"userId":__userId,'type':__uploadType,"id":__projectId},
       file_size_limit : "1000 MB",
       file_types : "*.*",
       file_types_description : "All Files",
@@ -58,7 +62,7 @@
       upload_start_handler : uploadStart,
       upload_progress_handler : uploadProgress,
       upload_error_handler : uploadError,
-      upload_success_handler : uploadSuccess,
+      upload_success_handler : onUploadSuccess,
       upload_complete_handler : uploadComplete,
       queue_complete_handler : queueComplete  // Queue plugin event
     };

@@ -525,7 +525,13 @@ ENGINE = MyISAM;");
   `price` INT(11)  ,
   `price_currency` VARCHAR(3) ,
   PRIMARY KEY (`ID`) )
-ENGINE = MyISAM;");    
+ENGINE = MyISAM;"); 
+    $table31 = mysql_query("CREATE  TABLE `task_attachement` (
+  `ID` INT(11) NOT NULL ,
+  `taskId` INT(11) NOT NULL ,
+  `fileId` INT(11) NOT NULL ,
+  PRIMARY KEY (`ID`) ) 
+  ENGINE = MyISAM");
     
     // Checks if tables could be created
     if (!$table1 or !$table2 or !$table3 or !$table4 or !$table5 or !$table6 or !$table7 or !$table8 or !$table9 or !$table10 or !$table11 or !$table12 or !$table13 or !$table14 or !$table15 or !$table16 or !$table17 or !$table18 or !$table19 or !$table20 or !$table21 or !$table22 or !$table23 or !$table24 or !$table25 or !$table26 or !$table27 or !$table28 or !$table29 or !$table30) {
