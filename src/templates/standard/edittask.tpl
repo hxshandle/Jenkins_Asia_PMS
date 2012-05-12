@@ -37,8 +37,17 @@
               {if $taskStatus[idx].id == $task.status}
                 <option selected value = "{$taskStatus[idx].id}">{$taskStatus[idx].value}</option>
               {else}
-                <option value = "{$taskStatus[idx].id}">{$taskStatus[idx].value}</option>
+                <option value = "{$taskStatus[idx].id}" >{$taskStatus[idx].value}</option>
               {/if}
+            {/section}
+            </select>
+          </div>
+          <div class="row">
+            <label for="deliverableItems">{#deliverableItems#}: </label>
+            <select name="deliverableItems" id="deliverableItems" onchange="deliverItemChanged(this)">
+            <option value="-1" selected="selected">{#chooseone#}</option>
+            {section name=stone loop=$deliverableItems}
+              <option value="{$deliverableItems[stone].ID}" {if $deliverableItems[stone].ID == $task.deliverable_item} selected {/if}>{$deliverableItems[stone].name}</option>
             {/section}
             </select>
           </div>

@@ -893,6 +893,13 @@ switch ($action) {
     echo "]";
     echo "}";
     break;
+  case "attachTaskFile":
+    $task = new task();
+    $taskId = getArrayVal($_GET, "taskId");
+    $fileId = getArrayVal($_GET, "fileId");
+    $ret = $task->addAttachment($taskId, $fileId);
+    echo $ret;
+    break;
   default:
     break;
 }

@@ -16,6 +16,11 @@
   var __sesionId = "{$smarty.session.sessionId}";
   var __projectId = {$projectId};
   var __userId = "{$smarty.session.userid}";
+  var __callbackFunc = null;
+  {if $callbackFunc}
+    __callbackFunc =undefined == {$callbackFunc} ? null : {$callbackFunc} ;
+  
+  {/if}
   var __uploadType = "{$uploadType}";
 </script>
 {literal}
@@ -23,7 +28,12 @@
   var swfu;
   function onUploadSuccess(file, serverData, responseReceived){
     var fileId = serverData;
-    $("fileId").value = fileId;
+    if($("fileId")){
+      $("fileId").value = fileId;  
+    }
+    if(__callbackFunc){
+      __callbackFunc.call(this,fileId);
+    }
     uploadSuccess.call(this,file,serverData);
   }
   window.onload = function() {

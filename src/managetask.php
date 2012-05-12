@@ -116,7 +116,8 @@ if ($action == "addform") {
 
   $thistask = $task->getTask($tid);
   $project = new project();
-
+  $deliverable = new DeliverableItem();
+  $deliverableItems = $deliverable->getDeliverableItemsByProjectId($id);
   $members = $project->getProjectMembers($id, $project->countMembers($id));
   $tasklist = new tasklist();
   $tasklists = $tasklist->getProjectTasklists($id);
@@ -143,6 +144,7 @@ if ($action == "addform") {
   $template->assign("tl", $tl);
   $template->assign("task", $thistask);
   $template->assign("pid", $id);
+  $template->assign("deliverableItems", $deliverableItems);
   $taskStatus = Status::getStatusByType("task");
   $template->assign("taskStatus", $taskStatus);
   $template->assign("parentTasks", $parentTasks);
@@ -347,6 +349,7 @@ if ($action == "addform") {
   $task['userid'] = $user[0];
 
   $template->assign("members", $members);
+  $template->assign("projectId", $id);
   $template->assign("tasklists", $tasklists);
   $template->assign("tl", $tl);
   $template->assign("pid", $id);

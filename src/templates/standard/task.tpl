@@ -52,6 +52,26 @@
 					{include file="edittask.tpl" showhtml="no" }
 				</div>
 			{/if}
+<script>
+  var __taskId = {$task.ID};
+</script>
+{literal}
+<script>
+function refreshFileList(fileId){
+	if(fileId){
+  	var theUrl = "manageprojectajax.php?action=attachTaskFile&fileId="+fileId+"&taskId="+__taskId;
+    new Ajax.Request(theUrl, {
+	  method: 'get',
+	  onSuccess:function(payload) {
+			if(payload.responseText != "false"){
+				window.location.reload();
+			}
+    }
+		});
+	}
+}
+</script>
+{/literal}
 
 <div class="content-spacer"></div>
 
@@ -65,46 +85,50 @@
 	<div class="nosmooth" id="attachment_task">
 		<div id="descript" class="descript">
 			<h2>{#files#}</h2>
+			<div style="background-color: rgb(134, 156, 173); padding: 0pt 15px;">
+				{include file = "uploadfile.tpl" callbackFunc=refreshFileList}
+				<div style="clear:both"></div>
+			</div>
 			<ul>
 					{section name=file loop=$files}
-		<li id = "fli_{$files[file].ID}">
-			<div class="itemwrapper" id="iw_{$files[file].ID}">
+				<li id = "fli_{$files[file].ID}">
+					<div class="itemwrapper" id="iw_{$files[file].ID}">
 
-				<table cellpadding="0" cellspacing="0" border="0">
-					<tr>
-						<td class="leftmen" valign="top">
-							<div class="inmenue"></div>
-						</td>
-						<td class="thumb">
-							<a href = "{$files[file].datei}" {if $files[file].imgfile == 1} rel="lytebox[]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;"{/if}>
-								{if $files[file].imgfile == 1}
-								<img src = "thumb.php?pic={$files[file].datei}&amp;width=32" alt="{$files[file].name}" />
-								{else}
-								<img src = "templates/standard/images/files/{$files[file].type}.png" alt="{$files[file].name}" />
-								{/if}
-							</a>
-						</td>
-						<td class="rightmen" valign="top">
-							<div class="inmenue">
-								{if $userpermissions.files.del}
-								<a class="del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'fli_{$files[file].ID}\',\'managefile.php?action=delete&amp;id={$project.ID}&amp;file={$files[file].ID}\')');" title="{#delete#}"></a>
-								{/if}
-								{if $userpermissions.files.edit}
-								<a class="edit" href="managefile.php?action=editform&amp;id={$project.ID}&amp;file={$files[file].ID}" title="{#editfile#}"></a>
-								{/if}
-							</div>
-						</td>
-					</tr>
-				</table>
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td class="leftmen" valign="top">
+									<div class="inmenue"></div>
+								</td>
+								<td class="thumb">
+									<a href = "{$files[file].datei}" {if $files[file].imgfile == 1} rel="lytebox[]" {elseif $files[file].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;"{/if}>
+										{if $files[file].imgfile == 1}
+										<img src = "thumb.php?pic={$files[file].datei}&amp;width=32" alt="{$files[file].name}" />
+										{else}
+										<img src = "templates/standard/images/files/{$files[file].type}.png" alt="{$files[file].name}" />
+										{/if}
+									</a>
+								</td>
+								<td class="rightmen" valign="top">
+									<div class="inmenue">
+										{if $userpermissions.files.del}
+										<a class="del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'fli_{$files[file].ID}\',\'managefile.php?action=delete&amp;id={$project.ID}&amp;file={$files[file].ID}\')');" title="{#delete#}"></a>
+										{/if}
+										{if $userpermissions.files.edit}
+										<a class="edit" href="managefile.php?action=editform&amp;id={$project.ID}&amp;file={$files[file].ID}" title="{#editfile#}"></a>
+										{/if}
+									</div>
+								</td>
+							</tr>
+						</table>
 
-			</div> {*itemwrapper End*}
-		</li>
-		{literal}
-			<script type = "text/javascript">
-				new Draggable('{/literal}fli_{$files[file].ID}{literal}',{revert:true});
-			</script>
-		{/literal}
-	{/section} {*files in fldes End*}
+					</div> {*itemwrapper End*}
+				</li>
+				{literal}
+					<script type = "text/javascript">
+						new Draggable('{/literal}fli_{$files[file].ID}{literal}',{revert:true});
+					</script>
+				{/literal}
+			{/section} {*files in fldes End*}
 			</ul>
 	</div>
 	</div>
