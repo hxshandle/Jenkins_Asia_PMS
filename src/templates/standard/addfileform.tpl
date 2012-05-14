@@ -115,7 +115,7 @@
       debug: false,
 
       // Button settings
-      button_image_url: "images/TestImageNoText_65x29.png",
+      button_image_url: "templates/standard/images/TestImageNoText_65x29.png",
       button_width: "65",
       button_height: "29",
       button_placeholder_id: "spanButtonPlaceHolder",
