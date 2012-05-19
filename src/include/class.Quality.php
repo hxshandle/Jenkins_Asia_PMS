@@ -23,27 +23,7 @@ class Quality {
     $name = mysql_escape_string($name);
     $desc = mysql_escape_string($desc);
     $submitter_comments = mysql_escape_string($submitter_comments);
-    $sql = "INSERT INTO `quality`
-            (
-            `name`,
-            `desc`,
-            `project`,
-            `submitter`,
-            `submitter_comments`,
-            `submit_time`,
-            `type`,
-            `status`)
-            VALUES
-            (
-            '$name',
-            '$desc',
-            $project,
-            '$submitter',
-            '$submitter_comments',
-            NOW(),
-            $type,
-            $status
-            )";
+    $sql = "";
     $ins = mysql_query($sql);
     if($ins){
       return mysql_insert_id();
