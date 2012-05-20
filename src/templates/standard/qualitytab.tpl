@@ -41,7 +41,15 @@
   }
 
 function reloadQuality(){
-  alert("reloadQuality");
+  var theUrl = "manageprojectajax.php?action=reloadQualityList&projectId="+__projectId;
+  new Ajax.Request(theUrl, {
+    method: 'get',
+    onSuccess:function(payload) {
+      if (payload.responseText != ""){ 
+          $("qualityList").innerHTML=payload.responseText;
+        }
+      }
+    });
 } 
 function saveQuality(){
   var __mode = $("qMode").value;

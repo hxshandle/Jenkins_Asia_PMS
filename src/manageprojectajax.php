@@ -925,6 +925,10 @@ switch ($action) {
     $productNo = getArrayVal($_POST, "productNo");
     $productDesc = getArrayVal($_POST, "productDesc");
     $shipNo = getArrayVal($_POST, "shipNo");
+    $lotQuantity = getArrayVal($_POST, "lotQuantity");
+    $sampleSize = getArrayVal($_POST, "sampleSize");
+    $defects = getArrayVal($_POST, "defects");
+    $rejectRate = getArrayVal($_POST, "rejectRate");
     $quantityInInventory = getArrayVal($_POST, "quantityInInventory");
     $quantityInProcess = getArrayVal($_POST, "quantityInProcess");
     $containmentDesc = getArrayVal($_POST, "containmentDesc");
@@ -943,6 +947,13 @@ switch ($action) {
     if($ret){
         echo "Ok";
     }
+    break;
+  case "reloadQualityList":
+    $projectId = getArrayVal($_GET, "projectId");
+    $quality = new Quality();
+    $qualityList = $quality->getQualityByProjectId($projectId);
+    $template->assign("qualityList", $qualityList);
+    $template->display("qualitylist.tpl");
     break;
   default:
     break;

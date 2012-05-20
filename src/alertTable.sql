@@ -3,26 +3,26 @@ CREATE  TABLE `task_attachement` (  `ID` INT(11) NOT NULL ,  `taskId` INT(11) NO
 ALTER TABLE `task_attachement` CHANGE COLUMN `ID` `ID` INT(11) NOT NULL AUTO_INCREMENT  ;
 
 drop table `quality`;
-CREATE  TABLE `quality` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT ,
-  `action_no` VARCHAR(255) NOT NULL ,
-  `issue_date` DATETIME NOT NULL ,
-  `product_no` VARCHAR(255) NULL ,
-  `product_desc` LONGTEXT NULL ,
-  `ship_no` VARCHAR(255) NULL ,
-  `lot_quantity` INT(10) NULL ,
-  `Sample_size` INT(10) NULL ,
-  `defects` INT NULL ,
-  `reject_rate` DOUBLE NULL DEFAULT 0 ,
-  `quantity_in_inventory` VARCHAR(255) NULL ,
-  `quantity_in_process` VARCHAR(255) NULL ,
-  `containment_desc` LONGTEXT NULL ,
-  `acknowledge_by` VARCHAR(255) NULL ,
-  `acknowledge_date` DATETIME NULL ,
-  `verified_for_closure_by` VARCHAR(255) NULL ,
-  `verification_date` DATETIME NULL ,
-  PRIMARY KEY (`ID`) );
-ALTER TABLE `quality` ADD COLUMN `valid` TINYINT(1) NULL  AFTER `verification_date` ;
-ALTER TABLE `quality` CHANGE COLUMN `valid` `valid` TINYINT(1) NOT NULL DEFAULT 1  ;
-ALTER TABLE `quality` ADD COLUMN `project` INT(11) NOT NULL  AFTER `valid` ;
+CREATE TABLE `quality` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `action_no` varchar(255) NOT NULL,
+  `issue_date` datetime NOT NULL,
+  `product_no` varchar(255) DEFAULT NULL,
+  `product_desc` longtext,
+  `ship_no` varchar(255) DEFAULT NULL,
+  `lot_quantity` int(10) DEFAULT NULL,
+  `Sample_size` int(10) DEFAULT NULL,
+  `defects` int(11) DEFAULT NULL,
+  `reject_rate` double DEFAULT '0',
+  `quantity_in_inventory` varchar(255) DEFAULT NULL,
+  `quantity_in_process` varchar(255) DEFAULT NULL,
+  `containment_desc` longtext,
+  `acknowledge_by` varchar(255) DEFAULT NULL,
+  `acknowledge_date` datetime DEFAULT NULL,
+  `verified_for_closure_by` varchar(255) DEFAULT NULL,
+  `verification_date` datetime DEFAULT NULL,
+  `valid` tinyint(1) NOT NULL DEFAULT '1',
+  `project` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM;
 
