@@ -84,6 +84,12 @@ class ProjectTabs {
     $purchaseData = $purchase->getPurchasesBySupplier($projectId,$supplierId);
     return $purchaseData;
   }
+
+  function getQualityByProjectId($projectId){
+    $quality = new Quality();
+    $qualityData = $quality->getQualityByProjectId($projectId);
+    return $qualityData;
+  }
 }
 
 ?>

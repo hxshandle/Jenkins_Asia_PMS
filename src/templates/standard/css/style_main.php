@@ -2998,5 +2998,13 @@ td.hastask a{
 td.hastask .calcontent{
 	font-size:10px;
 }
+div.dlgRow label{
+	width:200px;
+	display:inline-block;
+}
+div.dataTable{
+	overflow:scroll;
+}
+
 
 /*****************Jenkins Asia Special***********************/

@@ -24,4 +24,5 @@ CREATE  TABLE `quality` (
   PRIMARY KEY (`ID`) );
 ALTER TABLE `quality` ADD COLUMN `valid` TINYINT(1) NULL  AFTER `verification_date` ;
 ALTER TABLE `quality` CHANGE COLUMN `valid` `valid` TINYINT(1) NOT NULL DEFAULT 1  ;
+ALTER TABLE `quality` ADD COLUMN `project` INT(11) NOT NULL  AFTER `valid` ;
 

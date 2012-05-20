@@ -689,6 +689,8 @@ if ($action == "editform")
     $template->assign("financeTab", $financeTab);
     $sampleTab = $tabs->getSampleTab($id); 
     $template->assign("sampleTab", $sampleTab);
+    $qualityList = $tabs->getQualityByProjectId($id);
+    $template->assign("qualityList", $qualityList);
     
     if(($_SESSION['userRole'] == 4 && $isProjectLeader) || $_SESSION['userRole'] == 1 || $_SESSION['userRole'] == 3){
         $sampleRequestTab = $tabs->getSampleRequestTab($id,null); 

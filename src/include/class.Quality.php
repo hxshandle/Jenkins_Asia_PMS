@@ -19,11 +19,72 @@ class Quality {
     $this->myLog = new mylog;
   }
   
-  function add($name,$desc,$project,$submitter,$submitter_comments,$type,$status){
-    $name = mysql_escape_string($name);
-    $desc = mysql_escape_string($desc);
-    $submitter_comments = mysql_escape_string($submitter_comments);
-    $sql = "";
+  function add($project,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
+    $actionNo = mysql_escape_string($actionNo);
+    $productNo = mysql_escape_string($productNo);
+    $productDesc = mysql_escape_string($productDesc);
+    $shipNo = mysql_escape_string($shipNo);
+    $quantityInInventory = mysql_escape_string($quantityInInventory);
+    $quantityInProcess = mysql_escape_string($quantityInProcess);
+    $containmentDesc = mysql_escape_string($containmentDesc);
+    $acknowledgeBy = mysql_escape_string($acknowledgeBy);
+    $verifiedForClosureBy = mysql_escape_string($verifiedForClosureBy);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+
+    $project = (int) $project;
+    $lotQuantity = (int) $lotQuantity;
+    $sampleSize = (int) $sampleSize;
+    $defects = (int) $defects;
+    $rejectRate = (double) $rejectRate;
+    $valid = (int) $valid;
+
+    $sql = "
+            INSERT INTO `quality`
+            (
+            `action_no`,
+            `issue_date`,
+            `product_no`,
+            `product_desc`,
+            `ship_no`,
+            `lot_quantity`,
+            `Sample_size`,
+            `defects`,
+            `reject_rate`,
+            `quantity_in_inventory`,
+            `quantity_in_process`,
+            `containment_desc`,
+            `acknowledge_by`,
+            `acknowledge_date`,
+            `verified_for_closure_by`,
+            `verification_date`,
+            `valid`,
+            `project`)
+            VALUES
+            (
+            '$actionNo',
+            '$issueDate',
+            '$productNo',
+            '$productDesc',
+            '$shipNo',
+            $lotQuantity,
+            $sampleSize,
+            $defects,
+            $rejectRate,
+            '$quantityInInventory',
+            '$quantityInProcess',
+            '$containmentDesc',
+            '$acknowledge_by',
+            '$acknowledgeDate',
+            '$verifiedForClosureBy',
+            '$verificationDate',
+            $valid,
+            $project
+            )
+            ";
     $ins = mysql_query($sql);
     if($ins){
       return mysql_insert_id();
@@ -43,10 +104,49 @@ class Quality {
     }
   }
   
-  function update($id,$desc,$status){
+  function update($id,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
     $id = (int) $id;
-    $desc = mysql_escape_string($desc);
-    $sql = "update `quality` set `desc`='$desc',`status` = $status where ID = $id";
+    $actionNo = mysql_escape_string($actionNo);
+    $productNo = mysql_escape_string($productNo);
+    $productDesc = mysql_escape_string($productDesc);
+    $shipNo = mysql_escape_string($shipNo);
+    $quantityInInventory = mysql_escape_string($quantityInInventory);
+    $quantityInProcess = mysql_escape_string($quantityInProcess);
+    $containmentDesc = mysql_escape_string($containmentDesc);
+    $acknowledgeBy = mysql_escape_string($acknowledgeBy);
+    $verifiedForClosureBy = mysql_escape_string($verifiedForClosureBy);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+    $actionNo = mysql_escape_string($actionNo);
+
+    $lotQuantity = (int) $lotQuantity;
+    $sampleSize = (int) $sampleSize;
+    $defects = (int) $defects;
+    $rejectRate = (double) $rejectRate;
+    $valid = (int) $valid;
+
+    $sql = "UPDATE `quality`
+            SET
+            `action_no` = '$actionNo',
+            `issue_date` = '$issueDate',
+            `product_no` = '$productNo'},
+            `product_desc` = '$productDesc',
+            `ship_no` = '$shipNo',
+            `lot_quantity` = lotQuantity,
+            `Sample_size` = sampleSize,
+            `defects` = defects,
+            `reject_rate` = rejectRate,
+            `quantity_in_inventory` = '$quantityInInventory',
+            `quantity_in_process` = '$quantityInProcess',
+            `containment_desc` = '$containmentDesc',
+            `acknowledge_by` = '$acknowledgeBy',
+            `acknowledge_date` = '$acknowledgeDate',
+            `verified_for_closure_by` = '$verifiedForClosureBy',
+            `verification_date` = '$verificationDate',
+            `valid` = $valid
+            WHERE  ID = $id";
     $upd = mysql_query($sql);
     if($upd){
       return true;
@@ -55,7 +155,18 @@ class Quality {
     }
   }
   
-  function del($id){
+function getQualityByProjectId($projectId){
+  $projectId = (int) $projectId;
+  $sql = "select * from quality where project=$projectId";
+  $sel = mysql_query($sql);
+  $arr = array();
+  while ($row = mysql_fetch_array($sel)) {
+    array_push($arr, $row);
+  }
+  return $arr;
+}
+
+function del($id){
     return $this->close($id);
   }
 }
