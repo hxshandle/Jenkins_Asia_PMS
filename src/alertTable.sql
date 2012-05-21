@@ -26,3 +26,21 @@ CREATE TABLE `quality` (
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM;
 
+CREATE  TABLE `quality_details` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT ,
+  `quality` INT(11) NOT NULL ,
+  `reject_desc` LONGTEXT NULL ,
+  `quantity` VARCHAR(255) NULL ,
+  `required_desc` LONGTEXT NULL ,
+  `root_cause` LONGTEXT NULL ,
+  `containment_action` VARCHAR(255) NULL ,
+  `supplier_short_term_corrective_act` LONGTEXT NULL ,
+  `shot_term_implementation_date` DATETIME NULL ,
+  `short_term_verified` INT(1) NULL ,
+  `supplier_long_term_corrective_act` LONGTEXT NULL ,
+  `long_term_implementation_date` DATETIME NULL ,
+  `vendor_process_audit_plan_revision` VARCHAR(255) NULL ,
+  `long_term_verified` INT(1) NULL ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM;
+

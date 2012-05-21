@@ -1,24 +1,7 @@
 {*Keyboard shortcuts on the project level*}
 {literal}
 <script type = "text/javascript">
-shortcut.add("Alt+O", function() {
-	window.location.href = 'manageproject.php?action=showproject&id={/literal}{$project.ID}{literal}';
-});
-shortcut.add("Alt+S", function() {
-	window.location.href = 'managemilestone.php?action=showproject&id={/literal}{$project.ID}{literal}';
-});
-shortcut.add("Alt+T", function() {
-	window.location.href = 'managetask.php?action=showproject&id={/literal}{$project.ID}{literal}';
-});
-shortcut.add("Alt+F", function() {
-	window.location.href = 'managefile.php?action=showproject&id={/literal}{$project.ID}{literal}';
-});
-shortcut.add("Alt+U", function() {
-	window.location.href = 'manageuser.php?action=showproject&id={/literal}{$project.ID}{literal}';
-});
-shortcut.add("Alt+M", function() {
-	window.location.href = 'managemessage.php?action=showproject&id={/literal}{$project.ID}{literal}';
-});
+
 </script>
 {/literal}
 <div class="tabswrapper">
@@ -33,6 +16,9 @@ shortcut.add("Alt+M", function() {
 		{if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $smarty.session.userRole == 5}
 		<li class="user"><a {if $userstab == "active" }class="active"{/if} href="manageuser.php?action=showproject&amp;id={$project.ID}"><span>{#user#}</span></a></li>
 		<li class="cal"><a {if $calendartab == "active" }class="active"{/if} href="resourcecalendar.php?action=showproject&amp;id={$project.ID}"><span>{#resourceCal#}</span></a></li>
+		{/if}
+		{if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $smarty.session.userRole == 5}
+		<li class="msgs"><a {if $qualitystab == "active" }class="active"{/if} href="managequality.php?action=showproject&amp;id={$project.ID}"><span>{#quality#}</span></a></li>
 		{/if}
 		<!--
 		<li class="timetrack"><a {if $timetab == "active" }class="active"{/if} href="managetimetracker.php?action=showproject&amp;id={$project.ID}"><span>{#timetracker#}</span></a></li>
