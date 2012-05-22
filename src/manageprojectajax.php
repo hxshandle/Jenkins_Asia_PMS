@@ -955,6 +955,15 @@ switch ($action) {
     $template->assign("qualityList", $qualityList);
     $template->display("qualitylist.tpl");
     break;
+  case "getQualityDetails":
+    $qId = getArrayVal($_GET, "qId");
+    $qualityDetails = new QualityDetails();
+    $detailsList = $qualityDetails->getQualityDetailsByQualityId($qId);
+    $template->assign("qualityList", $qualityList);
+    $template->assign("qualityId", $qId);
+    
+    $template->display("qualitydetailslist.tpl");
+    break;
   default:
     break;
 }

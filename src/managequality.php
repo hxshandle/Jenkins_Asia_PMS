@@ -17,9 +17,12 @@ switch ($action) {
   case "showproject":
     $id = getArrayVal($_GET, "id");
     $myproject = new project();
+    $quality = new Quality();
     $pro = $myproject->getProject($id);
-    $template->assign("project", $pro);
+    $qualityList = $quality->getQualityByProjectId($id);
     $projectname = $pro['name'];
+    $template->assign("project", $pro);
+    $template->assign("qualitys", $qualityList);
     $template->assign("projectname", $projectname);
     $template->display("projectquality.tpl");
     break;

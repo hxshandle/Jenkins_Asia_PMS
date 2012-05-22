@@ -30,15 +30,11 @@
 
       <div class="headline">
         <a href="javascript:void(0);" id="block_msgs_toggle" class="win_block" onclick = "toggleBlock('block_msgs');"></a>
-
         <div class="wintools">
-
-
           {if $userpermissions.messages.add}
             <a class="add" href="javascript:blindtoggle('addmsg{$myprojects[project].ID}');" id="add" onclick="toggleClass(this,'add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');"><span>{#addmessage#}</span></a>
           {/if}
         </div>
-
         <h2>
           <img src="./templates/standard/images/symbols/msgs.png" alt="" />{#quality#}
         </h2>
@@ -57,10 +53,10 @@
             <thead>
               <tr>
                 <th class="a"></th>
-                <th class="b">{#message#}</th>
-                <th class="ce" style="text-align:right">{#replies#}&nbsp;&nbsp;</th>
-                <th class="de">{#by#}</th>
-                <th class="e">{#on#}</th>
+                <th class="b">{#actionNo#}</th>
+                <th class="ce" style="text-align:right">{#issueDate#}&nbsp;&nbsp;</th>
+                <th class="de">{#acknowledgeBy#}</th>
+                <th class="e">{#lotQuantity#}</th>
                 <th class="tools"></th>
               </tr>
             </thead>
@@ -71,41 +67,34 @@
               </tr>
             </tfoot>
 
-            {section name=message loop=$messages}
+            {section name=quality loop=$qualitys}
 
             {*Color-Mix*}
-            {if $smarty.section.message.index % 2 == 0}
-            <tbody class="color-a" id="msgs_{$messages[message].ID}">
+            {if $smarty.section.quality.index % 2 == 0}
+            <tbody class="color-a" id="q_{$qualitys[quality].ID}">
             {else}
-            <tbody class="color-b" id="msgs_{$messages[message].ID}">
+            <tbody class="color-b" id="q_{$qualitys[quality].ID}">
             {/if}
               <tr>
                 <td>
-                  {if $userpermissions.messages.close}<a class="butn_reply" href="managemessage.php?action=replyform&amp;mid={$messages[message].ID}&amp;id={$project.ID}" title="{#answer#}"></a>{/if}
+
                 </td>
                 <td>
                   <div class="toggle-in">
-                  <span class="acc-toggle" onclick="javascript:accord_messages.activate($$('#block_msgs .accordion_toggle')[{$smarty.section.message.index}]);toggleAccordeon('accord_messages',this);"></span>
-                    <a href="managemessage.php?action=showmessage&amp;mid={$messages[message].ID}&amp;id={$project.ID}" title="{$messages[message].title}">{$messages[message].title|truncate:35:"...":true}</a>
+                  <span class="acc-toggle" onclick="javascript:accord_quality.activate($$('#block_msgs .accordion_toggle')[{$smarty.section.quality.index}]);toggleAccordeon('accord_quality',this);"></span>
+                    <a href="javascript:void(0);" title="{$qualitys[quality].action_no}" onclick='showQualityDetails("{$qualitys[quality].ID}")'>{$qualitys[quality].action_no|truncate:35:"...":true}</a>
                   </div>
                 </td>
                 <td style="text-align:right">
-                  {if $messages[message].replies > 0}
-                    <a href = "managemessage.php?action=showmessage&amp;mid={$messages[message].ID}&amp;id={$project.ID}#replies">{$messages[message].replies}</a>
-                  {else}
-                    {$messages[message].replies}
-                  {/if}
+                    {$qualitys[quality].issue_date|truncate:"10":""}
                   &nbsp;
                 </td>
-                <td><a href="manageuser.php?action=profile&amp;id={$messages[message].user}">{$messages[message].username|truncate:20:"...":true}</a></td>
-                <td>{$messages[message].postdate}</td>
+                <td>
+                  {$qualitys[quality].acknowledge_by}
+                  &nbsp;
+                </td>
+                <td>{$qualitys[quality].lot_quantity}</td>
                 <td class="tools">
-                  {if $userpermissions.messages.edit}
-                    <a class="tool_edit" href="managemessage.php?action=editform&amp;mid={$messages[message].ID}&amp;id={$project.ID}" title="{#edit#}"></a>
-                  {/if}
-                  {if $userpermissions.messages.del}
-                    <a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'msgs_{$messages[message].ID}\',\'managemessage.php?action=del&amp;mid={$messages[message].ID}&amp;id={$project.ID}\')');"  title="{#delete#}"></a>
-                  {/if}
                 </td>
               </tr>
 
@@ -114,23 +103,7 @@
                   <div class="accordion_toggle"></div>
                   <div class="accordion_content">
                     <div class="acc-in">
-                      {if $messages[message].avatar != ""}
-                        <div class="avatar"><img src = "thumb.php?width=80&amp;height=80&amp;pic=files/{$cl_config}/avatar/{$messages[message].avatar}" alt="" /></div>
-                      {else}
-                        {if $messages[message].gender == "f"}
-                          <div class="avatar"><img src = "thumb.php?pic=templates/standard/images/no-avatar-female.jpg&amp;width=80;" alt="" /></div>
-                        {else}
-                          <div class="avatar"><img src = "thumb.php?pic=templates/standard/images/no-avatar-male.jpg&amp;width=80;" alt="" /></div>
-                        {/if}
-                      {/if}
-                      <div class="message">
-                        <div class="message-in">
-                          {$messages[message].text}
-                        </div>
-
-
-                      
-                      </div> {*div messages end*}
+                        {$qualitys[quality].action_no}
                     </div>
                   </div>
                 </td>
@@ -144,20 +117,138 @@
           <div class="tablemenue">
             <div class="tablemenue-in">
               {if $userpermissions.messages.add}
-              <a class="butn_link" href="javascript:blindtoggle('addmsg');"  id="add_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addmessage#}</a>
+              <a class="butn_link" href="javascript:blindtoggle('addmsg');"  id="add_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addquality#}</a>
               {/if}
             </div>
           </div>
         </div> {*block END*}
       <div class="content-spacer"></div>
+      <!-- Details block -->
+      <div class="headline">
+        <a href="javascript:void(0);" id="block_details_toggle" class="win_block" onclick = "toggleBlock('block_details');"></a>
+        <div class="wintools">
+        </div>
+        <h2>
+          <img src="./templates/standard/images/symbols/msgs.png" alt="" />{#qualityDetails#}
+        </h2>
+      </div>
+      <div id="block_details" class="block" >
+          heihei
+      </div>
+      
+      <!-- End of Details block-->
+      <!-- Add details block -->
+      <div id = "addQualityDetails" class="block_in_wrapper" style = "display:none;">
+        <form id="detailsForm" name="detailsForm" class = "">
+          <div class="dlgRow">
+            <label>{#quantity#}</label>
+            <input id="quantity" name = "quantity"></input>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#requiredDesc#}</label>
+            <div class="editor floatL">
+              <textarea id="requiredDesc" name = "requiredDesc"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#rootCause#}</label>
+            <div class="editor floatL">
+              <textarea id="rootCause" name = "rootCause"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#containmentAction#}</label>
+            <div class="editor floatL">
+              <textarea id="containmentAction" name = "containmentAction"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#supplierShortTermCorrectiveAct#}</label>
+            <div class="editor floatL">
+              <textarea id="supplierShortTermCorrectiveAct" name = "supplierShortTermCorrectiveAct"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label>{#shotTermImplementationDate#}</label>
+            <input id="shotTermImplementationDate" name="shotTermImplementationDate"></input>
+          </div>
+          <div class="dlgRow">
+            <label>{#shortTermVerified#}</label>
+            <select id="shortTermVerified" name = "shortTermVerified">
+              <option value="1">{#yes#}</option>
+              <option value="0" selected>{#no#}</option>
+            </select>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#supplierLongTermCorrectiveAct#}</label>
+            <div class="editor floatL">
+              <textarea id="supplierLongTermCorrectiveAct" name = "supplierLongTermCorrectiveAct"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label>{#longTermImplementationDate#}</label>
+            <input id="longTermImplementationDate" name="longTermImplementationDate"></input>
+          </div>
 
+
+          <div class="dlgRow">
+            <label>{#vendorProcessAuditPlanRevision#}</label>
+            <input id="vendorProcessAuditPlanRevision" name="vendorProcessAuditPlanRevision"></input>
+          </div>
+          <div class="dlgRow">
+            <label>{#longTermVerified#}</label>
+            <select id="longTermVerified" name = "longTermVerified">
+              <option value="1">{#yes#}</option>
+              <option value="0" selected>{#no#}</option>
+            </select>
+          </div>
+          <div class="dlgRow" style="height:20px">
+            <label style="width:200px;float:left;">&nbsp;</label>
+            <button onfocus="this.blur()" type="">{#save#}</button>
+            <button onclick="blindtoggle('addQualityDetails');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
+          </div>
+        </form>
+      </div>
+      <div class="tablemenue">
+        <div class="tablemenue-in">
+          <a class="butn_link" href="javascript:blindtoggle('addQualityDetails');"  id="addDetails_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addqualityDetails#}</a>
+        </div>
+      </div>
+      <div class="content-spacer"></div>
     </div> {*Msgs END*}
   </div> {*content-left-in END*}
 </div> {*content-left END*}
 
 {literal}
   <script type = "text/javascript">
-    var accord_messages = new accordion('block_msgs');
+    var accord_quality = new accordion('block_msgs');
+    
+    function renderQualityDetails(content){
+      $("block_details").innerHTML=content;
+    }
+
+    function addQualityDetails(qId){
+      alert("add "+qId);
+    }
+
+    function showQualityDetails(id){
+      var theUrl = "manageprojectajax.php?action=getQualityDetails&qId="+id;
+      new Ajax.Request(theUrl, {
+        method: 'get',
+        onSuccess:function(payload) {
+          if (payload.responseText != ""){ 
+            renderQualityDetails(payload.responseText);
+          }else{
+            alert("get data error");
+          }
+        }
+      });  
+    }
   </script>
 {/literal}
 

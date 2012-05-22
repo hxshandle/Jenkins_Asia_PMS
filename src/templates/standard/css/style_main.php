@@ -3005,6 +3005,12 @@ div.dlgRow label{
 div.dataTable{
 	overflow:scroll;
 }
-
+.floatL{
+	float:left;
+}
+#detailsForm label{
+	color:#65635E;
+	font-weight:bold;
+}
 
 /*****************Jenkins Asia Special***********************/
