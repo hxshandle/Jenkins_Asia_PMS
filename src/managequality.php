@@ -26,6 +26,25 @@ switch ($action) {
     $template->assign("projectname", $projectname);
     $template->display("projectquality.tpl");
     break;
+  case "saveDetails":
+    $projectId = getArrayVal($_GET, "pId");
+    $quality = getArrayVal($_POST, "quality");
+    $rejectDesc = getArrayVal($_POST, "rejectDesc");
+    $quantity = getArrayVal($_POST, "quantity");
+    $requiredDesc = getArrayVal($_POST, "requiredDesc");
+    $rootCause = getArrayVal($_POST, "rootCause");
+    $containmentAction = getArrayVal($_POST, "containmentAction");
+    $supplierShortTermCorrectiveAct = getArrayVal($_POST, "supplierShortTermCorrectiveAct");
+    $shotTermImplementationDate = getArrayVal($_POST, "shotTermImplementationDate");
+    $shortTermVerified = getArrayVal($_POST, "shortTermVerified");
+    $supplierLongTermCorrectiveAct = getArrayVal($_POST, "supplierLongTermCorrectiveAct");
+    $longTermImplementationDate = getArrayVal($_POST, "longTermImplementationDate");
+    $vendorProcessAuditPlanRevision = getArrayVal($_POST, "vendorProcessAuditPlanRevision");
+
+    $qualityDetails = new QualityDetails();
+    $ins = $qualityDetails->add($quality,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision);
+    Header("Location: managequality.php?action=showproject&id=".$projectId); 
+    break;
   default:
     break;
 }

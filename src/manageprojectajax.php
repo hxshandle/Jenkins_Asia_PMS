@@ -959,7 +959,7 @@ switch ($action) {
     $qId = getArrayVal($_GET, "qId");
     $qualityDetails = new QualityDetails();
     $detailsList = $qualityDetails->getQualityDetailsByQualityId($qId);
-    $template->assign("qualityList", $qualityList);
+    $template->assign("details", $detailsList);
     $template->assign("qualityId", $qId);
     
     $template->display("qualitydetailslist.tpl");

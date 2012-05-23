@@ -28,18 +28,10 @@ class QualityDetails {
     $root_cause = mysql_escape_string($root_cause);
     $containment_action = mysql_escape_string($containment_action);
     $supplier_short_term_corrective_act = mysql_escape_string($supplier_short_term_corrective_act);
-    $short_term_verified = mysql_escape_string($short_term_verified);
+    $short_term_verified = (int) $short_term_verified;
     $supplier_long_term_corrective_act = mysql_escape_string($supplier_long_term_corrective_act);
     $vendor_process_audit_plan_revision = mysql_escape_string($vendor_process_audit_plan_revision);
-    $long_term_verified = mysql_escape_string($long_term_verified);
-
-    if(empty($shot_term_implementation_date)){
-      $shot_term_implementation_date='null';
-    }
-
-    if(empty($long_term_implementation_date)){
-      $long_term_implementation_date='null';
-    }
+    $long_term_verified = (int)$long_term_verified;
 
     $sql = "
           INSERT INTO `quality_details`
@@ -65,14 +57,24 @@ class QualityDetails {
           '$required_desc',
           '$root_cause',
           '$containment_action',
-          '$supplier_short_term_corrective_act',
-          '$shot_term_implementation_date',
-          $short_term_verified,
-          '$supplier_long_term_corrective_act',
-          '$long_term_implementation_date',
-          '$vendor_process_audit_plan_revision',
-          long_term_verified
-          );
+          '$supplier_short_term_corrective_act',";
+
+          if(empty($shot_term_implementation_date)){
+            $sql = $sql."null,";
+          }else{
+            $sql = $sql."'".$shot_term_implementation_date."',";
+          }
+          $sql = $sql."$short_term_verified,
+          '$supplier_long_term_corrective_act',";
+          if(empty($long_term_implementation_date)){
+            $sql = $sql."null,";
+          }else{
+            $sql = $sql."'".$long_term_implementation_date."',";
+          }
+          
+          $sql = $sql."'$vendor_process_audit_plan_revision',
+          $long_term_verified
+          )
           ";
     $ins = mysql_query($sql);
     if($ins){
@@ -131,7 +133,7 @@ class QualityDetails {
 
   function getQualityDetailsByQualityId($id){
     $id = (int) $id;
-    $sql = "";
+    $sql = "select * from quality_details where quality=$id";
     $sel = mysql_query($sql);
     $arr = array();
     while ($row = mysql_fetch_array($sel)) {

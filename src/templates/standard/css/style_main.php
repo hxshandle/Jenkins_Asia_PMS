@@ -3008,7 +3008,7 @@ div.dataTable{
 .floatL{
 	float:left;
 }
-#detailsForm label{
+#editQuality label,#detailsForm label{
 	color:#65635E;
 	font-weight:bold;
 }

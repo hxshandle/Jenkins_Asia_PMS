@@ -43,8 +43,9 @@
       <div id="block_msgs" class="block" >
 
         {*Add Message*}
-        <div id = "addmsg" class="addmenue" style = "display:none;">
-          {include file="addmessageform.tpl" }
+        <div id = "addmsg" class="block_in_wrapper" style = "display:none;">
+          {include file="editQualityDlg.tpl" }
+          <div class="clear_both_b"></div>
         </div>
 
         <div class="nosmooth" id="sm_msgs">
@@ -133,16 +134,31 @@
         </h2>
       </div>
       <div id="block_details" class="block" >
-          heihei
+          
       </div>
       
       <!-- End of Details block-->
       <!-- Add details block -->
       <div id = "addQualityDetails" class="block_in_wrapper" style = "display:none;">
-        <form id="detailsForm" name="detailsForm" class = "">
+        <form id="detailsForm" name="detailsForm" class = "" method="post" action="managequality.php?action=saveDetails&pId={$project.ID}">
+          <div class="dlgRow">
+            <label>{#quality#}</label>
+            <select id="quality" name="quality">
+              {section name=q loop=$qualitys}
+              <option value="{$qualitys[q].ID}">{$qualitys[q].action_no}</option>
+              {/section}
+            </select>
+          </div>
           <div class="dlgRow">
             <label>{#quantity#}</label>
             <input id="quantity" name = "quantity"></input>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#rejectDesc#}</label>
+            <div class="editor floatL">
+              <textarea id="rejectDesc" name = "rejectDesc" required="1"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
           </div>
           <div class="dlgRow">
             <label class="floatL">{#requiredDesc#}</label>
@@ -209,7 +225,7 @@
           </div>
           <div class="dlgRow" style="height:20px">
             <label style="width:200px;float:left;">&nbsp;</label>
-            <button onfocus="this.blur()" type="">{#save#}</button>
+            <button onfocus="this.blur()" onclick="saveQualityDetailsValiduator()">{#save#}</button>
             <button onclick="blindtoggle('addQualityDetails');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
           </div>
         </form>
@@ -234,6 +250,17 @@
 
     function addQualityDetails(qId){
       alert("add "+qId);
+    }
+
+    function showDetailsInfo(id){
+      alert(id);
+    }
+
+    function saveQualityDetailsValiduator(){
+      if($("rejectDesc").value == ""){
+        alert('false');
+        return false;
+      }
     }
 
     function showQualityDetails(id){
