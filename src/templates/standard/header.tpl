@@ -71,7 +71,7 @@ tinyMCE.init({
 	theme : "advanced",
 	language: "{/literal}{$locale}{literal}",
 	width: "55%",
-	height: "220px",
+	height: "150px",
 	plugins : "inlinepopups,style,advimage,advlink,xhtmlxtras,safari,template",
 	theme_advanced_buttons1 : "bold,italic,underline,|,fontsizeselect,|,bullist,numlist,|,link,unlink,image,|,forecolor,",
 	theme_advanced_buttons2 : "",

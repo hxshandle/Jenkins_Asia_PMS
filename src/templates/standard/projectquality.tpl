@@ -134,13 +134,13 @@
         </h2>
       </div>
       <div id="block_details" class="block" >
-          
+          {#pleaseSelQuality#}
       </div>
       
       <!-- End of Details block-->
       <!-- Add details block -->
       <div id = "addQualityDetails" class="block_in_wrapper" style = "display:none;">
-        <form id="detailsForm" name="detailsForm" class = "" method="post" action="managequality.php?action=saveDetails&pId={$project.ID}">
+        <form id="detailsForm" name="detailsForm"  method="post" action="managequality.php?action=saveDetails&pId={$project.ID}">
           <div class="dlgRow">
             <label>{#quality#}</label>
             <select id="quality" name="quality">
@@ -156,7 +156,7 @@
           <div class="dlgRow">
             <label class="floatL">{#rejectDesc#}</label>
             <div class="editor floatL">
-              <textarea id="rejectDesc" name = "rejectDesc" required="1"></textarea>
+              <textarea id="rejectDesc" name = "rejectDesc" ></textarea>
             </div>
             <div class="clear_both_b"></div>
           </div>
@@ -225,7 +225,7 @@
           </div>
           <div class="dlgRow" style="height:20px">
             <label style="width:200px;float:left;">&nbsp;</label>
-            <button onfocus="this.blur()" onclick="saveQualityDetailsValiduator()">{#save#}</button>
+            <button onfocus="this.blur()" type="submit">{#save#}</button>
             <button onclick="blindtoggle('addQualityDetails');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
           </div>
         </form>
@@ -253,11 +253,11 @@
     }
 
     function showDetailsInfo(id){
-      alert(id);
+      alert("Coming soon");
     }
 
     function saveQualityDetailsValiduator(){
-
+      return true;
     }
 
     function showQualityDetails(id){
