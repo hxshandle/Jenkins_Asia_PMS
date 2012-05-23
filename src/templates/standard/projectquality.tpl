@@ -257,10 +257,7 @@
     }
 
     function saveQualityDetailsValiduator(){
-      if($("rejectDesc").value == ""){
-        alert('false');
-        return false;
-      }
+
     }
 
     function showQualityDetails(id){
