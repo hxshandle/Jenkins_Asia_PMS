@@ -17,7 +17,7 @@
 		<li class="user"><a {if $userstab == "active" }class="active"{/if} href="manageuser.php?action=showproject&amp;id={$project.ID}"><span>{#user#}</span></a></li>
 		<li class="cal"><a {if $calendartab == "active" }class="active"{/if} href="resourcecalendar.php?action=showproject&amp;id={$project.ID}"><span>{#resourceCal#}</span></a></li>
 		{/if}
-		{if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $smarty.session.userRole == 5}
+		{if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $smarty.session.userRole == 6}
 		<li class="msgs"><a {if $qualitystab == "active" }class="active"{/if} href="managequality.php?action=showproject&amp;id={$project.ID}"><span>{#quality#}</span></a></li>
 		{/if}
 		<!--

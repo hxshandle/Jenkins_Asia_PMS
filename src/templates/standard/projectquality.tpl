@@ -140,6 +140,7 @@
       <!-- End of Details block-->
       <!-- Add details block -->
       <div id = "addQualityDetails" class="block_in_wrapper" style = "display:none;">
+        <h2>{#addQualityDetails#}</h2>
         <form id="detailsForm" name="detailsForm"  method="post" action="managequality.php?action=saveDetails&pId={$project.ID}">
           <div class="dlgRow">
             <label>{#quality#}</label>
@@ -210,8 +211,6 @@
             <label>{#longTermImplementationDate#}</label>
             <input id="longTermImplementationDate" name="longTermImplementationDate"></input>
           </div>
-
-
           <div class="dlgRow">
             <label>{#vendorProcessAuditPlanRevision#}</label>
             <input id="vendorProcessAuditPlanRevision" name="vendorProcessAuditPlanRevision"></input>
@@ -230,6 +229,9 @@
           </div>
         </form>
       </div>
+      <div id="editDetailsInfo" class="block_in_wrapper" style="display:none">
+
+      </div>
       <div class="tablemenue">
         <div class="tablemenue-in">
           <a class="butn_link" href="javascript:blindtoggle('addQualityDetails');"  id="addDetails_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addqualityDetails#}</a>
@@ -239,6 +241,9 @@
     </div> {*Msgs END*}
   </div> {*content-left-in END*}
 </div> {*content-left END*}
+<script>
+  var __parojectId = {$project.ID};
+</script>
 
 {literal}
   <script type = "text/javascript">
@@ -253,12 +258,24 @@
     }
 
     function showDetailsInfo(id){
-      alert("Coming soon");
+      var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__parojectId;
+      new Ajax.Request(theUrl, {
+        method: 'get',
+        onSuccess:function(payload) {
+          if (payload.responseText != ""){ 
+            $("editDetailsInfo").innerHTML=payload.responseText;
+            $("editDetailsInfo").style.display="";
+          }else{
+            alert("get data error");
+          }
+        }
+      });
     }
 
     function saveQualityDetailsValiduator(){
       return true;
     }
+
 
     function showQualityDetails(id){
       var theUrl = "manageprojectajax.php?action=getQualityDetails&qId="+id;

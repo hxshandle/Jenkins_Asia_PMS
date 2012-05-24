@@ -39,10 +39,41 @@ switch ($action) {
     $shortTermVerified = getArrayVal($_POST, "shortTermVerified");
     $supplierLongTermCorrectiveAct = getArrayVal($_POST, "supplierLongTermCorrectiveAct");
     $longTermImplementationDate = getArrayVal($_POST, "longTermImplementationDate");
+    $longTermVerified = getArrayVal($_POST, "longTermVerified");
     $vendorProcessAuditPlanRevision = getArrayVal($_POST, "vendorProcessAuditPlanRevision");
 
     $qualityDetails = new QualityDetails();
-    $ins = $qualityDetails->add($quality,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision);
+    $ins = $qualityDetails->add($quality,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
+    Header("Location: managequality.php?action=showproject&id=".$projectId); 
+    break;
+  case "getQualityDetailsInfo":
+    $detailsId = getArrayVal($_GET, "detailsId");
+    $projectId = getArrayVal($_GET, "projectId");
+    $qualityDetails = new QualityDetails();
+    $data = $qualityDetails->get($detailsId);
+    $template->assign("data", $data);
+    $template->assign("projectId", $projectId);
+    $template->assign("detailsId", $detailsId);
+    $template->display("editqualitydetailsinfo.tpl");
+    break;
+  case "updateDetails":
+    $detailsId = getArrayVal($_GET, "detailsId");
+    $projectId = getArrayVal($_GET, "projectId");
+    $quality = getArrayVal($_POST, "quality");
+    $rejectDesc = getArrayVal($_POST, "rejectDesc");
+    $quantity = getArrayVal($_POST, "quantity");
+    $requiredDesc = getArrayVal($_POST, "requiredDesc");
+    $rootCause = getArrayVal($_POST, "rootCause");
+    $containmentAction = getArrayVal($_POST, "containmentAction");
+    $supplierShortTermCorrectiveAct = getArrayVal($_POST, "supplierShortTermCorrectiveAct");
+    $shotTermImplementationDate = getArrayVal($_POST, "shotTermImplementationDate");
+    $shortTermVerified = getArrayVal($_POST, "shortTermVerified");
+    $supplierLongTermCorrectiveAct = getArrayVal($_POST, "supplierLongTermCorrectiveAct");
+    $longTermImplementationDate = getArrayVal($_POST, "longTermImplementationDate");
+    $longTermVerified = getArrayVal($_POST, "longTermVerified");
+    $vendorProcessAuditPlanRevision = getArrayVal($_POST, "vendorProcessAuditPlanRevision");
+    $qualityDetails = new QualityDetails();
+    $ins = $qualityDetails->update($detailsId,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
     Header("Location: managequality.php?action=showproject&id=".$projectId); 
     break;
   default:
