@@ -102,7 +102,7 @@ class QualityDetails {
 
 
     $sql = "
-        UPDATE `jenkins_asia_uat`.`quality_details`
+        UPDATE `quality_details`
         SET
         `reject_desc` = '$reject_desc',
         `quantity` = '$quantity',
