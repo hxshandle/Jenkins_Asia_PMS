@@ -54,9 +54,12 @@ J.onUploadSuccess = function(file, serverData, responseReceived){
   uploadSuccess.call(this,file,serverData);
 }
 
-J.initSwfUploader=function(url,param,handler,btnHolder,cancelBtnId,callBackFunc){
+
+J.initSwfUploader=function(url,param,swfhandler,btnHolder,cancelBtnId,callBackFunc,queueCompleteHandler,progressHoder){
     cancelBtnId = cancelBtnId || "btnCancel";
     btnHolder = btnHolder || "spanButtonPlaceHolder";
+    queueCompleteHandler = queueCompleteHandler || queueComplete;
+    progressHoder = progressHoder || "fsUploadProgress";
     var settings = {
       flash_url : "include/swfupload/swfupload.swf",
       flash9_url : "include/swfupload/swfupload_fp9.swf",
@@ -68,7 +71,7 @@ J.initSwfUploader=function(url,param,handler,btnHolder,cancelBtnId,callBackFunc)
       file_upload_limit : 100,
       file_queue_limit : 0,
       custom_settings : {
-        progressTarget : "fsUploadProgress",
+        progressTarget : progressHoder,
         cancelButtonId : cancelBtnId
       },
       debug: false,
@@ -94,11 +97,11 @@ J.initSwfUploader=function(url,param,handler,btnHolder,cancelBtnId,callBackFunc)
       upload_error_handler : uploadError,
       upload_success_handler : J.onUploadSuccess,
       upload_complete_handler : uploadComplete,
-      queue_complete_handler : queueComplete  // Queue plugin event
+      queue_complete_handler : queueCompleteHandler  // Queue plugin event
     };
     
-    handler = new SWFUpload(settings);
+    swfhandler = new SWFUpload(settings);
     if(callBackFunc){
-      handle['JcallBackFunc']=callBackFunc;
+      swfhandler['JcallBackFunc']=callBackFunc;
     }
   }

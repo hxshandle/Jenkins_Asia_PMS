@@ -84,6 +84,8 @@ drop table `order`;
   `external_cost` INT(11)  ,
   `external_cost_currency` VARCHAR(3) ,
   `published` TINYINT(4)  ,
+  `delivery_status_one` int(10) DEFAULT -1,
+  `delivery_status_two` int(10) DEFAULT -1,
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM;
 

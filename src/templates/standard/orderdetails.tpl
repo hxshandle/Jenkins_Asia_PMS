@@ -42,14 +42,14 @@
       <td>
         {if $orderTab[order].statusId == 14 || $orderTab[order].statusId == 17 || $orderTab[order].statusId == 15}
          {if $smarty.session.userRole == 1 || $smarty.session.userRole ==3}
-        <a class="tool_edit" title="{#price#}" href=javascript:void(0);" onclick="priceOrderDlg({$orderTab[order].ID});"></a>
+        <a class="tool_edit" title="{#price#}" href="javascript:void(0);" onclick="priceOrderDlg({$orderTab[order].ID});"></a>
          {/if}
         {/if}
         {if $orderTab[order].statusId == 15 and $smarty.session.userRole==6  and $orderTab[order].published==1}
-        <a class="tool_edit" title="{#agree#}" href=javascript:void(0);" onclick="agreeOrderDlg({$orderTab[order].ID});"></a>
-        <a class="tool_del" title="{#reject#}" href=javascript:void(0);" onclick="rejectOrderDlg({$orderTab[order].ID});"></a>
+        <a class="tool_edit" title="{#agree#}" href="javascript:void(0);" onclick="agreeOrderDlg({$orderTab[order].ID});"></a>
+        <a class="tool_del" title="{#reject#}" href="javascript:void(0);" onclick="rejectOrderDlg({$orderTab[order].ID});"></a>
         {/if}
-        <a class="tool_edit" title="{#edit#}" href=javascript:void(0);" onclick="editOrderDlg({$orderTab[order].ID});"></a>
+        <a class="tool_edit" title="{#edit#}" href="javascript:void(0);" onclick="editOrderDlg({$orderTab[order].ID});"></a>
         </td>
     </tr>
   {/section}

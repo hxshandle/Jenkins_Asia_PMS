@@ -28,14 +28,69 @@
     window.__addOrderDlgContent=$("addOrderDlg").innerHTML;
     $("addOrderDlg").remove(); 
   }
-
   function initOrderFileUploader(){
     var swfu_addOrder;
     J.initSwfUploader(
     "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder,"spanButtonPlaceHolder","btnCancel",orderFileUploadSuccess);
   }
-  function orderFileUploadSuccess(id){
-    alert("new file id -> "+id);
+    
+  function initOrderFileUploader1(idx){
+    var swfu_addOrder1,swfu_addOrder2,swfu_addOrder3,swfu_addOrder4;
+    J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder1,"spanButtonPlaceHolder1","btnCancel1",upldateFileFiled2,upldateFileFiledInfo2,"fsUploadProgress1");
+    J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder2,"spanButtonPlaceHolder2","btnCancel2",upldateFileFiled3,upldateFileFiledInfo3,"fsUploadProgress2");
+    J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder3,"spanButtonPlaceHolder3","btnCancel3",upldateFileFiled4,upldateFileFiledInfo4,"fsUploadProgress3");
+    J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder4,"spanButtonPlaceHolder","btnCancel",upldateFileFiled1,upldateFileFiledInfo1,"fsUploadProgress");
+  }
+    
+  function upldateFileFiled1(id){
+    if($("fileId1")){
+      $("fileId1").value = id;  
+    }
+  }
+    
+  function upldateFileFiled2(id){
+    if($("fileId2")){
+      $("fileId2").value = id;  
+    }
+  }
+     
+  function upldateFileFiled3(id){
+    if($("fileId3")){
+      $("fileId3").value = id;  
+    }
+  }   
+     
+  function upldateFileFiled4(id){
+    if($("fileId4")){
+      $("fileId4").value = id;  
+    }
+  }  
+  function orderFileUploadSuccess(file,id){
+  }
+
+  function upldateFileFiledInfo1(numFilesUploaded){
+    if($("divStatus")){
+      $("divStatus").innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
+    }
+  }
+  function upldateFileFiledInfo2(numFilesUploaded){
+    if($("divStatus1")){
+      $("divStatus1").innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
+    }
+  }
+  function upldateFileFiledInfo3(numFilesUploaded){
+    if($("divStatus2")){
+      $("divStatus2").innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
+    }
+  }
+  function upldateFileFiledInfo4(numFilesUploaded){
+    if($("divStatus3")){
+      $("divStatus3").innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
+    }
   }
 
   new Control.Modal("btnAddOrder",{
@@ -58,7 +113,17 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
         }
       });
   }
-    
+   function showOrderDlg1(ctx){
+    var dlg = new Control.Modal("priceOrderDlg",{
+                                "contents":ctx,
+                                fade:true,
+                                afterOpen:initOrderFileUploader1,
+                                opacity: 0.8,
+                                containerClassName: 'dlgmodal',
+                                overlayClassName: 'tasksoverlay'
+                             });
+   dlg.open();      
+  }  
     
   function showOrderDlg(ctx){
     var dlg = new Control.Modal("priceOrderDlg",{
@@ -95,7 +160,7 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
       method: 'get',
       onSuccess:function(payload) {
         if (payload.responseText != ""){ 
-                     showOrderDlg(payload.responseText);
+                     showOrderDlg1(payload.responseText);
                      }else{
                          alert("faild");
                         }
@@ -142,7 +207,7 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
       thePost +="&orderDesc="+jsorderDesc;
       var jsjenkinsPoNumber = $("newJenkinsPoNumber").value;
       thePost +="&jenkinsPoNumber="+jsjenkinsPoNumber;
-      var jsattachment2 = $("fileId").value;
+      var jsattachment2 = $("fileId1").value;
       thePost +="&attachment2="+jsattachment2;
       var jsfactory = $("newFactory").value;
       thePost +="&factory="+jsfactory;
@@ -186,7 +251,6 @@ var theUrl = "manageprojectajax.php?action=reloadorder&id="+__projectId;
       thePost +="&deliveryDateTwo="+jsdeliveryDateTwo;
       var jstargetDeliveryStatus2 = $("targetDeliveryStatus2").value;
       thePost +="&deliveryStatus2="+jstargetDeliveryStatus2;
-      alert(thePost);
       new Ajax.Request(theUrl, {
 		  method: 'post',
 		  postBody:thePost,
