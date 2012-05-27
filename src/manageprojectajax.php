@@ -957,6 +957,70 @@ switch ($action) {
     $ret = $task->addAttachment($taskId, $fileId);
     echo $ret;
     break;
+  case "getAddQualityDlgContent":
+    $projectId = getArrayVal($_GET, "projectId");
+    $mode = getArrayVal($_GET, "mode");
+    $qId = getArrayVal($_GET, "qId");
+    $quality = new Quality();
+    $qualityObj = array();
+    if($mode == "edit"){
+      $qualityObj = $quality->get($qId);    
+      $template->assign("qId", $qId);
+    }
+    $template->assign("quality", $qualityObj);
+    $template->assign("mode", $mode);
+
+    $template->assign("templateName", "editQualityDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+  case "saveQuality":
+    $mode = getArrayVal($_POST,"mode");
+    $qId = getArrayVal($_POST,"qId");
+    $projectId = getArrayVal($_POST,"projectId");
+    $actionNo = getArrayVal($_POST, "actionNo");
+    $issueDate = getArrayVal($_POST, "issueDate");
+    $productNo = getArrayVal($_POST, "productNo");
+    $productDesc = getArrayVal($_POST, "productDesc");
+    $shipNo = getArrayVal($_POST, "shipNo");
+    $lotQuantity = getArrayVal($_POST, "lotQuantity");
+    $sampleSize = getArrayVal($_POST, "sampleSize");
+    $defects = getArrayVal($_POST, "defects");
+    $rejectRate = getArrayVal($_POST, "rejectRate");
+    $quantityInInventory = getArrayVal($_POST, "quantityInInventory");
+    $quantityInProcess = getArrayVal($_POST, "quantityInProcess");
+    $containmentDesc = getArrayVal($_POST, "containmentDesc");
+    $acknowledgeBy = getArrayVal($_POST, "acknowledgeBy");
+    $acknowledgeDate = getArrayVal($_POST, "acknowledgeDate");
+    $verifiedForClosureBy = getArrayVal($_POST, "verifiedForClosureBy");
+    $verificationDate = getArrayVal($_POST, "verificationDate");
+    $quality = new Quality();
+    $ret = false;
+    if($mode == "add"){
+      $ret = $quality->add($projectId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
+    }else{
+        $ret = $quality->add($qId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
+    }
+    
+    if($ret){
+        echo "Ok";
+    }
+    break;
+  case "reloadQualityList":
+    $projectId = getArrayVal($_GET, "projectId");
+    $quality = new Quality();
+    $qualityList = $quality->getQualityByProjectId($projectId);
+    $template->assign("qualityList", $qualityList);
+    $template->display("qualitylist.tpl");
+    break;
+  case "getQualityDetails":
+    $qId = getArrayVal($_GET, "qId");
+    $qualityDetails = new QualityDetails();
+    $detailsList = $qualityDetails->getQualityDetailsByQualityId($qId);
+    $template->assign("details", $detailsList);
+    $template->assign("qualityId", $qId);
+    
+    $template->display("qualitydetailslist.tpl");
+    break;
   default:
     break;
 }
