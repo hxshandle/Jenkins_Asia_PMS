@@ -1,35 +1,37 @@
 <div class="dlgRow">
-  <label style="margin:0 75px 0 0" >{#customerPoNumber#}</label>
+  <label style="" >{#customerPoNumber#}</label>
   <input id="newCustomerPoNumber"></input>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 75px 0 0" >{#order#}</label>
+  <label style="" >{#order#}</label>
   <input id="newOrderName"></input>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 75px 0 0">{#quantity#}</label>
+  <label style="">{#quantity#}</label>
   <input id="newOrderQuantity"   regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
-        <label for="uploadfile" >{#upload#}:</label>
-        {include file = "uploadfile.tpl"}
+        <label for="uploadfile" style="float:left">{#upload#}:</label>
+
+        {include file = "uploadfile.tpl" lazyLoad=true}
+
 </div>
 <input type = "hidden" id = "fileId" name = "fileId"></input>
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#ordertime#}</label>
+  <label style="">{#ordertime#}</label>
   <input id="newOrderTime"></input>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#deliverydateone#}</label>
+  <label style="">{#deliverydateone#}</label>
   <input id="newDeliveryDateOne"></input>
 </div>  
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#deliverydatetwo#}</label>
+  <label style="">{#deliverydatetwo#}</label>
   <input id="newDeliveryDateTwo"></input>
 </div> 
   
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#orderdesc#}</label>
+  <label style="">{#orderdesc#}</label>
   <textarea id="newOrderDesc"></textarea>
 </div>
 

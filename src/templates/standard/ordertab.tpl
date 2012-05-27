@@ -14,17 +14,34 @@
 </div>
 <div id = "priceOrderDlg"></div>
 
+<script type="text/javascript">
+  var __sesionId = "{$smarty.session.sessionId}";
+  var __projectId = {$projectId};
+  var __userId = "{$smarty.session.userid}";
+
+</script>
+
+
 {literal}
 <script type="text/javascript">
   if(!window.__addOrderDlgContent){
     window.__addOrderDlgContent=$("addOrderDlg").innerHTML;
     $("addOrderDlg").remove(); 
   }
-  //altert("1"+$("addFinanceDlg").innerHTML);
+
+  function initOrderFileUploader(){
+    var swfu_addOrder;
+    J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder,"spanButtonPlaceHolder","btnCancel",orderFileUploadSuccess);
+  }
+  function orderFileUploadSuccess(id){
+    alert("new file id -> "+id);
+  }
+
   new Control.Modal("btnAddOrder",{
                                 "contents":window.__addOrderDlgContent,
                                 fade:true,
-                                afterOpen:window.onload,
+                                afterOpen:initOrderFileUploader,
                                 opacity: 0.8,
                                 containerClassName: 'dlgmodal',
                                 overlayClassName: 'tasksoverlay'

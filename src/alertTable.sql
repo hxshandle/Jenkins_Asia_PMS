@@ -44,3 +44,52 @@ CREATE TABLE `quality_details` (
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM
 
+
+drop table `order`;
+ CREATE  TABLE IF NOT EXISTS `order` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(255) NOT NULL ,
+  `project` INT(10) NOT NULL,
+  `customer_po_number` VARCHAR(255) ,
+  `attachment1` VARCHAR(255), 
+  `jenkins_po_number` VARCHAR(255),
+  `attachment2` VARCHAR(255), 
+  `factory` VARCHAR(255), 
+  `terms` VARCHAR(255), 
+  `account_payment` VARCHAR(255), 
+  `customer_model_number` VARCHAR(255), 
+  `customer_part_number` VARCHAR(255), 
+  `jenkins_model_number` VARCHAR(255), 
+  `jenkins_part_number` VARCHAR(255), 
+  `payment_one_schedule` VARCHAR(255), 
+  `payment_one_status` TINYINT(4),
+  `payment_one_attachment`  VARCHAR(255),
+  `payment_two_schedule` VARCHAR(255), 
+  `payment_two_status` TINYINT(4),
+  `payment_two_attachment`  VARCHAR(255),
+  `payment_three_schedule` VARCHAR(255), 
+  `payment_three_status` TINYINT(4),
+  `payment_three_attachment`  VARCHAR(255),
+  `final_total_amount_received` VARCHAR(255),
+  `delivery_date_one` VARCHAR(255),
+  `delivery_date_two` VARCHAR(255),
+  `desc` TEXT NULL ,
+  `submit_time` DATETIME NOT NULL ,
+  `end_time` DATETIME NULL ,
+  `status` INT(10) NOT NULL ,
+  `valid` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `quantity` INT(10) NOT NULL DEFAULT 0 ,
+  `inner_cost` INT(11)  ,
+  `inner_cost_currency` VARCHAR(3) ,
+  `external_cost` INT(11)  ,
+  `external_cost_currency` VARCHAR(3) ,
+  `published` TINYINT(4)  ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM;
+
+
+INSERT INTO `status` (`ID`,`type`,`value`) VALUES (36,'order1','in_progress');
+INSERT INTO `status` (`ID`,`type`,`value`) VALUES (37,'order1','delayed');
+INSERT INTO `status` (`ID`,`type`,`value`) VALUES (38,'order1','late');
+INSERT INTO `status` (`ID`,`type`,`value`) VALUES (39,'order1','canceled');
+INSERT INTO `status` (`ID`,`type`,`value`) VALUES (40,'order1','on_hold');
