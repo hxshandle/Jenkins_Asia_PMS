@@ -75,6 +75,14 @@
       <option value="0" {if $data.long_term_verified == 0}selected{/if}>{#no#}</option>
     </select>
   </div>
+    <div class="dlgRow">
+    <label style="float:left">{#upload#}</label>
+    <input type="hidden" id="fileId" name="fileId"></input>
+    <div>
+      {include file="uploadfile.tpl" lazyLoad=true}
+    </div>
+  </div>
+  <div class="clear_both_b"></div>
   <div class="dlgRow" style="height:20px">
     <label style="width:200px;float:left;">&nbsp;</label>
     <button onfocus="this.blur()" type="submit">{#save#}</button>

@@ -142,9 +142,16 @@ class QualityDetails {
     $sql = "select * from quality_details where quality=$id";
     $sel = mysql_query($sql);
     $arr = array();
-    while ($row = mysql_fetch_array($sel)) {
-      array_push($arr, $row);
-    }
+    while($row = mysql_fetch_array($sel)){
+        $sql2 = "select f.* from files f,quality_details_attached q where q.file_id = f.id and q.details_id = $row[ID]";
+        $sel2 = mysql_query($sql2);
+        $files = array();
+        while($rowf = mysql_fetch_array($sel2)){
+          array_push($files,$rowf);
+        }
+        $row["files"]=$files;
+        array_push($arr, $row);
+      }
     return $arr;
     }
     
@@ -152,8 +159,38 @@ class QualityDetails {
       $id = (int) $id;
       $sql = "select * from quality_details where id=$id";
       $sel = mysql_query($sql);
-      return  mysql_fetch_array($sel);
+      $arr = array();
+      while($row = mysql_fetch_array($sel)){
+        $sql2 = "select f.* from files f,quality_details_attached q where q.file_id = f.id and q.details_id = $row[ID]";
+        $sel2 = mysql_query($sql2);
+        $files = array();
+        while($rowf = mysql_fetch_array($sel2)){
+          array_push($files,$rowf);
+        }
+        $row["files"]=$files;
+        array_push($arr, $row);
+      }
+      return  $arr;
 
     }
+    function attachFile($detailId,$fileId){
+    $detailId = (int) $detailId;
+    $fileId = (int) $fileId;
+    $sql = "INSERT INTO `quality_details_attached`
+                (
+                `details_id`,
+                `file_id`)
+                VALUES
+                (
+                $detailId,
+                $fileId
+                )";
+    $ins = mysql_query($sql);
+    if($ins){
+      return mysql_insert_id();
+    }else{
+      return false;
+    }
+}
 }
 ?>

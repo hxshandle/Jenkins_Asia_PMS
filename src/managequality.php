@@ -72,9 +72,15 @@ switch ($action) {
     $longTermImplementationDate = getArrayVal($_POST, "longTermImplementationDate");
     $longTermVerified = getArrayVal($_POST, "longTermVerified");
     $vendorProcessAuditPlanRevision = getArrayVal($_POST, "vendorProcessAuditPlanRevision");
+    $fileId = getArrayVal($_POST, "fileId");
     $qualityDetails = new QualityDetails();
     $ins = $qualityDetails->update($detailsId,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
-    Header("Location: managequality.php?action=showproject&id=".$projectId); 
+    
+    if(!empty($fileId)){
+        $qualityDetails->attachFile($detailsId,$fileId);
+    } 
+    Header("Location: managequality.php?action=showproject&id=".$projectId);
+    
     break;
   default:
     break;

@@ -1,6 +1,9 @@
 {include file="header.tpl"  jsload = "ajax"  jsload1="tinymce" jsload3 = "lightbox"}
 {include file="tabsmenue-project.tpl" qualitystab = "active"}
-
+<script type="text/javascript" src="include/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="include/swfupload/swfupload.queue.js"></script>
+<script type="text/javascript" src="include/js/fileprogress.js"></script>
+<script type="text/javascript" src="include/js/handlers.js"></script>
 <div id="content-left">
   <div id="content-left-in">
     <div class="msgs">
@@ -242,15 +245,26 @@
   </div> {*content-left-in END*}
 </div> {*content-left END*}
 <script>
-  var __parojectId = {$project.ID};
+  var __projectId = {$project.ID};
+  var __sesionId = "{$smarty.session.sessionId}";
+  var __userId = "{$smarty.session.userid}";
 </script>
 
 {literal}
   <script type = "text/javascript">
     var accord_quality = new accordion('block_msgs');
+    var accord_qualityDetails = new accordion('block_details');
+
+    function setFileId(id){
+      if($("fileId")){
+        $("fileId").value=id;
+      }
+    }
     
     function renderQualityDetails(content){
+      
       $("block_details").innerHTML=content;
+
     }
 
     function addQualityDetails(qId){
@@ -258,13 +272,16 @@
     }
 
     function showDetailsInfo(id){
-      var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__parojectId;
+      var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__projectId;
       new Ajax.Request(theUrl, {
         method: 'get',
         onSuccess:function(payload) {
           if (payload.responseText != ""){ 
             $("editDetailsInfo").innerHTML=payload.responseText;
             $("editDetailsInfo").style.display="";
+            var swfu;
+            alert("abc");
+            J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},swfu,"spanButtonPlaceHolder","btnCancel",setFileId);
           }else{
             alert("get data error");
           }

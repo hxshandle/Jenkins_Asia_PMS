@@ -95,3 +95,12 @@ INSERT INTO `status` (`ID`,`type`,`value`) VALUES (37,'order1','delayed');
 INSERT INTO `status` (`ID`,`type`,`value`) VALUES (38,'order1','late');
 INSERT INTO `status` (`ID`,`type`,`value`) VALUES (39,'order1','canceled');
 INSERT INTO `status` (`ID`,`type`,`value`) VALUES (40,'order1','on_hold');
+
+
+
+CREATE  TABLE `quality_details_attached` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT ,
+  `details_id` INT(11) NOT NULL ,
+  `file_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM;
