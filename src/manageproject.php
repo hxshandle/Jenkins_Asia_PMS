@@ -670,7 +670,7 @@ if ($action == "editform")
     $template->assign("title", $title);
     $template->assign("project", $tproject);
     $template->assign("done", $done);
-
+     $template->assign("projectId", $id);
     $template->assign("ptasks", $ptasks);
     $template->assign("today", $today);
 

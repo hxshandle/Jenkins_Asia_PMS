@@ -18,11 +18,15 @@ class Order {
     $this->myLog = new mylog;
   }
   
-  function add($name,$project,$quantity,$desc,$endTime,$status,$valid=1){
+  function add($name,$project,$quantity,$desc,$endTime,$status,$customerPoNumber,$attachment1,$deliveryDateOne,$deliveryDateTwo,$valid=1){
     $project = (int) $project;
     $quantity = (int) $quantity;
     $name = mysql_escape_string($name);
     $desc = mysql_escape_string($desc);
+    $customerPoNumber = mysql_escape_string($customerPoNumber);
+    $attachment1 = mysql_escape_string($attachment1);
+    $deliveryDateOne = mysql_escape_string($deliveryDateOne);
+    $deliveryDateTwo = mysql_escape_string($deliveryDateTwo);
     $sql = "INSERT INTO `order`
             (`name`,
             `project`,
@@ -31,7 +35,11 @@ class Order {
             `submit_time`,
             `end_time`,
             `status`,
-            `valid`)
+            `valid`,
+            `customer_po_number`,
+            `attachment1`,
+            `delivery_date_one`,
+            `delivery_date_two`)
             VALUES
             (
             '$name',
@@ -41,8 +49,11 @@ class Order {
             NOW(),
             '$endTime',
             $status,
-            $valid
-            );";
+            $valid,
+            '$customerPoNumber',
+            '$attachment1',
+            '$deliveryDateOne',
+            '$deliveryDateTwo');";
     $ins = mysql_query($sql);
     if($ins){
       $id = mysql_insert_id();
@@ -146,6 +157,62 @@ class Order {
     }
     return $ret;
   }
+  function updateOrder($orderId, $orderTime, $orderDesc,
+                        $attachment1, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
+                        $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
+                        $paymentOneSchedule,$paymentOneStatus,$paymentOneAttachment,$paymentTwoSchedule,
+                        $paymentTwoStatus,$paymentTwoAttachment,$paymentThreeSchedule,$paymentThreeStatus,
+                        $paymentThreeAttachment,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
+                        $deliveryDateTwo,$deliveryStatus2){
+    $id = (int) $orderId;
+    $desc = mysql_escape_string($orderDesc);
+    $attachment1 = mysql_escape_string($attachment1);
+    $jenkinsPoNumber = mysql_escape_string($jenkinsPoNumber);
+    $attachment2 = mysql_escape_string($attachment2);
+    $factory = mysql_escape_string($factory);
+    $terms = mysql_escape_string($terms);
+    $accountPayment = mysql_escape_string($accountPayment);
+    $customerModelNumber = mysql_escape_string($customerModelNumber);
+    $customerPartNumber = mysql_escape_string($customerPartNumber);
+    $jenkinsModelNumber = mysql_escape_string($jenkinsModelNumber);
+    $jenkinsPartNumber = mysql_escape_string($jenkinsPartNumber);
+    $paymentOneSchedule = mysql_escape_string($paymentOneSchedule);
+    $paymentOneStatus = (int)$paymentOneStatus;
+    $paymentOneAttachment = mysql_escape_string($paymentOneAttachment);
+    $paymentTwoSchedule = mysql_escape_string($paymentTwoSchedule);
+    $paymentTwoStatus = (int)$paymentTwoStatus;
+    $paymentTwoAttachment = mysql_escape_string($paymentTwoAttachment);
+    $paymentThreeSchedule = mysql_escape_string($paymentThreeSchedule);
+    $paymentThreeStatus = (int)$paymentThreeStatus;
+    $paymentThreeAttachment = mysql_escape_string($paymentThreeAttachment);
+    $finalTotalAmountReceived = mysql_escape_string($finalTotalAmountReceived);
+    $deliveryDateOne = mysql_escape_string($deliveryDateOne);
+    $deliveryDateTwo = mysql_escape_string($deliveryDateTwo);
+    $deliveryStatusOne = (int)$deliveryStatus1;
+    $deliveryStatusTwo = (int)$deliveryStatus2;
+    $sql = "update `order` set `desc`='$desc',`attachment1`='$attachment1',`end_time`='$orderTime',`jenkins_po_number`='$jenkinsPoNumber',
+            `attachment2`='$attachment2',`factory`='$factory',`terms`='$terms',`account_payment`='$accountPayment',
+            `customer_model_number`='$customerModelNumber',`customer_part_number`='$customerPartNumber',
+            `jenkins_model_number`='$jenkinsModelNumber',`jenkins_part_number`='$jenkinsPartNumber',
+            `payment_one_schedule`='$jenkinsPartNumber',`payment_one_status`=$paymentOneStatus,
+            `payment_one_attachment`='$paymentOneAttachment',`payment_two_schedule`='$paymentTwoSchedule',
+            `payment_two_status`=$paymentTwoStatus,`payment_two_attachment`='$paymentTwoAttachment',
+            `payment_three_schedule`='$paymentThreeSchedule',`payment_three_status`=$paymentThreeStatus,
+            `payment_three_attachment`='$paymentThreeAttachment',`final_total_amount_received`='$finalTotalAmountReceived',
+            `delivery_date_one`='$deliveryDateOne',`delivery_date_two`='$deliveryDateTwo',
+            `delivery_status_one`=$deliveryStatusOne,`delivery_status_two`=$deliveryStatusTwo where ID = $id";
+    $upd = mysql_query($sql);
+    if($upd){
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
+  
+  
+  
+  
+  
 }
 
 ?>

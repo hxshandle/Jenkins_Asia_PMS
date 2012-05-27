@@ -557,14 +557,71 @@ switch ($action) {
     $orderQuantity = getArrayVal($_POST, "orderQuantity");
     $orderTime = getArrayVal($_POST, "orderTime");
     $orderDesc = getArrayVal($_POST, "orderDesc");
+    $customerPoNumber = getArrayVal($_POST, "customerPoNumber");
+    $attachment1 = getArrayVal($_POST, "attachment1");
+    $deliveryDateOne = getArrayVal($_POST, "deliveryDateOne");
+    $deliveryDateTwo = getArrayVal($_POST, "deliveryDateTwo");
     $order = new Order();
-    $orderId = $order->add($orderName, $project, $orderQuantity, $orderDesc, $orderTime, 14);
+    $orderId = $order->add($orderName, $project, $orderQuantity, $orderDesc, $orderTime, 14,$customerPoNumber,$attachment1,$deliveryDateOne,$deliveryDateTwo);
     if ($orderId) {
       echo "Ok";
     } else {
       echo "Fail";
     }
     break;
+  case "editOrderSave":
+    $orderId = getArrayVal($_POST, "orderId");
+    //$orderName = getArrayVal($_POST, "orderName");
+    //$orderQuantity = getArrayVal($_POST, "orderQuantity");
+    $orderTime = getArrayVal($_POST, "orderTime");
+    $orderDesc = getArrayVal($_POST, "orderDesc");
+    $attachment1 = getArrayVal($_POST, "attachment1");
+    $jenkinsPoNumber = getArrayVal($_POST, "jenkinsPoNumber");
+    $attachment2 = getArrayVal($_POST, "attachment2");
+    $factory = getArrayVal($_POST, "factory");
+    $terms = getArrayVal($_POST, "terms");
+    $accountPayment = getArrayVal($_POST, "accountPayment");
+    $customerModelNumber = getArrayVal($_POST, "customerModelNumber");
+    $customerPartNumber = getArrayVal($_POST, "customerPartNumber");
+    $jenkinsModelNumber = getArrayVal($_POST, "jenkinsModelNumber");
+    $jenkinsPartNumber = getArrayVal($_POST, "jenkinsPartNumber");
+    $paymentOneSchedule = getArrayVal($_POST, "paymentOneSchedule");
+    $paymentOneStatus = getArrayVal($_POST, "paymentStatus1");//
+    $paymentOneAttachment = getArrayVal($_POST, "paymentOneAttachment");
+    $paymentTwoSchedule = getArrayVal($_POST, "paymentTwoSchedule");
+    $paymentTwoStatus = getArrayVal($_POST, "paymentStatus2");//
+    $paymentTwoAttachment = getArrayVal($_POST, "paymentTwoAttachment");
+    $paymentThreeSchedule = getArrayVal($_POST, "paymentThreeSchedule");
+    $paymentThreeStatus = getArrayVal($_POST, "paymentStatus3");//
+    $paymentThreeAttachment = getArrayVal($_POST, "paymentThreeAttachment");  
+    $finalTotalAmountReceived = getArrayVal($_POST, "finalTotalAmountReceived");
+    $deliveryDateOne = getArrayVal($_POST, "deliveryDateOne");
+    $deliveryStatus1 = getArrayVal($_POST, "deliveryStatus1");//
+    $deliveryDateTwo = getArrayVal($_POST, "deliveryDateTwo");
+    $deliveryStatus2 = getArrayVal($_POST, "deliveryStatus2");//
+    $order = new Order();
+    $orderId = $order->updateOrder($orderId, $orderTime, $orderDesc,
+                        $attachment1, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
+                        $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
+                        $paymentOneSchedule,$paymentOneStatus,$paymentOneAttachment,$paymentTwoSchedule,
+                        $paymentTwoStatus,$paymentTwoAttachment,$paymentThreeSchedule,$paymentThreeStatus,
+                        $paymentThreeAttachment,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
+                        $deliveryDateTwo,$deliveryStatus2);   
+    if ($orderId) {
+      echo "Ok";
+    } else {
+      echo "Fail";
+    }
+    break;   
+  case "editOrder":
+    $orderId = getArrayVal($_GET, "id");
+    $order = new Order();
+    $orderObj = $order->get($orderId);
+    $template->assign("order", $orderObj);
+    $template->assign("status", Status::getStatusByType("order1"));
+    $template->assign("templateName", "editOrderDlg.tpl");
+    $template->display("dlgmodal.tpl");
+    break;  
   case "priceOrder":
     $orderId = getArrayVal($_GET, "id");
     $order = new Order();

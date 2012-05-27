@@ -49,6 +49,7 @@
         <a class="tool_edit" title="{#agree#}" href=javascript:void(0);" onclick="agreeOrderDlg({$orderTab[order].ID});"></a>
         <a class="tool_del" title="{#reject#}" href=javascript:void(0);" onclick="rejectOrderDlg({$orderTab[order].ID});"></a>
         {/if}
+        <a class="tool_edit" title="{#edit#}" href=javascript:void(0);" onclick="editOrderDlg({$orderTab[order].ID});"></a>
         </td>
     </tr>
   {/section}
