@@ -1,10 +1,34 @@
 {config_load file=lng.conf section = "strings" scope="global" }
 
-<table style="width: 100%" cellspadding=0 cellspacing=0>
+<table style="width: 1800px" cellspadding=0 cellspacing=0>
     <tr>   
       <th>{#order#}</th>
       <th>{#quantity#}</th>
       <th>{#customer#}</th>
+      <th>{#customerPoNumber#}</th>
+      <th>{#deliverydateone#}</th>
+      <th>{#deliverystatusone#}</th>
+      <th>{#deliverydatetwo#}</th>
+      <th>{#deliverystatustwo#}</th>
+      <th>{#jenkinsPoNumber#}</th>
+      <th>{#attachment#}</th>
+      <th>{#factory#}</th>
+      <th>{#terms#}</th>
+      <th>{#accountPayment#}</th>
+      <th>{#customerModelNumber#}</th>
+      <th>{#customerPartNumber#}</th>
+      <th>{#jenkinsModelNumber#}</th>
+      <th>{#jenkinsPartNumber#}</th>
+      <th>{#paymentOneSchedule#}</th>
+      <th>{#paymentOneStatus#}</th>
+      <th>{#paymentOneAttachment#}</th>
+      <th>{#paymentTwoSchedule#}</th>
+      <th>{#paymentTwoStatus#}</th>
+      <th>{#paymentTwoAttachment#}</th>
+      <th>{#paymentThreeSchedule#}</th>
+      <th>{#paymentThreeStatus#}</th>
+      <th>{#paymentThreeAttachment#}</th>
+      <th>{#finalTotalAmountReceived#}</th>
       <th>{#supplier#}</th>
       {if $smarty.session.userRole!=6}
       <th>{#innercost#}</th>
@@ -23,6 +47,31 @@
       <td align  = "center">{$orderTab[order].name}</td>
       <td  align  = "center">{$orderTab[order].quantity}</td>
       <td  align  = "center">{$orderTab[order].customerlead}</td>
+      <td  align  = "center">{$orderTab[order].customer_po_number}</td>
+      <td  align  = "center">{$orderTab[order].delivery_date_one}</td>
+      <td  align  = "center">{$orderTab[order].delivery_status_one}</td>
+      <td  align  = "center">{$orderTab[order].delivery_date_two}</td>
+      <td  align  = "center">{$orderTab[order].delivery_status_two}</td>
+      <td  align  = "center">{$orderTab[order].jenkins_po_number}</td>
+      <td  align  = "center">{$orderTab[order].attachment}</td>
+      <td  align  = "center">{$orderTab[order].factory}</td>
+      <td  align  = "center">{$orderTab[order].terms}</td>
+      <td  align  = "center">{$orderTab[order].account_payment}</td>
+      <td  align  = "center">{$orderTab[order].customer_model_number}</td>
+      <td  align  = "center">{$orderTab[order].customer_part_number}</td>
+      <td  align  = "center">{$orderTab[order].jenkins_model_number}</td>
+      <td  align  = "center">{$orderTab[order].jenkins_part_number}</td>
+      <td  align  = "center">{$orderTab[order].payment_one_schedule}</td>
+      <td  align  = "center">{$orderTab[order].payment_one_status}</td>
+      <td  align  = "center">{$orderTab[order].payment_one_attachment}</td>
+      <td  align  = "center">{$orderTab[order].payment_two_schedule}</td>
+      <td  align  = "center">{$orderTab[order].payment_two_status}</td>
+      <td  align  = "center">{$orderTab[order].payment_two_attachment}</td>
+      <td  align  = "center">{$orderTab[order].payment_three_schedule}</td>
+      <td  align  = "center">{$orderTab[order].payment_three_status}</td>
+      <td  align  = "center">{$orderTab[order].payment_three_attachment}</td>
+      <td  align  = "center">{$orderTab[order].final_total_amount_received}</td>
+      
       <td  align  = "center">{$orderTab[order].supplierlead}</td>
       {if $smarty.session.userRole!=6}
       <td  align  = "center">{$orderTab[order].inner_cost_currency}:{$orderTab[order].inner_cost}</td>
