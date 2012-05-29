@@ -7,7 +7,7 @@
 <div id="addOrderDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addorder.tpl" title="add order"}
 </div>
-<div class="orderList" id="orderList">
+<div class="orderList" id="orderList" style="overflow:scroll">
   {if $orderDetailInfo}
   {include file = "orderdetails.tpl"}
   {/if}
