@@ -2,7 +2,7 @@
 {if $addOrder}
    <button id="btnAddOrder">{#add#}</button>
 {/if} 
-<button id="btnAddOrder">{#add#}</button>
+
 </div>
 <div id="addOrderDlg" class="modalContainer">
   {include file="dlgmodal.tpl" templateName="addorder.tpl" title="add order"}

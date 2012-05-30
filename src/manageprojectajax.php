@@ -769,7 +769,6 @@ switch ($action) {
     $template->assign("pricePurchase", $pricePurchase);
     $orderDetailInfo = false;
     $orderDetailInfo = $_roleType == 1 || $_roleType == 3 || ($_roleType == 4) || ($_roleType == 6);
-    ;
     $template->assign("orderDetailInfo", $orderDetailInfo);
     $editPurchaseInfo = false;
     $editPurchaseInfo = $_roleType == 1 || $_roleType == 3 || ($_roleType == 4 and $isProjectLeader) || ($_roleType == 8);
