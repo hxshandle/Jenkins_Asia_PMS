@@ -22,8 +22,9 @@ class project {
     }
     
     
-    function add($name, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
+    function add($name,$projectNo, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
       $name = mysql_real_escape_string($name);
+      $projectNo = mysql_real_escape_string($projectNo);
       $desc = mysql_real_escape_string($desc);
       $budget = (float) $budget;
       $level =  mysql_real_escape_string($level);
@@ -40,6 +41,7 @@ class project {
       $sql = "INSERT INTO `projekte`
               (
               `name`,
+              `project_no`,
               `desc`,
               `status`,
               `budget`,
@@ -57,10 +59,12 @@ class project {
               `project_leader`,
               `start_date`,
               `end_date`,
+              `real_end_date`,
               `valid`)
               VALUES
               (
               '$name',
+              '$projectNo',
               '$desc',
               $status,
               $budget,
@@ -78,12 +82,14 @@ class project {
               $projectLeader,
               '$startDate',
               '$endDate',
+              '$endDate',
               1
               );
               ";
       $ins = mysql_query($sql);
       if($ins){
         $insId = mysql_insert_id();
+        mkdir(CL_ROOT . "/files/" . CL_CONFIG . "/$insId/", 0777);
         $this->mylog->add($name, 'projekt', 1, $ins);
         return $insId;
       }else{

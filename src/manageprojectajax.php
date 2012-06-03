@@ -202,12 +202,24 @@ switch ($action) {
     $phase = new Phase();
     $originalPhase = $phase->get($phaseId);
     $phase->update($phaseId, $originalPhase['desc'], $originalPhase['status'], $originalPhase['valid'], $parentPhase, $childPhase);
+    $strLastEndDate = "";
+    $lastEndDate = null;
     if (!empty($newItems)) {
       $newDeliverables = explode(",", $newItems);
       $deliverableItemStatus = Status::getId("deliverable", "not_start");
       foreach ($newDeliverables as $item) {
         list($name, $startDate, $endDate) = explode(":", $item);
         $deliverableItem->add($name, $deliverableItemStatus, $startDate, $endDate, $project, $phaseId, "");
+        $tmpDate = strtotime($endDate);
+        if($lastEndDate == null){
+            $lastEndDate = strtotime($endDate);
+            $strLastEndDate = $endDate;
+        }else{
+            if($lastEndDate<$tmpDate){
+                $lastEndDate = $tmpDate;
+                $strLastEndDate = $endDate;
+            }
+        }
       }
     }
     if (!empty($updatedItems)) {
@@ -215,8 +227,20 @@ switch ($action) {
       foreach ($updateItems_ as $item) {
         list($id, $name, $startDate, $endDate) = explode(":", $item);
         $deliverableItem->update($id, $name, null, $startDate, $endDate, $phaseId, "");
+        $tmpDate = strtotime($endDate);
+        if($lastEndDate == null){
+            $lastEndDate = strtotime($endDate);
+            $strLastEndDate = $endDate;
+        }else{
+            if($lastEndDate<$tmpDate){
+                $lastEndDate = $tmpDate;
+                $strLastEndDate = $endDate;
+            }
+        }
       }
     }
+    $utils = new JUtils();
+    $utils->updateProjectRealDateByDeliverDate($project,$strLastEndDate);
     echo 'Ok';
     break;
   case "addSample":

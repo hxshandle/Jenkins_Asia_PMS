@@ -4,6 +4,7 @@
 	<form class="main" method="post" action="admin.php?action=addpro" {literal}onsubmit="return validateCompleteForm(this);"{/literal} >
 	<fieldset>
 		<div class="row"><label for="name">{#name#}:</label><input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" /></div>
+    <div class="row"><label for="name">{#projectNo#}:</label><input type="text" class="text" name="projectNo" id="projectNo" required="1" realname="{#projectNo#}" /></div>
 		<div class="row"><label for="desc">{#description#}:</label><div class="editor"><textarea name="desc" id="desc"  rows="3" cols="1" ></textarea></div></div>
 
 	    <div class="clear_both_b"></div>

@@ -5,6 +5,7 @@ $action = getArrayVal($_GET, "action");
 $mode = getArrayVal($_GET, "mode");
 $id = getArrayVal($_GET, "id");
 $name = getArrayVal($_POST, "name");
+$projectNo = getArrayVal($_POST, "projectNo");
 $subtitle = getArrayVal($_POST, "subtitle");
 $isadmin = getArrayVal($_POST, "isadmin");
 $email = getArrayVal($_POST, "email");
@@ -500,7 +501,7 @@ elseif ($action == "addpro")
     $status = Status::getId("project", "planning");
     $startDate = date(CL_DATEFORMAT,  strtotime($startDate));
     $endDate = date(CL_DATEFORMAT,  strtotime($end));
-    $add = $project->add($name, $desc, $status,$budget,$projectLevel,$projectPriority,$customer,$supplier,$targetFOB,$targetFOBCurrentcy,$forecastedAnnualQuality1,$forecastedAnnualQuality2,$forecastedAnnualQuality3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate);
+    $add = $project->add($name,$projectNo, $desc, $status,$budget,$projectLevel,$projectPriority,$customer,$supplier,$targetFOB,$targetFOBCurrentcy,$forecastedAnnualQuality1,$forecastedAnnualQuality2,$forecastedAnnualQuality3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate);
     if ($add)
     {
         //create task list

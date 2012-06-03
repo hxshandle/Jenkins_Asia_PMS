@@ -104,3 +104,6 @@ CREATE  TABLE `quality_details_attached` (
   `file_id` INT(11) NOT NULL ,
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM;
+
+
+ALTER TABLE `projekte` ADD COLUMN `project_no` VARCHAR(255) NULL  AFTER `name` , ADD COLUMN `real_end_date` DATETIME NULL  AFTER `end_date` ;

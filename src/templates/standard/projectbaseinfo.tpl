@@ -28,6 +28,12 @@
           {/section}
         </select>
       </div>
+      <div class="row4">
+        <label for="projectNo">{#projectNo#}:</label>
+        <input type="text" class="text" disabled name="projectNo" id="projectNo" required="1" realname="{#projectNo#}" value = "{$project.project_no}" />
+        <label for="projectRealEndDate">{#realEndDate#}:</label>
+        <label for="projectRealEndDate" style="margin-left:8px">{$project.real_end_date|truncate:"10":""}</label>
+      </div>
 
 	    <div class="row4">
         <label for="projectLevel">{#projectLevel#}:</label>
@@ -172,7 +178,7 @@
         postBody:thePost,
         onSuccess:function(payload) {
           if (payload.responseText == "Ok"){
-            J.showSystemMsg(MSGS['projectwasedited']);
+            J.showSystemMsg(unescape(MSGS['projectwasedited']));
           }
         }
       });
