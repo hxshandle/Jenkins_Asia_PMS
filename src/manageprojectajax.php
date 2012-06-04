@@ -23,12 +23,26 @@ switch ($action) {
     $deliverableItem = new DeliverableItem();
     $status = Status::getId("phase", "not_start");
     $phaseId = $phase->add($newPhaseName, "", $project, $status,1,$parentPhase,$childPhase);
+    $lastDate = null;
+    $strLastDate = null;
     if ($phaseId) {
       $deliverableItemStatus = Status::getId("deliverable", "not_start");
       foreach ($newDeliverableItems as $item) {
         list($name, $startDate, $endDate) = explode(":", $item);
         $deliverableItem->add($name, $deliverableItemStatus, $startDate, $endDate, $project, $phaseId, "");
+        $tmpDate = strtotime($endDate);
+        if($lastDate == null){
+            $lastDate = $tmpDate;
+            $strLastDate = $endDate;
+        }else{
+            if($lastDate < $tmpDate){
+                $lastDate = $tmpDate;
+                $strLastDate = $endDate;
+            }
+        }
       }
+      $jUtils = new JUtils();
+      $jUtils->updateProjectRealDateByDeliverDate($project,$strLastDate);
       echo "Ok";
     } else {
       echo "Fail";
