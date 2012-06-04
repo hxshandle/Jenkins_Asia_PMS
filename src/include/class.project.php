@@ -683,6 +683,17 @@ class project {
       return false;
     }
   }
+
+  function updateRealEndDate($id,$strLastDate){
+    $id = (int) $id;
+    $sql = "update projekte set real_end_date = '$strLastDate' where id = $id"; 
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
+  }
   
   function rejectProject($id){
     $id = (int) $id;

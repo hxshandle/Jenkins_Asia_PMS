@@ -79,6 +79,8 @@ if ($action == "addform") {
   $deliverableItemObj = $deliverableItem->getItem($deliverableId);
   // add the task
   $tid = $task->add($start, $end, $title, $text, $tasklist, $taskStatus, $projectId, $deliverableItemObj["phase"], $deliverableItemObj["ID"], $parentTask, $location);
+  $jUtils = new JUtils();
+  $jUtils->updateDeliverItemEndDate($deliverableItemObj["ID"],$end);
   // if tasks was added and mailnotify is activated, send an email
   if ($tid) {
     if(!empty($fileId)){
@@ -160,6 +162,10 @@ if ($action == "addform") {
     die();
   }
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus, $parentTask, $location);
+  $tk = $task->getTask($tid);
+  $jUtils = new JUtils();
+  $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
+
   // edit the task
   if ($upd) {
     $redir = urldecode($redir);
