@@ -17,7 +17,7 @@
             <td>{#ended#}</td>
           </tr>
       {section name =deliverable loop=$phaseTab[phase].deliverableItems}
-        <tr>
+        <tr {if $phaseTab[phase].deliverableItems[deliverable].delay}style="color:#BE4C43"{/if}>
           <td>{$phaseTab[phase].deliverableItems[deliverable].name}</td>
 
           

@@ -450,8 +450,10 @@ class task {
     }
     $lists = array();
     $now = time();
-
-    $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project AND status=1 ORDER BY `end_date` ASC ");
+    $stNotStart = Status::getId("task", "not_start");
+    $stInProgress = Status::getId("task", "in_progress");
+    $sql = "SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project AND status in($stNotStart,$stInProgress) ORDER BY `end_date` ASC ";
+    $sel2 = mysql_query($sql);
 
     while ($tasks = mysql_fetch_array($sel2, MYSQL_ASSOC)) {
       $task = $this->getTask($tasks["ID"]);

@@ -177,6 +177,7 @@ class DeliverableItem {
     $sel = mysql_query("select * from deliverable_item where valid = 1 and phase = $phaseId LIMIT $limit");
     while ($items = mysql_fetch_array($sel)) {
       $item = $this->getItem($items["ID"]);
+      $item = $this->checkStatus($item);
       array_push($ret, $item);
     }
 
@@ -185,6 +186,39 @@ class DeliverableItem {
     } else {
       return FALSE;
     }
+  }
+  
+  
+    
+  function checkStatus($deliverItem){
+    $startDate = strtotime($deliverItem['start_date']);
+    $endDate = strtotime($deliverItem['end_date']);
+    $now = strtotime(date(CL_DATEFORMAT));
+    $stNotStart = Status::getId("deliverable","not_start");
+    $stInProgress = Status::getId("deliverable","in_progress");
+    $stCompleted = Status::getId("deliverable","closed");
+    $st = $deliverItem['status'];
+    if($st == $stCompleted){
+      return $deliverItem;
+    }
+    if($now >= $startDate && $now <=$endDate && $st == $stNotStart){
+      $this->updateStatus($deliverItem['ID'],$stInProgress);
+      $deliverItem['status'] = $stInProgress;
+      return $deliverItem;
+    }
+    if($now > $endDate && $st != $stCompleted){
+      $this->updateStatus($deliverItem['ID'],$stInProgress);
+      $deliverItem['status'] = $stInProgress;
+      $deliverItem['delay'] =true;
+    }
+    return $deliverItem;
+
+  }
+  
+  function updateStatus($id,$status){
+    $sql = "update deliverable_item set status =$status where ID=$id";
+    $upd = mysql_query($sql);
+    return $upd;
   }
   
   function getDeliverableItemsByProjectId($id){
