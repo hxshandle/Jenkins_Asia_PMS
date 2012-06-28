@@ -1,31 +1,30 @@
 {config_load file=lng.conf section = "strings" scope="global" }
 <form id="editQuality" name="editQuality">
 <div class="dlgRow">
-  <label style="">{#actionNo#}</label>
+  <label style="">{#actionNo#}<span style="color:red">*</span></label>
   <input id="actionNo" name="actionNo" value = "{$quality.action_no}"></input>
  </div>
 
 <div class="dlgRow">
-  <label style="">{#issueDate#}</label>
+  <label style="">{#issueDate#}<span style="color:red">*</span></label>
   <input id="issueDate" name="issueDate" value = "{$quality.issue_date}"></input>
  </div>
 
  <div class="dlgRow">
-  <label style="">{#productNo#}</label>
+  <label style="">{#productNo#}<span style="color:red">*</span></label>
   <input id="productNo" name="productNo" value = "{$quality.product_no}"></input>
  </div>
 
  <div class="dlgRow">
-  <label style="">{#productDesc#}</label>
+  <label style="">{#productDesc#}<span style="color:red">*</span></label>
   <input id="productDesc" name="productDesc" value = "{$quality.product_desc}"></input>
  </div>
-
  <div class="dlgRow">
-  <label style="">{#shipNo#}</label>
+  <label style="">{#shipNo#}<span style="color:red">*</span></label>
   <input id="shipNo" name="shipNo" value = "{$quality.ship_no}"></input>
  </div>
   <div class="dlgRow">
-  <label style="">{#lotQuantity#}</label>
+  <label style="">{#lotQuantity#}<span style="color:red">*</span></label>
   <input id="lotQuantity" name="lotQuantity" value = "{$quality.lot_quantity}"></input>
  </div>
   <div class="dlgRow">
@@ -38,7 +37,12 @@
  </div>
   <div class="dlgRow">
   <label style="">{#rejectRate#}</label>
-  <input id="rejectRate" name="rejectRate" value = "{$quality.reject_rate}"></input>
+  <select id="rejectRate" name="rejectRate">
+    <option value="sort" {if $quality.reject_rate == 'sort'} selected {/if}>{#sort#}</option>
+    <option value="remark" {if $quality.reject_rate == 'remark'} selected {/if}>{#remark#}</option>
+    <option value="waier" {if $quality.reject_rate == 'waier'} selected {/if}>{#waier#}</option>
+    <option value="scope" {if $quality.reject_rate == 'scope'} selected {/if}>{#scope#}</option>
+  </select>
  </div>
 
  <div class="dlgRow">
