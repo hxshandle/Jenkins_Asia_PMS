@@ -1006,6 +1006,7 @@ switch ($action) {
     }
     $template->assign("quality", $qualityObj);
     $template->assign("mode", $mode);
+    $template->assign("title",$langfile["supplierCorrectiveActReq"]);
 
     $template->assign("templateName", "editQualityDlg.tpl");
     $template->display("dlgmodal.tpl");

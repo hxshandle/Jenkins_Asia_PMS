@@ -346,13 +346,46 @@ class task {
       $task["pname"] = stripslashes($pname);
       $task["list"] = $list;
       $task["daysleft"] = $tage;
+      $this->checkStatus($task);
 
       return $task;
     } else {
       return false;
     }
   }
+  
+  
+  function checkStatus($tk){
+    $startDate = strtotime($tk['start_date']);
+    $endDate = strtotime($tk['end_date']);
+    $now = strtotime(date(CL_DATEFORMAT));
+    $stNotStart = Status::getId("task","not_start");
+    $stInProgress = Status::getId("task","in_progress");
+    $stClosed = Status::getId("task","closed");
+    $stCompleted = Status::getId("task","completed");
+    $st = $tk['status'];
+    if($st == $stCompleted || $st ==$stClosed){
+      return $tk;
+    }
+    if($now >= $startDate && $now <=$endDate && $st == $stNotStart){
+      $this->updateStatus($tk['ID'],$stInProgress);
+      $tk['status'] = $stInProgress;
+      return $tk;
+    }
+    if($now > $endDate && $st != $stCompleted && $st !=$stClosed){
+      $this->updateStatus($tk['ID'],$stInProgress);
+      $tk['status'] = $stInProgress;
+      $tk['delay'] =true;
+    }
+    return $deliverItem;
+  }
 
+  function updateStatus($id,$status){
+    $sql = "update tasks set status =$status where ID=$id";
+    $upd = mysql_query($sql);
+    return $upd;
+  }
+  
   /**
    * Return all open tasks of a project
    *
