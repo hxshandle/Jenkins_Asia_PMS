@@ -280,7 +280,6 @@
             $("editDetailsInfo").innerHTML=payload.responseText;
             $("editDetailsInfo").style.display="";
             var swfu;
-            alert("abc");
             J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},swfu,"spanButtonPlaceHolder","btnCancel",setFileId);
           }else{
             alert("get data error");

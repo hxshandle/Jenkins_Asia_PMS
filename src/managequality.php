@@ -51,7 +51,7 @@ switch ($action) {
     $projectId = getArrayVal($_GET, "projectId");
     $qualityDetails = new QualityDetails();
     $data = $qualityDetails->get($detailsId);
-    $template->assign("data", $data);
+    $template->assign("data", $data[0]);
     $template->assign("projectId", $projectId);
     $template->assign("detailsId", $detailsId);
     $template->display("editqualitydetailsinfo.tpl");

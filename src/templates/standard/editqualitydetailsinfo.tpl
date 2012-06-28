@@ -8,14 +8,14 @@
   <div class="dlgRow">
     <label class="floatL">{#rejectDesc#}</label>
     <div class="editor floatL">
-      <textarea id="rejectDesc" name = "rejectDesc" value="">{$data.reject_desc}</textarea>
+      <textarea id="rejectDesc" name = "rejectDesc" value="{$data.reject_desc}">{$data.reject_desc}</textarea>
     </div>
     <div class="clear_both_b"></div>
   </div>
   <div class="dlgRow">
     <label class="floatL">{#requiredDesc#}</label>
     <div class="editor floatL">
-      <textarea id="requiredDesc" name = "requiredDesc" value="">{$data.required_desc}</textarea>
+      <textarea id="requiredDesc" name = "requiredDesc" value="{$data.required_desc}">{$data.required_desc}</textarea>
     </div>
     <div class="clear_both_b"></div>
   </div>
