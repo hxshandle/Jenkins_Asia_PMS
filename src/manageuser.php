@@ -247,7 +247,7 @@ elseif ($action == "login")
             $avatar = $fname;
         }
 
-        if ($user->edit($userid, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, "", $locale, $avatar, 0))
+        if ($user->normalEdit($userid, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, "", $locale, $avatar, 0))
         {
             if (!empty($oldpass) and !empty($newpass) and !empty($repeatpass))
             {
@@ -259,7 +259,7 @@ elseif ($action == "login")
     }
     else
     {
-        if ($user->edit($userid, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, "", $locale, "", 0))
+        if ($user->normalEdit($userid, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $turl, $address1, $address2, $state, $country, "", $locale, "", 0))
         {
             if (isset($oldpass) and isset($newpass) and isset($repeatpass))
             {

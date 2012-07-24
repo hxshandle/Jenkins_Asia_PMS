@@ -60,7 +60,7 @@ class user
     }
 
     /**
-     * Edits a member
+     * Edits a member for admin update
      *
      * @param int $id Member ID
      * @param string $name Member name
@@ -111,6 +111,72 @@ class user
         else
         {
             $upd = mysql_query("UPDATE user SET name='$name',full_name='$fullName',title = '$title',role_type = $roleType,email='$email', tel1='$tel1', tel2='$tel2', company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',rate='$rate' WHERE ID = $id");
+        }
+        if ($upd)
+        {
+            $this->mylog->add($name, 'user', 2, 0);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+
+    /**
+     * Edits a member for admin update
+     *
+     * @param int $id Member ID
+     * @param string $name Member name
+     * @param string $realname realname
+     * @param string $role role
+     * @param string $email Email
+     * @param string $company Company of the member
+     * @param string $zip ZIP-Code
+     * @param string $gender Gender
+     * @param string $url URL
+     * @param string $address1 Adressline1
+     * @param string $address2 Addressline2
+     * @param string $state State
+     * @param string $country Country
+     * @param string $locale Localisation
+     * @param string $avatar Avatar
+     * @return bool
+     */
+    function normalEdit($id, $name, $realname, $email, $tel1, $tel2, $company, $zip, $gender, $url, $address1, $address2, $state, $country, $tags, $locale, $avatar = "", $rate = 0.0)
+    {
+        $name = mysql_real_escape_string($name);
+        $fullName = mysql_escape_string($fullName);
+        $title = mysql_escape_string($title);
+        $roleType = (int) $roleType;
+        $realname = mysql_real_escape_string($realname);
+        $company = mysql_real_escape_string($company);
+        $email = mysql_real_escape_string($email);
+        $tel1 = mysql_real_escape_string($tel1);
+        $tel2 = mysql_real_escape_string($tel2);
+        $zip = mysql_real_escape_string($zip);
+        $gender = mysql_real_escape_string($gender);
+        $url = mysql_real_escape_string($url);
+        $address1 = mysql_real_escape_string($address1);
+        $address2 = mysql_real_escape_string($address2);
+        $state = mysql_real_escape_string($state);
+        $country = mysql_real_escape_string($country);
+        $tags = mysql_real_escape_string($tags);
+        $locale = mysql_real_escape_string($locale);
+        $avatar = mysql_real_escape_string($avatar);
+
+        $rate = (float) $rate;
+        $id = (int) $id;
+
+        if ($avatar != "")
+        {
+            $upd = mysql_query("UPDATE user SET name='$name',email='$email',tel1='$tel1', tel2='$tel2',company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',avatar='$avatar',rate='$rate' WHERE ID = $id");
+        }
+        else
+        {
+            $upd = mysql_query("UPDATE user SET name='$name',email='$email', tel1='$tel1', tel2='$tel2', company='$company',zip='$zip',gender='$gender',url='$url',adress='$address1',adress2='$address2',state='$state',country='$country',tags='$tags',locale='$locale',rate='$rate' WHERE ID = $id");
         }
         if ($upd)
         {
