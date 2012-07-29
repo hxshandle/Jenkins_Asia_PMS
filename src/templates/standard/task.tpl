@@ -104,7 +104,7 @@ function refreshFileList(fileId){
 										{if $files[file].imgfile == 1}
 										<img src = "thumb.php?pic={$files[file].datei}&amp;width=32" alt="{$files[file].name}" />
 										{else}
-										<img src = "templates/standard/images/files/{$files[file].type}.png" alt="{$files[file].name}" />
+										<img src = "templates/standard/images/files/{$files[file].type|replace:"/":"-"}.png" alt="{$files[file].name}" />{$files[file].name}
 										{/if}
 									</a>
 								</td>
