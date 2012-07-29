@@ -28,7 +28,7 @@
 					<fieldset>
 
 					<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" value="{$task.title}" name="title" id="title" realname="{#title#}" required="1" /></div>
-					<div class="row"><label for="text">{#text#}:</label><div class="editor"><textarea name="text" id="text"   rows="3" cols="0" >{$task.text}</textarea></div></div>
+					<div class="row"><label for="text">{#sampledescription#}:</label><div class="editor"><textarea readonly="1" name="text" id="text"   rows="3" cols="0" >{$task.text}</textarea></div></div>
           <div class="row"><label for="location">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location" required = "1" value = "{$task.location}" /></div>
 
           <div class="row"><label for="status">{#status#}:</label>
@@ -42,6 +42,7 @@
             {/section}
             </select>
           </div>
+          <div class="row"><label for="statusUpdate">{#statusUpdate#}:</label><div class="editor"><textarea name="statusUpdate" id="statusUpdate"   rows="3" cols="0" >{$task.status_update}</textarea></div></div>
           <div class="row">
             <label for="deliverableItems">{#deliverableItems#}: </label>
             <select name="deliverableItems" id="deliverableItems" onchange="deliverItemChanged(this)">

@@ -107,3 +107,5 @@ ENGINE = MyISAM;
 
 
 ALTER TABLE `projekte` ADD COLUMN `project_no` VARCHAR(255) NULL  AFTER `name` , ADD COLUMN `real_end_date` DATETIME NULL  AFTER `end_date` ;
+
+ALTER TABLE `tasks` ADD COLUMN `status_update` LONGTEXT NULL  AFTER `status` ;

@@ -102,10 +102,11 @@ class task {
    * @param int $assigned ID of the user who has to complete the task
    * @return bool
    */
-  function edit($id, $start, $end, $title, $text, $taskStatus, $parentTask, $location) {
+  function edit($id, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location) {
     $end = mysql_real_escape_string($end);
     $title = mysql_real_escape_string($title);
     $text = mysql_real_escape_string($text);
+    $statusUpdate = mysql_real_escape_string($statusUpdate);
     $id = (int) $id;
     $liste = (int) $liste;
     $taskStatus = (int) $taskStatus;
@@ -113,7 +114,7 @@ class task {
     $location = mysql_real_escape_string($location);
 
     //$end = strtotime($end);
-    $sql = "UPDATE tasks SET `start_date`='$start', `end_date`='$end',`title`='$title', `text`='$text',`status`=$taskStatus ,`parent`=$parentTask ,`location`='$location' WHERE ID = $id";
+    $sql = "UPDATE tasks SET `start_date`='$start', `end_date`='$end',`title`='$title', `text`='$text',`status`=$taskStatus ,`status_update`='$statusUpdate',`parent`=$parentTask ,`location`='$location' WHERE ID = $id";
     $upd = mysql_query($sql);
     mysql_query("DELETE FROM tasks_assigned WHERE `task` = $id");
 

@@ -24,6 +24,7 @@ $location = getArrayVal($_POST, "location");
 $parentTask = getArrayVal($_POST, "parent");
 $taskStatus = getArrayVal($_POST, "status");
 $fileId = getArrayVal($_POST, "fileId");
+$statusUpdate = getArrayVal($_POST,"statusUpdate");
 
 $redir = getArrayVal($_GET, "redir");
 $id = getArrayVal($_GET, "id");
@@ -161,7 +162,7 @@ if ($action == "addform") {
     $template->display("error.tpl");
     die();
   }
-  $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus, $parentTask, $location);
+  $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);
   $jUtils = new JUtils();
   $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
@@ -357,6 +358,8 @@ if ($action == "addform") {
   $template->assign("members", $members);
   $template->assign("projectId", $id);
   $template->assign("tasklists", $tasklists);
+  $taskStatus = Status::getStatusByType("task");
+  $template->assign("taskStatus", $taskStatus);
   $template->assign("tl", $tl);
   $template->assign("pid", $id);
 
