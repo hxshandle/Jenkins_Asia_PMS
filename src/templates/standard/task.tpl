@@ -30,12 +30,8 @@
 				{/if}
 				{if $userpermissions.tasks.edit}
 				<li class="link"><a class="edit" href="javascript:void(0);"  id="edit_butn" onclick="blindtoggle('form_edit');toggleClass(this,'edit-active','edit');toggleClass('sm_task','smooth','nosmooth');" title="{#edit#}"></a></li>
-				<!--<li class="link"><a class="del" href="javascript:void(0);" onclick = "confirmit('{#confirmdel#}','managetask.php?action=del&amp;tid={$task.ID}&amp;id={$project.ID}&redir=managetask.php?action=showproject&id={$project.ID}');" title="{#delete#}"></a></li> -->
 				{/if}
 
-				<!--
-				<li class="link" onclick="blindtoggle('descript');toggleClass('desctoggle','desc_active','desc');"><a class="desc_active" id="desctoggle" href="javascript:void(0);" title="{#open#}">{#description#}</a></li>
-				-->
 
 				<li><a>{#user#}: {$task.user|truncate:25:"...":true}</a></li>
 
@@ -82,6 +78,11 @@ function refreshFileList(fileId){
 			<div class="content-spacer"></div>
 		</div>
 	</div>
+		<div id="status-update" class="descript">
+			<h2>{#statusUpdate#}</h2>
+			{$task.status_update}
+			<div class="content-spacer"></div>
+	  </div>
 	<div class="nosmooth" id="attachment_task">
 		<div id="descript" class="descript">
 			<h2>{#files#}</h2>
