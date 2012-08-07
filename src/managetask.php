@@ -354,12 +354,17 @@ if ($action == "addform") {
   $user = $mytask->getUser($task['ID']);
   $task['username'] = $user[1];
   $task['userid'] = $user[0];
+  $deliverable = new DeliverableItem();
+  $deliverableItems = $deliverable->getDeliverableItemsByProjectId($id);
 
   $template->assign("members", $members);
   $template->assign("projectId", $id);
   $template->assign("tasklists", $tasklists);
+  $template->assign("deliverableItems", $deliverableItems);
   $taskStatus = Status::getStatusByType("task");
   $template->assign("taskStatus", $taskStatus);
+  $parentTasks = $tasklist->getTasksFromList($task['liste']);
+  $template->assign("parentTasks", $parentTasks);
   $template->assign("tl", $tl);
   $template->assign("pid", $id);
 
