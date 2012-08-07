@@ -69,7 +69,7 @@ class GanttXml {
           $taskEl=$doc->createElement("task");
           $taskEl->setAttribute("id", "task-".$t["ID"]);
           
-          $taskNameEl = $doc->createElement("name",$t["title"]);
+          $taskNameEl = $doc->createElement("name",htmlentities($t["title"]));
           $taskEl->appendChild($taskNameEl);
           
           $taskStartDate = str_replace("-", ",", substr($t["start_date"],0,10));
