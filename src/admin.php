@@ -423,6 +423,7 @@ if ($action == "index")
 
     if (!empty($projects))
     {
+        $jUtils = new JUtils();
         foreach($projects as $pro)
         {
             if (!chkproject($user, $pro))
@@ -436,7 +437,9 @@ if ($action == "index")
                     {
                         // send email
                         $themail = new emailer($settings);
-						$themail->send_mail($tuser["email"], $langfile["projectassignedsubject"] , $langfile["hello"] . ",<br /><br/>" . $langfile["projectassignedtext"] . " <a href = \"" . $url . "manageproject.php?action=showproject&id=$pro\">" . $url . "manageproject.php?action=showproject&id=$pro</a>");
+                        $link = $url."manageproject.php?action=showproject&id=$pro";
+                        $msg = $jUtils->getNewProjectMailMsg($tuser["email"],$pro["name"],$link);
+						$themail->send_mail($tuser["email"], $langfile["projectassignedsubject"] , $msg);
                     }
                 }
                 $project->assign($user, $pro);
@@ -510,7 +513,8 @@ elseif ($action == "addpro")
         foreach ($assignto as $member)
         {
             $project->assign($member, $add);
-        }
+          }
+        
 		if($userpermissions["admin"]["add"])
 		{
 			header("Location: admin.php?action=projects&mode=added");
@@ -623,5 +627,5 @@ elseif ($action == "addpro")
         header("Location: admin.php?action=system&mode=edited");
     }
 }
-
+s
 ?>

@@ -76,6 +76,8 @@ if ($action == "addform") {
     die();
   }
   $projectId = $id;
+  $projectIns = new project();
+  $project = $projectIns->getProject($id);
   $deliverableItem = new DeliverableItem();
   $deliverableItemObj = $deliverableItem->getItem($deliverableId);
   // add the task
@@ -93,14 +95,15 @@ if ($action == "addform") {
     }
 
     if ($settings["mailnotify"]) {
+      $link = $url."managetask.php?action=showtask&id=$id&tid=$tid";
       foreach ($assigned as $member) {
         $usr = (object) new user();
         $user = $usr->getProfile($member);
-
         if (!empty($user["email"]) && $userid != $user["ID"]) {
           // send email
           $themail = new emailer($settings);
-          $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+          $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link);
+          $themail->send_mail($user["email"], $langfile["taskassignedsubject"],$msg);
         }
       }
     }
@@ -167,21 +170,30 @@ if ($action == "addform") {
   $jUtils = new JUtils();
   $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
 
+
   // edit the task
   if ($upd) {
     $redir = urldecode($redir);
     if (!empty($assigned)) {
+      $arrCC = $task->getTaskCCList($tid);
+      $hasCCed = false;
       foreach ($assigned as $assignee) {
         $assignChk = $task->assign($tid, $assignee);
+        $link = $url."managetask.php?action=showtask&id=$id&tid=$tid";
         if ($assignChk) {
           if ($settings["mailnotify"]) {
             $usr = (object) new user();
             $user = $usr->getProfile($assignee);
-
             if (!empty($user["email"])) {
               // send email
               $themail = new emailer($settings);
-              $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+              $msg = $jUtils->getModifiedTaskMailMsg($user["name"],$_SESSION["username"],$link);
+              if($hasCCed){
+                $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $msg);
+              }else{
+                $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $msg,$arrCC);
+                $hasCCed = true;
+              }
             }
           }
         }

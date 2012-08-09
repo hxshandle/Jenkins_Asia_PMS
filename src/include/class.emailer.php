@@ -28,7 +28,7 @@ class emailer
      * @param string $text Textbody of the mail, HTML allowed
      * @return bool
      */
-    function send_mail($to, $subject, $text)
+    function send_mail($to, $subject, $text,$arrCC=null)
     {
 		//create PHP Mailer object
 		$mailer = (object) new PHPmailer();
@@ -37,6 +37,11 @@ class emailer
 		$mailer->Sender = $this->mailsettings["mailfrom"];
 		$mailer->FromName = $this->mailsettings["mailfromname"];
 		$mailer->AddAddress($to);
+    if($arrCC!=null){
+      foreach ($arrCC as $cc){
+        $mailer->AddCC($cc);
+      }
+    }
 		$mailer->Subject = $subject;
 		$mailer->Body = $text;
 		//send mail as HTML

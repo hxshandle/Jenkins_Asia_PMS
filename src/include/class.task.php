@@ -667,6 +667,17 @@ class task {
     }
   }
 
+  function getTaskCCList($taskId){
+    $arrCC = array();
+    $sql = "select u.email as email from user u,projekte_assigned pa,tasks t where t.id = $taskId and t.project = pa.projekt and pa.user = u.id";
+    $query = mysql_query($sql);
+    while ($cc = mysql_fetch_array($query)) {
+      array_push($arrCC,$cc[0]);
+    }
+    return $arrCC;
+
+  }
+
   /**
    * Return the owner of a given task
    *
@@ -718,6 +729,7 @@ class task {
       return false;
     }
   }
+
 
   /**
    * Export all tasks of a user via iCal
