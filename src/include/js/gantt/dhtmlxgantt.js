@@ -2228,7 +2228,7 @@ GanttChart.prototype.doLoadDetails = function(isLocal)
             percentCompleted = (this.xmlLoader.doXPath("./percentcompleted", taskArr[i])[0].firstChild == null) ? "" : this.xmlLoader.doXPath("./percentcompleted", taskArr[i])[0].firstChild.nodeValue;
             predecessorTaskId = (this.xmlLoader.doXPath("./predecessortasks", taskArr[i])[0].firstChild == null) ? "" : this.xmlLoader.doXPath("./predecessortasks", taskArr[i])[0].firstChild.nodeValue;
 
-            var task = new GanttTaskInfo(id, name, new Date(est[0], (parseInt(est[1]) - 1), est[2]), duration, percentCompleted, predecessorTaskId);
+            var task = new GanttTaskInfo(id, name, new Date(est[0], (parseInt(est[1],10) - 1), est[2]), duration, percentCompleted, predecessorTaskId);
             var childTasksNode = this.xmlLoader.doXPath("./childtasks", taskArr[i]);
             var childTasksArr = this.xmlLoader.doXPath("./task", childTasksNode[0]);
 
@@ -2267,7 +2267,7 @@ GanttChart.prototype.readChildTasksXML = function(parentTask, childTasksArrXML)
         duration = (this.xmlLoader.doXPath("./duration", childTasksArrXML[i])[0].firstChild == null) ? "" : this.xmlLoader.doXPath("./duration", childTasksArrXML[i])[0].firstChild.nodeValue;
         percentCompleted = (this.xmlLoader.doXPath("./percentcompleted", childTasksArrXML[i])[0].firstChild == null) ? "" : this.xmlLoader.doXPath("./percentcompleted", childTasksArrXML[i])[0].firstChild.nodeValue;
         predecessorTaskId = (this.xmlLoader.doXPath("./predecessortasks", childTasksArrXML[i])[0].firstChild == null) ? "" : this.xmlLoader.doXPath("./predecessortasks", childTasksArrXML[i])[0].firstChild.nodeValue;
-        var task = new GanttTaskInfo(id, name, new Date(est[0], (parseInt(est[1]) - 1), est[2]), duration, percentCompleted, predecessorTaskId);
+        var task = new GanttTaskInfo(id, name, new Date(est[0], (parseInt(est[1],10) - 1), est[2]), duration, percentCompleted, predecessorTaskId);
         task.ParentTask = parentTask;
 
         parentTask.addChildTask(task);

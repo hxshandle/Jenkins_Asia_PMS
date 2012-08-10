@@ -36,6 +36,9 @@ class GanttXml {
       $phaseEl->setAttribute("id", "phase-".$phaseItem["ID"]);
       $phaseEl->setAttribute("name", $phaseItem["name"]);
       $phaseStartDate = str_replace("-", ",", substr($phaseItem["start_date"],0,10));
+      //$dateSwap = explode(',',$phaseStartDate);
+      //$dateSwap = array_reverse($dateSwap);
+      //$phaseStartDate = implode(",",$dateSwap);
       $phaseEl->setAttribute("startdate", $phaseStartDate);
  
       //build deliverable items
@@ -48,6 +51,9 @@ class GanttXml {
         $deliverItemEl->appendChild($deliverItemNameEl);
         
         $deliverItemStartDate = str_replace("-", ",", substr($deliverItem["start_date"],0,10));
+        //$dateSwap = explode(',',$deliverItemStartDate);
+        //$dateSwap = array_reverse($dateSwap);
+        //$deliverItemStartDate = implode(",",$dateSwap);
         $deliverItemEstEl = $doc->createElement("est",$deliverItemStartDate);
         $deliverItemEl->appendChild($deliverItemEstEl);
         
@@ -73,6 +79,9 @@ class GanttXml {
           $taskEl->appendChild($taskNameEl);
           
           $taskStartDate = str_replace("-", ",", substr($t["start_date"],0,10));
+          //$dateSwap = explode(',',$taskStartDate);
+          //$dateSwap = array_reverse($dateSwap);
+          //$taskStartDate = implode(",",$dateSwap);
           $taskEstEl = $doc->createElement("est",$taskStartDate);
           $taskEl->appendChild($taskEstEl);
           
