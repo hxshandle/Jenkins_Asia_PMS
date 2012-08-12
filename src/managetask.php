@@ -16,6 +16,7 @@ $tid = getArrayVal($_GET, "tid");
 $end = getArrayVal($_POST, "end");
 $project = getArrayVal($_POST, "project");
 $assigned = getArrayVal($_POST, "assigned");
+$distribution = getArrayVal($_POST, "distribution");
 $tasklist = getArrayVal($_POST, "tasklist");
 $text = getArrayVal($_POST, "text");
 $title = getArrayVal($_POST, "title");
@@ -92,6 +93,9 @@ if ($action == "addform") {
 
     foreach ($assigned as $member) {
       $task->assign($tid, $member);
+    }
+    foreach($distribution as $member){
+      $task->addDistribution($tid,$member);
     }
 
     if ($settings["mailnotify"]) {
@@ -173,6 +177,13 @@ if ($action == "addform") {
 
   // edit the task
   if ($upd) {
+    // distribution list
+    if(!empty($distribution)){
+      foreach($distribution as $ccUser){
+        $task->addDistribution($tid,$ccUser);
+      }
+    }
+
     $redir = urldecode($redir);
     if (!empty($assigned)) {
       $arrCC = $task->getTaskCCList($tid);

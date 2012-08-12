@@ -109,3 +109,13 @@ ENGINE = MyISAM;
 ALTER TABLE `projekte` ADD COLUMN `project_no` VARCHAR(255) NULL  AFTER `name` , ADD COLUMN `real_end_date` DATETIME NULL  AFTER `end_date` ;
 
 ALTER TABLE `tasks` ADD COLUMN `status_update` LONGTEXT NULL  AFTER `status` ;
+
+
+
+CREATE  TABLE `task_distribution` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `task_id` INT(10) NOT NULL ,
+  `user_id` INT(10) NOT NULL ,
+  PRIMARY KEY (`ID`) ,
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) );
+

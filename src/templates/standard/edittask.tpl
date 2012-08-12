@@ -110,6 +110,16 @@
                   </select>
           </div>
 
+          <div class="row">
+                  <label for="distribution" >{#distribution#}:</label>
+                  <select name = "distribution[]" multiple="multiple" style = "height:80px;" id="distribution" required = "1" exclude = "-1" realname = "{#assignto#}">
+                          <option value="-1">{#chooseone#}</option>
+                          {section name=member loop=$members}
+                                  <option value="{$members[member].user}" {if in_array($members[member].user, $task.distribution)}selected = "selected"{/if}>{$members[member].name}</option>
+                          {/section}
+                  </select>
+          </div>
+
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
 						<button type="submit" onfocus="this.blur();">{#send#}</button>

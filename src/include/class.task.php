@@ -117,6 +117,7 @@ class task {
     $sql = "UPDATE tasks SET `start_date`='$start', `end_date`='$end',`title`='$title', `text`='$text',`status`=$taskStatus ,`status_update`='$statusUpdate',`parent`=$parentTask ,`location`='$location' WHERE ID = $id";
     $upd = mysql_query($sql);
     mysql_query("DELETE FROM tasks_assigned WHERE `task` = $id");
+    mysql_query("DELETE FROM task_distribution WHERE `task_id` = $id");
 
 
     if ($upd) {
@@ -239,6 +240,29 @@ class task {
     }
   }
 
+
+  function addDistribution($task,$userId){
+    $task = (int) $task;
+    $userId = (int) $userId;
+    $sql = "
+            INSERT INTO `task_distribution`
+            (
+            `task_id`,
+            `user_id`)
+            VALUES
+            (
+            $task,
+            $userId
+            )";
+
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   /**
    * Assign a task to a user
    *
@@ -328,6 +352,13 @@ class task {
           $task["user"] .= $usr["name"] . " ";
           array_push($task["users"], $usr);
         }
+      }
+
+      $sql4 = "select user_id from task_distribution where task_id = $id";
+      $query4 = mysql_query($sql4);
+      $task["distribution"] = array();
+      while ($ccUser = mysql_fetch_row($query4)) {
+        array_push($task["distribution"],$ccUser[0]);
       }
       
       $sql2 = "select fileId from task_attachement where taskId = $id;";
@@ -669,7 +700,7 @@ class task {
 
   function getTaskCCList($taskId){
     $arrCC = array();
-    $sql = "select u.email as email from user u,projekte_assigned pa,tasks t where t.id = $taskId and t.project = pa.projekt and pa.user = u.id";
+    $sql = "select u.email as email from user u,task_distribution td where td.user_id = u.ID and td.task_id = $taskId";
     $query = mysql_query($sql);
     while ($cc = mysql_fetch_array($query)) {
       array_push($arrCC,$cc[0]);

@@ -74,6 +74,15 @@
 		</select>
 	</div>
 	<div class="row">
+		<label for="distribution" >{#distribution#}:</label>
+		<select name="distribution[]" multiple="multiple" style = "height:80px;" id="distribution" required = "1" exclude = "-1" realname = "{#distribution#}" >
+			<option value="-1">{#chooseone#}</option>
+			{section name=user loop=$assignable_users}
+				<option value="{$assignable_users[user].user}" {if $assignable_users[user].user == $userid}selected{/if}>{$assignable_users[user].name}</option>
+			{/section}
+		</select>
+	</div>
+	<div class="row">
 		<label for="uploadfile" >{#upload#}:</label>
 		{include file = "uploadfile.tpl"}
 	</div>
