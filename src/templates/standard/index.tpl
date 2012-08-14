@@ -409,6 +409,13 @@
 			<div class="content-spacer"></div>
 		{/if}
 
+    {*Document Module*}
+    {if 1 > 0}
+		<div class="tasks">
+    </div>{*Document End*}
+		<div class="content-spacer"></div>
+    {/if}
+
 		{literal}
 			<script type = "text/javascript">
 			try{

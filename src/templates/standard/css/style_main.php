@@ -1478,6 +1478,7 @@ ul.tabs li.tasks a {
 ul.tabs li.msgs a {
 	background-image: url(../images/symbols/tab-msgs.png);
 }
+
 ul.tabs li.cal a {
 	background-image: url(../images/symbols/tab-timetracking.png);
 }
@@ -3011,6 +3012,12 @@ div.dataTable{
 #editQuality label,#detailsForm label{
 	color:#65635E;
 	font-weight:bold;
+}
+ul.tabs li.document a {
+	background-image: url(../images/symbols/tab-files.png);
+}
+.tx{
+  text-align:center;
 }
 
 /*****************Jenkins Asia Special***********************/
