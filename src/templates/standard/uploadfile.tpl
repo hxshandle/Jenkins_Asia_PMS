@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="templates/standard/css/swfupload.css" type="text/css"  />
 <div style="float:left">
   <div class="fieldset flash" id="fsUploadProgress">
     <span class="legend">Upload Queue</span>
@@ -27,9 +28,8 @@
 </script>
 {literal}
 <script type="text/javascript">
-  var swfu;
   window.onload = function() {
-    J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':__uploadType,"id":__projectId},swfu,"spanButtonPlaceHolder","btnCancel",__callbackFunc);
+    window.__swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':__uploadType,"id":__projectId},"spanButtonPlaceHolder","btnCancel",__callbackFunc,null,"fsUploadProgress");
   };
 </script>
 {/literal}

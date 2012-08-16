@@ -280,7 +280,7 @@
             $("editDetailsInfo").innerHTML=payload.responseText;
             $("editDetailsInfo").style.display="";
             var swfu;
-            J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},swfu,"spanButtonPlaceHolder","btnCancel",setFileId);
+            swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},"spanButtonPlaceHolder","btnCancel",setFileId);
           }else{
             alert("get data error");
           }

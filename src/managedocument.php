@@ -7,6 +7,7 @@ if (!$action) {
 
 switch ($action) {
 case "mydocument":
+  $template->assign("projectId",-1);
   $template->display("document.tpl");
   break;
 default:

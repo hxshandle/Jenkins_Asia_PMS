@@ -3014,7 +3014,7 @@ div.dataTable{
 	font-weight:bold;
 }
 ul.tabs li.document a {
-	background-image: url(../images/symbols/tab-files.png);
+	background-image: url(../images/symbols/tab-document.png);
 }
 .tx{
   text-align:center;

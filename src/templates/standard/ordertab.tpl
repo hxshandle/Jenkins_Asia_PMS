@@ -30,20 +30,20 @@
   }
   function initOrderFileUploader(){
     var swfu_addOrder;
-    J.initSwfUploader(
-    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder,"spanButtonPlaceHolder","btnCancel",orderFileUploadSuccess);
+    swfu_addOrder = J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},"spanButtonPlaceHolder","btnCancel",orderFileUploadSuccess);
   }
     
   function initOrderFileUploader1(idx){
     var swfu_addOrder1,swfu_addOrder2,swfu_addOrder3,swfu_addOrder4;
-    J.initSwfUploader(
-    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder1,"spanButtonPlaceHolder1","btnCancel1",upldateFileFiled2,upldateFileFiledInfo2,"fsUploadProgress1");
-    J.initSwfUploader(
-    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder2,"spanButtonPlaceHolder2","btnCancel2",upldateFileFiled3,upldateFileFiledInfo3,"fsUploadProgress2");
-    J.initSwfUploader(
-    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder3,"spanButtonPlaceHolder3","btnCancel3",upldateFileFiled4,upldateFileFiledInfo4,"fsUploadProgress3");
-    J.initSwfUploader(
-    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},swfu_addOrder4,"spanButtonPlaceHolder","btnCancel",upldateFileFiled1,upldateFileFiledInfo1,"fsUploadProgress");
+    swfu_addOrder1 = J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},"spanButtonPlaceHolder1","btnCancel1",upldateFileFiled2,upldateFileFiledInfo2,"fsUploadProgress1");
+    swfu_addOrder2 = J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},"spanButtonPlaceHolder2","btnCancel2",upldateFileFiled3,upldateFileFiledInfo3,"fsUploadProgress2");
+    swfu_addOrder3 = J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},"spanButtonPlaceHolder3","btnCancel3",upldateFileFiled4,upldateFileFiledInfo4,"fsUploadProgress3");
+    swfu_addOrder4 =J.initSwfUploader(
+    "uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"order","id":__projectId},"spanButtonPlaceHolder","btnCancel",upldateFileFiled1,upldateFileFiledInfo1,"fsUploadProgress");
   }
     
   function upldateFileFiled1(id){

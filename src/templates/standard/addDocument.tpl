@@ -1,3 +1,4 @@
+<script type = "text/javascript" src = "include/js/addDocument.js" ></script>
 <div class="block_in_wrapper">
   <h2>{#addDocument#}</h2>
   <form onsubmit="return validateCompleteForm(this);" action="manageDocument.php?action=addDocument" method="post" class="main">
@@ -15,8 +16,15 @@
       </div>
 
 		  <div class="row">
-        <label for="revision">{#description#}:</label>
+        <label for="description">{#description#}:</label>
         <div class="editor"><textarea name="text" id="text" rows="3" cols="1" ></textarea></div>
+      </div>
+
+		  <div class="row">
+        <label for="project">{#project#}:</label>
+				<select name="project" id="project" onchange="void(0);">
+				  <option value="-1" selected="selected">{#chooseone#}</option>
+        </select>
       </div>
 
 		  <div class="row">
@@ -39,13 +47,18 @@
 				  <option value="-1" selected="selected">{#chooseone#}</option>
         </select>
       </div>
+
+	    <div class="row">
+		    <label for="uploadfile" >{#upload#}:</label>
+		    {include file = "uploadfile.tpl" callbackFunc="afterUploadFile"}
+	    </div>
+
       <div class="row-butn-bottom">
         <label></label>
         <button onfocus="this.blur();" type="submit">{#add#}</button>
         <button onfocus="this.blur();" onclick="blindtoggle('form_adddocument');return false;" type="reset">{#cancel#}</button>
       </div>
-
-
     </fieldset>
   </form>
 </div>
+<script type = "text/javascript" src = "include/js/addDocument.js" ></script>
