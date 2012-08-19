@@ -117,5 +117,26 @@ CREATE  TABLE `task_distribution` (
   `task_id` INT(10) NOT NULL ,
   `user_id` INT(10) NOT NULL ,
   PRIMARY KEY (`ID`) ,
-  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) );
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) )
+ENGINE = MyISAM;;
+
+
+
+CREATE TABLE `document_info` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `revision` varchar(255) DEFAULT NULL,
+  `description` text,
+  `file` int(10) NOT NULL,
+  `project` int(10) DEFAULT NULL,
+  `task` int(10) DEFAULT NULL,
+  `order` int(10) DEFAULT NULL,
+  `quality` int(10) DEFAULT NULL,
+  `visibility` varchar(45) DEFAULT NULL,
+  `insert_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM;
+
+
+
 

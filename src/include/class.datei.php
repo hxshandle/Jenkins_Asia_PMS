@@ -259,7 +259,9 @@ class datei {
     $name = $subname . "_" . $randval . "." . $erweiterung;
     $datei_final = $root . "/" . $ziel . "/" . $name;
     $datei_final2 = $ziel . "/" . $name;
+    
     if (!file_exists($datei_final)) {
+      
       //echo "-->".$tmp_name." : ".$datei_final;
       if (move_uploaded_file($tmp_name, $datei_final)) {
         // $filesize = filesize($datei_final);
@@ -272,6 +274,7 @@ class datei {
           chmod($datei_final, 0755);
           //echo $name." : ".$desc." : ".$project." : ".$tags." : ".$datei_final2." : ".$typ." : ".$title." : ".$folder." : ".$visstr;
           $fid = $this->add_file($name, $desc, $project, 0, "$tags", $datei_final2, "$typ", $title, $folder, $visstr);
+
           //echo "insert -> " . $fid;
           if (!empty($title)) {
             $this->mylog->add($title, 'file', 1, $project);

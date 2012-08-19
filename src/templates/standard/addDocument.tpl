@@ -17,13 +17,16 @@
 
 		  <div class="row">
         <label for="description">{#description#}:</label>
-        <div class="editor"><textarea name="text" id="text" rows="3" cols="1" ></textarea></div>
+        <div class="editor"><textarea id="description" name="description" rows="3" cols="1" ></textarea></div>
       </div>
 
 		  <div class="row">
         <label for="project">{#project#}:</label>
-				<select name="project" id="project" onchange="void(0);">
+				<select name="project" id="project" onchange="onSelProjectChange(this)"; required = "1">
 				  <option value="-1" selected="selected">{#chooseone#}</option>
+          {section name=project loop=$projects}
+            <option value="{$projects[project].ID}">{$projects[project].name}</option>
+          {/section}
         </select>
       </div>
 
@@ -47,6 +50,21 @@
 				  <option value="-1" selected="selected">{#chooseone#}</option>
         </select>
       </div>
+      <div class="row">
+        <label for="visibility" >{#visibility#}:</label>
+        <select name = "visibility[]" multiple="multiple" style = "height:80px;" id="visibility" required = "1" exclude = "-1" realname = "{#visibility#}">
+            <option value = "1" >{#superAdmin#}</option>
+            <option value = "2" >{#admin#}</option>
+            <option value = "3" >{#manageLv1#}</option>
+            <option value = "4" >{#manageLv2#}</option>
+            <option value = "5" >{#staff#}</option>
+            <option value = "6" >{#customerLv1#}</option>
+            <option value = "7" >{#customerLv2#}</option>
+            <option value = "8" >{#supplierLv1#}</option>
+            <option value = "9" >{#supplierLv2#}</option>
+        
+         </select>
+      </div>
 
 	    <div class="row">
 		    <label for="uploadfile" >{#upload#}:</label>
@@ -58,6 +76,7 @@
         <button onfocus="this.blur();" type="submit">{#add#}</button>
         <button onfocus="this.blur();" onclick="blindtoggle('form_adddocument');return false;" type="reset">{#cancel#}</button>
       </div>
+      <input type="hidden" id="fileId" name="fileId"></input>
     </fieldset>
   </form>
 </div>

@@ -873,6 +873,19 @@ class task {
     return $days;
   }
 
+  function getTasksByProjectId($pId){
+    $pId = (int) $pId;
+    $st1 = Status::getId("task", "closed");
+    $st2 = Status::getId("task", "completed");
+    $sql = "select * from tasks where project = $pId and status not in($st1,$st2) ";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($task = mysql_fetch_array($sel)){
+      array_push($ret,$task);
+    }
+    return $ret;
+  }
+
   /**
    * Return the name of the associated project and text of a given task
    *

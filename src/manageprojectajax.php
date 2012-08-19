@@ -1059,6 +1059,12 @@ switch ($action) {
     
     $template->display("qualitydetailslist.tpl");
     break;
+  case "getProjectSubInfo":
+    $pId = getArrayVal($_GET,"id");
+    $jUtils = new JUtils();
+    $ret = $jUtils->getProjectSubInfo($pId);
+    echo $ret;
+    break;
   default:
     break;
 }

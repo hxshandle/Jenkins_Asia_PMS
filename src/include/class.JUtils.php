@@ -57,5 +57,85 @@ class JUtils{
     return $msg;
   }
 
+  function getProjectSubInfo($pId){
+    $task = new task();
+    $tasks = $task->getTasksByProjectId($pId);
+    $ret = "{";
+    //tasks
+    if(!empty($tasks)){
+      $ret .= "tasks:[";
+      $taskJSON = " ";
+      foreach($tasks as $tk){
+        $taskJSON .= "{";
+        $taskJSON .= "id:".$tk['ID'].",";
+        $taskJSON .= "name:"."\"".$tk['title']."\"";
+        $taskJSON .= "},";
+      }
+      $taskJSON = substr($taskJSON,0,-1);
+      $ret .= $taskJSON;
+      $ret .= "]";
+    }
+    //end tasks
+    //orders
+
+    $order = new Order();
+    $orders = $order->getOrders($pId);
+    if(!empty($tasks)){
+      $ret .= ",orders:[";
+      $orderJSON = " ";
+      foreach($orders as $ord){
+        $orderJSON .= "{";
+        $orderJSON .= "id:".$ord['ID'].",";
+        $orderJSON .= "name:"."\"".$ord['name']."\"";
+        $orderJSON .= "},";
+      }
+      $orderJSON = substr($orderJSON,0,-1);
+      $ret .= $orderJSON;
+      $ret .= "]";
+    }
+
+    //Quality
+    $quality = new Quality();
+    $qualitys = $quality->getQualityByProjectId($pId);
+    if(!empty($qualitys)){
+      $ret .= ",qualitys:[";
+      $qualityJSON = " ";
+      foreach($qualitys as $quy){
+        $qualityJSON .= "{";
+        $qualityJSON .= "id:".$quy['ID'].",";
+        $qualityJSON .= "name:"."\"".$quy['action_no']."\"";
+        $qualityJSON .= "},";
+      }
+      $qualityJSON = substr($qualityJSON,0,-1);
+      $ret .= $qualityJSON;
+      $ret .= "]";
+    }
+    $ret .= "}";
+    return $ret;
+    
+  }
+
+
+  function getAllCustomers(){
+    $ret = array();
+    $sql = "select DISTINCT customer_name from projekte";
+    $sel = mysql_query($sql);
+    while ($row = mysql_fetch_row($sel)) {
+      array_push($ret,$row);
+    }
+    return $ret;
+  }
+
+
+  function getAllOrders(){
+    $ret = array();
+    $sql = "select * from `order`;";
+    $sel = mysql_query($sql);
+    while ($row = mysql_fetch_array($sel)) {
+      array_push($ret,$row);
+    }
+    return $ret;
+  }
+
 }
 ?>
