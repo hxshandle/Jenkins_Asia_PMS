@@ -29,7 +29,7 @@
             <h1>{#filter#}</h1>
 		        <div class="row">
               <label for="project">{#project#}:</label>
-			      	<select name="project" id="project" onchange="onCriteriaProjectChange(this)"; required = "1">
+			      	<select name="criteriaProject" id="criteriaProject" onchange="onCriteriaProjectChange(this)"; required = "1">
 			      	  <option value="-1" selected="selected">{#chooseone#}</option>
                 {section name=project loop=$projects}
                   <option value="{$projects[project].ID}">{$projects[project].name}</option>
@@ -39,7 +39,7 @@
 
 		        <div class="row">
               <label for="customer">{#customer#}:</label>
-			      	<select name="customer" id="customer" onchange="onCriteriaCustomerChange(this)"; required = "1">
+			      	<select name="criteriaCustomer" id="criteriaCustomer" onchange="onCriteriaCustomerChange(this)"; required = "1">
 			      	  <option value="-1" selected="selected">{#chooseone#}</option>
                 {section name=customer loop=$customers}
                   <option value="{$customers[customer][0]}">{$customers[customer][0]}</option>
@@ -52,7 +52,7 @@
 			      	<select name="criteriaOrder" id="criteriaOrder" onchange="onCriteriaOrderChange(this)"; required = "1">
 			      	  <option value="-1" selected="selected">{#chooseone#}</option>
                 {section name=cOrder loop=$orders}
-                  <option value="{$orders[cOrder][0]}">{$orders[cOrder][1]}</option>
+                  <option value="{$orders[cOrder].ID}">{$orders[cOrder].name}</option>
                 {/section}
               </select>
             </div>
@@ -63,19 +63,9 @@
             {* End Search *}
 
           {*Document table*}
-          <table id="documentsTable" cellspacing="0" cellpadding="0" border="0">
-            <thead>
-              <tr>
-                <th class="b tx">{#documentName#}</th>
-                <th class="b tx">{#project#}</th>
-                <th class="b tx">{#revision#}</th>
-                <th class="b tx">{#customer#}</th>
-                <th class="b tx">{#task#}</th>
-                <th class="b tx">{#order#}</th>
-                <th class="b tx">{#quality#}</th>
-              </tr>
-            </thead>
-          </table>
+          <div id="documentTableContainer">
+					{include file="documentsTable.tpl"}
+          </div>
 
           {*Add Menu*}
           <div class="tablemenue">

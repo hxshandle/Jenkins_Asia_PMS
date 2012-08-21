@@ -30,7 +30,7 @@
         </select>
       </div>
 
-		  <div class="row">
+		  <div class="row" style="display:none">
         <label for="task">{#task#}:</label>
 				<select name="task" id="task" onchange="void(0);">
 				  <option value="-1" selected="selected">{#chooseone#}</option>

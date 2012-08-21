@@ -3019,5 +3019,8 @@ ul.tabs li.document a {
 .tx{
   text-align:center;
 }
+.documentTableWrapper{
+  overflow-x:scroll;
+}
 
 /*****************Jenkins Asia Special***********************/

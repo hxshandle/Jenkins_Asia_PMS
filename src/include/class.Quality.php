@@ -169,6 +169,18 @@ function getQualityByProjectId($projectId){
 function del($id){
     return $this->close($id);
   }
+  
+  function get($id){
+     $id = (int) $id;
+    $sql = "select * from  `quality`  where id = '$id'";
+    $query = mysql_query($sql);
+    $ret = array();
+    if(!empty($query)){
+      $ret = mysql_fetch_array($query);
+    }
+    return $ret;
+  }
+  
 }
 
 

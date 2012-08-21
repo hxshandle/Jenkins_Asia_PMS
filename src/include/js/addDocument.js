@@ -72,16 +72,41 @@ function _buildSelOpts(opts,data){
   }
 }
 
+function filterDocument(param){
+  var theUrl = "managedocument.php?action=filterDocument";
+  var thePost = param || "";
+  new Ajax.Request(theUrl, {
+          method: 'post',
+          postBody:thePost,
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              document.getElementById("documentTableContainer").innerHTML=payload.responseText;
+            }
+          }
+      });    
+}
+
+function _buildFilterParam(){
+  var project = document.getElementById("criteriaProject").value;
+  var order = document.getElementById("criteriaOrder").value;
+  var customer = document.getElementById("criteriaCustomer").value;
+  var ret = "";
+  ret = "projectId="+project+"&orderId="+order+"&customerName="+customer;
+  return ret;
+
+
+}
+
 function onCriteriaProjectChange(el){
-  var val = el.value;
+  filterDocument(_buildFilterParam());
 }
 
 function onCriteriaCustomerChange(el){
-  var val = el.value;
+  filterDocument(_buildFilterParam());
 }
 
 function onCriteriaOrderChange(el){
-  var val = el.value;
+  filterDocument(_buildFilterParam());
 }
 
 (function(){

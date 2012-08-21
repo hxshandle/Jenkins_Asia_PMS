@@ -40,6 +40,16 @@ case "addDocument":
   $loc = $url . "managedocument.php?action=mydocument";
   header("Location: $loc");
   break;
+case "filterDocument":
+  $projectId = getArrayVal($_POST,"projectId");
+  $orderId = getArrayVal($_POST,"orderId");
+  $customerName = getArrayVal($_POST,"customerName");
+  $doc = new Document();
+  $documents = $doc->filterDocuments($projectId,$orderId,$customerName);
+  $template->assign("documents",$documents);
+  $template->display("documentsTable.tpl");
+
+  break;
 default:
   break;
 }
