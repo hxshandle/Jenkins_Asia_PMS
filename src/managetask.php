@@ -106,7 +106,7 @@ if ($action == "addform") {
         if (!empty($user["email"]) && $userid != $user["ID"]) {
           // send email
           $themail = new emailer($settings);
-          $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link);
+          $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
           $themail->send_mail($user["email"], $langfile["taskassignedsubject"],$msg);
         }
       }
@@ -198,7 +198,7 @@ if ($action == "addform") {
             if (!empty($user["email"])) {
               // send email
               $themail = new emailer($settings);
-              $msg = $jUtils->getModifiedTaskMailMsg($user["name"],$_SESSION["username"],$link);
+              $msg = $jUtils->getModifiedTaskMailMsg($user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
               if($hasCCed){
                 $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $msg);
               }else{

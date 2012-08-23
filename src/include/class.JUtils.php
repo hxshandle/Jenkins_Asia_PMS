@@ -23,11 +23,21 @@ class JUtils{
     }
   }
 
-  function getNewTaskMailMsg($mailTo,$projectName,$start_date,$end_date,$assigner,$link){
+  function getNewTaskMailMsg($mailTo,$projectName,$start_date,$end_date,$assigner,$link,$title,$text){
     $msg = "";
     $msg .= "Dear ".$mailTo.",<br/><br/>";
     $msg .= "You have a new task request for <b>".$projectName."</b><br/>";
     $msg .= "The task assigned on <b>".$start_date."</b> and is due on <b>".$end_date."</b> by <b>".$assigner."</b><br/>";
+    $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
+    $msg .= "<b>Task Name<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$title."</p>";
+    $msg .= "<hr/>";
+    $msg .= "<b>Description</b>";
+    $msg .= "<p style='padding-left:15px'>".$text."</p>";
+    $msg .= "<hr/>";
+    $msg .= "<b>Status Update</b>";
+    $msg .= "<p style='padding-left:15px'>".$statusUpdate."</p>";
+    $msg .= "</div>";
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .="<a href=\"".$link."\">Go to task</a><br/><br/>";
     $msg .="Thank you from JANUS.<br/>";
@@ -35,10 +45,21 @@ class JUtils{
     return $msg;
   }
 
-  function getModifiedTaskMailMsg($mailTo,$operator,$link){
+  function getModifiedTaskMailMsg($mailTo,$operator,$link,$title,$text,$statusUpdate){
     $msg = "";
     $msg .= "Dear ".$mailTo.",<br/><br/>";
     $msg .= "Task updated by ".$operator;
+    $msg .= "<br/>";
+    $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
+    $msg .= "<b>Task Name<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$title."</p>";
+    $msg .= "<hr/>";
+    $msg .= "<b>Description</b>";
+    $msg .= "<p style='padding-left:15px'>".$text."</p>";
+    $msg .= "<hr/>";
+    $msg .= "<b>Status Update</b>";
+    $msg .= "<p style='padding-left:15px'>".$statusUpdate."</p>";
+    $msg .= "</div>";
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .="<a href=\"".$link."\">Go to task</a><br/><br/>";
     $msg .="Thank you from JANUS.<br/>";
