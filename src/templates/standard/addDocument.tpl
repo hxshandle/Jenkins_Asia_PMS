@@ -1,7 +1,7 @@
 <script type = "text/javascript" src = "include/js/addDocument.js" ></script>
 <div class="block_in_wrapper">
   <h2>{#addDocument#}</h2>
-  <form onsubmit="return validateCompleteForm(this);" action="manageDocument.php?action=addDocument" method="post" class="main">
+  <form onsubmit="return validateCompleteForm(this);" action="managedocument.php?action=addDocument" method="post" class="main">
     <fieldset>
 
 		  <div class="row">
