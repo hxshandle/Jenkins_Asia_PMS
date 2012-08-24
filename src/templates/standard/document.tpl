@@ -70,7 +70,7 @@
           {*Add Menu*}
           <div class="tablemenue">
 					  <div class="tablemenue-in">
-				  	  <a onclick="toggleClass(this,'add-active','add');toggleClass(this,'butn_link_active','butn_link');" id="add_butn_myprojects" href="javascript:blindtoggle('form_adddocument');" class="butn_link">{#addDocument#}</a>
+				  	  <a onclick="toggleClass(this,'add-active','add');toggleClass(this,'butn_link_active','butn_link');disableUploadBtn();" id="add_butn_myprojects" href="javascript:blindtoggle('form_adddocument');" class="butn_link">{#addDocument#}</a>
 					  </div>
 					</div>
           <div class="content-spacer"></div>

@@ -97,6 +97,10 @@ function _buildFilterParam(){
 
 }
 
+function disableUploadBtn(){
+  window.__swfu.setButtonDisabled(true);
+}
+
 function onCriteriaProjectChange(el){
   filterDocument(_buildFilterParam());
 }
@@ -113,7 +117,7 @@ function onCriteriaOrderChange(el){
 
   function disableUploadButton(){
     if(window.__swfu && window.__swfu.setButtonDisabled){
-      window.__swfu.setButtonDisabled(true);
+      //window.__swfu.setButtonDisabled(true);
       var el = document.getElementById("form_adddocument");
       el.style.display="none";
     }else{
