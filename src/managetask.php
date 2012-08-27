@@ -200,9 +200,9 @@ if ($action == "addform") {
               $themail = new emailer($settings);
               $msg = $jUtils->getModifiedTaskMailMsg($user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
               if($hasCCed){
-                $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $msg);
+                $themail->send_mail($user["email"], $langfile["taskmodifiedsubject"]." | ".$title, $msg);
               }else{
-                $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $msg,$arrCC);
+                $themail->send_mail($user["email"], $langfile["taskmodifiedsubject"]." | ".$title, $msg,$arrCC);
                 $hasCCed = true;
               }
             }
