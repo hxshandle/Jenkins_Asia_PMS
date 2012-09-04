@@ -26,6 +26,7 @@ $parentTask = getArrayVal($_POST, "parent");
 $taskStatus = getArrayVal($_POST, "status");
 $fileId = getArrayVal($_POST, "fileId");
 $statusUpdate = getArrayVal($_POST,"statusUpdate");
+$oldStatusUpdate = getArrayVal($_POST,"oldStatusUpdate");
 
 $redir = getArrayVal($_GET, "redir");
 $id = getArrayVal($_GET, "id");
@@ -168,6 +169,13 @@ if ($action == "addform") {
     $template->assign("errortext", "<h2>$errtxt</h2><br>$noperm");
     $template->display("error.tpl");
     die();
+  }
+  $len1 = strlen($statusUpdate);
+  $len2 = strlen($oldStatusUpdate);
+  if(strlen($statusUpdate) != strlen($oldStatusUpdate)){
+    $dateFormat = CL_DATEFORMAT." H:i:s";
+    $today = date($dateFormat);
+    $statusUpdate .= " --".$_SESSION['username']." ".$today;
   }
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);

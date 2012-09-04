@@ -84,8 +84,27 @@ class task {
               $fileId
               )";
     $ins = mysql_query($sql);
+    
     if ($ins) {
-      return mysql_insert_id();
+      $insertId =  mysql_insert_id();
+      $sql0 = "select name from files where id = $fileId";
+      $sel0 = mysql_query($sql0);
+      $fileName = "";
+      while($row = mysql_fetch_row($sel0)){
+        $fileName = $row[0];
+      }
+      $sql1 = "select status_update from tasks where id =  $taskId";
+      $sel1 = mysql_query($sql1);
+      while ($row = mysql_fetch_row($sel1)) {
+       $updateStatus =  $row[0];
+       $dateFormat = CL_DATEFORMAT." H:i:s";
+       $today = date($dateFormat);
+       $updateStatus .="<br/> added new file ".$fileName."<br/>  --".$_SESSION['username']." ".$today;
+       $sql2 = "update tasks set status_update = '$updateStatus' where id = $taskId";
+       mysql_query($sql2);
+      }
+      
+      return $insertId;
     } else {
       return false;
     }
