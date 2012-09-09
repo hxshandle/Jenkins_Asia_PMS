@@ -467,7 +467,7 @@ class project {
         $user = (int) $user;
 
         $myprojekte = array();
-        $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY end ASC");
+        $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user");
         if ($sel) {
             while ($projs = mysql_fetch_row($sel)) {
                 $sel2 = mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0]");

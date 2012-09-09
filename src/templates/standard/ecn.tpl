@@ -1,5 +1,5 @@
 {include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce"}
-{include file="tabsmenue-desk.tpl" documenttab = "active"}
+{include file="tabsmenue-desk.tpl" ecntab = "active"}
 
 
 <div style="display:none">

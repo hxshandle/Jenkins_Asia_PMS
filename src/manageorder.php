@@ -12,7 +12,7 @@ switch ($action) {
 case "myorder":
   $order = new Order();
   $project = new project();
-  $projects = $project->getProjects(1,1000);
+  $projects = $jUtils->getAllProjects();
   $orderTab = $order->getOrdersByUser();
   $template->assign("orderTab", $orderTab);
   $template->assign("projects",$projects);

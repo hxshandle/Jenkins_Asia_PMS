@@ -188,10 +188,27 @@ class JUtils{
     
   }
 
+  function getAllProjects(){
+    $project = new project();
+    $userRole = $_SESSION['userRole'];
+    if($userRole == "1" || $userRole == "3"){
+      return $project->getProjects(1,1000);
+    }
+    $pIds = $project->getMyProjectIds($_SESSION['userid']);
+    $arrRet = array();
+    foreach($pIds as $pId){
+      $d = $project->getProject($pId[0]);
+      array_push($arrRet,$d);
+    }
+    return $arrRet;
+  }
+  
 
   function getAllCustomers(){
     $ret = array();
-    $sql = "select DISTINCT customer_name from projekte";
+    $sql = "select DISTINCT customer_name from projekte where 1=1 ";
+    $sqlCondition = $this->getMyProjectSqlCondition();
+    $sql .=$sqlCondition;
     $sel = mysql_query($sql);
     while ($row = mysql_fetch_row($sel)) {
       array_push($ret,$row);
@@ -202,7 +219,9 @@ class JUtils{
 
   function getAllOrders(){
     $ret = array();
-    $sql = "select * from `order`;";
+    $sql = "select * from `order` where 1=1 ";
+    $sqlCondition = $this->getMyProjectSqlCondition("","project");
+    $sql .= $sqlCondition;
     $sel = mysql_query($sql);
     while ($row = mysql_fetch_array($sel)) {
       array_push($ret,$row);
@@ -229,13 +248,17 @@ class JUtils{
     $pIds = $project->getMyProjectIds($_SESSION['userid']);
     $str= "";
     foreach($pIds as $pId){
-      $str .= $pId.",";
+      $str .= $pId[0].",";
     }
     if($str != ""){
       $str = substr($str,0,-1);
     }
-
-    $ret = " and $prefix.$filedName in (".$str.")";
+    if($prefix == ""){
+      $ret = " and $filedName in (".$str.")";
+    }else{
+      $ret = " and $prefix.$filedName in (".$str.")";
+    }
+    
     return $ret;
   }
   

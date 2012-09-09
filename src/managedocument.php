@@ -10,7 +10,7 @@ switch ($action) {
 case "mydocument":
   $doc = new Document();
   $project = new project();
-  $projects = $project->getProjects(1,1000);
+  $projects = $jUtils->getAllProjects();
   $template->assign("projects",$projects);
   $customers = $jUtils->getAllCustomers();
   $template->assign("customers",$customers);
