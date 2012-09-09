@@ -93,8 +93,6 @@ function _buildFilterParam(){
   var ret = "";
   ret = "projectId="+project+"&orderId="+order+"&customerName="+customer;
   return ret;
-
-
 }
 
 function disableUploadBtn(){

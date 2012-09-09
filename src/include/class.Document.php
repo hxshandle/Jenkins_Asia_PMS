@@ -2,7 +2,7 @@
 
 class Document{
 
-  function add($docName,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibility){
+  function add($docName,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibility,$ecnId = -1){
     $docName = mysql_escape_string($docName);
     $docVer = mysql_escape_string($docVer);
     $docDesc = mysql_escape_string($docDesc);
@@ -11,6 +11,7 @@ class Document{
     $taskId = (int) $taskId;
     $orderId = (int) $orderId;
     $qualityId = (int) $qualityId;
+    $ecnId = (int) $ecnId;
     $sql = "
              INSERT INTO `document_info`
              (
@@ -22,7 +23,8 @@ class Document{
              `task`,
              `order`,
              `quality`,
-             `visibility`)
+             `visibility`,
+             `ecn`)
              VALUES
              (
              '$docName',
@@ -33,7 +35,8 @@ class Document{
              $taskId,
              $orderId,
              $qualityId,
-             '$visibility'
+             '$visibility',
+              $ecnId
              )";
     $ins = mysql_query($sql);
     if ($ins) {

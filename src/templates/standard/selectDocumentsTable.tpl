@@ -1,9 +1,8 @@
 {config_load file=lng.conf section = "strings" scope="global" }
-{*Document table*}
-<div class="documentTableWrapper">
-<table id="documentsTable" cellspacing="0" cellpadding="0" border="0" style="width:1000px">
+<table id="documentsTable" cellspacing="0" cellpadding="0" border="0" style="width:100%">
   <thead>
     <tr>
+      <th class="b">{#chooseone#}</th>
       <th class="b tx">{#documentName#}</th>
       <th class="b tx">{#revision#}</th>
       <th class="b tx">{#project#}</th>
@@ -20,7 +19,9 @@
         {else}
           <tr class ="color-b">
         {/if}
-            <td><a href="{$documents[doc].download_url}" target="blank">{$documents[doc].name}</a></td>
+        
+            <td><input type="checkbox" value="{$documents[doc].ID}" docName="{$documents[doc].name}" docVer = "{$documents[doc].revision}"></input></td>
+            <td>{$documents[doc].name}</td>
             <td>{$documents[doc].revision}</td>
             <td>{$documents[doc].project_name}</td>
             <td>{$documents[doc].customer_name}</td>
@@ -31,4 +32,3 @@
     {/section}
   </tbody>
 </table>
-</div>

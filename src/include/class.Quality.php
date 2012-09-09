@@ -19,7 +19,7 @@ class Quality {
     $this->myLog = new mylog;
   }
   
-  function add($project,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
+  function add($project,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1,$orderId = -1){
     $actionNo = mysql_escape_string($actionNo);
     $productNo = mysql_escape_string($productNo);
     $productDesc = mysql_escape_string($productDesc);
@@ -41,6 +41,7 @@ class Quality {
     $defects = (int) $defects;
     $rejectRate = (double) $rejectRate;
     $valid = (int) $valid;
+    $orderId = (int) $orderId;
 
     $sql = "
             INSERT INTO `quality`
@@ -62,7 +63,8 @@ class Quality {
             `verified_for_closure_by`,
             `verification_date`,
             `valid`,
-            `project`)
+            `project`,
+            `order`)
             VALUES
             (
             '$actionNo',
@@ -82,7 +84,8 @@ class Quality {
             '$verifiedForClosureBy',
             '$verificationDate',
             $valid,
-            $project
+            $project,
+            $orderId
             )
             ";
     $ins = mysql_query($sql);

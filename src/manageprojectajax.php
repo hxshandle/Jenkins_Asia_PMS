@@ -1065,6 +1065,24 @@ switch ($action) {
     $ret = $jUtils->getProjectSubInfo($pId);
     echo $ret;
     break;
+  case "getProjectOrders":
+    $pId = getArrayVal($_GET,"id");
+    $jUtils = new JUtils();
+    $ret = $jUtils->getProjectOrders($pId);
+    echo $ret;
+    break;
+  case "getOrderQualities":
+    $oId = getArrayVal($_GET,"id");
+    $jUtils = new JUtils();
+    $ret = $jUtils->getOrderQualities($oId);
+    echo $ret;
+    break;
+  case "getProjectDeliverable":
+    $oId = getArrayVal($_GET,"id");
+    $jUtils = new JUtils();
+    $ret = $jUtils->getProjectDeliverable($oId);
+    echo $ret;
+    break;
   default:
     break;
 }

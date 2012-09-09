@@ -1,6 +1,8 @@
 {config_load file=lng.conf section = "strings" scope="global" }
-<form id="editQuality" name="editQuality">
+<form id="editQuality" name="editQuality" method="post" action="managequality.php?action=saveQuality">
   <input type = "hidden" id="orderId" name = "orderId" value = "{$orderId}"></input>
+  <input type = "hidden" id="projectId" name = "projectId" value = "{$projectId}"></input>
+  
 <div class="dlgRow">
   <label style="">{#actionNo#}<span style="color:red">*</span></label>
   <input id="actionNo" name="actionNo" value = "{$quality.action_no}"></input>
@@ -82,8 +84,9 @@
 </div>
   <input type="hidden" id ="qMode" name="qMode" value = "{$mode}"></input>
   <input type = "hidden" id ="qId" name="qId" value = "{$qId}"></input>
-</form>
 <div  style="margin:10px 0 0 0">
-  <button id="dlgBtnSaveQuality" onclick="saveQuality();">{#save#}</button>
+  <button id="dlgBtnSaveQuality" type="submit">{#save#}</button>
 </div>
+</form>
+
 

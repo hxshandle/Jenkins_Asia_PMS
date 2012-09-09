@@ -10,7 +10,7 @@ switch ($action) {
 case "mydocument":
   $doc = new Document();
   $project = new project();
-  $projects = $project->getProjects(1,100);
+  $projects = $project->getProjects(1,1000);
   $template->assign("projects",$projects);
   $customers = $jUtils->getAllCustomers();
   $template->assign("customers",$customers);
@@ -22,6 +22,7 @@ case "mydocument":
   $template->display("document.tpl");
   break;
 case "addDocument":
+  $isAjax = getArrayVal($_POST,'isAjax');
   $docName = getArrayVal($_POST,"name");
   $docVer = getArrayVal($_POST,"revision");
   $docDesc = getArrayVal($_POST,"description");
@@ -31,24 +32,52 @@ case "addDocument":
   $orderId = getArrayVal($_POST,"order");
   $qualityId = getArrayVal($_POST,"quality");
   $visibility = getArrayVal($_POST,"visibility");
+  $ecnId = getArrayVal($_POST, "ecn");
   $visibilityVal = "";
   foreach($visibility as $vis){
     $visibilityVal .= $vis.",";
   }
   $doc = new Document();
-  $doc->add($docName,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibilityVal);
+  $doc->add($docName,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibilityVal,$ecnId);
   $loc = $url . "managedocument.php?action=mydocument";
+  if($isAjax == '1'){
+    $loc = $url."managedocument.php?action=selectDocuments";
+  }
   header("Location: $loc");
   break;
 case "filterDocument":
   $projectId = getArrayVal($_POST,"projectId");
   $orderId = getArrayVal($_POST,"orderId");
   $customerName = getArrayVal($_POST,"customerName");
+  $isSelectedTable = getArrayVal($_POST,"isSelectedTable");
   $doc = new Document();
   $documents = $doc->filterDocuments($projectId,$orderId,$customerName);
   $template->assign("documents",$documents);
-  $template->display("documentsTable.tpl");
-
+  if($isSelectedTable == 1){
+    $template->display("selectDocumentsTable.tpl");
+  }else{
+    $template->display("documentsTable.tpl");  
+  }
+  
+  break;
+case "selectDocuments":
+  $doc = new Document();
+  $project = new project();
+  $ecnId = getArrayVal($_GET, "ecnId");
+  if(!$ecnId){
+    $ecnId = "-1";
+  }
+  $template->assign("ecnId",$ecnId);
+  $projects = $project->getProjects(1,100);
+  $template->assign("projects",$projects);
+  $customers = $jUtils->getAllCustomers();
+  $template->assign("customers",$customers);
+  $orders = $jUtils->getAllOrders();
+  $template->assign("orders",$orders);
+  $template->assign("projectId",-1);
+  $documents = $doc->getLatesUpdatedDocuments();
+  $template->assign("documents",$documents);
+  $template->display("selectDocuments.tpl");
   break;
 default:
   break;

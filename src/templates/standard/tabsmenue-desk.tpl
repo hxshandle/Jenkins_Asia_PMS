@@ -9,6 +9,9 @@
 		<li class="tasks"><a {if $taskstab == "active" }class="active"{/if} href="mytasks.php"><span>{#mytasks#}</span></a></li>	
 		<li class="msgs"><a {if $msgstab == "active" }class="active"{/if} href="managemessage.php?action=mymsgs"><span>{#mymessages#}</span></a>
 		<li class="document"><a {if $documenttab == "active" }class="active"{/if} href="managedocument.php?action=mydocument"><span>{#mydocuments#}</span></a>
-    				
+    {if $smarty.session.userRole != "5" && $smarty.session.userRole != "9" && $smarty.session.userRole != "7"}  
+		  <li class="msgs"><a {if $ordertab == "active" }class="active"{/if} href="manageorder.php?action=myorder"><span>{#order#}</span></a>
+    {/if}
+    <li class="msgs"><a {if $ecntab == "active" }class="active"{/if} href="manageecn.php?action=showecn"><span>{#ecnname#}</span></a>				
 	</ul>
 </div>

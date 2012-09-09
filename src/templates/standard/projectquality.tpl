@@ -47,7 +47,7 @@
 
         {*Add Message*}
         <div id = "addmsg" class="block_in_wrapper" style = "display:none;">
-          {include file="editQualityDlg.tpl" }
+          {include file="editQualityForm.tpl" }
           <div class="clear_both_b"></div>
         </div>
 

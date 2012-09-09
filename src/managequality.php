@@ -16,13 +16,19 @@ if (!$action) {
 switch ($action) {
   case "showproject":
     $id = getArrayVal($_GET, "id");
+    $orderId = getArrayVal($_GET,"orderId");
+    if(!$orderId){
+      $orderId = -1;
+    }
     $myproject = new project();
     $quality = new Quality();
     $pro = $myproject->getProject($id);
     $qualityList = $quality->getQualityByProjectId($id);
     $projectname = $pro['name'];
     $template->assign("project", $pro);
+    $template->assign("projectId", $id);
     $template->assign("qualitys", $qualityList);
+    $template->assign("orderId", $orderId);
     $template->assign("projectname", $projectname);
     $template->display("projectquality.tpl");
     break;
@@ -81,6 +87,41 @@ switch ($action) {
     } 
     Header("Location: managequality.php?action=showproject&id=".$projectId);
     
+    break;
+   case "saveQuality":
+    $mode = getArrayVal($_POST,"mode");
+    if(!$mode){
+      $mode = "add";
+    }
+    $qId = getArrayVal($_POST,"qId");
+    $orderId = getArrayVal($_POST,"orderId");
+    $projectId = getArrayVal($_POST,"projectId");
+    $actionNo = getArrayVal($_POST, "actionNo");
+    $issueDate = getArrayVal($_POST, "issueDate");
+    $productNo = getArrayVal($_POST, "productNo");
+    $productDesc = getArrayVal($_POST, "productDesc");
+    $shipNo = getArrayVal($_POST, "shipNo");
+    $lotQuantity = getArrayVal($_POST, "lotQuantity");
+    $sampleSize = getArrayVal($_POST, "sampleSize");
+    $defects = getArrayVal($_POST, "defects");
+    $rejectRate = getArrayVal($_POST, "rejectRate");
+    $quantityInInventory = getArrayVal($_POST, "quantityInInventory");
+    $quantityInProcess = getArrayVal($_POST, "quantityInProcess");
+    $containmentDesc = getArrayVal($_POST, "containmentDesc");
+    $acknowledgeBy = getArrayVal($_POST, "acknowledgeBy");
+    $acknowledgeDate = getArrayVal($_POST, "acknowledgeDate");
+    $verifiedForClosureBy = getArrayVal($_POST, "verifiedForClosureBy");
+    $verificationDate = getArrayVal($_POST, "verificationDate");
+    $quality = new Quality();
+    $ret = false;
+    if($mode == "add"){
+      $ret = $quality->add($projectId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1,$orderId);
+    }else{
+        $ret = $quality->update($qId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
+    }
+    
+    $loc = $url."managequality.php?action=showproject&id=$projectId&orderId=$orderId";
+    header("Location: $loc");
     break;
   default:
     break;

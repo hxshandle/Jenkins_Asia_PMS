@@ -138,5 +138,20 @@ CREATE TABLE `document_info` (
 ) ENGINE=MyISAM;
 
 
+----------for order ------------
 
+CREATE  TABLE `order_attached` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `orderId` INT(10) NOT NULL ,
+  `fileId` INT(10) NOT NULL ,
+  `type` int(11) DEFAULT '0',
+  PRIMARY KEY (`ID`) )ENGINE=MyISAM;
+
+
+
+ALTER TABLE `quality` ADD COLUMN `order` INT(10) NULL DEFAULT -1  AFTER `project` ;
+
+ALTER TABLE `engineering_change_note` ADD COLUMN `order` INT(10) NULL  AFTER `deliverable` , ADD COLUMN `quality` INT(10) NULL  AFTER `order` ;
+
+ALTER TABLE `document_info` ADD COLUMN `ecn` INT(10) NULL DEFAULT -1  AFTER `insert_date` ;
 

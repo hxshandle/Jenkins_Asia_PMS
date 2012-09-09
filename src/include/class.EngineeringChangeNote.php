@@ -18,15 +18,45 @@ class EngineeringChangeNote {
   function __construct() {
     $this->myLog = new mylog;
   }
+  
+  function filterECN($projectId,$orderId,$customerName){
+    $projectId = (int) $projectId;
+    $orderId = (int) $orderId;
+    $customerName = mysql_escape_string($customerName);
+    $sql = "select ecn.* from engineering_change_note ecn, projekte p where p.id = ecn.project ";
+    if($projectId != -1){
+      $str = " and p.id = $projectId";
+      $sql = $sql.$str;
+    }
+    if($orderId != -1){
+       $str = " and ecn.order = $orderId";
+      $sql = $sql.$str;
+    }
+    if($customerName != "-1"){
+      $str = " and p.customer_name = '$customerName'";
+      $sql = $sql.$str;
+    }
+    $sel = mysql_query($sql);
+    $arrRet = array();
+    while($row = mysql_fetch_array($sel)){
+      $data = $this->get($row['ID']);
+      array_push($arrRet,$data);
+    }
+    return $arrRet;
+    
+    
+  }
 
-  function add($name,$submitterComments,$projectId,$phaseId,$deliverableItemId){
+  function add($name,$submitterComments,$projectId,$phaseId,$deliverableItemId,$orderId=-1,$qualityId=-1){
     $submitter = getArrayVal($_SESSION, 'userid');
     $submitterComments = mysql_real_escape_string($submitterComments);
     $projectId = (int) $projectId;
     $phaseId = (int) $phaseId;
     $deliverableItemId = (int) $deliverableItemId;
+    $orderId = (int) $orderId;
+    $qualityId = (int) $qualityId;
     $status = Status::getId("ECN", "need_approve");
-    $sql = "insert into engineering_change_note (name,status,submitter,submit_time,submitter_comments,project,phase,deliverable) values('$name',$status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId )";
+    $sql = "insert into engineering_change_note (name,status,submitter,submit_time,submitter_comments,project,phase,deliverable,`order`,quality) values('$name',$status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId,$orderId,$qualityId )";
     $ins = mysql_query($sql);
     if($ins){
       return mysql_insert_id();
@@ -61,6 +91,22 @@ class EngineeringChangeNote {
  
   }
   
+  
+  function getEncs(){
+    $jUtil = new JUtils();
+    $sql = "select * from engineering_change_note where 1=1 ";
+    $jUtil = new JUtils();
+    $projectCondition = $jUtil->getMyProjectSqlCondition("", "project");
+    $sql .= $projectCondition;
+    $sel = mysql_query($sql);
+    $arrRet = array();
+    while($row = mysql_fetch_array($sel)){
+      $data = $this->get($row['ID']);
+      array_push($arrRet,$data);
+    }
+    return $arrRet;
+  }
+  
   function getEcnsByProjectId($id,$currentUserId){
     $ecns = $this->getEcnByProjectId($id,$currentUserId);
     $ret = array();
@@ -92,6 +138,30 @@ class EngineeringChangeNote {
     $ret = array();
     if(!empty($query)){
       $ret = mysql_fetch_array($query);
+      if($ret){
+        $project = new project();
+        $p = $project->getProject($ret['project']);
+        $ret['projectName'] = $p['name'];
+        if(!empty($ret['order'])){
+          $order = new Order();
+          $o = $order->get($ret['order']);
+          $ret['orderName'] = $o['name'];
+        }else{
+          $ret['orderName'] = "";
+        }
+        if(!empty($ret['quality'])){
+          $quality = new Quality();
+          $q = $quality->get($ret['quality']);
+          $ret['qualityName'] = $q['action_no'];
+        }else{
+          $ret['qualityName'] ="";
+        }
+        $user = new user();
+        $userName = $user->getName($ret['submitter']);
+        $ret['submit_by'] = $userName;
+        $approver = $user->getName($ret['approver']);
+        $ret['approve_by'] = $approver;
+      }
     }
     return $ret;
   }

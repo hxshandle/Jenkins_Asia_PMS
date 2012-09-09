@@ -1238,6 +1238,7 @@ a.butn_link, a.butn_link_active {
 	border-radius: 3px;
 	font-size: 11px;
 	font-weight: bold;
+	cursor:pointer;
 	margin: 0 1px 0 0;
 }
 

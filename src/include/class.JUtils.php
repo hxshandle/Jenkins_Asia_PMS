@@ -77,6 +77,58 @@ class JUtils{
     $msg .="Please do not reply to this mail.<br/>";
     return $msg;
   }
+  
+  function getOrderQualities($id){
+    $id  = (int) $id;
+    $sql = "select * from quality where `order` = $id;";
+    $sel = mysql_query($sql);
+    $ret = "[";
+    $qJSON = "";
+    while($o = mysql_fetch_array($sel)){
+      $qJSON .= "{";
+      $qJSON .= "id:\"".$o['ID']."\",";
+      $qJSON .= "name:\"".$o['action_no']."\"";
+      $qJSON .= "},";
+    }
+    $qJSON = substr($qJSON,0,-1);
+    $ret .= $qJSON;
+    $ret .= "]";
+    return $ret;
+  }
+  
+  function getProjectOrders($pId){
+    $order = new Order();
+    $orders = $order->getOrders($pId);
+    $ret = "[";
+    $oJSON = "";
+    foreach($orders as $o){
+      $oJSON .= "{";
+      $oJSON .= "id:\"".$o['ID']."\",";
+      $oJSON .= "name:\"".$o['name']."\"";
+      $oJSON .= "},";
+    }
+    $oJSON = substr($oJSON,0,-1);
+    $ret .= $oJSON;
+    $ret .= "]";
+    return $ret;
+  }
+  
+  function getProjectDeliverable($pId){
+    $deliverable = new DeliverableItem();
+    $deliverables = $deliverable->getDeliverableItemsByProjectId($pId);
+    $ret = "[";
+    $oJSON = "";
+    foreach($deliverables as $o){
+      $oJSON .= "{";
+      $oJSON .= "id:\"".$o['ID']."\",";
+      $oJSON .= "name:\"".$o['name']."\"";
+      $oJSON .= "},";
+    }
+    $oJSON = substr($oJSON,0,-1);
+    $ret .= $oJSON;
+    $ret .= "]";
+    return $ret;
+  }
 
   function getProjectSubInfo($pId){
     $task = new task();
@@ -157,6 +209,37 @@ class JUtils{
     }
     return $ret;
   }
+
+  function getUploadedFileIds($data){
+    $arrFiles = explode(",",$data);
+    $fileIds = array();
+    foreach($arrFiles as $f){
+      $fileItem = explode(":",$f);
+      array_push($fileIds,$fileItem[0]);
+    }
+    return $fileIds;
+  }
+  
+  function getMyProjectSqlCondition($prefix="",$filedName="id"){
+    $userRole = $_SESSION['userRole'];
+    if($userRole == "1" || $userRole == "3"){
+      return "";
+    }
+    $project = new project();
+    $pIds = $project->getMyProjectIds($_SESSION['userid']);
+    $str= "";
+    foreach($pIds as $pId){
+      $str .= $pId.",";
+    }
+    if($str != ""){
+      $str = substr($str,0,-1);
+    }
+
+    $ret = " and $prefix.$filedName in (".$str.")";
+    return $ret;
+  }
+  
+  
 
 }
 ?>
