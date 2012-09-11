@@ -1,9 +1,10 @@
 {include file="header.tpl"  jsload = "ajax"  jsload1="tinymce" jsload3 = "lightbox"}
-{include file="tabsmenue-project.tpl" qualitystab = "active"}
+{include file="tabsmenue-desk.tpl" qualitystab = "active"}
 <script type="text/javascript" src="include/swfupload/swfupload.js"></script>
 <script type="text/javascript" src="include/swfupload/swfupload.queue.js"></script>
 <script type="text/javascript" src="include/js/fileprogress.js"></script>
 <script type="text/javascript" src="include/js/handlers.js"></script>
+<script type="text/javascript" src="include/js/quality.js"></script>
 <div id="content-left">
   <div id="content-left-in">
     <div class="msgs">
@@ -29,7 +30,7 @@
       {/literal}
 
 
-      <h1>{$projectname|truncate:45:"...":true}<span>/ {#quality#}</span></h1>
+      <h1> {#quality#}</span></h1>
 
       <div class="headline">
         <a href="javascript:void(0);" id="block_msgs_toggle" class="win_block" onclick = "toggleBlock('block_msgs');"></a>
@@ -43,6 +44,36 @@
         </h2>
       </div>
 
+
+      <div id="searchArea" class="block_in_wrapper block">
+        <form class="main">
+        <h1>{#filter#}</h1>
+            <div class="row">
+              <label for="project">{#project#}:</label>
+              <select name="criteriaProject" id="criteriaProject" onchange="onCriteriaProjectChange(this)"; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=project loop=$projects}
+                  <option value="{$projects[project].ID}">{$projects[project].name}</option>
+                {/section}
+              </select>
+            </div>
+
+            <div class="row">
+              <label for="customer">{#customer#}:</label>
+              <select name="criteriaCustomer" id="criteriaCustomer" onchange="onCriteriaCustomerChange(this)"; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=customer loop=$customers}
+                  <option value="{$customers[customer][0]}">{$customers[customer][0]}</option>
+                {/section}
+              </select>
+            </div>
+
+          </form>
+            <div class="clear_both"></div>
+      </div>
+
+
+
       <div id="block_msgs" class="block" >
 
         {*Add Message*}
@@ -51,72 +82,9 @@
           <div class="clear_both_b"></div>
         </div>
 
-        <div class="nosmooth" id="sm_msgs">
-
-          <table id="acc_msgs" cellpadding="0" cellspacing="0" border="0">
-            <thead>
-              <tr>
-                <th class="a"></th>
-                <th class="b">{#actionNo#}</th>
-                <th class="ce" style="text-align:right">{#issueDate#}&nbsp;&nbsp;</th>
-                <th class="de">{#acknowledgeBy#}</th>
-                <th class="e">{#lotQuantity#}</th>
-                <th class="tools"></th>
-              </tr>
-            </thead>
-
-            <tfoot>
-              <tr>
-                <td colspan="6"></td>
-              </tr>
-            </tfoot>
-
-            {section name=quality loop=$qualitys}
-
-            {*Color-Mix*}
-            {if $smarty.section.quality.index % 2 == 0}
-            <tbody class="color-a" id="q_{$qualitys[quality].ID}">
-            {else}
-            <tbody class="color-b" id="q_{$qualitys[quality].ID}">
-            {/if}
-              <tr>
-                <td>
-
-                </td>
-                <td>
-                  <div class="toggle-in">
-                  <span class="acc-toggle" onclick="javascript:accord_quality.activate($$('#block_msgs .accordion_toggle')[{$smarty.section.quality.index}]);toggleAccordeon('accord_quality',this);"></span>
-                    <a href="javascript:void(0);" title="{$qualitys[quality].action_no}" onclick='showQualityDetails("{$qualitys[quality].ID}")'>{$qualitys[quality].action_no|truncate:35:"...":true}</a>
-                  </div>
-                </td>
-                <td style="text-align:right">
-                    {$qualitys[quality].issue_date|truncate:"10":""}
-                  &nbsp;
-                </td>
-                <td>
-                  {$qualitys[quality].acknowledge_by}
-                  &nbsp;
-                </td>
-                <td>{$qualitys[quality].lot_quantity}</td>
-                <td class="tools">
-                </td>
-              </tr>
-
-              <tr class="acc">
-                <td colspan="6">
-                  <div class="accordion_toggle"></div>
-                  <div class="accordion_content">
-                    <div class="acc-in">
-                        {$qualitys[quality].action_no}
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-            {/section}
-
-            </table>
-          </div> {*smooth End*}
+        <div class="nosmooth" id="qualityTable">
+          {include file = "qualityTable.tpl"}
+        </div> {*smooth End*}
 
           <div class="tablemenue">
             <div class="tablemenue-in">
@@ -145,12 +113,21 @@
       <div id = "addQualityDetails" class="block_in_wrapper" style = "display:none;">
         <h2>{#addQualityDetails#}</h2>
         <form id="detailsForm" name="detailsForm"  method="post" action="managequality.php?action=saveDetails&pId={$project.ID}">
+
+        <div class="dlgRow">
+              <label for="project">{#project#}:</label>
+              <select name="addDetailsProject" id="addDetailsProject" onchange="onAddDetailsProjectChange(this)"; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=project loop=$projects}
+                  <option value="{$projects[project].ID}">{$projects[project].name}</option>
+                {/section}
+              </select>
+            </div>
+
           <div class="dlgRow">
             <label>{#quality#}</label>
             <select id="quality" name="quality">
-              {section name=q loop=$qualitys}
-              <option value="{$qualitys[q].ID}">{$qualitys[q].action_no}</option>
-              {/section}
+              <option value="-1" selected="selected">{#chooseone#}</option>
             </select>
           </div>
           <div class="dlgRow">
@@ -245,7 +222,7 @@
   </div> {*content-left-in END*}
 </div> {*content-left END*}
 <script>
-  var __projectId = {$project.ID};
+  var __projectId = "{$project.ID}";
   var __sesionId = "{$smarty.session.sessionId}";
   var __userId = "{$smarty.session.userid}";
 </script>

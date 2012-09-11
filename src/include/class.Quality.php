@@ -107,6 +107,25 @@ class Quality {
     }
   }
   
+  function filterQuality($projectId,$orderId,$customerName){
+    $projectId = (int)$projectId;
+    $orderId = (int) $orderId;
+    $customerName = mysql_escape_string($customerName);
+    $sql = "select q.* from quality q, projekte p where q.project = p.id";
+    if($projectId != -1){
+      $sql .= " and p.id = ".$projectId;
+    }
+    if($customerName != "-1"){
+      $sql .=" and p.customer_name = '$customerName' ";
+    }
+    $sel = mysql_query($sql);
+    $arrRet = array();
+    while($row = mysql_fetch_array($sel)){
+      array_push($arrRet,$row);
+    }
+    return $arrRet;
+  }
+  
   function update($id,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
     $id = (int) $id;
     $actionNo = mysql_escape_string($actionNo);

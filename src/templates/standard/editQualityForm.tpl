@@ -4,6 +4,17 @@
   <input type = "hidden" id="projectId" name = "projectId" value = "{$projectId}"></input>
   
 <div class="dlgRow">
+  <label for="project">{#project#}:</label>
+  <select name="project" id="project" onchange="onSelProjectChange(this)"; required = "1">
+    <option value="-1" selected="selected">{#chooseone#}</option>
+    {section name=project loop=$projects}
+      <option value="{$projects[project].ID}">{$projects[project].name}</option>
+    {/section}
+  </select>
+</div>
+
+
+<div class="dlgRow">
   <label style="">{#actionNo#}<span style="color:red">*</span></label>
   <input id="actionNo" name="actionNo" value = "{$quality.action_no}"></input>
  </div>

@@ -11,11 +11,14 @@ $action = getArrayVal($_POST, "action");
 if (!$action) {
   $action = getArrayVal($_GET, "action");
 }
-
+$jUtils = new JUtils();
 
 switch ($action) {
   case "showproject":
     $id = getArrayVal($_GET, "id");
+    if(!$id){
+      $id = -1;
+    }
     $orderId = getArrayVal($_GET,"orderId");
     if(!$orderId){
       $orderId = -1;
@@ -24,6 +27,12 @@ switch ($action) {
     $quality = new Quality();
     $pro = $myproject->getProject($id);
     $qualityList = $quality->getQualityByProjectId($id);
+    $projects = $jUtils->getAllProjects();
+    $template->assign("projects",$projects);
+    $customers = $jUtils->getAllCustomers();
+    $template->assign("customers",$customers);
+    $orders = $jUtils->getAllOrders();
+  $template->assign("orders",$orders);
     $projectname = $pro['name'];
     $template->assign("project", $pro);
     $template->assign("projectId", $id);
@@ -33,7 +42,7 @@ switch ($action) {
     $template->display("projectquality.tpl");
     break;
   case "saveDetails":
-    $projectId = getArrayVal($_GET, "pId");
+    $projectId = getArrayVal($_POST, "addDetailsProject");
     $quality = getArrayVal($_POST, "quality");
     $rejectDesc = getArrayVal($_POST, "rejectDesc");
     $quantity = getArrayVal($_POST, "quantity");
@@ -96,6 +105,10 @@ switch ($action) {
     $qId = getArrayVal($_POST,"qId");
     $orderId = getArrayVal($_POST,"orderId");
     $projectId = getArrayVal($_POST,"projectId");
+    $project = getArrayVal($_POST,"project");
+    if($project != -1){
+      $projectId = $project;
+    }
     $actionNo = getArrayVal($_POST, "actionNo");
     $issueDate = getArrayVal($_POST, "issueDate");
     $productNo = getArrayVal($_POST, "productNo");
@@ -122,6 +135,19 @@ switch ($action) {
     
     $loc = $url."managequality.php?action=showproject&id=$projectId&orderId=$orderId";
     header("Location: $loc");
+    break;
+  case "filterQuality":
+     $projectId = getArrayVal($_POST,"projectId");
+     $orderId = getArrayVal($_POST,"orderId");
+     $customerName = getArrayVal($_POST,"customerName");
+     $quality = new Quality();
+     $qualityList = $quality->filterQuality($projectId,$orderId,$customerName);
+     $template->assign("qualitys", $qualityList);
+     $template->display("qualityTable.tpl");
+    break;
+  case "getProjectQuality":
+    $id = getArrayVal($_POST, "id");
+    echo $jUtils->getQualitiesByProjectId($id);
     break;
   default:
     break;

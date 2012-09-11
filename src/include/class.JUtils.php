@@ -96,6 +96,23 @@ class JUtils{
     return $ret;
   }
   
+  function getQualitiesByProjectId($id){
+    $quality = new Quality();
+    $qualities = $quality->getQualityByProjectId($id);
+    $ret = "[";
+    $qJSON = "";
+    foreach($qualities as $q){
+      $qJSON .= "{";
+      $qJSON .= "id:\"".$q['ID']."\",";
+      $qJSON .= "name:\"".$q['action_no']."\"";
+      $qJSON .= "},";
+    }
+    $qJSON = substr($qJSON,0,-1);
+    $ret .= $qJSON;
+    $ret .= "]";
+    return $ret;
+  }
+  
   function getProjectOrders($pId){
     $order = new Order();
     $orders = $order->getOrders($pId);
