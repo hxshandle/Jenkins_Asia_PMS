@@ -36,6 +36,25 @@
           <a class="butn_link" style="cursor:pointer" onclick="resetDocuments('documentList','files');return false;">{#reset#}</a>
         </div>
       </div>
+
+      <div class="row">
+        <label style="" >{#qualityIssueNote#}</label>
+          <ul style="margin-left:140px">
+            {section name=qualitIssueNote loop = $qualityIssueNotes}
+            <li><input type="checkbox" value="{$qualityIssueNotes[qualitIssueNote].qualityId}" name="qualityIssueNote" style="width:auto;float:none">{$qualityIssueNotes[qualitIssueNote].action_no}</li>
+          {/section}
+         </ul>
+      </div>
+
+      <div class="row">
+        <label style="" >{#ECNNote#}</label>
+          <ul style="margin-left:140px">
+            {section name=ecn loop = $ecns}
+            <li><input type="checkbox" value="{$ecns[ecn].ecnId}" name="ecnNote" style="width:auto;float:none">{$ecns[ecn].name}</li>
+          {/section}
+         </ul>
+      </div>
+
       <!-- add new start-->
       <div class="row">
         <label style="" >{#customerPoNumber#}</label>
@@ -212,9 +231,17 @@
       </div>
       <div  style="margin:10px 0 0 0;float:right;padding:8px">
         <button id="dlgBtnSaveOrder1" type="submit">{#save#}</button>
+        <button id="dlgBtnSaveOrder1" type="submit">{#fulfilled#}</button>
+        <button id="dlgBtnSaveOrder1" type="submit">{#waiver#}</button>
         <a class="butn_link" onclick="window.close();">{#cancel#}</a>
       </div>
     </form>
   </div>
   <script src="/include/js/editOrderForm.js"></script>
+  <script>
+  function checkBtn(){
+    
+  }
+  </script>
+
 </body>

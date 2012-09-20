@@ -164,6 +164,8 @@ class JUtils{
       $taskJSON = substr($taskJSON,0,-1);
       $ret .= $taskJSON;
       $ret .= "]";
+    }else{
+      $ret .= "tasks:[]";
     }
     //end tasks
     //orders
@@ -182,6 +184,8 @@ class JUtils{
       $orderJSON = substr($orderJSON,0,-1);
       $ret .= $orderJSON;
       $ret .= "]";
+    }else{
+      $ret .= ",orders:[]";
     }
 
     //Quality
@@ -199,7 +203,28 @@ class JUtils{
       $qualityJSON = substr($qualityJSON,0,-1);
       $ret .= $qualityJSON;
       $ret .= "]";
+    }else{
+      $ret .= ",qualitys:[]";
     }
+    //ECN
+    $ecn = new EngineeringChangeNote();
+    $ecns = $ecn->getEcnsByProjectId($pId);
+    if(!empty($ecns)){
+      $ret .= ",ecns:[";
+      $ecnJSON=" ";
+      foreach( $ecns as $e){
+        $ecnJSON .= "{";
+        $ecnJSON .= "id:".$e['ID'].",";
+        $ecnJSON .= "name:"."\"".$e['name']."\"";
+        $ecnJSON .= "},";
+      }
+      $ecnJSON = substr($ecnJSON,0,-1);
+      $ret .= $ecnJSON;
+      $ret .= "]";
+    }else{
+      $ret .= ",ecns:[]";
+    }
+    
     $ret .= "}";
     return $ret;
     

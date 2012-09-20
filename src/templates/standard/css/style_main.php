@@ -182,6 +182,11 @@ ul {
 	list-style-type: none;
 }
 
+li{
+	padding:0;
+	margin:0;
+}
+
 td.message ul {
 	padding: 0 0 0 5px;
 	margin: 0 0 0 10px;

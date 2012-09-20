@@ -107,11 +107,22 @@ class EngineeringChangeNote {
     return $arrRet;
   }
   
-  function getEcnsByProjectId($id,$currentUserId){
+  function getEcnsByProjectId2($id,$currentUserId){
     $ecns = $this->getEcnByProjectId($id,$currentUserId);
     $ret = array();
     foreach ($ecns as $ecn) {
       array_push($ret, $ecn);
+    }
+    return $ret;
+  }
+  
+  function getEcnsByProjectId($id){
+    $id = (int) $id;
+    $ret = array();
+    $sql = "select * from engineering_change_note where project=$id";
+    $sel = mysql_query($sql);
+    while($row = mysql_fetch_array($sel)){
+      array_push($ret, $row);
     }
     return $ret;
   }

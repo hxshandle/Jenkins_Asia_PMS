@@ -22,6 +22,43 @@ class Order {
     mysql_query($sql);
     
   }
+  
+  function addQuality($orderId,$qualityIssueNote){
+    $orderId =(int) $orderId;
+    foreach($qualityIssueNote as $note){
+      $note = (int)$note;
+      $sql = "
+        INSERT INTO `order_qualitys`
+        (
+        `orderId`,
+        `qualityId`
+        )
+        VALUES
+        (
+        $orderId,
+        $note
+        )";
+      mysql_query($sql);
+    }
+  }
+  
+  function addECN($orderId,$ECNNote){
+    $orderId =(int) $orderId;
+    foreach($ECNNote as $note){
+      $note = (int)$note;
+      $sql = "INSERT INTO `jenkins_asia_uat`.`order_ecn`
+            (
+            `orderId`,
+            `ecnId`)
+            VALUES
+            (
+            $orderId,
+            $note
+            )
+            ";
+       mysql_query($sql);
+    }
+  }
   /**
    *
    * @param type $orderId
@@ -376,6 +413,28 @@ class Order {
       array_push($arrRet,$row);
     }
     return $arrRet;
+  }
+  
+  function getOrderTrackedQualities($orderId){
+    $orderId = (int) $orderId;
+    $sql = "select o.*,q.action_no from order_qualitys o,quality q where o.qualityId = q.id and o.orderId = $orderId";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      array_push($ret,$row);
+    }
+    return $ret;
+  }
+  
+  function getOrderTrackedECNs($orderId){
+    $orderId = (int) $orderId;
+    $sql = "select o.*,ecn.name from order_ecn o, engineering_change_note ecn where o.ecnId = ecn.id and o.orderId = $orderId";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      array_push($ret,$row);
+    }
+    return $ret;
   }
   
   function getOrderAttachment($orderId){

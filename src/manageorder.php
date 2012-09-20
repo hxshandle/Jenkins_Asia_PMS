@@ -32,6 +32,8 @@ case "addOrder":
   $files = getArrayVal($_POST, "files");
   $deliveryDateOne = getArrayVal($_POST, "newDeliveryDateOne");
   $deliveryDateTwo = getArrayVal($_POST, "newDeliveryDateTwo");
+  $qualityIssueNote = getArrayVal($_POST, "qualityIssueNote");
+  $ECNNote = getArrayVal($_POST, "ECNNote");
   $arrFiles = explode(",",$files);
   $fileIds = array();
   foreach($arrFiles as $f){
@@ -43,6 +45,8 @@ case "addOrder":
   $orderId = $order->add($orderName, $projectId, $orderQuantity, $orderDesc, $orderTime, $st,$customerPoNumber,$attachment1,$deliveryDateOne,$deliveryDateTwo);
   if($orderId){
     $order->attachDocument($orderId,$fileIds);
+    $order->addQuality($orderId,$qualityIssueNote);
+    $order->addECN($orderId,$ECNNote);
   }
   $loc = $url . "manageorder.php?action=myorder";
   header("Location: $loc");
@@ -63,6 +67,10 @@ case "editOrderDlg":
   $template->assign("status", Status::getStatusByType("order1"));
   $template->assign("orderStatus", Status::getStatusByType("order"));
   $template->assign("order", $orderItem);
+  $orderQualitys = $order->getOrderTrackedQualities($orderId);
+  $orderECNs = $order->getOrderTrackedECNs($orderId);
+  $template->assign("qualityIssueNotes", $orderQualitys);
+  $template->assign("ecns", $orderECNs);
   $template->display("editOrderForm.tpl");
   break;
 case "editOrder":

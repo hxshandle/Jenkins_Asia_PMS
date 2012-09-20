@@ -155,3 +155,22 @@ ALTER TABLE `engineering_change_note` ADD COLUMN `order` INT(10) NULL  AFTER `de
 
 ALTER TABLE `document_info` ADD COLUMN `ecn` INT(10) NULL DEFAULT -1  AFTER `insert_date` ;
 
+
+CREATE  TABLE `order_qualitys` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `orderId` INT(10) NOT NULL ,
+  `qualityId` INT(10) NOT NULL ,
+  `isFinish` INT(1) NOT NULL DEFAULT -1 ,
+  PRIMARY KEY (`ID`) );
+
+
+CREATE  TABLE `order_ecn` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `orderId` INT(10) NOT NULL ,
+  `ecnId` INT(10) NOT NULL ,
+  `isFinished` INT(1) NOT NULL DEFAULT -1 ,
+  PRIMARY KEY (`ID`) );
+
+
+
+
