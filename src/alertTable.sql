@@ -172,5 +172,9 @@ CREATE  TABLE `order_ecn` (
   PRIMARY KEY (`ID`) );
 
 
+ALTER TABLE `order` ADD COLUMN `waiverDesc` LONGTEXT NULL  AFTER `delivery_status_two` , ADD COLUMN `isFulfilled` INT(1) NULL DEFAULT -1  AFTER `waiverDesc` ;
+
+
+
 
 

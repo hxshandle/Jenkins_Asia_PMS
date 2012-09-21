@@ -290,14 +290,27 @@ class Order {
     return $arrRet;
   }
   function updateOrderQualityNotes($orderId,$orderQualityNotes){
+    if(!$orderQualityNotes){
+      return;
+    }
     $orderId = (int) $orderId;
     foreach($orderQualityNotes as $note){
-
+      $qualityId = (int) $note;
+      $sql = "update order_qualitys set isFinish = 1 where orderId = $orderId and qualityId = $qualityId";
+      $upd = mysql_query($sql);
     }
   }
 
   function updateOrderECNs($orderId,$orderECNs){
+    if(!$orderECNs){
+      return;
+    }
     $orderId = (int) $orderId;
+    foreach($orderECNs as $note){
+      $ecnId = (int) $note;
+      $sql = "update order_ecn set isFinish = 1 where orderId = $orderId and ecnId = $ecnId";
+      $upd = mysql_query($sql);
+    }
   }
 
 
@@ -307,8 +320,7 @@ class Order {
                         $paymentOneSchedule,$paymentOneStatus,$paymentOneAttachment,$paymentTwoSchedule,
                         $paymentTwoStatus,$paymentTwoAttachment,$paymentThreeSchedule,$paymentThreeStatus,
                         $paymentThreeAttachment,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
-                        $deliveryDateTwo,$deliveryStatus2){
-    $sql1="";
+                        $deliveryDateTwo,$deliveryStatus2,$waiverDesc = "",$isFulfilled=-1){
     $id = (int) $orderId;
     $desc = mysql_escape_string($orderDesc);
     $jenkinsPoNumber = mysql_escape_string($jenkinsPoNumber);
@@ -330,6 +342,8 @@ class Order {
     $deliveryDateTwo = mysql_escape_string($deliveryDateTwo);
     $deliveryStatusOne = (int)$deliveryStatus1;
     $deliveryStatusTwo = (int)$deliveryStatus2;
+    $waiverDesc = mysql_escape_string($waiverDesc);
+    $isFulfilled = (int) $isFulfilled;
     $sql = "update `order` set `desc`='$desc',end_time='$orderTime',jenkins_po_number='$jenkinsPoNumber',
             factory='$factory',terms='$terms',account_payment='$accountPayment',
             customer_model_number='$customerModelNumber',customer_part_number='$customerPartNumber',
@@ -340,7 +354,9 @@ class Order {
             payment_three_schedule='$paymentThreeSchedule',payment_three_status=$paymentThreeStatus,
             final_total_amount_received='$finalTotalAmountReceived',
             delivery_date_one='$deliveryDateOne',delivery_date_two='$deliveryDateTwo',
-            delivery_status_one=$deliveryStatusOne,delivery_status_two=$deliveryStatusTwo ".$sql1. " where ID = $id";
+            waiverDesc = '$waiverDesc',
+            isFulfilled = $isFulfilled,
+            delivery_status_one=$deliveryStatusOne,delivery_status_two=$deliveryStatusTwo  where ID = $id";
     $upd = mysql_query($sql);
     if($upd){
       if(!empty($attachment1)){

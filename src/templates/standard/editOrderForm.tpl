@@ -41,7 +41,7 @@
         <label style="" >{#qualityIssueNote#}</label>
           <ul style="margin-left:140px">
             {section name=qualitIssueNote loop = $qualityIssueNotes}
-            <li><input type="checkbox" value="{$qualityIssueNotes[qualitIssueNote].qualityId}" name="qualityIssueNote[]" style="width:auto;float:none">{$qualityIssueNotes[qualitIssueNote].action_no}</li>
+            <li><input type="checkbox" {if $qualityIssueNotes[qualitIssueNote].isFinish == 1} checked='true' {/if} value="{$qualityIssueNotes[qualitIssueNote].qualityId}" name="qualityIssueNote[]" onchange="checkBtn()" style="width:auto;float:none">{$qualityIssueNotes[qualitIssueNote].action_no}</li>
           {/section}
          </ul>
       </div>
@@ -50,7 +50,7 @@
         <label style="" >{#ECNNote#}</label>
           <ul style="margin-left:140px">
             {section name=ecn loop = $ecns}
-            <li><input type="checkbox" value="{$ecns[ecn].ecnId}" name="ecnNote[]" style="width:auto;float:none">{$ecns[ecn].name}</li>
+            <li><input type="checkbox" onchange="checkBtn()" value="{$ecns[ecn].ecnId}" name="ecnNote[]" style="width:auto;float:none">{$ecns[ecn].name}</li>
           {/section}
          </ul>
       </div>
@@ -229,16 +229,25 @@
         <label style="">{#orderdesc#}</label>
         <textarea id="orderDesc" name="orderDesc">{$order.desc}</textarea>
       </div>
+      <div class="row" {if $order.waiverDesc == ""}style="display:none" {/if} id="waiverRow">
+        <label style="">{#waiverDesc#}</label>
+        <textarea id="waiverDesc" name="waiverDesc">{$order.waiverDesc}</textarea>
+      </div>
+      <input type="hidden" id = "fulfilled" name = "fulfilled" value ="{$order.isFulfilled}" />
       <div  style="margin:10px 0 0 0;float:right;padding:8px">
         <button id="dlgBtnSaveOrder1" type="submit">{#save#}</button>
-        <button id="dlgBtnSaveOrder2" type="submit">{#fulfilled#}</button>
-        <button id="dlgBtnSaveOrder3" type="submit">{#waiver#}</button>
+        <button id="dlgBtnSaveOrder2" type="submit" onclick="setFulfilled()">{#fulfilled#}</button>
+        <a  class="butn_link" id="dlgBtnSaveOrder3" onclick="showWaiverDesc()">{#waiver#}</a>
         <a class="butn_link" onclick="window.close();">{#cancel#}</a>
       </div>
     </form>
   </div>
   <script src="/include/js/editOrderForm.js"></script>
+  {literal}
   <script>
+  function showWaiverDesc(){
+    $('waiverRow').style.display="block";
+  }
   function checkBtn(){
     var qualities = $$('input[type=checkbox]');
     var quality = null;
@@ -249,14 +258,20 @@
         isAllChecked = false;
       }
     }
-    if(isAllChecked){
-      $$('dlgBtnSaveOrder2').disabled = false;
+    if(!isAllChecked){
+      $$('#dlgBtnSaveOrder2')[0].disabled = true;
+    }else{
+      $$('#dlgBtnSaveOrder2')[0].disabled = false;
     }
+  }
+
+  function setFulfilled(){
+    $('fulfilled').value = "1";
   }
   document.observe("dom:loaded", function() {
       checkBtn();
    });
 
   </script>
-
+{/literal}
 </body>

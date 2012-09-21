@@ -101,6 +101,11 @@ case "editOrder":
   $deliveryDateTwo = getArrayVal($_POST, "deliveryDateTwo");
   $deliveryStatus2 = getArrayVal($_POST, "deliveryStatus2");
   $orderQualityNotes = getArrayVal($_POST,"qualityIssueNote");
+  $isFulfilled = getArrayVal($_POST,"fulfilled");
+  $waiverDesc = getArrayVal($_POST, "waiverDesc");
+  if(!$waiverDesc){
+    $waiverDesc = "";
+  }
   $orderECNs = getArrayVal($_POST,"ecnNote");
   $docs = getArrayVal($_POST,"files");
   $arrFiles = $jUtils->getUploadedFileIds($docs);
@@ -118,7 +123,7 @@ case "editOrder":
                       $paymentOneSchedule,$paymentOneStatus,$arrP1Files,$paymentTwoSchedule,
                       $paymentTwoStatus,$arrP2Files,$paymentThreeSchedule,$paymentThreeStatus,
                       $arrP3Files,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
-                      $deliveryDateTwo,$deliveryStatus2);
+                      $deliveryDateTwo,$deliveryStatus2,$waiverDesc,$isFulfilled);
   if($upd){
     $order->updateOrderQualityNotes($orderId,$orderQualityNotes);
     $order->updateOrderECNs($orderId,$orderECNs);
