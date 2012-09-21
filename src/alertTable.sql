@@ -161,7 +161,7 @@ CREATE  TABLE `order_qualitys` (
   `orderId` INT(10) NOT NULL ,
   `qualityId` INT(10) NOT NULL ,
   `isFinish` INT(1) NOT NULL DEFAULT -1 ,
-  PRIMARY KEY (`ID`) );
+  PRIMARY KEY (`ID`) )ENGINE=MyISAM;
 
 
 CREATE  TABLE `order_ecn` (
@@ -169,7 +169,7 @@ CREATE  TABLE `order_ecn` (
   `orderId` INT(10) NOT NULL ,
   `ecnId` INT(10) NOT NULL ,
   `isFinished` INT(1) NOT NULL DEFAULT -1 ,
-  PRIMARY KEY (`ID`) );
+  PRIMARY KEY (`ID`) )ENGINE=MyISAM;
 
 
 ALTER TABLE `order` ADD COLUMN `waiverDesc` LONGTEXT NULL  AFTER `delivery_status_two` , ADD COLUMN `isFulfilled` INT(1) NULL DEFAULT -1  AFTER `waiverDesc` ;

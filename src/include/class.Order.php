@@ -308,7 +308,7 @@ class Order {
     $orderId = (int) $orderId;
     foreach($orderECNs as $note){
       $ecnId = (int) $note;
-      $sql = "update order_ecn set isFinish = 1 where orderId = $orderId and ecnId = $ecnId";
+      $sql = "update order_ecn set isFinished = 1 where orderId = $orderId and ecnId = $ecnId";
       $upd = mysql_query($sql);
     }
   }

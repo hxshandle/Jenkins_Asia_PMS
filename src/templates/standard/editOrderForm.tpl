@@ -50,7 +50,7 @@
         <label style="" >{#ECNNote#}</label>
           <ul style="margin-left:140px">
             {section name=ecn loop = $ecns}
-            <li><input type="checkbox" onchange="checkBtn()" value="{$ecns[ecn].ecnId}" name="ecnNote[]" style="width:auto;float:none">{$ecns[ecn].name}</li>
+            <li><input type="checkbox" onchange="checkBtn()"{if $ecns[ecn].isFinished == 1} checked='true' {/if} value="{$ecns[ecn].ecnId}" name="ecnNote[]" style="width:auto;float:none">{$ecns[ecn].name}</li>
           {/section}
          </ul>
       </div>
