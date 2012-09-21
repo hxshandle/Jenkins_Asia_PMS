@@ -289,6 +289,18 @@ class Order {
     }
     return $arrRet;
   }
+  function updateOrderQualityNotes($orderId,$orderQualityNotes){
+    $orderId = (int) $orderId;
+    foreach($orderQualityNotes as $note){
+
+    }
+  }
+
+  function updateOrderECNs($orderId,$orderECNs){
+    $orderId = (int) $orderId;
+  }
+
+
   function updateOrder($orderId, $orderTime, $orderDesc,
                         $attachment1, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
                         $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,

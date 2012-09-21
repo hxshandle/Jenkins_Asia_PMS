@@ -100,6 +100,8 @@ case "editOrder":
   $deliveryStatus1 = getArrayVal($_POST, "deliveryStatus1");
   $deliveryDateTwo = getArrayVal($_POST, "deliveryDateTwo");
   $deliveryStatus2 = getArrayVal($_POST, "deliveryStatus2");
+  $orderQualityNotes = getArrayVal($_POST,"qualityIssueNote");
+  $orderECNs = getArrayVal($_POST,"ecnNote");
   $docs = getArrayVal($_POST,"files");
   $arrFiles = $jUtils->getUploadedFileIds($docs);
   $paymentOneAttachment = getArrayVal($_POST,"paymentfiles1");
@@ -110,13 +112,17 @@ case "editOrder":
   $arrP3Files = $jUtils->getUploadedFileIds($paymentThreeAttachment);
 
   $order = new Order();
-  $orderId = $order->updateOrder($orderId, $orderTime, $orderDesc,
+  $upd = $order->updateOrder($orderId, $orderTime, $orderDesc,
                       $arrFiles, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
                       $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                       $paymentOneSchedule,$paymentOneStatus,$arrP1Files,$paymentTwoSchedule,
                       $paymentTwoStatus,$arrP2Files,$paymentThreeSchedule,$paymentThreeStatus,
                       $arrP3Files,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
                       $deliveryDateTwo,$deliveryStatus2);
+  if($upd){
+    $order->updateOrderQualityNotes($orderId,$orderQualityNotes);
+    $order->updateOrderECNs($orderId,$orderECNs);
+  }
   $template->display("editOrderFormSuccess.tpl");
   break;
 case "showOrderSubInfo":

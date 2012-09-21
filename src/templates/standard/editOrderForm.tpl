@@ -41,7 +41,7 @@
         <label style="" >{#qualityIssueNote#}</label>
           <ul style="margin-left:140px">
             {section name=qualitIssueNote loop = $qualityIssueNotes}
-            <li><input type="checkbox" value="{$qualityIssueNotes[qualitIssueNote].qualityId}" name="qualityIssueNote" style="width:auto;float:none">{$qualityIssueNotes[qualitIssueNote].action_no}</li>
+            <li><input type="checkbox" value="{$qualityIssueNotes[qualitIssueNote].qualityId}" name="qualityIssueNote[]" style="width:auto;float:none">{$qualityIssueNotes[qualitIssueNote].action_no}</li>
           {/section}
          </ul>
       </div>
@@ -50,7 +50,7 @@
         <label style="" >{#ECNNote#}</label>
           <ul style="margin-left:140px">
             {section name=ecn loop = $ecns}
-            <li><input type="checkbox" value="{$ecns[ecn].ecnId}" name="ecnNote" style="width:auto;float:none">{$ecns[ecn].name}</li>
+            <li><input type="checkbox" value="{$ecns[ecn].ecnId}" name="ecnNote[]" style="width:auto;float:none">{$ecns[ecn].name}</li>
           {/section}
          </ul>
       </div>
@@ -231,8 +231,8 @@
       </div>
       <div  style="margin:10px 0 0 0;float:right;padding:8px">
         <button id="dlgBtnSaveOrder1" type="submit">{#save#}</button>
-        <button id="dlgBtnSaveOrder1" type="submit">{#fulfilled#}</button>
-        <button id="dlgBtnSaveOrder1" type="submit">{#waiver#}</button>
+        <button id="dlgBtnSaveOrder2" type="submit">{#fulfilled#}</button>
+        <button id="dlgBtnSaveOrder3" type="submit">{#waiver#}</button>
         <a class="butn_link" onclick="window.close();">{#cancel#}</a>
       </div>
     </form>
@@ -240,8 +240,23 @@
   <script src="/include/js/editOrderForm.js"></script>
   <script>
   function checkBtn(){
-    
+    var qualities = $$('input[type=checkbox]');
+    var quality = null;
+    var isAllChecked=true;
+    for(var i = 0 ; i<qualities.size();i++){
+      quality = qualities[i];
+      if(!quality.checked){
+        isAllChecked = false;
+      }
+    }
+    if(isAllChecked){
+      $$('dlgBtnSaveOrder2').disabled = false;
+    }
   }
+  document.observe("dom:loaded", function() {
+      checkBtn();
+   });
+
   </script>
 
 </body>
