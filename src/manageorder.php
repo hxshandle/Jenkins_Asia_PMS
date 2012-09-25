@@ -34,6 +34,7 @@ case "addOrder":
   $deliveryDateTwo = getArrayVal($_POST, "newDeliveryDateTwo");
   $qualityIssueNote = getArrayVal($_POST, "qualityIssueNote");
   $ECNNote = getArrayVal($_POST, "ECNNote");
+  $compliance = getArrayVal($_POST,"compliance");
   $arrFiles = explode(",",$files);
   $fileIds = array();
   foreach($arrFiles as $f){
@@ -47,6 +48,7 @@ case "addOrder":
     $order->attachDocument($orderId,$fileIds);
     $order->addQuality($orderId,$qualityIssueNote);
     $order->addECN($orderId,$ECNNote);
+    $order->addCompliance($orderId,$compliance);
   }
   $loc = $url . "manageorder.php?action=myorder";
   header("Location: $loc");
@@ -71,6 +73,8 @@ case "editOrderDlg":
   $orderECNs = $order->getOrderTrackedECNs($orderId);
   $template->assign("qualityIssueNotes", $orderQualitys);
   $template->assign("ecns", $orderECNs);
+  $compliances = $order->getOrderCompliances($orderId);
+  $template->assign("compliances",$compliances);
   $template->display("editOrderForm.tpl");
   break;
 case "editOrder":
@@ -127,6 +131,12 @@ case "editOrder":
   if($upd){
     $order->updateOrderQualityNotes($orderId,$orderQualityNotes);
     $order->updateOrderECNs($orderId,$orderECNs);
+    $compliances = $order->getOrderCompliances($orderId);
+    foreach($compliances as $comp){
+      $type = "comp".$comp['ID'];
+      $field = getArrayVal($_POST, $type);
+      $order->updateOrderCompliance($comp['ID'],$field);
+    }
   }
   $template->display("editOrderFormSuccess.tpl");
   break;

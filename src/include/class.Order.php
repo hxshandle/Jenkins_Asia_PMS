@@ -42,11 +42,28 @@ class Order {
     }
   }
   
+  function addCompliance($orderId,$compliance){
+    $orderId = (int) $orderId;
+    foreach($compliance as $c){
+      $c = mysql_escape_string($c);
+      $sql = "INSERT INTO `order_compliance`
+              (
+              `orderId`,
+              `complianceType`)
+              VALUES
+              (
+              $orderId,
+              '$c'
+              )";
+      mysql_query($sql);
+    }
+  }
+  
   function addECN($orderId,$ECNNote){
     $orderId =(int) $orderId;
     foreach($ECNNote as $note){
       $note = (int)$note;
-      $sql = "INSERT INTO `jenkins_asia_uat`.`order_ecn`
+      $sql = "INSERT INTO `order_ecn`
             (
             `orderId`,
             `ecnId`)
@@ -300,6 +317,7 @@ class Order {
       $upd = mysql_query($sql);
     }
   }
+  
 
   function updateOrderECNs($orderId,$orderECNs){
     if(!$orderECNs){
@@ -457,6 +475,27 @@ class Order {
   function getOrderTrackedECNs($orderId){
     $orderId = (int) $orderId;
     $sql = "select o.*,ecn.name from order_ecn o, engineering_change_note ecn where o.ecnId = ecn.id and o.orderId = $orderId";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      array_push($ret,$row);
+    }
+    return $ret;
+  }
+  
+  function updateOrderCompliance($compId,$field){
+    $compId = (int) $compId;
+    $field = mysql_escape_string($field);
+    $sql = "UPDATE `order_compliance`
+            SET
+            `complianceField` = '$field'
+            WHERE ID = $compId";
+    $upd = mysql_query($sql);
+  }
+  
+  function getOrderCompliances($orderId){
+    $orderId = (int) $orderId;
+    $sql = "select * from order_compliance where orderId = $orderId";
     $sel = mysql_query($sql);
     $ret = array();
     while($row = mysql_fetch_array($sel)){

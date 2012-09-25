@@ -83,6 +83,23 @@
         </select>
       </div>
 
+      <div class="row">
+        <label for="compliance" >{#compliance#}</label>
+        <select name = "compliance[]"   id="compliance" multiple="multiple" style = "height:100px;" exclude = "-1" realname = "{#compliance#}">
+          <option value = "Customer Quality Test/Inspection">Customer Quality Test/Inspection</option>
+          <option value = "Third Party Test/Inspection">Third Party Test/Inspection</option>
+          <option value = "Jenkins Quality Inspection">Jenkins Quality Inspection</option>
+          <option value = "ETL">ETL</option>
+          <option value = "CE">CE</option>
+          <option value = "FCC">FCC</option>
+          <option value = "ISF">ISF</option>
+          <option value = "CPSC">CPSC</option>
+          <option value = "ROHS">ROHS</option>
+          <option value = "REACH">REACH</option>
+        </select>
+      </div>
+
+
 
 
       <div class="row-butn-bottom">

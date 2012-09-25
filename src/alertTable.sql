@@ -175,6 +175,13 @@ CREATE  TABLE `order_ecn` (
 ALTER TABLE `order` ADD COLUMN `waiverDesc` LONGTEXT NULL  AFTER `delivery_status_two` , ADD COLUMN `isFulfilled` INT(1) NULL DEFAULT -1  AFTER `waiverDesc` ;
 
 
+CREATE  TABLE `order_compliance` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `orderId` VARCHAR(45) NOT NULL ,
+  `complianceType` VARCHAR(255) NOT NULL ,
+  `complianceField` LONGTEXT NULL ,
+  PRIMARY KEY (`ID`) )ENGINE=MyISAM;
+
 
 
 

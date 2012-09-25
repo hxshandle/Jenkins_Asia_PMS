@@ -234,12 +234,19 @@
         <textarea id="waiverDesc" name="waiverDesc">{$order.waiverDesc}</textarea>
       </div>
       <input type="hidden" id = "fulfilled" name = "fulfilled" value ="{$order.isFulfilled}" />
+      {section name=optDesc loop = $compliances}
+      <div class="row">
+        <label>{$compliances[optDesc].complianceType}</label>
+        <textarea name="comp{$compliances[optDesc].ID}">{$compliances[optDesc].complianceField}</textarea>
+      </div>
+      {/section}
       <div  style="margin:10px 0 0 0;float:right;padding:8px">
         <button id="dlgBtnSaveOrder1" type="submit">{#save#}</button>
         <button id="dlgBtnSaveOrder2" type="submit" onclick="setFulfilled()">{#fulfilled#}</button>
         <a  class="butn_link" id="dlgBtnSaveOrder3" onclick="showWaiverDesc()">{#waiver#}</a>
         <a class="butn_link" onclick="window.close();">{#cancel#}</a>
       </div>
+      
     </form>
   </div>
   <script src="/include/js/editOrderForm.js"></script>
