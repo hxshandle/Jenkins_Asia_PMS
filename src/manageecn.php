@@ -26,13 +26,12 @@ case "addEcn":
   $projectId = getArrayVal($_POST, "project");
   $orderId = getArrayVal($_POST, "selOrder");
   $qualityId = getArrayVal($_POST, "selQuality");
-  $deliverableItemId = getArrayVal($_POST, "targetFOBDeliverable");
   $newEcnName = getArrayVal($_POST, "newEcnName");
   $desc = getArrayVal($_POST, "newEcnDescription");
   $ecn = new EngineeringChangeNote();
   $deliverable = new DeliverableItem();
   $d = $deliverable->getItem($deliverableItemId);
-  $ecn->add($newEcnName, $desc, $projectId, $d['phase'], $deliverableItemId,$orderId,$qualityId);
+  $ecn->add($newEcnName, $desc, $projectId, $d['phase'], -1,$orderId,$qualityId);
   $loc = $url."manageecn.php?action=showecn";
   header("Location: $loc");
   break;
@@ -57,6 +56,12 @@ case "approveOrReject":
   $loc = $url."manageecn.php?action=showecn";
   header("Location: $loc");
   break;
+case "viewUploadFile":
+  $ecnId = getArrayVal($_GET, "id");
+  $doc = new Document();
+  $documents = $doc->getDocumentsByECNId($ecnId);
+  $template->assign("documents",$documents);
+  $template->display("viewECNFile.tpl");
 }
 
 

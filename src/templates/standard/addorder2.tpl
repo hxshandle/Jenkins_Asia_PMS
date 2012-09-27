@@ -37,16 +37,25 @@
       <div class="row" >
         <label style="">{#ordertime#}</label>
         <input id="newOrderTime" name="newOrderTime"></input>
+        <div class="datepick">
+          <div id = "orderDatepicker" class="picker" style = "display:none;"></div>
+        </div>
       </div>
     
       <div class="row">
         <label style="">{#deliverydateone#}</label>
         <input id="newDeliveryDateOne" name="newDeliveryDateOne"></input>
+        <div class="datepick">
+          <div id = "DeliveryDateOneDatepicker" class="picker" style = "display:none;"></div>
+        </div>
       </div>
 
       <div class="row">
         <label style="">{#deliverydatetwo#}</label>
         <input id="newDeliveryDateTwo" name="newDeliveryDateTwo"></input>
+        <div class="datepick">
+          <div id = "DeliveryDateTwoDatepicker" class="picker" style = "display:none;"></div>
+        </div>
       </div>
 
       <div class="row">
@@ -112,3 +121,28 @@
   </form>
 </div>
 <script type = "text/javascript" src = "include/js/addOrder.js" ></script>
+<script>
+{literal}
+  function bindDateOPicker(relateTo,target){
+{/literal}
+    
+    theCal = new calendar({$theM},{$theY});
+    theCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+    theCal.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+    theCal.relateTo = relateTo;
+    theCal.dateFormat = "{$settings.dateformat}";
+    theCal.getDatepicker(target);
+
+{literal}
+  }
+
+  
+  (function(){
+    bindDateOPicker('newOrderTime','orderDatepicker');
+    bindDateOPicker('newDeliveryDateOne','DeliveryDateOneDatepicker');
+    bindDateOPicker('newDeliveryDateTwo','DeliveryDateTwoDatepicker');
+    
+    
+  })();
+{/literal}
+</script>

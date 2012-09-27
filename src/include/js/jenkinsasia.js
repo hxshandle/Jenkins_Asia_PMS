@@ -56,6 +56,10 @@ J.onUploadSuccess = function(file, serverData, responseReceived){
 
 J.EmptyFunction = function(){}
 
+J.bindDatePicker = function(){
+  
+}
+
 
 J.initSwfUploader=function(url,param,btnHolder,cancelBtnId,callBackFunc,queueCompleteHandler,progressHoder){
     cancelBtnId = cancelBtnId || "btnCancel";

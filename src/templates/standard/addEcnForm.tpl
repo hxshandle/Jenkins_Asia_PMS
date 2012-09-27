@@ -28,12 +28,7 @@
           
         </select>
       </div>
-      <div class="row">
-        <label >{#deliverable#}</label>
-           <select id = "targetFOBDeliverable" name="targetFOBDeliverable" class="currency">
-              <option value="-1" selected="selected">{#chooseone#}</option>
-          </select>
-      </div>
+
 
       <div class="row">
         <label  >{#ecnname#}</label>

@@ -68,7 +68,8 @@ case "selectDocuments":
     $ecnId = "-1";
   }
   $template->assign("ecnId",$ecnId);
-  $projects = $project->getProjects(1,100);
+  
+  $projects =$jUtils->getAllProjects();
   $template->assign("projects",$projects);
   $customers = $jUtils->getAllCustomers();
   $template->assign("customers",$customers);

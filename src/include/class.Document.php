@@ -88,8 +88,19 @@ class Document{
       array_push($ret,$info);
     }
     return $ret;
-    
-      
+  }
+  
+  
+  function getDocumentsByECNId($ecnId){
+    $ecnId = (int) $ecnId;
+    $sql = "select * from document_info where ecn = $ecnId";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      $info = $this->getDocumentInfo($row[0]);
+      array_push($ret,$info);
+    }
+    return $ret;
   }
 
   function getDocumentInfo($id){
