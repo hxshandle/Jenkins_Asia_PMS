@@ -48,13 +48,43 @@ function onAddDetailsProjectChange(p){
       });
 }
 
-function _buildSelOpts(opts,data){
+function _buildSelOpts(opts,data,needChoose){
   data = data || [];
   opts.length = 0;
-  opts.add(new Option(unescape(MSGS.chooseone),"-1"));
+  needChoose = needChoose == undefined ? true : needChoose;
+  if(needChoose){
+    opts.add(new Option(unescape(MSGS.chooseone),"-1"));  
+  }
   var dataRow;
   for ( var i=0;i<data.length;i++){
     dataRow = data[i];
     opts.add(new Option(dataRow.name,""+dataRow.id));
   }
+}
+
+
+function openEditQualityDlg(id){
+  var url = "managequality.php?action=showEditDlg&id="+id;
+  var win = window.open(url,'','height=500,width=1100,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
+}
+
+function onAddQualitySelProjectChange(el){
+  var val = el.value;
+  if(val == "-1"){
+    $("notify").options.length = 0;
+    return;
+  }
+
+  var theUrl = "manageprojectajax.php?action=getProjectNotifyList&id="+val;
+  new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              var data = eval("("+payload.responseText+")");
+              var opts = $("notify").options;
+              _buildSelOpts(opts,data,false);
+            }
+          }
+      });
+
 }

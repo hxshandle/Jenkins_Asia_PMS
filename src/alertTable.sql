@@ -183,5 +183,11 @@ CREATE  TABLE `order_compliance` (
   PRIMARY KEY (`ID`) )ENGINE=MyISAM;
 
 
+CREATE  TABLE `quality_notify` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `qualityId` INT(10) NOT NULL ,
+  `userId` INT(10) NOT NULL ,
+  PRIMARY KEY (`ID`) )ENGINE=MyISAM;
+
 
 

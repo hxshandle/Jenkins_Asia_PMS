@@ -1,6 +1,11 @@
-{config_load file=lng.conf section = "strings" scope="global" }
-<form id="editQuality" name="editQuality">
+{include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce" showheader="no"}
+<body style="background: url(/templates/standard/images/tables-projects-sechead.png) repeat scroll 0 0 transparent;">
+  <div class="msgs block_in_wrapper" >
+<form id="editQuality" name="editQuality" class="projects" method="post" action="managequality.php?action=saveQuality">
   <input type = "hidden" id="orderId" name = "orderId" value = "{$orderId}"></input>
+  <input type = "hidden" id="projectId" name = "projectId" value = "{$projectId}"></input>
+  
+
 <div class="dlgRow">
   <label style="">{#actionNo#}<span style="color:red">*</span></label>
   <input id="actionNo" name="actionNo" value = "{$quality.action_no}"></input>
@@ -8,7 +13,10 @@
 
 <div class="dlgRow">
   <label style="">{#issueDate#}<span style="color:red">*</span></label>
-  <input id="issueDate" name="issueDate" value = "{$quality.issue_date}"></input>
+  <input id="issueDate" name="issueDate" value = "{$quality.issue_date|truncate:"10":""}"></input>
+  <div class="datepick">
+    <div id = "issueDatePicker" class="picker" style = "display:none;"></div>
+  </div>
  </div>
 
  <div class="dlgRow">
@@ -68,7 +76,10 @@
  
 <div class="dlgRow">
   <label style="">{#acknowledgeDate#}</label>
-  <input id="acknowledgeDate" name="acknowledgeDate" value = "{$quality.acknowledge_date}"></input>
+  <input id="acknowledgeDate" name="acknowledgeDate" value = "{$quality.acknowledge_date|truncate:"10":""}"></input>
+  <div class="datepick">
+    <div id = "acknowledgeDatePicker" class="picker" style = "display:none;"></div>
+  </div>
 </div>
 
 <div class="dlgRow">
@@ -78,12 +89,49 @@
 
 <div class="dlgRow">
   <label style="">{#verificationDate#}</label>
-  <input id="verificationDate" name="verificationDate" value = "{$quality.verification_date}"></input>
+  <input id="verificationDate" name="verificationDate" value = "{$quality.verification_date|truncate:"10":""}"></input>
+  <div class="datepick">
+    <div id = "verificationDatePicker" class="picker" style = "display:none;"></div>
+  </div>
 </div>
-  <input type="hidden" id ="qMode" name="qMode" value = "{$mode}"></input>
-  <input type = "hidden" id ="qId" name="qId" value = "{$qId}"></input>
-</form>
+
+<div class="dlgRow">
+  <label style="">{#notify#}</label>
+  <select name = "notify[]" multiple="multiple" style = "height:80px;width:150px" id="notify">
+    {section name = m loop=$memberList}
+      <option value="{$memberList[m].id}" {if in_array($memberList[m].id, $notifyList)}selected = "selected"{/if}>{$memberList[m].name}</option>
+    {/section}
+  </select>
+</div>
+  <input type="hidden" id ="mode" name="mode" value = "update"></input>
+  <input type = "hidden" id ="qId" name="qId" value = "{$quality.ID}"></input>
 <div  style="margin:10px 0 0 0">
-  <button id="dlgBtnSaveQuality" onclick="saveQuality();">{#save#}</button>
+  <button id="dlgBtnSaveQuality" type="submit">{#save#}</button>
 </div>
+</form>
+
+<script>
+{literal}
+  function bindDateOPicker(relateTo,target){
+{/literal}
+    
+    theCal = new calendar({$theM},{$theY});
+    theCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+    theCal.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+    theCal.relateTo = relateTo;
+    theCal.dateFormat = "{$settings.dateformat}";
+    theCal.getDatepicker(target);
+
+{literal}
+  }
+  (function(){
+    bindDateOPicker('issueDate','issueDatePicker');
+    bindDateOPicker('acknowledgeDate','acknowledgeDatePicker');
+    bindDateOPicker('verificationDate','verificationDatePicker');
+  })();
+{/literal}
+</script>
+</div>
+</body>
+
 

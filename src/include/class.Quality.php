@@ -153,13 +153,13 @@ class Quality {
             SET
             `action_no` = '$actionNo',
             `issue_date` = '$issueDate',
-            `product_no` = '$productNo'},
+            `product_no` = '$productNo',
             `product_desc` = '$productDesc',
             `ship_no` = '$shipNo',
-            `lot_quantity` = lotQuantity,
-            `Sample_size` = sampleSize,
-            `defects` = defects,
-            `reject_rate` = rejectRate,
+            `lot_quantity` = $lotQuantity,
+            `Sample_size` = $sampleSize,
+            `defects` = $defects,
+            `reject_rate` = $rejectRate,
             `quantity_in_inventory` = '$quantityInInventory',
             `quantity_in_process` = '$quantityInProcess',
             `containment_desc` = '$containmentDesc',
@@ -177,6 +177,34 @@ class Quality {
     }
   }
   
+  function clearNotify($qualityId){
+    $qualityId = (int) $qualityId;
+    $sql = "DELETE FROM `quality_notify`
+            WHERE qualityId = $qualityId;";
+    $sel = mysql_query($sql);
+  }
+  
+function addNotifyList($qualityId,$userId){
+  $qualityId = (int) $qualityId;
+  $userId =(int) $userId;
+  $sql = "INSERT INTO `quality_notify`
+            (
+            `qualityId`,
+            `userId`)
+            VALUES
+            (
+            $qualityId,
+            $userId
+            )";
+  $ins = mysql_query($sql);
+  if($ins){
+    return mysql_insert_id();
+  }else{
+    return false;
+  }
+  
+}
+  
 function getQualityByProjectId($projectId){
   $projectId = (int) $projectId;
   $sql = "select * from quality where project=$projectId";
@@ -190,6 +218,17 @@ function getQualityByProjectId($projectId){
 
 function del($id){
     return $this->close($id);
+  }
+  
+  function getNotifyList($id){
+    $id = (int) $id;
+    $sql = "select * from quality_notify where qualityId = $id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row  = mysql_fetch_array($sel)){
+      array_push($ret, $row["userId"]);
+    }
+    return $ret;
   }
   
   function get($id){

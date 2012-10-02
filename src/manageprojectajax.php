@@ -1083,6 +1083,12 @@ switch ($action) {
     $ret = $jUtils->getProjectDeliverable($oId);
     echo $ret;
     break;
+  case "getProjectNotifyList":
+    $id = getArrayVal($_GET,"id");
+    $jUtils = new JUtils();
+    $ret = $jUtils->getProjectNotifyListJSON($id);
+    echo $ret;
+    break;
   default:
     break;
 }

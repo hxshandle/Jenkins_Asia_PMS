@@ -28,7 +28,7 @@
 {/if}
   <tr>
     <td>
-
+      <a class="butn_link" href="#" onclick='openEditQualityDlg("{$qualitys[quality].ID}")'>{#edit#}</a>
     </td>
     <td>
       <div class="toggle-in">

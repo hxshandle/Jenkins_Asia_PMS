@@ -125,12 +125,29 @@ switch ($action) {
     $acknowledgeDate = getArrayVal($_POST, "acknowledgeDate");
     $verifiedForClosureBy = getArrayVal($_POST, "verifiedForClosureBy");
     $verificationDate = getArrayVal($_POST, "verificationDate");
+    $notify = getArrayVal($_POST,"notify");
     $quality = new Quality();
     $ret = false;
     if($mode == "add"){
       $ret = $quality->add($projectId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1,$orderId);
+      if($ret){
+        foreach($notify as $n){
+          $quality->addNotifyList($ret,$n);
+        }
+      }
+      $jUtils->sendQualityMail($ret,$settings,true);
     }else{
         $ret = $quality->update($qId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
+        if($ret){
+        $quality->clearNotify($qId);
+        foreach($notify as $n){
+          $quality->addNotifyList($qId,$n);
+          }
+          $jUtils->sendQualityMail($qId,$settings,false);
+        }
+        
+        $template->display("successclose.tpl");
+        return;
     }
     
     $loc = $url."managequality.php?action=showproject&id=$projectId&orderId=$orderId";
@@ -149,6 +166,16 @@ switch ($action) {
     $id = getArrayVal($_POST, "id");
     echo $jUtils->getQualitiesByProjectId($id);
     break;
+  case "showEditDlg":
+    $id = getArrayVal($_GET, "id");
+    $quality = new Quality();
+    $q = $quality->get($id);
+    $template->assign("quality", $q);
+    $memberList = $jUtils->getProjectNotifyList($q['project']);
+    $template->assign("memberList",$memberList);
+    $notifyList = $quality->getNotifyList($id);
+    $template->assign("notifyList",$notifyList);
+    $template->display("editQualityDlg.tpl");
   default:
     break;
 }

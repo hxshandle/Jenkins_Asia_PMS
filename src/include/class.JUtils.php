@@ -229,6 +229,110 @@ class JUtils{
     return $ret;
     
   }
+  
+  function getQualityMailMsg($qualityId,$isNew){
+    $qualityId = (int) $qualityId;
+    $quality = new Quality();
+    $q = $quality->get($qualityId);
+    $projectId = $q["project"];
+    $project = new project();
+    $p = $project->getProject($projectId);
+    $msg = "";
+    $msg .= "Dear ".$mailTo.",<br/><br/>";
+    if($isNew){
+      $msg .="New quality issue note -".$q['action_no']." was created by ".$_SESSION["username"].".";
+    }else{
+      $msg .="Quality issue note - ".$q['action_no']." was updated by ".$_SESSION["username"].".";
+    }
+    $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
+
+    $msg .= "<b>Project<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$p['name']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Action No<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['action_no']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Issue Date<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['issue_date']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Product No<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['product_no']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Product Description<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['product_desc']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>PO/Ship No<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['ship_no']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Ship quantity<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['lot_quantity']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Sample size<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['Sample_size']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Defects<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['defects']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Reject rate<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['reject_rate']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Quantity In Inventory<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['quantity_in_inventory']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Quantity In Process<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['quantity_in_process']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>containment Desc<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['containment_desc']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Acknowledge By<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['acknowledge_by']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>acknowledge Date<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['acknowledge_date']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Verified for closure by<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['verified_for_closure_by']."</p>";
+    $msg .= "<hr/>";
+
+    $msg .= "<b>Verification date<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$q['verification_date']."</p>";
+    $msg .= "<hr/>";
+
+
+    $msg .= "</div>";
+    return $msg;
+  }
+  
+  function sendQualityMail($qualityId,$settings,$isNew = false) {
+    $qualityId = (int) $qualityId;
+    $sql = "select u.name,u.email from quality_notify qn, user u where qn.userId = u.id and qn.qualityId = $qualityId";
+    $sel = mysql_query($sql);
+    while($row = mysql_fetch_array($sel)){
+      $themail = new emailer($settings);
+      $msg = $this->getQualityMailMsg($qualityId,$isNew);
+      $subject = "JANUS notification - New quality issue";
+      if(!$isNew){
+        $subject="JANUS notification - Quality Issue updated";
+      }
+      $themail->send_mail($row["email"], $subject,$msg);
+    }
+  }
 
   function getAllProjects(){
     $project = new project();
@@ -279,6 +383,34 @@ class JUtils{
       array_push($fileIds,$fileItem[0]);
     }
     return $fileIds;
+  }
+  
+  
+  function getProjectNotifyList($projectId){
+    $projectId = (int) $projectId;
+    $sql = "select distinct(u.id),u.name from projekte_assigned pa, user u  where pa.projekt = $projectId and u.id=pa.user or u.role_type in (1,3);";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      array_push($ret,$row);
+    }
+    return $ret;
+  }
+  
+  function getProjectNotifyListJSON($projectId){
+    $data = $this->getProjectNotifyList($projectId);
+    $json = "[";
+    $nJson = "";
+    foreach($data as $e){
+      $nJson .= "{";
+      $nJson .= "id:".$e['id'].",";
+      $nJson .= "name:"."\"".$e['name']."\"";
+      $nJson .= "},";
+    }
+    $nJson = substr($nJson,0,-1);
+    $json .= $nJson;
+    $json .= "]";
+    return $json;
   }
   
   function getMyProjectSqlCondition($prefix="",$filedName="id"){
