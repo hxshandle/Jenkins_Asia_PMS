@@ -365,6 +365,7 @@ switch ($action) {
     $id = getArrayVal($_POST, "id");
     $assignto = getArrayVal($_POST, "assignto");
     $name = getArrayVal($_POST, "name");
+    $projectNo = getArrayVal($_POST, "projectNo");
     $desc = getArrayVal($_POST, "desc");
     $startDate = getArrayVal($_POST, "start");
     $endDate = getArrayVal($_POST, "endDate");
@@ -386,7 +387,7 @@ switch ($action) {
     $customerLeader = getArrayVal($_POST, "customerLeaderId");
     $supplierLeader = getArrayVal($_POST, "supplierLeaderId");
     $project = new Project();
-    $upd = $project->edit($id, $name, $desc, $projectStatus, $budget, $projectLevel, $projectPriority, $customer, $suppler, $targetFOB, $targetFOBCurrency, $forecastedAnnualQuality1, $forecastedAnnualQuality2, $forecastedAnnualQuality3, $customerLeader, $supplierLeader, $projectLeader, $startDate, $endDate);
+    $upd = $project->edit($id, $name,$projectNo, $desc, $projectStatus, $budget, $projectLevel, $projectPriority, $customer, $suppler, $targetFOB, $targetFOBCurrency, $forecastedAnnualQuality1, $forecastedAnnualQuality2, $forecastedAnnualQuality3, $customerLeader, $supplierLeader, $projectLeader, $startDate, $endDate);
     if ($upd) {
       echo "Ok";
     } else {

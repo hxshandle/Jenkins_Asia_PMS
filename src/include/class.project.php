@@ -135,8 +135,9 @@ class project {
     }
 
     
-    function edit($id,$name, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
+    function edit($id,$name, $projectNo,$desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
       $name = mysql_real_escape_string($name);
+      $projectNo = mysql_real_escape_string($projectNo);
       $desc = mysql_real_escape_string($desc);
       $budget = (float) $budget;
       $level =  mysql_real_escape_string($level);
@@ -158,6 +159,7 @@ class project {
       $sql = "UPDATE `projekte`
               SET
               `name` = '$name',
+              `project_no` = '$projectNo',
               `desc` = '$desc',
               `status` = $status,
               `budget` = $budget,
