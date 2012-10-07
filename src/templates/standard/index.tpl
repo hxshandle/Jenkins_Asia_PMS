@@ -24,7 +24,7 @@
 		<h1>{#desktop#}</h1>
 
 		{*Projects*}
-		{if $smarty.session.userRole != 7 && $smarty.session.userRole != 9}
+		{if $smarty.session.userRole != 7 && $smarty.session.userRole != 8 && $smarty.session.userRole != 9}
 			<div class="projects">
 				<div class="headline">
 					<a href="javascript:void(0);" id="projecthead_toggle" class="{$projectbar}" onclick = "toggleBlock('projecthead');"></a>
