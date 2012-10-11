@@ -11,7 +11,7 @@
 
 <div id="content-left">
   <div id="content-left-in">
-    <div class="document">z
+    <div class="document">
       <div class="projects">
         <div class="headline">
         <a id="documenthead_toggle" class="win_block" onclick="toggleBlock('documenthead');" href="javascript:void(0);"></a>

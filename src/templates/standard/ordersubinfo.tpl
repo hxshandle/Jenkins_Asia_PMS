@@ -37,7 +37,7 @@
     {/section}
   </ul>
   <div style="float:right;padding:8px;">
-    {if $userRole == "1" || $userRole == "6" || $userRole == "7" || $userRole == "8" ||$userRole == "9" }
+    {if 1==2 }
       <a class="butn_link" href = "/managequality.php?action=showproject&id={$order.project}&orderId={$order.ID}">{#addquality#}</a>
     {/if}
   </div>

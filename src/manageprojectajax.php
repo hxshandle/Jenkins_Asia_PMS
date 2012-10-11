@@ -481,6 +481,12 @@ switch ($action) {
       echo "Fail";
     }
     break;
+  case "getProjectNumber":
+    $id = getArrayVal($_GET, "id");
+    $project = new project();
+    $p = $project->getProject($id);
+    echo $p['project_no'];
+    break;
   case "editRejectRequest":
     $sampleRequestId = getArrayVal($_GET, "id");
     $sampleRequest = new SampleRequest();

@@ -1,5 +1,5 @@
 <div class="block_in_wrapper">
-  <h2>{#addOrder#}</h2>
+  <h2>{#addECN#}</h2>
   <form onsubmit="return validateCompleteForm(this);" action="manageecn.php?action=addEcn" method="post" class="main">
     <fieldset>
 

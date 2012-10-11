@@ -3,6 +3,7 @@
 
 function onSelProjectChange(p){
   getProjectOrders(p.value);
+  getProjectNumber(p.value);
   getProjectDeliverable(p.value);
 }
 
@@ -94,6 +95,19 @@ function getProjectOrders(id){
       }); 
 }
 
+function getProjectNumber(id){
+  var theUrl = "manageprojectajax.php?action=getProjectNumber&&id="+id;
+  new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              var val = payload.responseText+'-ECN-';
+              $('newEcnName').value = val;
+            }
+          }
+      }); 
+}
+
 
 function getProjectDeliverable(id){
   var theUrl = "manageprojectajax.php?action=getProjectDeliverable&&id="+id;
@@ -118,6 +132,9 @@ function uploadECNFile(id){
 
 function setSelectedDocuments(documents){
   var el = $("documentList");
+  if(!el){
+    return;
+  }
   var val = [];
   for (var i = 0 ; i < documents.length; i++){
     var d = documents[i];

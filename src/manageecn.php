@@ -58,9 +58,12 @@ case "approveOrReject":
   break;
 case "viewUploadFile":
   $ecnId = getArrayVal($_GET, "id");
+  $ecn = new EngineeringChangeNote();
+  $ecnIns = $ecn->get($ecnId);
   $doc = new Document();
   $documents = $doc->getDocumentsByECNId($ecnId);
   $template->assign("documents",$documents);
+  $template->assign("ecn",$ecnIns);
   $template->display("viewECNFile.tpl");
 }
 

@@ -244,6 +244,7 @@
         <button id="dlgBtnSaveOrder1" type="submit">{#save#}</button>
         <button id="dlgBtnSaveOrder2" type="submit" onclick="setFulfilled()">{#fulfilled#}</button>
         <a  class="butn_link" id="dlgBtnSaveOrder3" onclick="showWaiverDesc()">{#waiver#}</a>
+        <a class="butn_link" target='blank' href = "/managequality.php?action=showproject&id={$order.project}&orderId={$order.ID}">{#addquality#}</a>
         <a class="butn_link" onclick="window.close();">{#cancel#}</a>
       </div>
       
