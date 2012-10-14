@@ -24,6 +24,7 @@ case "mydocument":
 case "addDocument":
   $isAjax = getArrayVal($_POST,'isAjax');
   $docName = getArrayVal($_POST,"name");
+  $docNo = getArrayVal($_POST,"documentNo");
   $docVer = getArrayVal($_POST,"revision");
   $docDesc = getArrayVal($_POST,"description");
   $fileId = getArrayVal($_POST,"fileId");
@@ -38,7 +39,7 @@ case "addDocument":
     $visibilityVal .= $vis.",";
   }
   $doc = new Document();
-  $doc->add($docName,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibilityVal,$ecnId);
+  $doc->add($docName,$docNo,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibilityVal,$ecnId);
   $loc = $url . "managedocument.php?action=mydocument";
   if($isAjax == '1'){
     $loc = $url."managedocument.php?action=selectDocuments";

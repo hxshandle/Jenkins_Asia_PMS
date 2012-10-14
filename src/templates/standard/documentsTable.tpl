@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th class="b tx">{#documentName#}</th>
+      <th class="b tx">{#documentNo#}</th>
       <th class="b tx">{#revision#}</th>
       <th class="b tx">{#project#}</th>
       <th class="b tx">{#customer#}</th>
@@ -21,6 +22,7 @@
           <tr class ="color-b">
         {/if}
             <td><a href="{$documents[doc].download_url}" target="blank">{$documents[doc].name}</a></td>
+            <td>{$documents[doc].document_no}</td>
             <td>{$documents[doc].revision}</td>
             <td>{$documents[doc].project_name}</td>
             <td>{$documents[doc].customer_name}</td>

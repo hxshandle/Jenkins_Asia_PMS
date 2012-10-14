@@ -2,10 +2,11 @@
 
 class Document{
 
-  function add($docName,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibility,$ecnId = -1){
+  function add($docName,$docNo,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibility,$ecnId = -1){
     $docName = mysql_escape_string($docName);
     $docVer = mysql_escape_string($docVer);
     $docDesc = mysql_escape_string($docDesc);
+    $docNo = mysql_escape_string($docNo);
     $fileId = (int) $fileId;
     $projectId = (int) $projectId;
     $taskId = (int) $taskId;
@@ -16,6 +17,7 @@ class Document{
              INSERT INTO `document_info`
              (
              `name`,
+             `document_no`,
              `revision`,
              `description`,
              `file`,
@@ -28,6 +30,7 @@ class Document{
              VALUES
              (
              '$docName',
+             '$docNo',
              '$docVer',
              '$docDesc',
              $fileId,

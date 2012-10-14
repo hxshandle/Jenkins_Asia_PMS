@@ -105,6 +105,7 @@ case "editOrder":
   $deliveryDateTwo = getArrayVal($_POST, "deliveryDateTwo");
   $deliveryStatus2 = getArrayVal($_POST, "deliveryStatus2");
   $orderQualityNotes = getArrayVal($_POST,"qualityIssueNote");
+  $compliance = getArrayVal($_POST,"orderComplinaces");
   $isFulfilled = getArrayVal($_POST,"fulfilled");
   $waiverDesc = getArrayVal($_POST, "waiverDesc");
   if(!$waiverDesc){
@@ -119,6 +120,8 @@ case "editOrder":
   $arrP2Files = $jUtils->getUploadedFileIds($paymentTwoAttachment);
   $paymentThreeAttachment = getArrayVal($_POST,"paymentfiles3");
   $arrP3Files = $jUtils->getUploadedFileIds($paymentThreeAttachment);
+  $compliancefilesAttachement = getArrayVal($_POST,"compliancefiles");
+  $arrComplianceFiles = $jUtils->getUploadedFileIds($compliancefilesAttachement);
 
   $order = new Order();
   $upd = $order->updateOrder($orderId, $orderTime, $orderDesc,
@@ -126,17 +129,13 @@ case "editOrder":
                       $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                       $paymentOneSchedule,$paymentOneStatus,$arrP1Files,$paymentTwoSchedule,
                       $paymentTwoStatus,$arrP2Files,$paymentThreeSchedule,$paymentThreeStatus,
-                      $arrP3Files,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
+                      $arrP3Files,$arrComplianceFiles,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
                       $deliveryDateTwo,$deliveryStatus2,$waiverDesc,$isFulfilled);
   if($upd){
     $order->updateOrderQualityNotes($orderId,$orderQualityNotes);
     $order->updateOrderECNs($orderId,$orderECNs);
-    $compliances = $order->getOrderCompliances($orderId);
-    foreach($compliances as $comp){
-      $type = "comp".$comp['ID'];
-      $field = getArrayVal($_POST, $type);
-      $order->updateOrderCompliance($comp['ID'],$field);
-    }
+    $order->updateOrderCompliances($orderId,$compliance);
+    
   }
   $template->display("editOrderFormSuccess.tpl");
   break;

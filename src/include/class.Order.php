@@ -291,6 +291,8 @@ class Order {
       $ret['paymentfiles2Str'] = $this->generateAttachFileStr($attachs[2]);
       $ret['paymentfiles3'] = $attachs[3];
       $ret['paymentfiles3Str'] = $this->generateAttachFileStr($attachs[3]);
+      $ret['compliancefiles'] = $attachs[4];
+      $ret['compliancefileStr'] = $this->generateAttachFileStr($attachs[3]);
       $ret['qualities'] = $this->getOrderQualities($ret['ID']);
       $ret['ecns'] = $this->getECNs($ret['ID']);
     }
@@ -337,7 +339,7 @@ class Order {
                         $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                         $paymentOneSchedule,$paymentOneStatus,$paymentOneAttachment,$paymentTwoSchedule,
                         $paymentTwoStatus,$paymentTwoAttachment,$paymentThreeSchedule,$paymentThreeStatus,
-                        $paymentThreeAttachment,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
+                        $paymentThreeAttachment,$complianceAttachment,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
                         $deliveryDateTwo,$deliveryStatus2,$waiverDesc = "",$isFulfilled=-1){
     $id = (int) $orderId;
     $desc = mysql_escape_string($orderDesc);
@@ -392,6 +394,10 @@ class Order {
       if(!empty($paymentThreeAttachment)){
         $this->deleteDocuments($id,3);
         $this->attachDocument($id, $paymentThreeAttachment,3);
+      }
+      if(!empty($complianceAttachment)){
+        $this->deleteDocuments($id,4);
+        $this->attachDocument($id, $complianceAttachment,4);
       }
       return TRUE;
     }else{
@@ -483,12 +489,23 @@ class Order {
     return $ret;
   }
   
-  function updateOrderCompliance($compId,$field){
+  function updateOrderCompliances($orderId,$arr){
+    $orderId = (int)$orderId;
+    $sql = "UPDATE order_compliance set `isFinished` = -1 where orderId = $orderId";
+    mysql_query($sql);
+    if(!empty($arr)){
+      foreach($arr as $cmp){
+        $this->updateOrderCompliance($cmp);
+    }
+    }
+  }
+  
+  function updateOrderCompliance($compId){
     $compId = (int) $compId;
-    $field = mysql_escape_string($field);
     $sql = "UPDATE `order_compliance`
             SET
-            `complianceField` = '$field'
+            `complianceField` = ''
+            ,`isFinished` = 1 
             WHERE ID = $compId";
     $upd = mysql_query($sql);
   }
@@ -510,8 +527,9 @@ class Order {
     $sel = mysql_query($sql);
     $arrAttachs = array();
     $arrPay1 = array();
-    $arrPay2 = array();
+      $arrPay2 = array();
     $arrPay3 = array();
+    $arrCompliance = array();
     while ($row = mysql_fetch_array($sel)) {
       switch($row['type']){
         case 1:
@@ -523,12 +541,15 @@ class Order {
         case 3:
           array_push($arrPay3,$row);
           break;
+        case 4:
+          array_push($arrCompliance,$row);
+          break;
         default:
           array_push($arrAttachs,$row);
           break;
       }
     }
-    $arrRet = array($arrAttachs,$arrPay1,$arrPay2,$arrPay3);
+    $arrRet = array($arrAttachs,$arrPay1,$arrPay2,$arrPay3,$arrCompliance);
     return $arrRet;
   }
   

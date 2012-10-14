@@ -190,4 +190,10 @@ CREATE  TABLE `quality_notify` (
   PRIMARY KEY (`ID`) )ENGINE=MyISAM;
 
 
+ALTER TABLE `order_compliance` ADD COLUMN `isFinished` INT(1) NOT NULL DEFAULT -1  AFTER `complianceField` ;
+
+ALTER TABLE `document_info` ADD COLUMN `document_no` VARCHAR(255) NULL  AFTER `name` ;
+
+
+
 

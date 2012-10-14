@@ -234,12 +234,30 @@
         <textarea id="waiverDesc" name="waiverDesc">{$order.waiverDesc}</textarea>
       </div>
       <input type="hidden" id = "fulfilled" name = "fulfilled" value ="{$order.isFulfilled}" />
-      {section name=optDesc loop = $compliances}
+
       <div class="row">
-        <label>{$compliances[optDesc].complianceType}</label>
-        <textarea name="comp{$compliances[optDesc].ID}">{$compliances[optDesc].complianceField}</textarea>
+        <label style="" >{#compliance#}</label>
+          <ul style="margin-left:140px">
+            {section name=optDesc loop = $compliances}
+            <li><input type="checkbox" {if $compliances[optDesc].isFinished == 1} checked='true' {/if} value="{$compliances[optDesc].ID}" name="orderComplinaces[]"  style="width:auto;float:none">{$compliances[optDesc].complianceType}</li>
+          {/section}
+         </ul>
       </div>
-      {/section}
+
+      <div class="row">
+        <label for="uploadfile" style="float:left">{#upload#}:</label>
+        <div style="float:left">
+          <ul id="complianceFileList">
+            {section name=f4 loop=$order.compliancefiles}
+              <li>{$order.compliancefiles[f4].name}:{$order.compliancefiles[f4].revision}</li>
+            {/section}
+          </ul>
+          <input type = 'hidden' name="compliancefiles" id = "compliancefiles" value="{$order.compliancefileStr}"/>
+          <a class="butn_link" style="cursor:pointer" onclick="selectDocument('complianceFileList','compliancefiles');return false;">{#selDocuments#}</a>
+          <a class="butn_link" style="cursor:pointer" onclick="resetDocuments('complianceFileList','compliancefiles');return false;">{#reset#}</a>
+        </div>
+      </div> 
+
       <div  style="margin:10px 0 0 0;float:right;padding:8px">
         <button id="dlgBtnSaveOrder1" type="submit">{#save#}</button>
         <button id="dlgBtnSaveOrder2" type="submit" onclick="setFulfilled()">{#fulfilled#}</button>

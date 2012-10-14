@@ -9,6 +9,11 @@
         <input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" />
       </div>
 
+      <div class="row">
+        <label for="name">{#documentNo#}:</label>
+        <input type="text" class="text" name="documentNo" id="documentNo" required="1" realname="{#documentNo#}" />
+      </div>
+
 
 		  <div class="row">
         <label for="revision">{#revision#}:</label>
@@ -37,14 +42,14 @@
         </select>
       </div>
     
-		  <div class="row">
+		  <div class="row" style="display:none">
         <label for="order">{#order#}:</label>
 				<select name="order" id="order" onchange="void(0);">
 				  <option value="-1" selected="selected">{#chooseone#}</option>
         </select>
       </div>
 
-		  <div class="row">
+		  <div class="row" style="display:none">
         <label for="quality">{#quality#}:</label>
 				<select name="quality" id="quality" onchange="void(0);">
 				  <option value="-1" selected="selected">{#chooseone#}</option>
