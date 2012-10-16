@@ -12,14 +12,28 @@ function onSelProjectChange(evt){
       g_lastProjectId = val;
       _clearProjectSubInfo();
       window.__swfu.setButtonDisabled(true);
+      $('documentNo').value='';
       break;
     default:
       g_lastProjectId = val;
       getProjectSubInfo(val);
       window.__swfu.setButtonDisabled(false);
       window.__swfu.setPostParams({id:val,"userId":__userId});
+      getProjectNumber(val);
       break;
   }
+}
+function getProjectNumber(id){
+  var theUrl = "manageprojectajax.php?action=getProjectNumber&&id="+id;
+  new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              var val = payload.responseText+'-';
+              $('documentNo').value = val;
+            }
+          }
+      }); 
 }
 function getProjectSubInfo(id){
     var theUrl = "manageprojectajax.php?action=getProjectSubInfo&&id="+id;
