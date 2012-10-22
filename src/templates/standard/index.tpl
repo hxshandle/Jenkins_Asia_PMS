@@ -48,6 +48,7 @@
 							<tr>
 								<th class="a"></th>
 								<th class="b" style="cursor:pointer;" onclick = "sortBlock('desktopprojects','');">{#project#}</th>
+								<th class="b" style="cursor:pointer;" onclick = "sortBlock('desktopprojects','');">{#projectNo#}</th>
 								<th class="c" style="cursor:pointer" onclick = "sortBlock('desktopprojects','done');">{#done#}</th>
 								<th class="d" style="text-align:right" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}&nbsp;&nbsp;</th>
 								<th class="tools"></th>
@@ -56,7 +57,7 @@
 
 						<tfoot>
 							<tr>
-								<td colspan="5"></td>
+								<td colspan="6"></td>
 							</tr>
 						</tfoot>
 
@@ -80,6 +81,9 @@
 												{$myprojects[project].name|truncate:35:"...":true}
 											</a>
 										</div>
+									</td>
+									<td>
+										{$myprojects[project].project_no|truncate:35:"...":true}
 									</td>
 									<td>
 										<div class="statusbar_b">
