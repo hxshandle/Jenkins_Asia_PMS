@@ -13,6 +13,10 @@
   </select>
 </div>
 
+<div class="dlgRow">
+  <label style="">{#qualityNo#}<span style="color:red">*</span></label>
+  <input id="qualityNo" name="qualityNo" value = "{$quality.qualityNo}"></input>
+ </div>
 
 <div class="dlgRow">
   <label style="">{#actionNo#}<span style="color:red">*</span></label>
