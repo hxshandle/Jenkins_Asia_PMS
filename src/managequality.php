@@ -110,6 +110,7 @@ switch ($action) {
       $projectId = $project;
     }
     $actionNo = getArrayVal($_POST, "actionNo");
+    $qualityNo = getArrayVal($_POST, "qualityNo");
     $issueDate = getArrayVal($_POST, "issueDate");
     $productNo = getArrayVal($_POST, "productNo");
     $productDesc = getArrayVal($_POST, "productDesc");
@@ -129,7 +130,7 @@ switch ($action) {
     $quality = new Quality();
     $ret = false;
     if($mode == "add"){
-      $ret = $quality->add($projectId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1,$orderId);
+      $ret = $quality->add($projectId,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1,$orderId);
       if($ret){
         foreach($notify as $n){
           $quality->addNotifyList($ret,$n);
@@ -137,7 +138,7 @@ switch ($action) {
       }
       $jUtils->sendQualityMail($ret,$settings,true);
     }else{
-        $ret = $quality->update($qId,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
+        $ret = $quality->update($qId,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
         if($ret){
         $quality->clearNotify($qId);
         foreach($notify as $n){

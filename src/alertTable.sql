@@ -221,5 +221,6 @@ CREATE  TABLE `finance2` (
   PRIMARY KEY (`ID`) );
 
 
+ALTER TABLE `quality` ADD COLUMN `quality_no` VARCHAR(255) NULL  AFTER `action_no` ;
 
 

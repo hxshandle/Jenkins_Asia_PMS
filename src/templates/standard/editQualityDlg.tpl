@@ -10,6 +10,10 @@
   <label style="">{#actionNo#}<span style="color:red">*</span></label>
   <input id="actionNo" name="actionNo" value = "{$quality.action_no}"></input>
  </div>
+ <div class="dlgRow">
+  <label style="">{#qualityNo#}<span style="color:red">*</span></label>
+  <input id="qualityNo" name="qualityNo" value = "{$quality.quality_no}"></input>
+ </div>
 
 <div class="dlgRow">
   <label style="">{#issueDate#}<span style="color:red">*</span></label>

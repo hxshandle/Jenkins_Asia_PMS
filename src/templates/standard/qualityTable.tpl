@@ -5,10 +5,9 @@
   <tr>
     <th class="a"></th>
     <th class="b">{#actionNo#}</th>
+    <th class="ce">{#qualityNo#}</th>
     <th class="ce" style="text-align:right">{#issueDate#}&nbsp;&nbsp;</th>
     <th class="de">{#acknowledgeBy#}</th>
-    <th class="e">{#lotQuantity#}</th>
-    <th class="tools"></th>
   </tr>
 </thead>
 
@@ -36,6 +35,9 @@
         <a href="javascript:void(0);" title="{$qualitys[quality].action_no}" onclick='showQualityDetails("{$qualitys[quality].ID}")'>{$qualitys[quality].action_no|truncate:35:"...":true}</a>
       </div>
     </td>
+    <td>
+      {$qualitys[quality].quality_no|truncate:35:"...":true}
+    </td>
     <td style="text-align:right">
         {$qualitys[quality].issue_date|truncate:"10":""}
       &nbsp;
@@ -43,9 +45,6 @@
     <td>
       {$qualitys[quality].acknowledge_by}
       &nbsp;
-    </td>
-    <td>{$qualitys[quality].lot_quantity}</td>
-    <td class="tools">
     </td>
   </tr>
 
