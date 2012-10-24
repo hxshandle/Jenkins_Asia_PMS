@@ -12,16 +12,16 @@
     {/section}
   </select>
 </div>
-
-<div class="dlgRow">
-  <label style="">{#qualityNo#}<span style="color:red">*</span></label>
-  <input id="qualityNo" name="qualityNo" value = "{$quality.qualityNo}"></input>
- </div>
-
 <div class="dlgRow">
   <label style="">{#actionNo#}<span style="color:red">*</span></label>
   <input id="actionNo" name="actionNo" value = "{$quality.action_no}"></input>
  </div>
+<div class="dlgRow">
+  <label style="">{#customerComplianceNo#}</label>
+  <input id="qualityNo" name="qualityNo" value = "{$quality.qualityNo}"></input>
+ </div>
+
+
 
 <div class="dlgRow">
   <label style="">{#issueDate#}<span style="color:red">*</span></label>
@@ -58,12 +58,7 @@
  </div>
   <div class="dlgRow">
   <label style="">{#rejectRate#}</label>
-  <select id="rejectRate" name="rejectRate">
-    <option value="sort" {if $quality.reject_rate == 'sort'} selected {/if}>{#sort#}</option>
-    <option value="remark" {if $quality.reject_rate == 'remark'} selected {/if}>{#remark#}</option>
-    <option value="waier" {if $quality.reject_rate == 'waier'} selected {/if}>{#waier#}</option>
-    <option value="scope" {if $quality.reject_rate == 'scope'} selected {/if}>{#scope#}</option>
-  </select>
+  <input id="rejectRate" name="rejectRate" value = "{$quality.reject_rate}"></input>%
  </div>
 
  <div class="dlgRow">
@@ -78,7 +73,12 @@
 
 <div class="dlgRow">
   <label style="">{#containmentDesc#}</label>
-  <input id="containmentDesc" name="containmentDesc" value = "{$quality.containment_desc}"></input>
+  <select id="containmentDesc" name="containmentDesc">
+    <option value="sort" {if $quality.containment_desc == 'sort'} selected {/if}>{#sort#}</option>
+    <option value="remark" {if $quality.containment_desc == 'remark'} selected {/if}>{#remark#}</option>
+    <option value="waier" {if $quality.containment_desc == 'waier'} selected {/if}>{#waier#}</option>
+    <option value="scope" {if $quality.containment_desc == 'scope'} selected {/if}>{#scope#}</option>
+  </select>
 </div>
  
 <div class="dlgRow">

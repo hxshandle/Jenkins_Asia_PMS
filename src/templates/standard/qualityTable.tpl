@@ -5,7 +5,7 @@
   <tr>
     <th class="a"></th>
     <th class="b">{#actionNo#}</th>
-    <th class="ce">{#qualityNo#}</th>
+    <th class="ce">{#customerComplianceNo#}</th>
     <th class="ce" style="text-align:right">{#issueDate#}&nbsp;&nbsp;</th>
     <th class="de">{#acknowledgeBy#}</th>
   </tr>

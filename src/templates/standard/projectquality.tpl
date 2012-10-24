@@ -125,7 +125,7 @@
             </div>
 
           <div class="dlgRow">
-            <label>{#quality#}</label>
+            <label>{#actionNo#}</label>
             <select id="quality" name="quality">
               <option value="-1" selected="selected">{#chooseone#}</option>
             </select>

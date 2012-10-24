@@ -93,7 +93,7 @@ function onAddQualitySelProjectChange(el){
           method: 'get',
           onSuccess:function(payload) {
             if (payload.responseText != ""){
-              $('qualityNo').value=payload.responseText+'-';
+              $('actionNo').value=payload.responseText+'-SCA-';
             }
           }
       });
