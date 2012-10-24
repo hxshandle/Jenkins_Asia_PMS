@@ -248,7 +248,8 @@
       alert("add "+qId);
     }
 
-    function showDetailsInfo(id){
+    function showDetailsInfo(id,projectId){
+      __projectId = projectId;
       var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__projectId;
       new Ajax.Request(theUrl, {
         method: 'get',

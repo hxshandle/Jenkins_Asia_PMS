@@ -87,7 +87,7 @@
     <label style="float:left">{#upload#}</label>
     <input type="hidden" id="fileId" name="fileId"></input>
     <div>
-      {include file="uploadfile.tpl" lazyLoad=true}
+      {include file="uploadfile.tpl" lazyLoad=true callbackFunc=updateFileId}
     </div>
   </div>
   <div class="clear_both_b"></div>
@@ -96,4 +96,6 @@
     <button onfocus="this.blur()" type="submit">{#save#}</button>
     <button onclick="blindtoggle('editDetailsInfo');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
   </div>
+  <script>
+  </script>
 </form>

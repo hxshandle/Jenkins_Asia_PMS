@@ -1060,6 +1060,9 @@ switch ($action) {
   case "getQualityDetails":
     $qId = getArrayVal($_GET, "qId");
     $qualityDetails = new QualityDetails();
+    $quality = new Quality();
+    $qualityObj = $quality->get($qId);
+    $template->assign("projectId",$qualityObj['project']);
     $detailsList = $qualityDetails->getQualityDetailsByQualityId($qId);
     $template->assign("details", $detailsList);
     $template->assign("qualityId", $qId);

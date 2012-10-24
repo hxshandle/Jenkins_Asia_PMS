@@ -13,6 +13,11 @@ function filterQuality(param){
       });    
 }
 
+
+function updateFileId(id){
+  alert(id);
+}
+
 function _buildQualityFilterParam(){
   var project = document.getElementById("criteriaProject").value;
   var customer = document.getElementById("criteriaCustomer").value;
