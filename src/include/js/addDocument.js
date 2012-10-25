@@ -23,6 +23,18 @@ function onSelProjectChange(evt){
       break;
   }
 }
+function deleteDocument(id){
+  var theUrl = "managedocument.php?action=deleteDocument&&id="+id;
+  new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              alert('deleted');
+              window.location.reload();
+            }
+          }
+      });
+}
 function getProjectNumber(id){
   var theUrl = "manageprojectajax.php?action=getProjectNumber&&id="+id;
   new Ajax.Request(theUrl, {

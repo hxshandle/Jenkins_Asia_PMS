@@ -21,6 +21,16 @@ case "mydocument":
   $template->assign("documents",$documents);
   $template->display("document.tpl");
   break;
+case "deleteDocument":
+  $id = getArrayVal($_GET, "id");
+  $doc = new Document();
+  $ret = $doc->delete($id);
+  if($ret){
+    echo "OK";
+  }else{
+    echo "Fail";
+  }
+  break;
 case "addDocument":
   $isAjax = getArrayVal($_POST,'isAjax');
   $docName = getArrayVal($_POST,"name");
