@@ -21,7 +21,7 @@
 
   <div class="row">
     <label style="width:240px;" >{#customerSource#}</label>
-    <input >{$finance.customer_source}</input>
+    <input id = "customer_source" name ="customer_source" value="{$finance.customer_source}"></input>
   </div>
 
   <div class="row">
