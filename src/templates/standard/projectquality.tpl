@@ -125,7 +125,7 @@
             </div>
 
           <div class="dlgRow">
-            <label>{#quality#}</label>
+            <label>{#actionNo#}</label>
             <select id="quality" name="quality">
               <option value="-1" selected="selected">{#chooseone#}</option>
             </select>
@@ -248,7 +248,8 @@
       alert("add "+qId);
     }
 
-    function showDetailsInfo(id){
+    function showDetailsInfo(id,projectId){
+      __projectId = projectId;
       var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__projectId;
       new Ajax.Request(theUrl, {
         method: 'get',

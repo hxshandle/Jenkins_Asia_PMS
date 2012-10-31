@@ -206,7 +206,6 @@ class datei {
     $tstr = "title";
     $tastr = "tags";
     $visible = $_POST["visible"];
-
     if (!empty($visible[0])) {
       $visstr = serialize($visible);
     } else {
@@ -257,15 +256,17 @@ class datei {
     }
 
     $name = $subname . "_" . $randval . "." . $erweiterung;
+    //echo "name-> ".$ziel;
     $datei_final = $root . "/" . $ziel . "/" . $name;
     $datei_final2 = $ziel . "/" . $name;
     
     if (!file_exists($datei_final)) {
       
       //echo "-->".$tmp_name." : ".$datei_final;
+      //echo $datei_final;
       if (move_uploaded_file($tmp_name, $datei_final)) {
         // $filesize = filesize($datei_final);
-
+        
         if ($project > 0) {
           /**
            * file did not already exist, was uploaded, and a project is set
@@ -288,7 +289,7 @@ class datei {
         }
       } else {
         // file was not uploaded / error occured. return false
-        //echo "2222";
+        
         return false;
       }
     } else {

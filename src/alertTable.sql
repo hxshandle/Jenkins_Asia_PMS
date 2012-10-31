@@ -195,5 +195,32 @@ ALTER TABLE `order_compliance` ADD COLUMN `isFinished` INT(1) NOT NULL DEFAULT -
 ALTER TABLE `document_info` ADD COLUMN `document_no` VARCHAR(255) NULL  AFTER `name` ;
 
 
+CREATE  TABLE `finance2` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `project` INT(10) NOT NULL ,
+  `incoming_payment_amount` INT(11) NULL ,
+  `incoming_payment_amount_currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
+  `customer_source` VARCHAR(255) NULL ,
+  `outgoing_payment_amount` INT(11) NULL ,
+  `outgoing_payment_amount_currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
+  `beneficiary` LONGTEXT NULL ,
+  `project_number` VARCHAR(255) NULL ,
+  `PO_number` VARCHAR(255) NULL ,
+  `invoice_number` VARCHAR(255) NULL ,
+  `reason` LONGTEXT NULL ,
+  `planned_incoming_payment_date` DATETIME NULL ,
+  `actual_incoming_payment_date` DATETIME NULL ,
+  `difference1` VARCHAR(255) NULL ,
+  `incoming_payment_status` INT(10) NULL ,
+  `actual_incoming_payment_amount_received` INT(11) NULL ,
+  `planned_outgoing_payment_date` DATETIME NULL ,
+  `actual_outgoing_payment_date` DATETIME NULL ,
+  `difference2` VARCHAR(255) NULL ,
+  `outgoing_payment_status` INT(10) NULL ,
+  `actual_outgoing_payment_amount_paid` INT(11) NULL ,
+  PRIMARY KEY (`ID`) );
+
+
+ALTER TABLE `quality` ADD COLUMN `quality_no` VARCHAR(255) NULL  AFTER `action_no` ;
 
 

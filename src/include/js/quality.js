@@ -13,6 +13,11 @@ function filterQuality(param){
       });    
 }
 
+
+function updateFileId(id){
+  alert(id);
+}
+
 function _buildQualityFilterParam(){
   var project = document.getElementById("criteriaProject").value;
   var customer = document.getElementById("criteriaCustomer").value;
@@ -72,6 +77,7 @@ function onAddQualitySelProjectChange(el){
   var val = el.value;
   if(val == "-1"){
     $("notify").options.length = 0;
+    $('qualityNo').value='';
     return;
   }
 
@@ -83,6 +89,16 @@ function onAddQualitySelProjectChange(el){
               var data = eval("("+payload.responseText+")");
               var opts = $("notify").options;
               _buildSelOpts(opts,data,false);
+            }
+          }
+      });
+
+  var theUrl = "manageprojectajax.php?action=getProjectNumber&id="+val;
+  new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              $('actionNo').value=payload.responseText+'-SCA-';
             }
           }
       });

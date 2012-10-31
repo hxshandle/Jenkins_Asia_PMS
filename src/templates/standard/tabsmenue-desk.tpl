@@ -17,7 +17,7 @@
     {if $smarty.session.userRole != "7" && $smarty.session.userRole != "8" && $smarty.session.userRole != "9"}  
     <li class="msgs"><a {if $ecntab == "active" }class="active"{/if} href="manageecn.php?action=showecn"><span>{#ecnname#}</span></a>
     {/if}
-    {if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $smarty.session.userRole == 6}
+    {if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $smarty.session.userRole == 6 || $smarty.session.userRole == 5 }
     <li class="msgs"><a {if $qualitystab == "active" }class="active"{/if} href="managequality.php?action=showproject&amp;id={$project.ID}"><span>{#quality#}</span></a></li>
     {/if}				
 	</ul>

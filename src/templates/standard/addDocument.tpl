@@ -5,6 +5,16 @@
     <fieldset>
 
 		  <div class="row">
+        <label for="project">{#project#}:</label>
+				<select name="project" id="project" onchange="onSelProjectChange(this)"; required = "1">
+				  <option value="-1" selected="selected">{#chooseone#}</option>
+          {section name=project loop=$projects}
+            <option value="{$projects[project].ID}">{$projects[project].name}</option>
+          {/section}
+        </select>
+      </div>
+
+		  <div class="row">
         <label for="name">{#name#}:</label>
         <input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" />
       </div>
@@ -25,15 +35,6 @@
         <div class="editor"><textarea id="description" name="description" rows="3" cols="1" ></textarea></div>
       </div>
 
-		  <div class="row">
-        <label for="project">{#project#}:</label>
-				<select name="project" id="project" onchange="onSelProjectChange(this)"; required = "1">
-				  <option value="-1" selected="selected">{#chooseone#}</option>
-          {section name=project loop=$projects}
-            <option value="{$projects[project].ID}">{$projects[project].name}</option>
-          {/section}
-        </select>
-      </div>
 
 		  <div class="row" style="display:none">
         <label for="task">{#task#}:</label>

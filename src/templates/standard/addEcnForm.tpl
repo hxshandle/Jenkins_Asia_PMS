@@ -31,7 +31,7 @@
 
 
       <div class="row">
-        <label  >{#ecnname#}</label>
+        <label  >{#ecrnumber#}</label>
         <input id="newEcnName" name="newEcnName"></input>
       </div>
       <div class="row">

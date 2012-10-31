@@ -514,15 +514,16 @@ elseif ($action == "addpro")
         {
             $project->assign($member, $add);
           }
-        
+        /*
 		if($userpermissions["admin"]["add"])
 		{
 			header("Location: admin.php?action=projects&mode=added");
 		}
 		else
 		{
+        */
 			header("Location: index.php?mode=projectadded");
-		}
+		//}
 	}
 } elseif ($action == "closepro")
 {

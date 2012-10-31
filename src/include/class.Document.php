@@ -2,6 +2,21 @@
 
 class Document{
 
+  
+  function delete($id){
+    $id = (int) $id;
+    $docInfo = $this->getDocumentInfo($id);
+    $fileId = $docInfo['file'];
+    $datei = new datei();
+    $ret = $datei->loeschen($fileId);
+    if($ret){
+      $sql = " DELETE FROM `document_info` WHERE ID = $id";
+      $del = mysql_query($sql);
+      return true;
+    }else{
+      return false;
+    }
+  }
   function add($docName,$docNo,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibility,$ecnId = -1){
     $docName = mysql_escape_string($docName);
     $docVer = mysql_escape_string($docVer);

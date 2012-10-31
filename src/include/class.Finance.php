@@ -29,14 +29,29 @@ class Finance{
     return $ret;
   }
   
-  function add($name,$project,$innerCost,$innerCostCurrency,$externalCost,$externalCostCurrency,$approved=0,$published=0,$order=NULL,$valid=1){
-    $name = mysql_escape_string($name);
-    $project = (int) $project;
-    $innerCost = (int) $innerCost;
-    $externalCost = (int) $externalCost;
-    $approved = (int) $approved;
-    $published = (int) $published;
-    $order = (int) $order;
+  function add($projectId,$incoming_payment_amount,$incoming_payment_amount_currency,$customer_source,$outgoing_payment_amount,$outgoing_payment_amount_currency,$beneficiary,$project_number,$PO_number,$invoice_number,$reason,$planned_incoming_payment_date,$actual_incoming_payment_date,$difference1,$incoming_payment_status,$actual_incoming_payment_amount_received,$planned_outgoing_payment_date,$actual_outgoing_payment_date,$difference2,$outgoing_payment_status,$actual_outgoing_payment_amount_paid){
+    $projectId = (int)$projectId; 
+    $incoming_payment_amount = (int)$incoming_payment_amount; 
+    $incoming_payment_amount_currency = mysql_escape_string($incoming_payment_amount_currency); 
+    $customer_source = mysql_escape_string($customer_source); 
+    $outgoing_payment_amount = (int)$outgoing_payment_amount; 
+    $outgoing_payment_amount_currency = mysql_escape_string($outgoing_payment_amount_currency); 
+    $beneficiary = mysql_escape_string($beneficiary); 
+    $project_number = mysql_escape_string($project_number); 
+    $PO_number = mysql_escape_string($PO_number); 
+    $invoice_number = mysql_escape_string($invoice_number); 
+    $reason = mysql_escape_string($reason); 
+    $planned_incoming_payment_date = mysql_escape_string($planned_incoming_payment_date); 
+    $actual_incoming_payment_date = mysql_escape_string($actual_incoming_payment_date); 
+    $difference1 = mysql_escape_string($difference1);
+    //status
+    $incoming_payment_status = (int)$incoming_payment_status; 
+    $actual_incoming_payment_amount_received = (int)$actual_incoming_payment_amount_received; 
+    $planned_outgoing_payment_date = mysql_escape_string($planned_outgoing_payment_date); 
+    $actual_outgoing_payment_date = mysql_escape_string($actual_outgoing_payment_date); 
+    $difference2 = mysql_escape_string($difference2); 
+    $outgoing_payment_status = (int)$outgoing_payment_status; 
+    $actual_outgoing_payment_amount_paid = (int)$actual_outgoing_payment_amount_paid;
     $sql="insert into finance (`name`,`project`,`inner_cost`,`inner_cost_currency`,`external_cost`,`external_cost_currency`,`approved`,`published`,`order`,`valid`) values ('$name',$project,$innerCost,'$innerCostCurrency',$externalCost,'$externalCostCurrency',$approved,$published,$order,$valid)";
     $ins = mysql_query($sql);
     if($ins){

@@ -19,8 +19,9 @@ class Quality {
     $this->myLog = new mylog;
   }
   
-  function add($project,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1,$orderId = -1){
+  function add($project,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1,$orderId = -1){
     $actionNo = mysql_escape_string($actionNo);
+    $qualityNo = mysql_escape_string($qualityNo);
     $productNo = mysql_escape_string($productNo);
     $productDesc = mysql_escape_string($productDesc);
     $shipNo = mysql_escape_string($shipNo);
@@ -47,6 +48,7 @@ class Quality {
             INSERT INTO `quality`
             (
             `action_no`,
+            `quality_no`,
             `issue_date`,
             `product_no`,
             `product_desc`,
@@ -68,6 +70,7 @@ class Quality {
             VALUES
             (
             '$actionNo',
+            '$qualityNo',
             '$issueDate',
             '$productNo',
             '$productDesc',
@@ -126,9 +129,10 @@ class Quality {
     return $arrRet;
   }
   
-  function update($id,$actionNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
+  function update($id,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
     $id = (int) $id;
     $actionNo = mysql_escape_string($actionNo);
+    $qualityNo = mysql_escape_string($qualityNo);
     $productNo = mysql_escape_string($productNo);
     $productDesc = mysql_escape_string($productDesc);
     $shipNo = mysql_escape_string($shipNo);
@@ -152,6 +156,7 @@ class Quality {
     $sql = "UPDATE `quality`
             SET
             `action_no` = '$actionNo',
+            `quality_no` = '$qualityNo',
             `issue_date` = '$issueDate',
             `product_no` = '$productNo',
             `product_desc` = '$productDesc',

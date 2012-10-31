@@ -1,9 +1,12 @@
 {config_load file=lng.conf section = "strings" scope="global" }
 {*Document table*}
 <div class="documentTableWrapper">
-<table id="documentsTable" cellspacing="0" cellpadding="0" border="0" style="width:1000px">
+<table id="documentsTable" cellspacing="0" cellpadding="0" border="0" style="width:1400px">
   <thead>
     <tr>
+      {if $smarty.session.userRole == "1"}
+      <th><Action/th>
+      {/if}
       <th class="b tx">{#documentName#}</th>
       <th class="b tx">{#documentNo#}</th>
       <th class="b tx">{#revision#}</th>
@@ -21,6 +24,9 @@
         {else}
           <tr class ="color-b">
         {/if}
+            {if $smarty.session.userRole == "1"}
+            <td><a class="butn_link" href="#" onclick='deleteDocument({$documents[doc].ID})'>{#delete#}</a></td>
+            {/if}
             <td><a href="{$documents[doc].download_url}" target="blank">{$documents[doc].name}</a></td>
             <td>{$documents[doc].document_no}</td>
             <td>{$documents[doc].revision}</td>

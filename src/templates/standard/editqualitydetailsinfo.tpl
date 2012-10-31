@@ -75,11 +75,19 @@
       <option value="0" {if $data.long_term_verified == 0}selected{/if}>{#no#}</option>
     </select>
   </div>
+  <div class="dlgRow">
+    <label>{#file#}</label>
+    <ul style="margin-left:200px">
+      {section name=f loop=$data.files}
+      <li><a target="blank" href="{$data.files[f].datei}">{$data.files[f].name}</a></li>
+      {/section}
+    </li>
+  </div>
     <div class="dlgRow">
     <label style="float:left">{#upload#}</label>
     <input type="hidden" id="fileId" name="fileId"></input>
     <div>
-      {include file="uploadfile.tpl" lazyLoad=true}
+      {include file="uploadfile.tpl" lazyLoad=true callbackFunc=updateFileId}
     </div>
   </div>
   <div class="clear_both_b"></div>
@@ -88,4 +96,6 @@
     <button onfocus="this.blur()" type="submit">{#save#}</button>
     <button onclick="blindtoggle('editDetailsInfo');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
   </div>
+  <script>
+  </script>
 </form>
