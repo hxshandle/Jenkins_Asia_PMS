@@ -56,7 +56,12 @@
 
 
   function showAddFinanceDlg(){
-    var url = "managefinance.php?action=showAddFinanceDlg";
+    var url = "managefinance.php?action=showAddFinanceDlg&projectId="+__projectId;
+    var win = window.open(url,'','height=500,width=1100,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
+  }
+
+  function showEditFinanceDlg(id){
+    var url = "managefinance.php?action=showEditFinanceDlg&id="+id;
     var win = window.open(url,'','height=500,width=1100,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
   }
                  
