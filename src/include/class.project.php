@@ -456,6 +456,51 @@ class project {
             return false;
         }
     }
+    
+    
+    function ngetMyProjectsByCustomerName($user,$customer,$status = 1){
+        $user = mysql_real_escape_string($user);
+        $status = mysql_real_escape_string($status);
+        $customer = mysql_real_escape_string($customer);
+        $user = (int) $user;
+        $status = (int) $status;
+        
+        if($customer=="-1"){
+          return $this->getMyProjects($user);
+        }
+
+        $myprojekte = array();
+        $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY ID ASC");
+        if($_SESSION["userRole"] == 3 || $_SESSION["userRole"] ==1){
+          $sel = mysql_query("SELECT id FROM projekte ORDER BY ID ASC");
+        }
+        if($_SESSION["userRole"] == 6 ){
+          $st1 = Status::getId("project", "planning");
+          $st2 = Status::getId("project", "closed");
+          $sel = mysql_query("SELECT projekt FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and  pa.user = $user and p.status not in ($st1,$st2) ORDER BY pa.ID ASC");
+        }
+        
+        while ($projs = mysql_fetch_row($sel)) {
+            $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND valid=$status and customer_name='$customer'"), MYSQL_ASSOC);
+            if ($projekt) {
+                $project = $this->getProject($projekt["ID"]);
+                array_push($myprojekte, $project);
+            }
+        }
+
+        if (!empty($myprojekte)) {
+			// Sort projects by due date ascending
+			$date = array();
+			foreach ($myprojekte as $key => $row) {
+				$date[$key] = $row['end'];
+			}
+			array_multisort($date, SORT_ASC, $myprojekte);
+			
+            return $myprojekte;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Listet alle IDs der Projekte eines Mitglieds auf

@@ -115,3 +115,14 @@ J.initSwfUploader=function(url,param,btnHolder,cancelBtnId,callBackFunc,queueCom
   }
 
 
+function onDeskTopCustomerChange(val){
+  var theUrl = "manageprojectajax.php?action=filterProjectsByCustomerName&&customer="+val.value;
+  new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              document.getElementById("desktop-project-table").innerHTML=payload.responseText;
+            }
+          }
+      }); 
+}

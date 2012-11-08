@@ -37,12 +37,23 @@
 						<a href="myprojects.php" title="{#myprojects#}"><img src="./templates/standard/images/symbols/projects.png" alt="" />{#myprojects#}</a>
 					</h2>
 				</div>
+				
 
 				<div class="block" id="projecthead" style = "{$projectstyle}">{*Add Project*}
 					<div id = "form_addmyproject" class="addmenue" style = "display:none;">
 						{include file="addproject.tpl" myprojects="1"}
 					</div>
-					
+					<!-- customer filter-->
+				<div class="row">
+          <label for="customer">{#customer#}:</label>
+	      	<select name="criteriaCustomer" id="criteriaCustomer" onchange="onDeskTopCustomerChange(this)"; required = "1">
+	      	  <option value="-1" selected="selected">{#chooseone#}</option>
+            {section name=customer loop=$customers}
+              <option value="{$customers[customer][0]}">{$customers[customer][0]}</option>
+            {/section}
+          </select>
+        </div>
+        	<div id="desktop-project-table">
 					<table id = "desktopprojects" cellpadding="0" cellspacing="0" border="0">
 						<thead>
 							<tr>
@@ -116,6 +127,7 @@
 							</tbody>
 						{/section}
 					</table>
+				</div>
 
 					<div class="tablemenue">
 						<div class="tablemenue-in">

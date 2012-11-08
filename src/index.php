@@ -140,6 +140,12 @@ $template->assign("tasknum", $tasknum);
 
 $template->assign("messages", $messages);
 $template->assign("msgnum", $msgnum);
+
+//customer filter
+$jUtils = new JUtils();
+$customers = $jUtils->getAllCustomers();
+$template->assign("customers",$customers);
+
 $template->display("index.tpl");
 
 ?>
