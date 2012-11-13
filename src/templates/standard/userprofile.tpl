@@ -138,7 +138,7 @@
 		</div> {*User END*}
 		<div class="content-spacer"></div>
 
-		{if $userpermissions.admin.add}{if $opros}{*Projects*}
+		{if $smarty.session.userRole < 6}{if $opros}{*Projects*}
 			<div class="projects">
 				<div class="headline">
 					<a href="javascript:void(0);" id="projecthead_toggle" class="win_block" onclick = "toggleBlock('projecthead');"></a>
