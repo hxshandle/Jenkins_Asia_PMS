@@ -223,4 +223,7 @@ CREATE  TABLE `finance2` (
 
 ALTER TABLE `quality` ADD COLUMN `quality_no` VARCHAR(255) NULL  AFTER `action_no` ;
 
+INSERT INTO `status` (`type`,`value`) VALUES ('finance','deplay');
+INSERT INTO `status` (`type`,`value`) VALUES ('finance','paied');
+INSERT INTO `status` (`type`,`value`) VALUES ('finance','not_paied');
 

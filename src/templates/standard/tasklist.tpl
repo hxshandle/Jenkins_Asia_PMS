@@ -26,17 +26,17 @@
 
 	<div class="statuswrapper">
 		<ul>
-			{if $userpermissions.tasks.close}
+			{if $userpermissions.tasks.close and 1==2}
 				{if $tasklist.status == 1}
 					<li class="link" id="closetoggle"><a class="close" href="managetasklist.php?action=close&amp;tlid={$tasklist.ID}&amp;id={$project.ID}" title="{#close#}"></a></li>
 				{else}
 					<li class="link" id="closetoggle"><a class="closed" href="managetasklist.php?action=open&amp;tlid={$tasklist.ID}&amp;id={$project.ID}" title="{#open#}"></a></li>
 				{/if}
 			{/if}
-			{if $userpermissions.tasks.edit}
+			{if $userpermissions.tasks.edit and 1==2}
 				<li class="link"><a class="edit" href="javascript:void(0);"  id="edit_butn" onclick="blindtoggle('form_edit');toggleClass(this,'edit-active','edit');toggleClass('sm_tasklist','smooth','nosmooth');" title="{#edit#}"></a></li>
 			{/if}
-			{if $userpermissions.tasks.del}
+			{if $userpermissions.tasks.del and 1==2}
 				<li class="link"><a class="del" href="javascript:void(0);" onclick="confirmit('{#confirmdel#}','managetasklist.php?action=del&amp;tlid={$tasklist.ID}&amp;id={$project.ID}');" title="{#delete#}"></a></li>
 			{/if}
 			{if $tasklist.desc}

@@ -1,9 +1,9 @@
 
 
 
-<form onsubmit="return validateCompleteForm(this);" action="managefinance.php?action=addFinance" method="post" class="main">
-  <input type="hidden" name="projectId" id="projectId" value="{$finance.project}"></input>
-
+<form onsubmit="return validateCompleteForm(this);" action="managefinance.php?action={$actionType}" method="post" class="main">
+  <input type="hidden" name="projectId" id="projectId" value="{$projectId}"></input>
+  <input type="hidden" name="financeId" id="financeId" value="{$finance.ID}"></input>
   <div class="row">
     <label style="width:240px;" >{#incomingPaymentAmount#}</label>
     <input style = "width:247px;" id="incoming_payment_amount" name="incoming_payment_amount" value = {$finance.incoming_payment_amount}></input>
@@ -40,7 +40,7 @@
 
   <div class="row">
     <label style="width:240px;" >{#beneficiary#}</label>
-    <textarea id = "beneficiary" name ="beneficiary" value = "{$finance.beneficiary}"></textarea>
+    <textarea id = "beneficiary" name ="beneficiary" value = "{$finance.beneficiary}">{$finance.beneficiary}</textarea>
   </div>
 
   <div class="row">
@@ -65,12 +65,18 @@
 
   <div class="row">
     <label style="width:240px;" >{#plannedIncomingPaymentDate#}</label>
-    <input >{$finance.planned_incoming_payment_date}</input>
+    <input id="planned_incoming_payment_date" name="planned_incoming_payment_date" value="{$finance.planned_incoming_payment_date|truncate:"10":""}"></input>
+    <div class="datepick">
+      <div id = "planned_incoming_payment_datePicker" class="picker" style = "display:none;"></div>
+    </div>
   </div>
 
   <div class="row">
     <label style="width:240px;" >{#actualIncomingPaymentDate#}</label>
-    <input id="actual_incoming_payment_date" name="actual_incoming_payment_date" value="{$finance.actual_incoming_payment_date}"></input>
+    <input id="actual_incoming_payment_date" name="actual_incoming_payment_date" value="{$finance.actual_incoming_payment_date|truncate:"10":""}"></input>
+    <div class="datepick">
+      <div id = "actual_incoming_payment_datePicker" class="picker" style = "display:none;"></div>
+    </div>
   </div>
 
   <div class="row">
@@ -80,7 +86,16 @@
 
   <div class="row">
     <label style="width:240px;" >{#incomingPaymentStatus#}</label>
-    <input id="incoming_payment_status" name="incoming_payment_status" value="{$finance.incoming_payment_status}"></input>
+    <select id="incoming_payment_status" name="incoming_payment_status" >
+      <option value="-1" selected="selected">{#chooseone#}</option>
+    {section name = idx loop=$financeStatus}
+        {if $financeStatus[idx].id == $finance.incoming_payment_status}
+          <option selected value = "{$financeStatus[idx].id}">{$financeStatus[idx].value}</option>
+        {else}
+          <option value = "{$financeStatus[idx].id}" >{$financeStatus[idx].value}</option>
+        {/if}
+      {/section}
+    </select>
   </div>
 
   <div class="row">
@@ -90,12 +105,18 @@
 
   <div class="row">
     <label style="width:240px;" >{#plannedOutgoingPaymentDate#}</label>
-    <input id="planned_outgoing_payment_date" name="planned_outgoing_payment_date" value="{$finance.planned_outgoing_payment_date}"></input>
+    <input id="planned_outgoing_payment_date" name="planned_outgoing_payment_date" value="{$finance.planned_outgoing_payment_date|truncate:"10":""}"></input>
+    <div class="datepick">
+      <div id = "planned_outgoing_payment_datePicker" class="picker" style = "display:none;"></div>
+    </div>
   </div>
 
   <div class="row">
     <label style="width:240px;" >{#actualOutgoingPaymentDate#}</label>
-    <input id="actual_outgoing_payment_date" name="actual_outgoing_payment_date" value="{$finance.actual_outgoing_payment_date}"</input>
+    <input id="actual_outgoing_payment_date" name="actual_outgoing_payment_date" value="{$finance.actual_outgoing_payment_date|truncate:"10":""}"</input>
+    <div class="datepick">
+      <div id = "actual_outgoing_payment_datePicker" class="picker" style = "display:none;"></div>
+    </div>
   </div>
 
   <div class="row">
@@ -105,7 +126,17 @@
 
   <div class="row">
     <label style="width:240px;" >{#outgoingPaymentSatus#}</label>
-    <input id="outgoing_payment_status" name="outgoing_payment_status" value="{$finance.outgoing_payment_status}"></input>
+    <select id="outgoing_payment_status" name="outgoing_payment_status" >
+      <option value="-1" selected="selected">{#chooseone#}</option>
+      {section name = idx loop=$financeStatus}
+        {if $financeStatus[idx].id == $finance.outgoing_payment_status}
+          <option selected value = "{$financeStatus[idx].id}">{$financeStatus[idx].value}</option>
+        {else}
+          <option value = "{$financeStatus[idx].id}" >{$financeStatus[idx].value}</option>
+        {/if}
+      {/section}
+    </select>
+
   </div>
 
   <div class="row">
@@ -115,8 +146,31 @@
 
   <div class="row-butn-bottom">
     <label></label>
-    <button onfocus="this.blur();" type="submit">{#add#}</button>
+    <button onfocus="this.blur();" type="submit">{#save#}</button>
     <button onfocus="this.blur();" onclick="self.close()" type="reset">{#cancel#}</button>
   </div>
 
 </form>
+
+<script>
+{literal}
+  function bindDateOPicker(relateTo,target){
+{/literal}
+    
+    theCal = new calendar({$theM},{$theY});
+    theCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
+    theCal.monthNames = ["{#january#}","{#february#}","{#march#}","{#april#}","{#may#}","{#june#}","{#july#}","{#august#}","{#september#}","{#october#}","{#november#}","{#december#}"];
+    theCal.relateTo = relateTo;
+    theCal.dateFormat = "{$settings.dateformat}";
+    theCal.getDatepicker(target);
+
+{literal}
+  }
+  (function(){
+    bindDateOPicker('actual_outgoing_payment_date','actual_outgoing_payment_datePicker');
+    bindDateOPicker('planned_outgoing_payment_date','planned_outgoing_payment_datePicker');
+    bindDateOPicker('actual_incoming_payment_date','actual_incoming_payment_datePicker');
+    bindDateOPicker('planned_incoming_payment_date','planned_incoming_payment_datePicker');
+  })();
+{/literal}
+</script>

@@ -1099,6 +1099,13 @@ switch ($action) {
     $ret = $jUtils->getProjectNotifyListJSON($id);
     echo $ret;
     break;
+  case "filterProjectsByCustomerName":
+    $customerName = getArrayVal($_GET,'customer');
+    $project = new project();
+    $projects = $project->ngetMyProjectsByCustomerName($_SESSION['userid'],$customerName);
+    $template->assign("myprojects", $projects);
+    $template->display("desktopProjectsTable.tpl");
+    break;
   default:
     break;
 }
