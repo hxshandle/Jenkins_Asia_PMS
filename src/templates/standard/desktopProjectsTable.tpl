@@ -34,7 +34,7 @@
                     <div class="toggle-in">
                       <span id = "desktopprojectstoggle{$myprojects[project].ID}" class="acc-toggle" onclick="javascript:accord_projects.activate($$('#projecthead .accordion_toggle')[{$smarty.section.project.index}]);toggleAccordeon('projecthead',this);"></span>
                       <a href="manageproject.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name}">
-                        {$myprojects[project].name|truncate:35:"...":true}
+                        {$myprojects[project].name|truncate:25:"...":true}
                       </a>
                     </div>
                   </td>
