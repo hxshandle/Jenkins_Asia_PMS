@@ -22,6 +22,28 @@ class JUtils{
       $this->updateProjectRealDateByDeliverDate($deliverObj["project"],$strLastEndDate);
     }
   }
+  
+  
+  function getDelayedTaskMailMsg($mailTo,$title,$text,$link,$statusUpdate){
+    $msg = "";
+    $msg .= "Dear ".$mailTo.",<br/><br/>";
+    $msg .= "You have a delayed task request for <b>".$projectName."</b><br/>";
+    $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
+    $msg .= "<b>Task Name<br/></b>";
+    $msg .= "<p style='padding-left:15px'>".$title."</p>";
+    $msg .= "<hr/>";
+    $msg .= "<b>Description</b>";
+    $msg .= "<p style='padding-left:15px'>".$text."</p>";
+    $msg .= "<hr/>";
+    $msg .= "<b>Status Update</b>";
+    $msg .= "<p style='padding-left:15px'>".$statusUpdate."</p>";
+    $msg .= "</div>";
+    $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
+    $msg .="<a href=\"".$link."\">Go to task</a><br/><br/>";
+    $msg .="Thank you from JANUS.<br/>";
+    $msg .="Please do not reply to this mail.<br/>";
+    return $msg;
+  }
 
   function getNewTaskMailMsg($mailTo,$projectName,$start_date,$end_date,$assigner,$link,$title,$text){
     $msg = "";
