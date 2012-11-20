@@ -19,6 +19,10 @@
     {/if}
     {if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $smarty.session.userRole == 6 || $smarty.session.userRole == 5 }
     <li class="msgs"><a {if $qualitystab == "active" }class="active"{/if} href="managequality.php?action=showproject&amp;id={$project.ID}"><span>{#quality#}</span></a></li>
+    {/if}
+
+    {if $smarty.session.userRole < 6}
+        <li class="msgs"><a {if $delaytasktab == "active" }class="active"{/if} href="managedelaytasks.php?action=showdelaytasks"><span>{#delaytasks#}</span></a></li>
     {/if}				
 	</ul>
 </div>

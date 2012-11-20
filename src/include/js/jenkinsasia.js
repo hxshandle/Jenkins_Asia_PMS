@@ -126,3 +126,54 @@ function onDeskTopCustomerChange(val){
           }
       }); 
 }
+
+function onNormalSelCustomerChange(val,url,targetEl){
+  url = url+'&customer='+val.value;
+  var targetElId = targetEl;
+  new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              document.getElementById(targetElId).innerHTML=payload.responseText;
+            }
+          }
+      }); 
+}
+
+function normalSelAll(el,targetId){
+  
+  var isChk = el.checked;  
+  var els = $$("input[name="+targetId+"]");
+  for(var i = 0 ;i < els.length;i++){
+    var chkbox = els[i];
+    chkbox.checked = isChk;
+  }
+}
+
+function sendTaskDelayReminder(){
+  var els = $$("input[name=selectedDelayTask]");
+  var hasSelected = false;
+  var selectedTask = [];
+  for(var i = 0 ;i < els.length;i++){
+    var chkbox = els[i];
+    if(chkbox.checked){
+      selectedTask.push(chkbox.value);
+      hasSelected = true;
+    }
+  }
+  if(!hasSelected){
+    alert("please select one.");
+    return;
+  }
+  var ids = selectedTask.join(",");
+  var postData = "ids="+ids;
+  new Ajax.Request("managedelaytasks.php?action=sendReminder", {
+          method: 'post',
+          postBody:postData,
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              alert("Reminder sent.");
+            }
+          }
+      }); 
+}

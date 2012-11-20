@@ -23,6 +23,34 @@ class task {
   function __construct() {
     $this->mylog = new mylog;
   }
+  
+  
+  function getDelayTasks(){
+    $st1 = Status::getId("task", "completed");
+    $st2 = Status::getId("task", "closed");
+    $sql = "select ID from tasks where end_date < NOW() and status not in ($st1,$st2)";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      array_push($ret,$row[0]);
+    }
+    return $ret;
+  }
+  
+  function getDelayTasksByCustomerName($customer){
+    $customer = mysql_escape_string($customer);
+    $st1 = Status::getId("task", "completed");
+    $st2 = Status::getId("task", "closed");
+    $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status not in ($st1,$st2) and p.customer_name= '$customer' and t.project=p.id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      $tk = $this->getTask($row[0]);
+      array_push($ret,$tk);
+    }
+    return $ret;
+  }
+  
 
   function add($startDate, $endDate, $title, $text, $liste, $status, $project, $phase, $deliverableItem, $parent, $location, $valid = 1) {
     $title = mysql_escape_string($title);
