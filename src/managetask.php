@@ -177,6 +177,13 @@ if ($action == "addform") {
     $today = date($dateFormat);
     $statusUpdate .= " --".$_SESSION['username']." ".$today;
   }
+  $completeStatus = Status::getId("task", "complete");
+  $closeStatus = Status::getId("task", "closed");
+  if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
+    $dateFormat = CL_DATEFORMAT." H:i:s";
+    $today = date($dateFormat);
+    $statusUpdate .= "</br> -- Task closed by".$_SESSION['username']." ".$today;
+  }
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);
   $jUtils = new JUtils();
@@ -206,11 +213,15 @@ if ($action == "addform") {
             if (!empty($user["email"])) {
               // send email
               $themail = new emailer($settings);
+              $mailSubject = $langfile["taskmodifiedsubject"];
+              if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
+                $mailSubject = $langfile["taskclosedsubject"];
+              }
               $msg = $jUtils->getModifiedTaskMailMsg($user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
               if($hasCCed){
-                $themail->send_mail($user["email"], $langfile["taskmodifiedsubject"]." | ".$title, $msg);
+                $themail->send_mail($user["email"], $mailSubject." | ".$title, $msg);
               }else{
-                $themail->send_mail($user["email"], $langfile["taskmodifiedsubject"]." | ".$title, $msg,$arrCC);
+                $themail->send_mail($user["email"], $mailSubject." | ".$title, $msg,$arrCC);
                 $hasCCed = true;
               }
             }
