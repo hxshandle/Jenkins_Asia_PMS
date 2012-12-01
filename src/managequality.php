@@ -126,11 +126,18 @@ switch ($action) {
     $acknowledgeDate = getArrayVal($_POST, "acknowledgeDate");
     $verifiedForClosureBy = getArrayVal($_POST, "verifiedForClosureBy");
     $verificationDate = getArrayVal($_POST, "verificationDate");
+    $statusUpdate = getArrayVal($_POST, "statusUpdate");
+    $oldStatusUpdate = getArrayVal($_POST,"oldStatusUpdate");
+    if(strlen($statusUpdate) != strlen($oldStatusUpdate)){
+      $dateFormat = CL_DATEFORMAT." H:i:s";
+      $today = date($dateFormat);
+      $statusUpdate .= " --".$_SESSION['username']." ".$today;
+    }
     $notify = getArrayVal($_POST,"notify");
     $quality = new Quality();
     $ret = false;
     if($mode == "add"){
-      $ret = $quality->add($projectId,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1,$orderId);
+      $ret = $quality->add($projectId,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$statusUpdate,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1,$orderId);
       if($ret){
         foreach($notify as $n){
           $quality->addNotifyList($ret,$n);
@@ -138,7 +145,7 @@ switch ($action) {
       }
       $jUtils->sendQualityMail($ret,$settings,true);
     }else{
-        $ret = $quality->update($qId,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
+        $ret = $quality->update($qId,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$statusUpdate,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,1);
         if($ret){
         $quality->clearNotify($qId);
         foreach($notify as $n){

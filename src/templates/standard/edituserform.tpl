@@ -237,7 +237,7 @@
 
 </fieldset>
 </form>
-
+{if $user.avatar != ""}
 {literal}
 		<script type = "text/javascript">
 			new Control.Modal('ausloeser',{
@@ -252,6 +252,7 @@
 	      
 	    </script>
 {/literal}
+{/if}
 </div> {*UserWrapper End*}
 
 <div class="content-spacer"></div>

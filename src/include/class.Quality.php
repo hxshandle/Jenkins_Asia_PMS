@@ -19,12 +19,13 @@ class Quality {
     $this->myLog = new mylog;
   }
   
-  function add($project,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1,$orderId = -1){
+  function add($project,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$statusUpdate,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1,$orderId = -1){
     $actionNo = mysql_escape_string($actionNo);
     $qualityNo = mysql_escape_string($qualityNo);
     $productNo = mysql_escape_string($productNo);
     $productDesc = mysql_escape_string($productDesc);
     $shipNo = mysql_escape_string($shipNo);
+    $statusUpdate = mysql_escape_string($statusUpdate);
     $quantityInInventory = mysql_escape_string($quantityInInventory);
     $quantityInProcess = mysql_escape_string($quantityInProcess);
     $containmentDesc = mysql_escape_string($containmentDesc);
@@ -53,6 +54,7 @@ class Quality {
             `product_no`,
             `product_desc`,
             `ship_no`,
+            `status_update`,
             `lot_quantity`,
             `Sample_size`,
             `defects`,
@@ -75,6 +77,7 @@ class Quality {
             '$productNo',
             '$productDesc',
             '$shipNo',
+            '$statusUpdate',
             $lotQuantity,
             $sampleSize,
             $defects,
@@ -129,13 +132,14 @@ class Quality {
     return $arrRet;
   }
   
-  function update($id,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
+  function update($id,$actionNo,$qualityNo,$issueDate,$productNo,$productDesc,$shipNo,$statusUpdate,$lotQuantity,$sampleSize,$defects,$rejectRate,$quantityInInventory,$quantityInProcess,$containmentDesc,$acknowledgeBy,$acknowledgeDate,$verifiedForClosureBy,$verificationDate,$valid=1){
     $id = (int) $id;
     $actionNo = mysql_escape_string($actionNo);
     $qualityNo = mysql_escape_string($qualityNo);
     $productNo = mysql_escape_string($productNo);
     $productDesc = mysql_escape_string($productDesc);
     $shipNo = mysql_escape_string($shipNo);
+    $statusUpdate = mysql_escape_string($statusUpdate);
     $quantityInInventory = mysql_escape_string($quantityInInventory);
     $quantityInProcess = mysql_escape_string($quantityInProcess);
     $containmentDesc = mysql_escape_string($containmentDesc);
@@ -161,6 +165,7 @@ class Quality {
             `product_no` = '$productNo',
             `product_desc` = '$productDesc',
             `ship_no` = '$shipNo',
+            `status_update` = '$statusUpdate',
             `lot_quantity` = $lotQuantity,
             `Sample_size` = $sampleSize,
             `defects` = $defects,

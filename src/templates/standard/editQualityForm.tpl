@@ -44,6 +44,14 @@
   <label style="">{#shipNo#}<span style="color:red">*</span></label>
   <input id="shipNo" name="shipNo" value = "{$quality.ship_no}"></input>
  </div>
+
+  <div class="dlgRow">
+    <label style="float:left">{#statusUpdate#}<span style="color:red">*</span></label>
+    <div style='width:400px'>
+      <textarea id="statusUpdate" name="statusUpdate" value = "">{$quality.status_update}</textarea>
+    </div>
+  </div>
+
   <div class="dlgRow">
   <label style="">{#lotQuantity#}<span style="color:red">*</span></label>
   <input id="lotQuantity" name="lotQuantity" value = "{$quality.lot_quantity}"></input>

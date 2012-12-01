@@ -227,3 +227,5 @@ INSERT INTO `status` (`type`,`value`) VALUES ('finance','deplay');
 INSERT INTO `status` (`type`,`value`) VALUES ('finance','paied');
 INSERT INTO `status` (`type`,`value`) VALUES ('finance','not_paied');
 
+ALTER TABLE `quality` ADD COLUMN `status_update` LONGTEXT NULL  AFTER `ship_no` ;
+
