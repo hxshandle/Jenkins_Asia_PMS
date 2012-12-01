@@ -38,7 +38,7 @@
  </div>
   <div class="dlgRow">
   <label style="float:left">{#statusUpdate#}<span style="color:red">*</span></label>
-  <div style='width:400px'>
+  <div style='width:400px;margin-left:200px'>
     <textarea id="statusUpdate" name="statusUpdate" value = "">{$quality.status_update}</textarea>
   </div>
   <input type='hidden' name='oldStatusUpdate' id='oldStatusUpdate' value = '{$quality.status_update}'></input>
