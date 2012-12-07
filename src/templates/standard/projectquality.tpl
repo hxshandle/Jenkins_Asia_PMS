@@ -40,7 +40,7 @@
           {/if}
         </div>
         <h2>
-          <img src="./templates/standard/images/symbols/msgs.png" alt="" />{#quality#}
+          <img src="./templates/standard/images/symbols/msgs.png" alt="" />{#supplierCorrectiveActionReport#}
         </h2>
       </div>
 
@@ -134,6 +134,16 @@
             <label>{#quantity#}</label>
             <input id="quantity" name = "quantity"></input>
           </div>
+
+          <div class="dlgRow">
+              <label for="project">{#status#}:</label>
+              <select name="status" id="status" required = "1">
+                {section name=st loop=$qualityDetailsStatus}
+                  <option value="{$qualityDetailsStatus[st].id}">{$qualityDetailsStatus[st].value}</option>
+                {/section}
+              </select>
+          </div>
+
           <div class="dlgRow">
             <label class="floatL">{#rejectDesc#}</label>
             <div class="editor floatL">

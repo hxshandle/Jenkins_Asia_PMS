@@ -18,9 +18,10 @@ class QualityDetails {
     $this->myLog = new mylog;
   }
   
-  function add($quality,$reject_desc,$quantity,$required_desc,$root_cause,$containment_action,$supplier_short_term_corrective_act,$shot_term_implementation_date,$short_term_verified,$supplier_long_term_corrective_act,$long_term_implementation_date,$vendor_process_audit_plan_revision,$long_term_verified){
+  function add($quality,$status,$reject_desc,$quantity,$required_desc,$root_cause,$containment_action,$supplier_short_term_corrective_act,$shot_term_implementation_date,$short_term_verified,$supplier_long_term_corrective_act,$long_term_implementation_date,$vendor_process_audit_plan_revision,$long_term_verified){
     
     $quality = (int) $quality;
+    $status = (int) $status;
 
     $reject_desc = mysql_escape_string($reject_desc);
     $quantity = mysql_escape_string($quantity);
@@ -37,6 +38,7 @@ class QualityDetails {
           INSERT INTO `quality_details`
           (
           `quality`,
+          `status`,
           `reject_desc`,
           `quantity`,
           `required_desc`,
@@ -52,6 +54,7 @@ class QualityDetails {
           VALUES
           (
           $quality,
+          $status,
           '$reject_desc',
           '$quantity',
           '$required_desc',
@@ -84,9 +87,10 @@ class QualityDetails {
     }
   }
 
-  function update($id,$reject_desc,$quantity,$required_desc,$root_cause,$containment_action,$supplier_short_term_corrective_act,$shot_term_implementation_date,$short_term_verified,$supplier_long_term_corrective_act,$long_term_implementation_date,$vendor_process_audit_plan_revision,$long_term_verified){
+  function update($id,$status,$reject_desc,$quantity,$required_desc,$root_cause,$containment_action,$supplier_short_term_corrective_act,$shot_term_implementation_date,$short_term_verified,$supplier_long_term_corrective_act,$long_term_implementation_date,$vendor_process_audit_plan_revision,$long_term_verified){
     
     $quality = (int) $quality;
+    $status = (int) $status;
     $id = (int) $id;
 
     $reject_desc = mysql_escape_string($reject_desc);
@@ -105,6 +109,7 @@ class QualityDetails {
         UPDATE `quality_details`
         SET
         `reject_desc` = '$reject_desc',
+        `status` = $status,
         `quantity` = '$quantity',
         `required_desc` = '$required_desc',
         `root_cause` = '$root_cause',

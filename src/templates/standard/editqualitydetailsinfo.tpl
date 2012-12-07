@@ -13,6 +13,15 @@
     <div class="clear_both_b"></div>
   </div>
   <div class="dlgRow">
+      <label for="project">{#status#}:</label>
+      <select name="status" id="status" required = "1">
+        {section name=st loop=$qualityDetailsStatus}
+          <option {if $qualityDetailsStatus[st].id == $data.status} selected {/if} value="{$qualityDetailsStatus[st].id}">{$qualityDetailsStatus[st].value}</option>
+        {/section}
+      </select>
+  </div>
+
+  <div class="dlgRow">
     <label class="floatL">{#requiredDesc#}</label>
     <div class="editor floatL">
       <textarea id="requiredDesc" name = "requiredDesc" value="{$data.required_desc}">{$data.required_desc}</textarea>

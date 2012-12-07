@@ -39,11 +39,13 @@ switch ($action) {
     $template->assign("qualitys", $qualityList);
     $template->assign("orderId", $orderId);
     $template->assign("projectname", $projectname);
+    $template->assign("qualityDetailsStatus",Status::getStatusByType("qualityDetails"));
     $template->display("projectquality.tpl");
     break;
   case "saveDetails":
     $projectId = getArrayVal($_POST, "addDetailsProject");
     $quality = getArrayVal($_POST, "quality");
+    $status = getArrayVal($_POST, "status");
     $rejectDesc = getArrayVal($_POST, "rejectDesc");
     $quantity = getArrayVal($_POST, "quantity");
     $requiredDesc = getArrayVal($_POST, "requiredDesc");
@@ -58,7 +60,7 @@ switch ($action) {
     $vendorProcessAuditPlanRevision = getArrayVal($_POST, "vendorProcessAuditPlanRevision");
 
     $qualityDetails = new QualityDetails();
-    $ins = $qualityDetails->add($quality,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
+    $ins = $qualityDetails->add($quality,$status,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
     Header("Location: managequality.php?action=showproject&id=".$projectId); 
     break;
   case "getQualityDetailsInfo":
@@ -69,12 +71,14 @@ switch ($action) {
     $template->assign("data", $data[0]);
     $template->assign("projectId", $projectId);
     $template->assign("detailsId", $detailsId);
+    $template->assign("qualityDetailsStatus",Status::getStatusByType("qualityDetails"));
     $template->display("editqualitydetailsinfo.tpl");
     break;
   case "updateDetails":
     $detailsId = getArrayVal($_GET, "detailsId");
     $projectId = getArrayVal($_GET, "projectId");
     $quality = getArrayVal($_POST, "quality");
+    $status = getArrayVal($_POST,"status");
     $rejectDesc = getArrayVal($_POST, "rejectDesc");
     $quantity = getArrayVal($_POST, "quantity");
     $requiredDesc = getArrayVal($_POST, "requiredDesc");
@@ -89,7 +93,7 @@ switch ($action) {
     $vendorProcessAuditPlanRevision = getArrayVal($_POST, "vendorProcessAuditPlanRevision");
     $fileId = getArrayVal($_POST, "fileId");
     $qualityDetails = new QualityDetails();
-    $ins = $qualityDetails->update($detailsId,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
+    $ins = $qualityDetails->update($detailsId,$status,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
     
     if(!empty($fileId)){
         $qualityDetails->attachFile($detailsId,$fileId);
@@ -133,6 +137,7 @@ switch ($action) {
       $today = date($dateFormat);
       $statusUpdate .= " --".$_SESSION['username']." ".$today;
     }
+    $statusUpdate = '';
     $notify = getArrayVal($_POST,"notify");
     $quality = new Quality();
     $ret = false;

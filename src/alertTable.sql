@@ -229,3 +229,12 @@ INSERT INTO `status` (`type`,`value`) VALUES ('finance','not_paied');
 
 ALTER TABLE `quality` ADD COLUMN `status_update` LONGTEXT NULL  AFTER `ship_no` ;
 
+
+
+INSERT INTO `status`( `type`, `value`) VALUES ('qualityDetails','New');
+
+INSERT INTO `status`( `type`, `value`) VALUES ('qualityDetails','Open');
+
+INSERT INTO `status`( `type`, `value`) VALUES ('qualityDetails','Closed');
+
+ALTER TABLE `quality_details` ADD COLUMN `status` INT NOT NULL DEFAULT -1  AFTER `quality` ;
