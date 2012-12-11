@@ -3028,5 +3028,9 @@ ul.tabs li.document a {
 .documentTableWrapper{
   overflow-x:scroll;
 }
+.largeText{
+  width:420px;
+  height:200px;
+}
 
 /*****************Jenkins Asia Special***********************/

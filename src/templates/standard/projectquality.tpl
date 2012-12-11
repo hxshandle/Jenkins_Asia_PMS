@@ -147,35 +147,35 @@
           <div class="dlgRow">
             <label class="floatL">{#rejectDesc#}</label>
             <div class="editor floatL">
-              <textarea id="rejectDesc" name = "rejectDesc" ></textarea>
+              <textarea  class='largeText' id="rejectDesc" name = "rejectDesc" ></textarea>
             </div>
             <div class="clear_both_b"></div>
           </div>
           <div class="dlgRow">
             <label class="floatL">{#requiredDesc#}</label>
             <div class="editor floatL">
-              <textarea id="requiredDesc" name = "requiredDesc"></textarea>
+              <textarea  class='largeText' id="requiredDesc" name = "requiredDesc"></textarea>
             </div>
             <div class="clear_both_b"></div>
           </div>
           <div class="dlgRow">
             <label class="floatL">{#rootCause#}</label>
             <div class="editor floatL">
-              <textarea id="rootCause" name = "rootCause"></textarea>
+              <textarea  class='largeText' id="rootCause" name = "rootCause"></textarea>
             </div>
             <div class="clear_both_b"></div>
           </div>
           <div class="dlgRow">
             <label class="floatL">{#containmentAction#}</label>
             <div class="editor floatL">
-              <textarea id="containmentAction" name = "containmentAction"></textarea>
+              <textarea  class='largeText' id="containmentAction" name = "containmentAction"></textarea>
             </div>
             <div class="clear_both_b"></div>
           </div>
           <div class="dlgRow">
             <label class="floatL">{#supplierShortTermCorrectiveAct#}</label>
             <div class="editor floatL">
-              <textarea id="supplierShortTermCorrectiveAct" name = "supplierShortTermCorrectiveAct"></textarea>
+              <textarea  class='largeText' id="supplierShortTermCorrectiveAct" name = "supplierShortTermCorrectiveAct"></textarea>
             </div>
             <div class="clear_both_b"></div>
           </div>
@@ -193,7 +193,7 @@
           <div class="dlgRow">
             <label class="floatL">{#supplierLongTermCorrectiveAct#}</label>
             <div class="editor floatL">
-              <textarea id="supplierLongTermCorrectiveAct" name = "supplierLongTermCorrectiveAct"></textarea>
+              <textarea  class='largeText' id="supplierLongTermCorrectiveAct" name = "supplierLongTermCorrectiveAct"></textarea>
             </div>
             <div class="clear_both_b"></div>
           </div>
