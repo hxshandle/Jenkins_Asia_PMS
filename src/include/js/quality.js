@@ -70,7 +70,7 @@ function _buildSelOpts(opts,data,needChoose){
 
 function openEditQualityDlg(id){
   var url = "managequality.php?action=showEditDlg&id="+id;
-  var win = window.open(url,'','height=500,width=1100,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
+  var win = window.open(url,'','height=500,width=800,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
 }
 
 function onAddQualitySelProjectChange(el){

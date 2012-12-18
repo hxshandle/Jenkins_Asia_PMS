@@ -27,12 +27,14 @@
 {/if}
   <tr>
     <td>
+      <!--
       <a class="butn_link" href="#" onclick='openEditQualityDlg("{$qualitys[quality].ID}")'>{#edit#}</a>
+    -->
     </td>
     <td>
       <div class="toggle-in">
       <span class="acc-toggle" onclick="javascript:accord_quality.activate($$('#block_msgs .accordion_toggle')[{$smarty.section.quality.index}]);toggleAccordeon('accord_quality',this);"></span>
-        <a href="javascript:void(0);" title="{$qualitys[quality].action_no}" onclick='showQualityDetails("{$qualitys[quality].ID}")'>{$qualitys[quality].action_no|truncate:35:"...":true}</a>
+        <a href="javascript:void(0);" title="{$qualitys[quality].action_no}" onclick='openEditQualityDlg("{$qualitys[quality].ID}")'>{$qualitys[quality].action_no|truncate:35:"...":true}</a>
       </div>
     </td>
     <td>

@@ -187,6 +187,15 @@ switch ($action) {
     $memberList = $jUtils->getProjectNotifyList($q['project']);
     $template->assign("memberList",$memberList);
     $notifyList = $quality->getNotifyList($id);
+    $qualityDetails = new QualityDetails();
+    $template->assign("projectId",$q['project']);
+    $detailsList = $qualityDetails->getQualityDetailsByQualityId($id);
+    $projects = $jUtils->getAllProjects();
+    $template->assign("projects",$projects);
+    $customers = $jUtils->getAllCustomers();
+    $template->assign("customers",$customers);
+    $template->assign("details", $detailsList);
+    $template->assign("qualityId", $qId);
     $template->assign("notifyList",$notifyList);
     $template->display("editQualityDlg.tpl");
   default:

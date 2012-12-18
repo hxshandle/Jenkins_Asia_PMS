@@ -255,26 +255,9 @@
     }
 
     function addQualityDetails(qId){
-      alert("add "+qId);
     }
 
-    function showDetailsInfo(id,projectId){
-      __projectId = projectId;
-      var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__projectId;
-      new Ajax.Request(theUrl, {
-        method: 'get',
-        onSuccess:function(payload) {
-          if (payload.responseText != ""){ 
-            $("editDetailsInfo").innerHTML=payload.responseText;
-            $("editDetailsInfo").style.display="";
-            var swfu;
-            swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},"spanButtonPlaceHolder","btnCancel",setFileId);
-          }else{
-            alert("get data error");
-          }
-        }
-      });
-    }
+
 
     function saveQualityDetailsValiduator(){
       return true;

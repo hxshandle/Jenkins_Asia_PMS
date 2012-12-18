@@ -1,6 +1,14 @@
 {include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce" showheader="no"}
-<body style="background: url(/templates/standard/images/tables-projects-sechead.png) repeat scroll 0 0 transparent;">
+<script type="text/javascript" src="include/js/quality.js"></script>
+<body style="width:742px;background: url(/templates/standard/images/tables-msgs-sechead.png) repeat scroll 0 0 transparent;">
   <div class="msgs block_in_wrapper" >
+  <div class="headline" style="margin-bottom:10px">
+    <a href="javascript:void(0);" id="block_msgs_toggle" class="win_block" onclick = "toggleBlock('block_msgs');"></a>
+    <h2>
+      <img src="./templates/standard/images/symbols/msgs.png" alt="" />{#supplierCorrectiveActionReport#}
+    </h2>
+  </div>
+<div id = "block_msgs">
 <form id="editQuality" name="editQuality" class="projects" method="post" action="managequality.php?action=saveQuality">
   <input type = "hidden" id="orderId" name = "orderId" value = "{$orderId}"></input>
   <input type = "hidden" id="projectId" name = "projectId" value = "{$projectId}"></input>
@@ -36,15 +44,6 @@
   <label style="">{#shipNo#}<span style="color:red">*</span></label>
   <input id="shipNo" name="shipNo" value = "{$quality.ship_no}"></input>
  </div>
- <!--
-  <div class="dlgRow">
-  <label style="float:left">{#statusUpdate#}<span style="color:red">*</span></label>
-  <div style='width:400px;margin-left:200px'>
-    <textarea id="statusUpdate" name="statusUpdate" value = "">{$quality.status_update}</textarea>
-  </div>
-  <input type='hidden' name='oldStatusUpdate' id='oldStatusUpdate' value = '{$quality.status_update}'></input>
- </div>
--->
   <div class="dlgRow">
   <label style="">{#lotQuantity#}<span style="color:red">*</span></label>
   <input id="lotQuantity" name="lotQuantity" value = "{$quality.lot_quantity}"></input>
@@ -54,7 +53,7 @@
   <input id="sampleSize" name="sampleSize" value = "{$quality.Sample_size}"></input>
  </div>
   <div class="dlgRow">
-  <label style="">{#defects#}</label>
+  <label style="">{#nonComplianceRate#}</label>
   <input id="defects" name="defects" value = "{$quality.defects}"></input>
  </div>
   <div class="dlgRow">
@@ -123,8 +122,162 @@
   <button id="dlgBtnSaveQuality" type="submit">{#save#}</button>
 </div>
 </form>
+</div>
+<div class="tablemenue"></div>
+<div class="content-spacer"></div>
+      <!-- Details block -->
+      <div class="headline">
+        <a href="javascript:void(0);" id="block_details_toggle" class="win_block" onclick = "toggleBlock('block_details');"></a>
+        <div class="wintools">
+        </div>
+        <h2>
+          <img src="./templates/standard/images/symbols/msgs.png" alt="" />{#qualityDetails#}
+        </h2>
+      </div>
+      <div id="block_details" class="block" >
+          {include file='qualitydetailslist.tpl'}
+      </div>
+      
+      <!-- End of Details block-->
+      <!-- Add details block -->
+      <div id = "addQualityDetails" class="block_in_wrapper" style = "display:none;">
+        <h2>{#addQualityDetails#}</h2>
+        <form id="detailsForm" name="detailsForm"  method="post" action="managequality.php?action=saveDetails&pId={$project.ID}">
+
+        <div class="dlgRow">
+              <label for="project">{#project#}:</label>
+              <select name="addDetailsProject" id="addDetailsProject" onchange="onAddDetailsProjectChange(this)"; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=project loop=$projects}
+                  <option value="{$projects[project].ID}">{$projects[project].name}</option>
+                {/section}
+              </select>
+            </div>
+
+          <div class="dlgRow">
+            <label>{#actionNo#}</label>
+            <select id="quality" name="quality">
+              <option value="-1" selected="selected">{#chooseone#}</option>
+            </select>
+          </div>
+          <div class="dlgRow">
+            <label>{#quantity#}</label>
+            <input id="quantity" name = "quantity"></input>
+          </div>
+
+          <div class="dlgRow">
+              <label for="project">{#status#}:</label>
+              <select name="status" id="status" required = "1">
+                {section name=st loop=$qualityDetailsStatus}
+                  <option value="{$qualityDetailsStatus[st].id}">{$qualityDetailsStatus[st].value}</option>
+                {/section}
+              </select>
+          </div>
+
+          <div class="dlgRow">
+            <label class="floatL">{#rejectDesc#}</label>
+            <div class="editor floatL">
+              <textarea  class='largeText' id="rejectDesc" name = "rejectDesc" ></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#requiredDesc#}</label>
+            <div class="editor floatL">
+              <textarea  class='largeText' id="requiredDesc" name = "requiredDesc"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#rootCause#}</label>
+            <div class="editor floatL">
+              <textarea  class='largeText' id="rootCause" name = "rootCause"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#containmentAction#}</label>
+            <div class="editor floatL">
+              <textarea  class='largeText' id="containmentAction" name = "containmentAction"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#supplierShortTermCorrectiveAct#}</label>
+            <div class="editor floatL">
+              <textarea  class='largeText' id="supplierShortTermCorrectiveAct" name = "supplierShortTermCorrectiveAct"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label>{#shotTermImplementationDate#}</label>
+            <input id="shotTermImplementationDate" name="shotTermImplementationDate"></input>
+          </div>
+          <div class="dlgRow">
+            <label>{#shortTermVerified#}</label>
+            <select id="shortTermVerified" name = "shortTermVerified">
+              <option value="1">{#yes#}</option>
+              <option value="0" selected>{#no#}</option>
+            </select>
+          </div>
+          <div class="dlgRow">
+            <label class="floatL">{#supplierLongTermCorrectiveAct#}</label>
+            <div class="editor floatL">
+              <textarea  class='largeText' id="supplierLongTermCorrectiveAct" name = "supplierLongTermCorrectiveAct"></textarea>
+            </div>
+            <div class="clear_both_b"></div>
+          </div>
+          <div class="dlgRow">
+            <label>{#longTermImplementationDate#}</label>
+            <input id="longTermImplementationDate" name="longTermImplementationDate"></input>
+          </div>
+          <div class="dlgRow">
+            <label>{#vendorProcessAuditPlanRevision#}</label>
+            <input id="vendorProcessAuditPlanRevision" name="vendorProcessAuditPlanRevision"></input>
+          </div>
+          <div class="dlgRow">
+            <label>{#longTermVerified#}</label>
+            <select id="longTermVerified" name = "longTermVerified">
+              <option value="1">{#yes#}</option>
+              <option value="0" selected>{#no#}</option>
+            </select>
+          </div>
+          <div class="dlgRow" style="height:20px">
+            <label style="width:200px;float:left;">&nbsp;</label>
+            <button onfocus="this.blur()" type="submit">{#save#}</button>
+            <button onclick="blindtoggle('addQualityDetails');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
+          </div>
+        </form>
+      </div>
+      <div class="tablemenue">
+        <div class="tablemenue-in">
+          <a class="butn_link" href="javascript:blindtoggle('addQualityDetails');"  id="addDetails_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addqualityDetails#}</a>
+        </div>
+      </div>
+
+<div id="editDetailsInfo" class="block_in_wrapper" style="display:none">
 
 <script>
+{literal}
+    function showDetailsInfo(id,projectId){
+      __projectId = projectId;
+      var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__projectId;
+      new Ajax.Request(theUrl, {
+        method: 'get',
+        onSuccess:function(payload) {
+          if (payload.responseText != ""){ 
+            $("editDetailsInfo").innerHTML=payload.responseText;
+            $("editDetailsInfo").style.display="";
+            var swfu;
+            swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},"spanButtonPlaceHolder","btnCancel",setFileId);
+          }else{
+            alert("get data error");
+          }
+        }
+      });
+    }
+{/literal}
+
 {literal}
   function bindDateOPicker(relateTo,target){
 {/literal}
@@ -146,6 +299,7 @@
 {/literal}
 </script>
 </div>
+<div class="content-spacer"></div>
 </body>
 
 
