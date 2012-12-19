@@ -1,6 +1,6 @@
 {config_load file=lng.conf section = "strings" scope="global" }
 <h2>{#editDetails#}</h2>
-<form id="detailsForm" name="detailsForm"  method="post" action="managequality.php?action=updateDetails&projectId={$projectId}&detailsId={$detailsId}">
+<form id="detailsForm" name="detailsForm"  method="post" action="managequality.php?action=updateDetails&qualityId={$qualityId}&detailsId={$detailsId}">
   <div class="dlgRow">
     <label>{#quantity#}</label>
     <input id="quantity" name = "quantity" value="{$data.quantity}"></input>

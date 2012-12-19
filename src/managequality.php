@@ -32,7 +32,7 @@ switch ($action) {
     $customers = $jUtils->getAllCustomers();
     $template->assign("customers",$customers);
     $orders = $jUtils->getAllOrders();
-  $template->assign("orders",$orders);
+    $template->assign("orders",$orders);
     $projectname = $pro['name'];
     $template->assign("project", $pro);
     $template->assign("projectId", $id);
@@ -43,7 +43,6 @@ switch ($action) {
     $template->display("projectquality.tpl");
     break;
   case "saveDetails":
-    $projectId = getArrayVal($_POST, "addDetailsProject");
     $quality = getArrayVal($_POST, "quality");
     $status = getArrayVal($_POST, "status");
     $rejectDesc = getArrayVal($_POST, "rejectDesc");
@@ -61,22 +60,22 @@ switch ($action) {
 
     $qualityDetails = new QualityDetails();
     $ins = $qualityDetails->add($quality,$status,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
-    Header("Location: managequality.php?action=showproject&id=".$projectId); 
+    Header("Location: managequality.php?action=showEditDlg&id=".$quality); 
     break;
   case "getQualityDetailsInfo":
     $detailsId = getArrayVal($_GET, "detailsId");
-    $projectId = getArrayVal($_GET, "projectId");
+    $qualityId = getArrayVal($_GET, "qualityId");
     $qualityDetails = new QualityDetails();
     $data = $qualityDetails->get($detailsId);
     $template->assign("data", $data[0]);
-    $template->assign("projectId", $projectId);
+    $template->assign("qualityId", $qualityId);
     $template->assign("detailsId", $detailsId);
     $template->assign("qualityDetailsStatus",Status::getStatusByType("qualityDetails"));
     $template->display("editqualitydetailsinfo.tpl");
     break;
   case "updateDetails":
     $detailsId = getArrayVal($_GET, "detailsId");
-    $projectId = getArrayVal($_GET, "projectId");
+    $qualityId = getArrayVal($_GET, "qualityId");
     $quality = getArrayVal($_POST, "quality");
     $status = getArrayVal($_POST,"status");
     $rejectDesc = getArrayVal($_POST, "rejectDesc");
@@ -98,7 +97,7 @@ switch ($action) {
     if(!empty($fileId)){
         $qualityDetails->attachFile($detailsId,$fileId);
     } 
-    Header("Location: managequality.php?action=showproject&id=".$projectId);
+    Header("Location: managequality.php?action=showEditDlg&id=".$qualityId);
     
     break;
    case "saveQuality":
@@ -193,6 +192,7 @@ switch ($action) {
     $projects = $jUtils->getAllProjects();
     $template->assign("projects",$projects);
     $customers = $jUtils->getAllCustomers();
+    $template->assign("qualityDetailsStatus",Status::getStatusByType("qualityDetails"));
     $template->assign("customers",$customers);
     $template->assign("details", $detailsList);
     $template->assign("qualityId", $qId);

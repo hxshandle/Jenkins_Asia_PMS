@@ -143,23 +143,8 @@
       <div id = "addQualityDetails" class="block_in_wrapper" style = "display:none;">
         <h2>{#addQualityDetails#}</h2>
         <form id="detailsForm" name="detailsForm"  method="post" action="managequality.php?action=saveDetails&pId={$project.ID}">
+          <input type='hidden' name='quality' value='{$qualityId}'></input>
 
-        <div class="dlgRow">
-              <label for="project">{#project#}:</label>
-              <select name="addDetailsProject" id="addDetailsProject" onchange="onAddDetailsProjectChange(this)"; required = "1">
-                <option value="-1" selected="selected">{#chooseone#}</option>
-                {section name=project loop=$projects}
-                  <option value="{$projects[project].ID}">{$projects[project].name}</option>
-                {/section}
-              </select>
-            </div>
-
-          <div class="dlgRow">
-            <label>{#actionNo#}</label>
-            <select id="quality" name="quality">
-              <option value="-1" selected="selected">{#chooseone#}</option>
-            </select>
-          </div>
           <div class="dlgRow">
             <label>{#quantity#}</label>
             <input id="quantity" name = "quantity"></input>
@@ -248,20 +233,23 @@
             <button onclick="blindtoggle('addQualityDetails');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
           </div>
         </form>
+
       </div>
+      <div id="editDetailsInfo" class="block_in_wrapper" style="display:none"></div>
       <div class="tablemenue">
         <div class="tablemenue-in">
           <a class="butn_link" href="javascript:blindtoggle('addQualityDetails');"  id="addDetails_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addqualityDetails#}</a>
         </div>
       </div>
 
-<div id="editDetailsInfo" class="block_in_wrapper" style="display:none">
+
 
 <script>
+ var __qualityId = {$quality.ID};
 {literal}
     function showDetailsInfo(id,projectId){
       __projectId = projectId;
-      var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&projectId="+__projectId;
+      var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&qualityId="+__qualityId;
       new Ajax.Request(theUrl, {
         method: 'get',
         onSuccess:function(payload) {
