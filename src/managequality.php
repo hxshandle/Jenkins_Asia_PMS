@@ -158,12 +158,13 @@ switch ($action) {
           $jUtils->sendQualityMail($qId,$settings,false);
         }
         
-        $template->display("successclose.tpl");
+        Header("Location: managequality.php?action=showEditDlg&id=".$qId);
         return;
     }
     
     $loc = $url."managequality.php?action=showproject&id=$projectId&orderId=$orderId";
     header("Location: $loc");
+    
     break;
   case "filterQuality":
      $projectId = getArrayVal($_POST,"projectId");
@@ -195,7 +196,7 @@ switch ($action) {
     $template->assign("qualityDetailsStatus",Status::getStatusByType("qualityDetails"));
     $template->assign("customers",$customers);
     $template->assign("details", $detailsList);
-    $template->assign("qualityId", $qId);
+    $template->assign("qualityId", $id);
     $template->assign("notifyList",$notifyList);
     $template->display("editQualityDlg.tpl");
   default:

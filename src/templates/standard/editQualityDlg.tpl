@@ -1,4 +1,8 @@
 {include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce" showheader="no"}
+<script type="text/javascript" src="include/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="include/swfupload/swfupload.queue.js"></script>
+<script type="text/javascript" src="include/js/fileprogress.js"></script>
+<script type="text/javascript" src="include/js/handlers.js"></script>
 <script type="text/javascript" src="include/js/quality.js"></script>
 <body style="width:742px;background: url(/templates/standard/images/tables-msgs-sechead.png) repeat scroll 0 0 transparent;">
   <div class="msgs block_in_wrapper" >
@@ -245,8 +249,19 @@
 
 
 <script>
- var __qualityId = {$quality.ID};
+var __qualityId = {$quality.ID};
+var __sesionId = "{$smarty.session.sessionId}";
+var __userId = "{$smarty.session.userid}";
+
+
 {literal}
+
+
+    function setFileId(id){
+      if($("fileId")){
+        $("fileId").value=id;
+      }
+    }
     function showDetailsInfo(id,projectId){
       __projectId = projectId;
       var theUrl = "managequality.php?action=getQualityDetailsInfo&detailsId="+id+"&qualityId="+__qualityId;
