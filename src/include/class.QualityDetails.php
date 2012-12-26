@@ -154,7 +154,7 @@ class QualityDetails {
         $images = array();
         while($rowf = mysql_fetch_array($sel2)){
           array_push($files,$rowf);
-          $ext = substr($rowf['name'],substr(-4));
+          $ext = substr($rowf['name'],-4);
           if($ext == ".png" || $ext == ".jpg" || $ext="jpeg"){
             array_push($images,$rowf);
           }
