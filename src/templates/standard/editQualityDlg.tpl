@@ -252,7 +252,7 @@
 var __qualityId = {$quality.ID};
 var __sesionId = "{$smarty.session.sessionId}";
 var __userId = "{$smarty.session.userid}";
-
+var accord_qualityDetails = new accordion('block_details');
 
 {literal}
 

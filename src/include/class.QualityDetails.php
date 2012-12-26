@@ -151,9 +151,15 @@ class QualityDetails {
         $sql2 = "select f.* from files f,quality_details_attached q where q.file_id = f.id and q.details_id = $row[ID]";
         $sel2 = mysql_query($sql2);
         $files = array();
+        $images = array();
         while($rowf = mysql_fetch_array($sel2)){
           array_push($files,$rowf);
+          $ext = $rowf['name'].substr(-4);
+          if($ext == ".png" || $ext == ".jpg" || $ext="jpeg"){
+            array_push($images,$rowf);
+          }
         }
+        $row["images"] = $images;
         $row["files"]=$files;
         array_push($arr, $row);
       }
