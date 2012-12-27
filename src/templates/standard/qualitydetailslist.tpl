@@ -44,7 +44,9 @@
                 {foreach from=$details[item].images item=image}
                   <li>
                     <div>{$image.name}</div>
-                    <img src="{$image.datei}"></img>
+                    <a href="{$image.datei}" target="blank">
+                      <img src="/thumb.php?pic={$image.datei}&width=480"></img>
+                    </a>
                   </li>
                 {/foreach}
             </ul>
