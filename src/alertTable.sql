@@ -238,3 +238,97 @@ INSERT INTO `status`( `type`, `value`) VALUES ('qualityDetails','Open');
 INSERT INTO `status`( `type`, `value`) VALUES ('qualityDetails','Closed');
 
 ALTER TABLE `quality_details` ADD COLUMN `status` INT NOT NULL DEFAULT -1  AFTER `quality` ;
+
+
+CREATE  TABLE `cost` (
+  `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `project_no` VARCHAR(255) NOT NULL ,
+  `customer_model_number` VARCHAR(255) NULL ,
+  `jenkins_model_number` INT(11) NULL ,
+  `customer_assembly_number` VARCHAR(255) NULL ,
+  `customer_parent_assembly_number` VARCHAR(255) NULL ,
+  `jenkins_assembly_number` VARCHAR(255) NULL ,
+  `jenkins_parent_assembly_number` VARCHAR(255) NULL ,
+  `customer_part_number` VARCHAR(255) NULL ,
+  `jenkins_part_number` VARCHAR(255) NULL ,
+  `customer_drawing_number` VARCHAR(255) NULL ,
+  `revision1` VARCHAR(255) NULL ,
+  `jenkins_drawing_number` INT(11) NULL ,
+  `revision2` VARCHAR(255) NULL ,
+  `internal_budgetary_price` DECIMAL NULL ,
+  `external_budgetary_price` DECIMAL NULL ,
+  `internal_alpha_price` DECIMAL NULL ,
+  `external_alpha_price` DECIMAL NULL ,
+  `internal_beta_price` DECIMAL NULL ,
+  `external_beta_price` DECIMAL NULL ,
+  `internal_final_price` DECIMAL NULL ,
+  `quantity_per_product` DECIMAL NULL ,
+  `currency` VARCHAR(3) NULL DEFAULT 'RMB',
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+
+CREATE  TABLE `internal_price_breakdown` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT ,
+  `project_no` VARCHAR(255) NULL ,
+  `customer_model_number` VARCHAR(255) NULL ,
+  `jenkins_model_number` INT(11) NULL ,
+  `customer_assembly_number` VARCHAR(255) NULL ,
+  `jenkins_assembly_number` VARCHAR(255) NULL ,
+  `customer_part_number` VARCHAR(255) NULL ,
+  `jenkins_part_number` VARCHAR(255) NULL ,
+  `customer_drawing_number` VARCHAR(255) NULL ,
+  `revision1` VARCHAR(255) NULL ,
+  `jenkins_drawing_number` INT(11) NULL ,
+  `revision2` VARCHAR(255) NULL ,
+  `material` DECIMAL NULL ,
+  `additional_material_specification` VARCHAR(45) NULL ,
+  `finish` TIMESTAMP NULL ,
+  `material_cost` DECIMAL NULL ,
+  `assembly_cost` DECIMAL NULL ,
+  `overhead` DECIMAL NULL ,
+  `factory_profit` DECIMAL NULL ,
+  `tax` DECIMAL NULL ,
+  `customs` DECIMAL NULL ,
+  `freight` DECIMAL NULL ,
+  `handling` DECIMAL NULL ,
+  `internal_budgetary_price` DECIMAL NULL ,
+  `currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE  TABLE `external_price_breakdown` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT ,
+  `project_no` VARCHAR(255) NULL ,
+  `customer_model_number` VARCHAR(255) NULL ,
+  `jenkins_model_number` INT(11) NULL ,
+  `customer_assembly_number` VARCHAR(255) NULL ,
+  `jenkins_assembly_number` VARCHAR(255) NULL ,
+  `customer_part_number` VARCHAR(255) NULL ,
+  `jenkins_part_number` VARCHAR(255) NULL ,
+  `customer_drawing_number` VARCHAR(255) NULL ,
+  `revision1` VARCHAR(255) NULL ,
+  `jenkins_drawing_number` INT(11) NULL ,
+  `revision2` VARCHAR(255) NULL ,
+  `material` DECIMAL NULL ,
+  `additional_material_specification` VARCHAR(45) NULL ,
+  `finish` TIMESTAMP NULL ,
+  `material_cost` DECIMAL NULL ,
+  `assembly_cost` DECIMAL NULL ,
+  `overhead` DECIMAL NULL ,
+  `factory_profit` DECIMAL NULL ,
+  `tax` DECIMAL NULL ,
+  `customs` DECIMAL NULL ,
+  `freight` DECIMAL NULL ,
+  `handling` DECIMAL NULL ,
+  `internal_budgetary_price` DECIMAL NULL ,
+  `currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
+  `approved` INT(1) NULL DEFAULT '0',
+  `Published` INT(1) NULL DEFAULT '0',
+  PRIMARY KEY (`ID`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
