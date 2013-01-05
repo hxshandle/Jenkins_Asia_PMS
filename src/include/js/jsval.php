@@ -77,7 +77,9 @@ function _validateInternal(form, strErrorClass, nErrorThrowType){
    var arr = new Array();
    for (var i = 0; i < form.length; ++i){
       var element = form.elements[i];
-
+      if(element.tagName == 'OBJECT'){
+        continue;
+      }
 
       var index = _getElementIndex(arr,element);
       //if it doesn't already exist, add it to our array, else merge the change
