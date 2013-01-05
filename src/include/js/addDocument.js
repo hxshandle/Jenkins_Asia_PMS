@@ -9,14 +9,13 @@ function autoFullNewDocForm(el,name,docNo,project,order,quality,visible){
   if(!el.checked){
     return;
   }
-  alert(name+","+docNo+","+project+","+order+","+quality+","+visible);
   $("name").value = name;
-  $("documentNo").value = docNo;
   $("project").value = project;
   $("project").onchange();
   setTimeout(function(){
     $("order").value = order;
     $("quality").value = quality;
+    $("documentNo").value = docNo;
   },2000);
   
   var arrVisible = visible.split(',');
