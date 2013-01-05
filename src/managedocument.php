@@ -75,6 +75,7 @@ case "selectDocuments":
   $doc = new Document();
   $project = new project();
   $ecnId = getArrayVal($_GET, "ecnId");
+  $template->assign("projectId",-1);
   if(!$ecnId){
     $ecnId = "-1";
   }else{
@@ -86,6 +87,7 @@ case "selectDocuments":
     $projectNo = $projectObj['project_no'];
     $template->assign("projectNo",$projectNo);
     $template->assign("isAddECNDoc","1");
+    $template->assign("projectId",$projectId);
   }
   
   $template->assign("ecnId",$ecnId);
@@ -96,7 +98,7 @@ case "selectDocuments":
   $template->assign("customers",$customers);
   $orders = $jUtils->getAllOrders();
   $template->assign("orders",$orders);
-  $template->assign("projectId",-1);
+  
   $documents = $doc->getLatesUpdatedDocuments();
   $template->assign("documents",$documents);
   $template->display("selectDocuments.tpl");
