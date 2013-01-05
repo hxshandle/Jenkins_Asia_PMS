@@ -77,6 +77,14 @@ case "selectDocuments":
   $ecnId = getArrayVal($_GET, "ecnId");
   if(!$ecnId){
     $ecnId = "-1";
+  }else{
+    $ecn = new EngineeringChangeNote();
+    $ecnObj = $ecn->get($ecnId);
+    $projectId = $ecnObj['project'];
+    $project = new project();
+    $projectObj = $project->getProject($projectId);
+    $projectNo = $projectObj['project_no'];
+    $template->assign("projectNo",$projectNo);
   }
   $template->assign("ecnId",$ecnId);
   

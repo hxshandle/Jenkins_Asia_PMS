@@ -67,7 +67,7 @@ class Document{
   function getLatesUpdatedDocuments(){
     $ret = array();
     $userRole = $_SESSION["userRole"];;
-    $sql = "select id from document_info where visibility like '%$userRole%' order by insert_date DESC";
+    $sql = "select id from document_info where visibility like '%$userRole%' order by insert_date DESC,document_no,revision DESC";
     $sel = mysql_query($sql);
     while($row = mysql_fetch_array($sel)){
       $info = $this->getDocumentInfo($row[0]);
@@ -99,6 +99,7 @@ class Document{
       $str =  implode(',', $pIds);
       $sql .= " and project in (".$str.")";
     }
+    $sql .=" order by document_no,revision DESC,insert_date DESC";
     $ret = array();
     $sel = mysql_query($sql);
     while($row = mysql_fetch_array($sel)){

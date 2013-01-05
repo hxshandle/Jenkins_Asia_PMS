@@ -12,7 +12,7 @@
   <div><b>{#files#}:</b></div>
   <ul id="ecnList">
     {section name=d loop=$documents}
-      <li><a target="blank" href="{$documents[d].download_url}">{$documents[d].name}:{$documents[d].revision}</a></li>
+      <li><a target="blank" href="{$documents[d].download_url}">{$documents[d].name}&nbsp {$documents[d].document_no}&nbspRev.{$documents[d].revision}</a></li>
     {/section}
   </ul>
   <div style="float:right;padding:8px;">

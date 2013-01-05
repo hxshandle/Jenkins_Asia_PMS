@@ -21,7 +21,7 @@
 
       <div class="row">
         <label for="name">{#documentNo#}:</label>
-        <input type="text" class="text" name="documentNo" id="documentNo" required="1" realname="{#documentNo#}" />
+        <input type="text" class="text" name="documentNo" id="documentNo" required="1" realname="{#documentNo#}"  ></input>
       </div>
 
 

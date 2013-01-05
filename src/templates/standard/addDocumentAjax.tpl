@@ -10,7 +10,11 @@
         <label for="name">{#name#}:</label>
         <input type="text" class="text" name="name" id="name" required="1" realname="{#name#}" />
       </div>
-
+      
+      <div class="row">
+        <label for="name">{#documentNo#}:</label>
+        <input type="text" class="text" name="documentNo" id="documentNo" required="1" realname="{#documentNo#}" value="{$projectNo}"/>
+      </div>
 
 		  <div class="row">
         <label for="revision">{#revision#}:</label>
