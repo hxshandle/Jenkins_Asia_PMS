@@ -5,6 +5,34 @@ function afterUploadFile(fileId){
 }
 
 
+function autoFullNewDocForm(el,name,docNo,project,order,quality,visible){
+  if(!el.checked){
+    return;
+  }
+  alert(name+","+docNo+","+project+","+order+","+quality+","+visible);
+  $("name").value = name;
+  $("documentNo").value = docNo;
+  $("project").value = project;
+  $("project").onchange();
+  setTimeout(function(){
+    $("order").value = order;
+    $("quality").value = quality;
+  },2000);
+  
+  var arrVisible = visible.split(',');
+  var visibleOpts = $('visibility').options;
+  var opt;
+  for (var i = 0; i < visibleOpts.length ; i++){
+      opt = visibleOpts[i];
+      if(arrVisible.indexOf(opt.value) !== -1){
+        opt.selected = true;
+      }else{
+        opt.selected = false;
+      }
+  }
+}
+
+
 function onSelProjectChange(evt){
   var val = evt.value;
   switch(val){

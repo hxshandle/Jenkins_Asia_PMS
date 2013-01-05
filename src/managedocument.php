@@ -85,7 +85,9 @@ case "selectDocuments":
     $projectObj = $project->getProject($projectId);
     $projectNo = $projectObj['project_no'];
     $template->assign("projectNo",$projectNo);
+    $template->assign("isAddECNDoc","1");
   }
+  
   $template->assign("ecnId",$ecnId);
   
   $projects =$jUtils->getAllProjects();
