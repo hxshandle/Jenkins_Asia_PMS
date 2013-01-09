@@ -161,7 +161,7 @@ class task {
     $location = mysql_real_escape_string($location);
 
     //$end = strtotime($end);
-    $sql = "UPDATE tasks SET `start_date`='$start', `end_date`='$end',`title`='$title', `text`='$text',`status`=$taskStatus ,`status_update`='$statusUpdate',`parent`=$parentTask ,`location`='$location' WHERE ID = $id";
+    $sql = "UPDATE tasks SET `start_date`='$start', `end_date`='$end',`title`='$title', `status`=$taskStatus ,`status_update`='$statusUpdate',`parent`=$parentTask ,`location`='$location' WHERE ID = $id";
     $upd = mysql_query($sql);
     mysql_query("DELETE FROM tasks_assigned WHERE `task` = $id");
     mysql_query("DELETE FROM task_distribution WHERE `task_id` = $id");
