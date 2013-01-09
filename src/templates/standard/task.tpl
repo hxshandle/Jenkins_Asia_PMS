@@ -20,7 +20,7 @@
 
 	<div class="statuswrapper">
 			<ul>
-				{if $userpermissions.tasks.close}
+				{if $userpermissions.tasks.close and $editable != 'false'}
 				<li class="link" id = "closetoggle">
 				{if $task.status == 1}
 				<a class="close" href="javascript:closeElement('closetoggle','managetask.php?action=close&amp;tid={$task.ID}&amp;id={$project.ID}');" title="{#close#}"></a></li>
@@ -86,10 +86,12 @@ function refreshFileList(fileId){
 	<div class="nosmooth" id="attachment_task">
 		<div id="descript" class="descript">
 			<h2>{#files#}</h2>
+			{if $editable != 'false'}
 			<div style="background-color: rgb(134, 156, 173); padding: 0pt 15px;">
 				{include file = "uploadfile.tpl" callbackFunc=refreshFileList}
 				<div style="clear:both"></div>
 			</div>
+			{/if}
 			<ul>
 					{section name=file loop=$files}
 				<li id = "fli_{$files[file].ID}">

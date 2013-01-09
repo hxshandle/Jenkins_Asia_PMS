@@ -190,7 +190,7 @@
 							{/if}
 								<tr {if $tasks[task].daysleft < 0} class="marker-late"{elseif $tasks[task].daysleft == 0} class="marker-today"{/if}>
 									<td>
-										{if $userpermissions.tasks.close}
+										{if $userpermissions.tasks.close and $tasks[task].editable != 'false'}
 											<a class="butn_check" href="javascript:closeElement('task_{$tasks[task].ID}','managetask.php?action=close&amp;tid={$tasks[task].ID}&amp;id={$tasks[task].project}');" title="{#close#}"></a>
 										{/if}
 									</td>
@@ -211,10 +211,10 @@
 									</td>
 									<td style="text-align:right">{$tasks[task].daysleft}&nbsp;&nbsp;</td>
 									<td class="tools">
-										{if $userpermissions.tasks.edit}
+										{if $userpermissions.tasks.edit and $tasks[task].editable != 'false'}
 											<a class="tool_edit" href="managetask.php?action=editform&amp;tid={$tasks[task].ID}&amp;id={$tasks[task].project}" title="{#edit#}"></a>
 										{/if}
-										{if $userpermissions.tasks.del}
+										{if $userpermissions.tasks.del and $tasks[task].editable != 'false'}
 											<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'task_{$tasks[task].ID}\',\'managetask.php?action=del&amp;tid={$tasks[task].ID}&amp;id={$tasks[task].project}\')');"  title="{#delete#}"></a>
 										{/if}
 									</td>

@@ -28,7 +28,7 @@
 					<fieldset>
 
 					<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" value="{$task.title}" name="title" id="title" realname="{#title#}" required="1" /></div>
-					<div class="row"><label for="text">{#sampledescription#}:</label><div class="editor"><textarea readonly="1" name="text" id="text"   rows="3" cols="0" >{$task.text}</textarea></div></div>
+					<div class="row"><label for="text">{#sampledescription#}:</label><div class="editor" style='border:0;'>{$task.text}</div></div>
           <div class="row"><label for="location">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location" required = "1" value = "{$task.location}" /></div>
 
           <div class="row"><label for="status">{#status#}:</label>
@@ -42,7 +42,7 @@
             {/section}
             </select>
           </div>
-          <div class="row"><label for="statusUpdate">{#statusUpdate#}:</label><div class="editor"><textarea name="statusUpdate" id="statusUpdate"   rows="3" cols="0" >{$task.status_update}</textarea></div></div>
+          <div class="row"><label for="statusUpdate">{#statusUpdate#}:</label><div style='margin-left:142px'>{$task.status_update}</div><div class="editor" style='margin-left:142px'><textarea name="statusUpdate" id="statusUpdate"   rows="3" cols="0" ></textarea></div></div>
           <input type="hidden" id="oldStatusUpdate" name="oldStatusUpdate" value="{$task.status_update}"/>
           <div class="row">
             <label for="deliverableItems">{#deliverableItems#}: </label>
@@ -123,7 +123,9 @@
 
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
+            {if $editable != 'false'}
 						<button type="submit" onfocus="this.blur();">{#send#}</button>
+            {/if}
 						<button onclick="blindtoggle('form_edit');toggleClass('edit_butn','edit-active','edit');toggleClass('sm_task','smooth','nosmooth');return false;" onfocus="this.blur();" {if $showhtml != "no"} style="display:none;"{/if}>{#cancel#}</button>
 					</div>
 

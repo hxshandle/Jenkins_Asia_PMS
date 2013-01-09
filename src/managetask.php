@@ -172,10 +172,13 @@ if ($action == "addform") {
   }
   $len1 = strlen($statusUpdate);
   $len2 = strlen($oldStatusUpdate);
-  if(strlen($statusUpdate) != strlen($oldStatusUpdate)){
+  if($len1 > 0){
+    $statusUpdate = $oldStatusUpdate.'</br></br>'.$statusUpdate;
     $dateFormat = CL_DATEFORMAT." H:i:s";
     $today = date($dateFormat);
-    $statusUpdate .= " --".$_SESSION['username']." ".$today;
+    $statusUpdate .= "</br> --".$_SESSION['username']." ".$today;
+  }else{
+    $statusUpdate = $oldStatusUpdate;
   }
   $completeStatus = Status::getId("task", "complete");
   $closeStatus = Status::getId("task", "closed");
@@ -398,6 +401,18 @@ if ($action == "addform") {
   $task['userid'] = $user[0];
   $deliverable = new DeliverableItem();
   $deliverableItems = $deliverable->getDeliverableItemsByProjectId($id);
+
+  if($_SESSION['userRole'] >=8){
+    $isAssignee = false;
+    foreach($task['users'] as $u){
+      if($u['id'] == $_SESSION['userid']){
+        $isAssignee = true;
+      }
+    }
+    if(!$isAssignee){
+      $template->assign("editable", 'false');      
+    }
+  }
 
   $template->assign("members", $members);
   $template->assign("projectId", $id);

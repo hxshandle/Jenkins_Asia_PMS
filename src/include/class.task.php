@@ -572,6 +572,18 @@ class task {
       array_push($lists, $task);
     }
 
+    if($_SESSION['userRole'] >= 8 ){
+      $st1 = Status::getId("task", "not_start");
+      $st2 = Status::getId("task", "in_progress");
+      $sql3 = "select ts.id from tasks ts, task_distribution td where ts.project = $project and ts.id = td.task_id and td.user_id = $user and ts.status in ($st1,$st2)";
+      $sel = mysql_query($sql3);
+      while($row = mysql_fetch_array($sel)){
+        $task = $this->getTask($row['id']);
+        $task['editable'] = 'false';
+        array_push($lists, $task);
+      }
+    }
+
     if (!empty($lists)) {
       return $lists;
     } else {
