@@ -242,6 +242,7 @@ ALTER TABLE `quality_details` ADD COLUMN `status` INT NOT NULL DEFAULT -1  AFTER
 
 CREATE  TABLE `cost` (
   `ID` INT(10) NOT NULL AUTO_INCREMENT ,
+  `project` int(11) not null,
   `project_no` VARCHAR(255) NOT NULL ,
   `customer_model_number` VARCHAR(255) NULL ,
   `jenkins_model_number` INT(11) NULL ,
