@@ -123,7 +123,9 @@
   <input type="hidden" id ="mode" name="mode" value = "update"></input>
   <input type = "hidden" id ="qId" name="qId" value = "{$quality.ID}"></input>
 <div  style="margin:10px 0 0 0">
+  {if $smarty.session.userRole < 8}
   <button id="dlgBtnSaveQuality" type="submit">{#save#}</button>
+  {/if}
 </div>
 </form>
 </div>
@@ -242,7 +244,9 @@
       <div id="editDetailsInfo" class="block_in_wrapper" style="display:none"></div>
       <div class="tablemenue">
         <div class="tablemenue-in">
+          {if $smarty.session.userRole < 8}
           <a class="butn_link" href="javascript:blindtoggle('addQualityDetails');"  id="addDetails_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addqualityDetails#}</a>
+          {/if}
         </div>
       </div>
 

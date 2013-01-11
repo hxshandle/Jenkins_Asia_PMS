@@ -88,7 +88,7 @@
 
           <div class="tablemenue">
             <div class="tablemenue-in">
-              {if $userpermissions.messages.add}
+              {if $userpermissions.messages.add && $smarty.session.userRole < 8}
               <a class="butn_link" href="javascript:blindtoggle('addmsg');"  id="add_butn" onclick="toggleClass('add','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');">{#addquality#}</a>
               {/if}
             </div>
