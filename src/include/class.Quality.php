@@ -117,13 +117,23 @@ class Quality {
     $projectId = (int)$projectId;
     $orderId = (int) $orderId;
     $customerName = mysql_escape_string($customerName);
-    $sql = "select q.* from quality q, projekte p where q.project = p.id";
+    $sql = "select q.* from quality q, projekte p ";
+    $userRole = $_SESSION['userRole'];
+    $userId = $_SESSION['userid'];
+    if($userRole == '8' || $userRole == '9'){
+      $sql .= ",quality_notify qn where q.id = qn.qualityId and qn.userId = $userId and q.project=p.id " ;
+    }else{
+      $sql .=" where q.project = p.id";  
+    }
+    
     if($projectId != -1){
       $sql .= " and p.id = ".$projectId;
     }
     if($customerName != "-1"){
       $sql .=" and p.customer_name = '$customerName' ";
     }
+    
+    
     $sel = mysql_query($sql);
     $arrRet = array();
     while($row = mysql_fetch_array($sel)){
