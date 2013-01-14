@@ -18,7 +18,7 @@ case "mydocument":
   $template->assign("orders",$orders);
   $template->assign("projectId",-1);
   $documents = $doc->getLatesUpdatedDocuments();
-  $template->assign("documents",$documents);
+  $template->assign("documents",array());
   $template->display("document.tpl");
   break;
 case "deleteDocument":
@@ -63,6 +63,9 @@ case "filterDocument":
   $isSelectedTable = getArrayVal($_POST,"isSelectedTable");
   $doc = new Document();
   $documents = $doc->filterDocuments($projectId,$orderId,$customerName);
+  if($projectId == "-1" && $orderId == "-1" && $customerName =="-1"){
+    $documents = array();
+  }
   $template->assign("documents",$documents);
   if($isSelectedTable == 1){
     $template->display("selectDocumentsTable.tpl");
@@ -100,7 +103,7 @@ case "selectDocuments":
   $template->assign("orders",$orders);
   
   $documents = $doc->getLatesUpdatedDocuments();
-  $template->assign("documents",$documents);
+  $template->assign("documents",array());
   $template->display("selectDocuments.tpl");
   break;
 default:

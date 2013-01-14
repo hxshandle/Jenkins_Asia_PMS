@@ -57,7 +57,7 @@
   <input id="sampleSize" name="sampleSize" value = "{$quality.Sample_size}"></input>
  </div>
   <div class="dlgRow">
-  <label style="">{#nonComplianceRate#}</label>
+  <label style="">{#totalIssueFound#}</label>
   <input id="defects" name="defects" value = "{$quality.defects}"></input>
  </div>
   <div class="dlgRow">
