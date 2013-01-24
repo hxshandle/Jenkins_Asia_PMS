@@ -405,7 +405,7 @@ if ($action == "addform") {
   if($_SESSION['userRole'] >=8){
     $isAssignee = false;
     foreach($task['users'] as $u){
-      if($u['id'] == $_SESSION['userid']){
+      if($u['ID'] == $_SESSION['userid']){
         $isAssignee = true;
       }
     }
