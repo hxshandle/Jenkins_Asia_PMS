@@ -5,7 +5,8 @@ if (!$action) {
   $action = getArrayVal($_GET, "action");
 }
 $jUtils = new JUtils();
-$instance = new Cost;
+$instance = new Cost();
+$projectInstance = new project();
 
 $projectId = getArrayVal($_POST,"projectId");
 if(!$projectId){
@@ -15,11 +16,19 @@ if($projectId){
   $template->assign("projectId",$projectId);
 }
 
+$template->assign("currency", Currency::$Currencys);
+
 switch($action){
   case "editform":
     $id = getArrayVal($_GET,"id");
     if($id){
       $entry = $instance->get($id);
+      $template->assign("cost",$entry);
+    }else{
+      $entry = array();
+      $project = $projectInstance->getProject($projectId);
+      $entry['project'] = $projectId;
+      $entry['project_no'] =$project['project_no'];
       $template->assign("cost",$entry);
     }
     $template->display("editcostform.tpl");

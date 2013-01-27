@@ -42,7 +42,7 @@
 
   function showAddCostDlg(){
     var url = "managecost.php?action=editform&projectId="+__projectId;
-    var win = window.open(url,'','height=500,width=1100,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
+    var win = window.open(url,'','height=500,width=700,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
   }
 
                  
