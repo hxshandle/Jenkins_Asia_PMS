@@ -4,7 +4,7 @@
 </div>
 <div class="dlgRow">
   <label >{#sampletag#}</label>
-  <input id="newSampleTag"></input>
+  <input id="newSampleTag" value="JK0H-0000-SMP-"></input>
 </div>
 <div class="dlgRow">
   <label >{#totalcount#}</label>
