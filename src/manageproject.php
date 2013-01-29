@@ -733,10 +733,10 @@ if ($action == "editform")
     $template->assign("projectStatus",$projectStatus);
     $editBaseInfo = false;
     $_roleType = $_SESSION['userRole'];
-    $editBaseInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
+    $editBaseInfo = $_roleType == 1 || $_roleType ==3 || $_roleType == 4 || $isProjectLeader;
     $template->assign("editBaseInfo",$editBaseInfo);
     $editSampleInfo = false;
-    $editSampleInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4);
+    $editSampleInfo = $_roleType == 1 || $_roleType ==3 || $_roleType == 4 || $isProjectLeader;
     $template->assign("editSampleInfo",$editSampleInfo);
     $editSampleRequestInfo = false;
     $editSampleRequestInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4)|| ($_roleType == 5);

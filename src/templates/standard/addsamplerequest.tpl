@@ -1,5 +1,5 @@
 <div class="dlgRow">
-  <label style="margin:0 35px 0 0" >{#samplename#}</label>
+  <label >{#samplename#}</label>
      <select id = "targetFOBSampleExt" name="targetFOBSampleExt" class="currency">
         {section name=curr loop=$sampleTab}
             <option value="{$sampleTab[curr].ID}">{$sampleTab[curr].name}</option>
@@ -7,12 +7,12 @@
     </select>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#sampledescription#}</label>
+  <label >{#sampledescription#}</label>
   <textarea  id="newSampleRequestsDescription"></textarea>
 </div>  
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#projectname#}</label>
-  <label style="margin:0 50px 0 0">{$project.name}</label>
+  <label >{#projectname#}</label>
+  <label >{$project.name}</label>
 </div>
 
 <div  style="margin:10px 0 0 0">

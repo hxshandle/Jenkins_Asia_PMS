@@ -1,26 +1,26 @@
 <div class="dlgRow">
-  <label style="margin:0 35px 0 0" >{#samplename#}</label>
+  <label  >{#samplename#}</label>
   <input id="newSampleName"></input>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 23px 0 0">{#sampletag#}</label>
+  <label >{#sampletag#}</label>
   <input id="newSampleTag"></input>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#totalcount#}</label>
+  <label >{#totalcount#}</label>
   <input id="newSampleTotalcount" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 23px 0 0">{#availablecount#}</label>
+  <label >{#availablecount#}</label>
   <input id="newSampleAvailablecount" regexp="{literal}\d+{/literal}"></input>
 </div>
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#sampledescription#}</label>
+  <label >{#sampledescription#}</label>
   <textarea  id="newSampleDescription"></textarea>
 </div>  
 <div class="dlgRow">
-  <label style="margin:0 50px 0 0">{#projectname#}</label>
-  <label style="margin:0 50px 0 0">{$project.name}</label>
+  <label >{#projectname#}</label>
+  <label >{$project.name}</label>
 </div>
 
 <div  style="margin:10px 0 0 0">
