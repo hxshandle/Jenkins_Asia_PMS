@@ -685,8 +685,8 @@ if ($action == "editform")
     $tabs = new ProjectTabs();
     $phaseTab = $tabs->getPhaseTab($id);
     $template->assign("phaseTab", $phaseTab);
-    $financeTab = $tabs->getFinanceTab($id); 
-    $template->assign("financeTab", $financeTab);
+    $costList = $tabs->getCostTab($id);
+    $template->assign("costlist", $costList);
     $sampleTab = $tabs->getSampleTab($id); 
     $template->assign("sampleTab", $sampleTab);
     $qualityList = $tabs->getQualityByProjectId($id);

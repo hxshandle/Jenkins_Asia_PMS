@@ -32,6 +32,12 @@ class ProjectTabs {
     $financeData = $finance->getFinanceDetailsByProjectId($projectId);
     return $financeData;
   }
+
+  function getCostTab($projectId){
+    $cost = new Cost();
+    $costData = $cost->getCostByProjectId($projectId);
+    return $costData;
+  }
   
     //get Sample by msj
   function getSampleTab($projectId){

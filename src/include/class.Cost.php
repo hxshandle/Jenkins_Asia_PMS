@@ -148,9 +148,21 @@ $currency = mysql_escape_string($currency);
       $sel = mysql_query($sql);
       $entry = false;
       if($sel){
-        $entry = mysql_fetch_array($sql);
+        $entry = mysql_fetch_array($sel);
       }
       return $entry;
+    }
+
+    function getCostByProjectId($projectId){
+      $projectId = (int) $projectId;
+      $sql = "select id from cost where project = $projectId";
+      $sel = mysql_query($sql);
+      $arr = array();
+      while($row = mysql_fetch_array($sel)){
+        $cost = $this->get($row[0]);
+        array_push($arr, $cost);
+      }
+      return $arr;
     }
 
     function del($id){

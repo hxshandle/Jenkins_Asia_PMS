@@ -158,9 +158,21 @@ $currency = mysql_escape_string($currency);
       $sel = mysql_query($sql);
       $entry = false;
       if($sel){
-        $entry = mysql_fetch_array($sql);
+        $entry = mysql_fetch_array($sel);
       }
       return $entry;
+    }
+
+    function getInternalpricebreakdownByCostId($id){
+      $id = (int) $id;
+      $sql ="select id from `internal_price_breakdown` where cost = $id";
+      $sel = mysql_query($sql);
+      $arr = array();
+      while($row = mysql_fetch_array($sel)){
+        $entry = $this->get($row[0]);
+        array_push($arr, $entry);
+      }
+      return $arr;
     }
 
     function del($id){

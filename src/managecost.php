@@ -105,6 +105,9 @@ switch($action){
     $id = getArrayVal($_GET,"id");
     $entry = $instance->get($id);
     $template->assign("cost",$entry);
+    $internalpricebreakdown = new Internalpricebreakdown();
+    $internalEntry = $internalpricebreakdown->getInternalpricebreakdownByCostId($id);
+    $template->assign("internalpricebreakdownlist",$internalEntry);
     $template->display("costview.tpl");
 }
 

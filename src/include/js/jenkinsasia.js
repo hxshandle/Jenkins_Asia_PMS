@@ -56,8 +56,10 @@ J.onUploadSuccess = function(file, serverData, responseReceived){
 
 J.EmptyFunction = function(){}
 
-J.bindDatePicker = function(){
-  
+J.bindDatePicker = function(){}
+
+J.openWindow = function(url){
+  var win = window.open(url,'','height=500,width=760,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
 }
 
 
