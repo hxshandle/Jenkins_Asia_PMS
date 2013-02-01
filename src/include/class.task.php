@@ -183,8 +183,9 @@ class task {
    * @return bool
    */
   function del($id) {
-    $id = (int) $id;
 
+    return $this->close($id);
+    /*
     $nameproject = $this->getNameProject($id);
     $del = mysql_query("DELETE FROM tasks WHERE ID = $id LIMIT 1");
     if ($del) {
@@ -193,7 +194,7 @@ class task {
       return true;
     } else {
       return false;
-    }
+    }*/
   }
 
   function delTasksByDeliverableItemId($id) {
