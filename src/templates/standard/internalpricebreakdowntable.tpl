@@ -1,5 +1,5 @@
 {config_load file=lng.conf section = "strings" scope="global" }
-<div style="overflow:scroll">
+<div style="overflow:auto;max-height:400px;margin-right:20px;">
   <table style="width: 3000px" cellspadding=0 cellspacing=0>
     <tr>
       <th></th>
@@ -61,7 +61,10 @@
       {else}
         <tr class="color-b">
       {/if}
-        <td align = "center"><a target="blank" href="manageinternalpricebreakdown.php?action=show&id={$internalpricebreakdownlist[item].ID}">view</a></td>
+        <td align = "center">
+          <a target="_blank" href="manageinternalpricebreakdown.php?action=show&id={$internalpricebreakdownlist[item].ID}">{#edit#}</a>
+          <a href="#" onclick="J.delTableRow('manageinternalpricebreakdown.php?action=del&id={$internalpricebreakdownlist[item].ID}',this);return false;">{#delete#}</a>
+        </td>
       
         <td align = "center">{$internalpricebreakdownlist[item].cost}</td>
       
@@ -91,7 +94,7 @@
       
         <td align = "center">{$internalpricebreakdownlist[item].additional_material_specification}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].finish}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].finish|truncate:"10":""}</td>
       
         <td align = "center">{$internalpricebreakdownlist[item].material_cost}</td>
       

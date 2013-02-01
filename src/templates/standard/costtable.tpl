@@ -1,5 +1,5 @@
 {config_load file=lng.conf section = "strings" scope="global" }
-<div style="overflow:scroll">
+<div style="overflow:auto;max-height:400px;margin-right:20px;">
   <table style="width: 3000px" cellspadding=0 cellspacing=0>
     <tr>
       <th></th>
@@ -57,7 +57,10 @@
       {else}
         <tr class="color-b">
       {/if}
-        <td align = "center"><a target="blank" href="managecost.php?action=show&id={$costlist[item].ID}">view</a></td>
+        <td align = "center">
+          <a target="_blank" href="managecost.php?action=show&id={$costlist[item].ID}">{#edit#}</a>
+          <a href="#" onclick="J.delTableRow('managecost.php?action=del&id={$costlist[item].ID}',this);return false;">{#delete#}</a>
+        </td>
       
         <td align = "center">{$costlist[item].project}</td>
       

@@ -61,6 +61,25 @@ J.bindDatePicker = function(){}
 J.openWindow = function(url){
   var win = window.open(url,'','height=500,width=760,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
 }
+J.refresh = function(){
+  window.location .href =window.location .href;
+}
+
+J.delTableRow = function(url,el){
+  if(window.confirm("Are you sure to delete the data?")){
+    new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText == "true"){
+              while(el && el.tagName.toLowerCase() !== "tr"){
+                el=el.parentNode;
+              }
+              el.parentNode.removeChild(el);
+            }
+          }
+    });
+  }
+}
 
 
 J.initSwfUploader=function(url,param,btnHolder,cancelBtnId,callBackFunc,queueCompleteHandler,progressHoder){

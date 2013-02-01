@@ -88,7 +88,9 @@ switch($action){
     }else{
       $ret = $instance->update($costId,$project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$external_budgetary_price,$internal_alpha_price,$external_alpha_price,$internal_beta_price,$external_beta_price,$internal_final_price,$quantity_per_product,$currency);
     }
-    Header("Location: managecost.php?action=show&id=".$costId);
+    $template->assign("callback","J.refresh");
+    $template->display("successclose.tpl");
+    
     break;
   case "getList":
     $id = getArrayVal($_GET,"id");
@@ -99,7 +101,7 @@ switch($action){
   case "del":
     $id = getArrayVal($_GET,"id");
     $ret = $instance->del($id);
-    echo $ret;
+    echo $ret ? "true" : "false";
     break;
   case "show":
     $id = getArrayVal($_GET,"id");
@@ -108,6 +110,10 @@ switch($action){
     $internalpricebreakdown = new Internalpricebreakdown();
     $internalEntry = $internalpricebreakdown->getInternalpricebreakdownByCostId($id);
     $template->assign("internalpricebreakdownlist",$internalEntry);
+
+    $externalpricebreakdown = new Externalpricebreakdown();
+    $externalEntry = $externalpricebreakdown->getExternalpricebreakdownByCostId($id);
+    $template->assign("externalpricebreakdownlist",$externalEntry);
     $template->display("costview.tpl");
 }
 

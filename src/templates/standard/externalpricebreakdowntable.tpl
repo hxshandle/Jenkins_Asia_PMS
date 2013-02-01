@@ -1,5 +1,5 @@
 {config_load file=lng.conf section = "strings" scope="global" }
-<div style="overflow:scroll">
+<div style="overflow:auto;max-height:400px;margin-right:20px;">
   <table style="width: 3000px" cellspadding=0 cellspacing=0>
     <tr>
       <th></th>
@@ -65,7 +65,10 @@
       {else}
         <tr class="color-b">
       {/if}
-        <td align = "center"><a target="blank" href="manageexternalpricebreakdown.php?action=show&id={$externalpricebreakdownlist[item].ID}">view</a></td>
+        <td align = "center">
+          <a target="_blank" href="manageexternalpricebreakdown.php?action=show&id={$externalpricebreakdownlist[item].ID}">{#edit#}</a>
+          <a href="#" onclick="J.delTableRow('manageexternalpricebreakdown.php?action=del&id={$externalpricebreakdownlist[item].ID}',this);return false;">{#delete#}</a>
+        </td>
       
         <td align = "center">{$externalpricebreakdownlist[item].cost}</td>
       
@@ -95,7 +98,7 @@
       
         <td align = "center">{$externalpricebreakdownlist[item].additional_material_specification}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].finish}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].finish|truncate:"10":""}</td>
       
         <td align = "center">{$externalpricebreakdownlist[item].material_cost}</td>
       
@@ -117,9 +120,9 @@
       
         <td align = "center">{$externalpricebreakdownlist[item].currency}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].approved}</td>
+        <td align = "center">{if $externalpricebreakdownlist[item].approved == "1"}{#yes#}{else}{#no#}{/if}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].Published}</td>
+        <td align = "center">{if $externalpricebreakdownlist[item].Published == "1"}{#yes#}{else}{#no#}{/if}</td>
       
       </tr>
     {/section}

@@ -168,14 +168,26 @@ $Published = (int) $Published;
       $sel = mysql_query($sql);
       $entry = false;
       if($sel){
-        $entry = mysql_fetch_array($sql);
+        $entry = mysql_fetch_array($sel);
       }
       return $entry;
     }
 
+    function getExternalpricebreakdownByCostId($id){
+      $id = (int) $id;
+      $sql ="select id from `external_price_breakdown` where cost = $id and valid = 1";
+      $sel = mysql_query($sql);
+      $arr = array();
+      while($row = mysql_fetch_array($sel)){
+        $entry = $this->get($row[0]);
+        array_push($arr, $entry);
+      }
+      return $arr;
+    }
+
     function del($id){
       $id = (int) $id;
-      $sql ="delete from `external_price_breakdown` where id = $id";
+      $sql ="update `external_price_breakdown` set valid = 0 where id = $id";
       $del = mysql_query($sql);
       if($del){
         return true;

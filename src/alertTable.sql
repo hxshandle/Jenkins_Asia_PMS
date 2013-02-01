@@ -265,6 +265,7 @@ CREATE  TABLE `cost` (
   `internal_final_price` DOUBLE NULL ,
   `quantity_per_product` DOUBLE NULL ,
   `currency` VARCHAR(3) NULL DEFAULT 'RMB',
+  `valid` INT(1) NULL DEFAULT '1',
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
@@ -298,6 +299,7 @@ CREATE  TABLE `internal_price_breakdown` (
   `handling` DOUBLE NULL ,
   `internal_budgetary_price` DOUBLE NULL ,
   `currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
+  `valid` INT(1) NULL DEFAULT '1',
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
@@ -332,6 +334,7 @@ CREATE  TABLE `external_price_breakdown` (
   `currency` VARCHAR(3) NULL DEFAULT 'RMB' ,
   `approved` INT(1) NULL DEFAULT '0',
   `Published` INT(1) NULL DEFAULT '0',
+  `valid` INT(1) NULL DEFAULT '1',
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;

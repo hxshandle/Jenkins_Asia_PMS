@@ -85,7 +85,7 @@
             
             <div class="row">
               <label style="width:240px;" >{#finish#}</label>
-              <input id = "finish" name ="finish" value="{$internalpricebreakdown.finish|truncate:"10":""}" ></input>
+              <input id = "finish" name ="finish" value="{$internalpricebreakdown.finish|truncate:"10":""}"  ></input>
               <div class="datepick">
                 <div id = "datepicker_finish" class="picker" style = "display:none;"></div>
               </div>

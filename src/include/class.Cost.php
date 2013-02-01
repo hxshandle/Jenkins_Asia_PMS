@@ -155,7 +155,7 @@ $currency = mysql_escape_string($currency);
 
     function getCostByProjectId($projectId){
       $projectId = (int) $projectId;
-      $sql = "select id from cost where project = $projectId";
+      $sql = "select id from cost where project = $projectId and valid = 1";
       $sel = mysql_query($sql);
       $arr = array();
       while($row = mysql_fetch_array($sel)){
@@ -167,7 +167,7 @@ $currency = mysql_escape_string($currency);
 
     function del($id){
       $id = (int) $id;
-      $sql ="delete from `cost` where id = $id";
+      $sql ="update `cost` set valid = 0 where id = $id";
       $del = mysql_query($sql);
       if($del){
         return true;

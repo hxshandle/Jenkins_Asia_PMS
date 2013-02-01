@@ -91,7 +91,7 @@ switch($action){
     }else{
       $ret = $instance->update($internalpricebreakdownId,$cost,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$jenkins_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$material,$additional_material_specification,$finish,$material_cost,$assembly_cost,$overhead,$factory_profit,$tax,$customs,$freight,$handling,$internal_budgetary_price,$currency);
     }
-    
+    $template->assign("callback","J.refresh");
     $template->display("successclose.tpl");
     break;
   case "getList":
@@ -103,7 +103,7 @@ switch($action){
   case "del":
     $id = getArrayVal($_GET,"id");
     $ret = $instance->del($id);
-    echo $ret;
+    echo $ret ? "true" : "false";
     break;
   case "show":
     $id = getArrayVal($_GET,"id");

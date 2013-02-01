@@ -14,12 +14,20 @@ if(!$projectId){
 if($projectId){
   $template->assign("projectId",$projectId);
 }
-
+$template->assign("currency", Currency::$Currencys);
 switch($action){
   case "editform":
     $id = getArrayVal($_GET,"id");
     if($id){
       $entry = $instance->get($id);
+      $template->assign("externalpricebreakdown",$entry);
+    }else{
+      $entry = array();
+      $cost = new Cost();
+      $costId = getArrayVal($_GET,"costId");
+      $costEntry = $cost->get($costId);
+      $entry['cost'] = $costId;
+      $entry['project_no'] =$costEntry['project_no'];
       $template->assign("externalpricebreakdown",$entry);
     }
     $template->display("editexternalpricebreakdownform.tpl");
@@ -87,7 +95,8 @@ switch($action){
     }else{
       $ret = $instance->update($externalpricebreakdownId,$cost,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$jenkins_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$material,$additional_material_specification,$finish,$material_cost,$assembly_cost,$overhead,$factory_profit,$tax,$customs,$freight,$handling,$internal_budgetary_price,$currency,$approved,$Published);
     }
-    Header("Location: manageexternalpricebreakdown.php?action=show&id=".$externalpricebreakdownId);
+    $template->assign("callback","J.refresh");
+    $template->display("successclose.tpl");
     break;
   case "getList":
     $id = getArrayVal($_GET,"id");
@@ -98,7 +107,7 @@ switch($action){
   case "del":
     $id = getArrayVal($_GET,"id");
     $ret = $instance->del($id);
-    echo $ret;
+    echo $ret ? "true" : "false";
     break;
   case "show":
     $id = getArrayVal($_GET,"id");

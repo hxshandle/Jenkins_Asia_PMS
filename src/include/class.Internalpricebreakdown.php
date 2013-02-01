@@ -165,7 +165,7 @@ $currency = mysql_escape_string($currency);
 
     function getInternalpricebreakdownByCostId($id){
       $id = (int) $id;
-      $sql ="select id from `internal_price_breakdown` where cost = $id";
+      $sql ="select id from `internal_price_breakdown` where cost = $id and valid = 1";
       $sel = mysql_query($sql);
       $arr = array();
       while($row = mysql_fetch_array($sel)){
@@ -177,7 +177,7 @@ $currency = mysql_escape_string($currency);
 
     function del($id){
       $id = (int) $id;
-      $sql ="delete from `internal_price_breakdown` where id = $id";
+      $sql ="update `internal_price_breakdown` set valid = 0 where id = $id";
       $del = mysql_query($sql);
       if($del){
         return true;

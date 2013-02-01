@@ -115,14 +115,14 @@
       <div class="row">
         <label style="width:240px;" >{#currency#}</label>
         <select id = "currency" name="currency" class="currency">
-        {section name=curr loop=$currency}
-        {if $currency[curr] == $cost.cost}
-            <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
-        {else}
-            <option value="{$currency[curr]}">{$currency[curr]}</option>
-        {/if}
-        {/section}
-    </select>
+            {section name=curr loop=$currency}
+            {if $currency[curr] == $cost.currency}
+                <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+            {else}
+                <option value="{$currency[curr]}">{$currency[curr]}</option>
+            {/if}
+            {/section}
+        </select>
       </div>
       
       <div class="row-butn-bottom">
