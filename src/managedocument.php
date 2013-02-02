@@ -78,6 +78,7 @@ case "selectDocuments":
   $doc = new Document();
   $project = new project();
   $ecnId = getArrayVal($_GET, "ecnId");
+  $callBack = getArrayVal($_GET,"callBack");
   $template->assign("projectId",-1);
   if(!$ecnId){
     $ecnId = "-1";
@@ -94,6 +95,11 @@ case "selectDocuments":
   }
   
   $template->assign("ecnId",$ecnId);
+  if($callBack){
+    $template->assign("callBack",$callBack);
+    $template->assign("refElement",getArrayVal($_GET,"refElement"));
+    $template->assign("dispElement",getArrayVal($_GET,"dispElement"));  
+  }
   
   $projects =$jUtils->getAllProjects();
   $template->assign("projects",$projects);

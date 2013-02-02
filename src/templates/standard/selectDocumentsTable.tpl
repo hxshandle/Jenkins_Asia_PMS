@@ -21,7 +21,7 @@
           <tr class ="color-b">
         {/if}
         
-            <td><input type="checkbox" value="{$documents[doc].ID}" docName="{$documents[doc].name}" docVer = "{$documents[doc].revision}" onchange='autoFullNewDocForm(this,"{$documents[doc].name}","{$documents[doc].document_no}","{$documents[doc].project}","{$documents[doc].order}","{$documents[doc].quality}","{$documents[doc].visibility}")'></input></td>
+            <td><input type="checkbox" value="{$documents[doc].ID}" docName="{$documents[doc].name}" docVer = "{$documents[doc].revision}" docNo="{$documents[doc].document_no}" onchange='autoFullNewDocForm(this,"{$documents[doc].name}","{$documents[doc].document_no}","{$documents[doc].project}","{$documents[doc].order}","{$documents[doc].quality}","{$documents[doc].visibility}")'></input></td>
             <td>{$documents[doc].name}</td>
             <td>{$documents[doc].document_no}</td>
             <td>{$documents[doc].revision}</td>

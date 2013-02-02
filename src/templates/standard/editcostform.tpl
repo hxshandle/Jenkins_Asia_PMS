@@ -19,7 +19,9 @@
       
       <div class="row">
         <label style="width:240px;" >{#jenkinsmodelnumber#}</label>
-        <input id = "jenkins_model_number" name ="jenkins_model_number" value="{$cost.jenkins_model_number}"   regexp="{literal}^\d*${/literal}" ></input>
+        <input type = "hidden" id = "jenkins_model_number" name ="jenkins_model_number" value="{$cost.jenkins_model_number}"></input>
+        <input id="lbl_jenkins_model_number" style="width:191px"></input>
+        <a class="butn_link" onclick="J.selectDocument('jenkins_model_number','lbl_jenkins_model_number');">{#selDocuments#}</a>
       </div>
       
       <div class="row">
@@ -64,7 +66,9 @@
       
       <div class="row">
         <label style="width:240px;" >{#jenkinsdrawingnumber#}</label>
-        <input id = "jenkins_drawing_number" name ="jenkins_drawing_number" value="{$cost.jenkins_drawing_number}"   regexp="{literal}^\d*${/literal}" ></input>
+        <input type = "hidden" id = "jenkins_drawing_number" name ="jenkins_drawing_number" value="{$cost.jenkins_drawing_number}"></input>
+        <input id="lbl_jenkins_drawing_number" style="width:191px"></input>
+        <a class="butn_link" onclick="J.selectDocument('jenkins_drawing_number','lbl_jenkins_drawing_number');">{#selDocuments#}</a>
       </div>
       
       <div class="row">

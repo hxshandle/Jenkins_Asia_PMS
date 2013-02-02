@@ -60,9 +60,23 @@ J.bindDatePicker = function(){}
 
 J.openWindow = function(url){
   var win = window.open(url,'','height=500,width=760,scrollbars=yes,toolbar=no,titlebar=no,location=no,status=no,menubar=no');
+  return win;
 }
 J.refresh = function(){
   window.location .href =window.location .href;
+}
+J.addSelectedDocument = function(docs,refElement,dispElement){
+  var doc = docs[0];
+  $(refElement).value=doc[0];//document ID
+  $(dispElement).value=doc[3];// document NO
+}
+J.selectDocument = function(refElement,dispElement){
+  var url = "managedocument.php?action=selectDocuments";
+  url +="&callBack=J.addSelectedDocument";
+  url +="&refElement="+refElement;
+  url +="&dispElement="+dispElement;
+  var _win = J.openWindow(url);
+  _win.focus();
 }
 
 J.delTableRow = function(url,el){

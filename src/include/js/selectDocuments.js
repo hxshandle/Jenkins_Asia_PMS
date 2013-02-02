@@ -39,14 +39,24 @@ function getSelectedDocuments(){
     if(item.checked){
       var docName = item.getAttribute("docName");
       var docVer = item.getAttribute("docVer");
-      var d = [item.value,docName,docVer];
+      var docNo = item.getAttribute("docNo");
+      var d = [item.value,docName,docVer,docNo];
       selDocuments.push(d);
     }
   }
   if(selDocuments.length === 0){
     alert("Please select a document");
   }else{
-    window.opener.setSelectedDocuments(selDocuments);
+    var callBack = $("callBack").value;
+    if(callBack !== ""){
+      var refElement = $("refElement").value;
+      var dispElement = $("dispElement").value;
+      var callBackFunc = eval("window.opener."+callBack);
+      callBackFunc(selDocuments,refElement,dispElement);
+    }else{
+      window.opener.setSelectedDocuments(selDocuments);  
+    }
+    
     window.close();
   }
 }

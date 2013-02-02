@@ -49,7 +49,9 @@
   </div>
 </div>
     {* End Search *}
-
+    <input type="hidden" id="callBack" value = "{$callBack}"></input>
+    <input type="hidden" id="refElement" value = "{$refElement}"></input>
+    <input type="hidden" id="dispElement" value = "{$dispElement}"></input>
   <div class="documentTableWrapper block" id="documentTableContainer">
     {include file="selectDocumentsTable.tpl"}
   </div>
@@ -60,4 +62,7 @@
     <a class="butn_link" onclick="window.close();">{#cancel#}</a>
   </div>
 </div>
+<script>
+  window.focus();
+</script>
 </body>

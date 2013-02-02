@@ -68,7 +68,7 @@
       
         <td align = "center">{$costlist[item].customer_model_number}</td>
       
-        <td align = "center">{$costlist[item].jenkins_model_number}</td>
+        <td align = "center">{$costlist[item].jenkins_model_number_doc_no}</td>
       
         <td align = "center">{$costlist[item].customer_assembly_number}</td>
       
@@ -86,7 +86,7 @@
       
         <td align = "center">{$costlist[item].revision1}</td>
       
-        <td align = "center">{$costlist[item].jenkins_drawing_number}</td>
+        <td align = "center">{$costlist[item].jenkins_drawing_number_doc_no}</td>
       
         <td align = "center">{$costlist[item].revision2}</td>
       
