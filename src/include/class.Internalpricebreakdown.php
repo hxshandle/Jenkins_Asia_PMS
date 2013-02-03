@@ -159,6 +159,15 @@ $currency = mysql_escape_string($currency);
       $entry = false;
       if($sel){
         $entry = mysql_fetch_array($sel);
+        $doc = new Document();
+        if($entry['jenkins_drawing_number'] != ""){
+           $doc1 = $doc->getDocumentInfo($entry['jenkins_drawing_number']);
+           $entry['jenkins_drawing_number_doc_no'] = $doc1['document_no'];
+        }
+        if($entry['jenkins_model_number'] != ""){
+           $doc2 = $doc->getDocumentInfo($entry['jenkins_model_number']);
+           $entry['jenkins_model_number_doc_no'] = $doc2['document_no'];
+        }
       }
       return $entry;
     }

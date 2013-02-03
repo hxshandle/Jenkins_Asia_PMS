@@ -76,7 +76,7 @@
       
         <td align = "center">{$externalpricebreakdownlist[item].customer_model_number}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].jenkins_model_number}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].jenkins_model_number_doc_no}</td>
       
         <td align = "center">{$externalpricebreakdownlist[item].customer_assembly_number}</td>
       
@@ -90,7 +90,7 @@
       
         <td align = "center">{$externalpricebreakdownlist[item].revision1}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].jenkins_drawing_number}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].jenkins_drawing_number_doc_no}</td>
       
         <td align = "center">{$externalpricebreakdownlist[item].revision2}</td>
       

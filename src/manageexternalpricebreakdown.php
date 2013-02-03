@@ -28,6 +28,18 @@ switch($action){
       $costEntry = $cost->get($costId);
       $entry['cost'] = $costId;
       $entry['project_no'] =$costEntry['project_no'];
+      $entry['customer_model_number'] =$costEntry['customer_model_number'];
+      $entry['jenkins_model_number'] = $costEntry['jenkins_model_number'];
+      $entry['jenkins_model_number_doc_no'] = $costEntry['jenkins_model_number_doc_no'];
+      $entry['customer_assembly_number'] = $costEntry['customer_assembly_number'];
+      $entry['jenkins_assembly_number'] = $costEntry['jenkins_assembly_number'];
+      $entry['customer_part_number'] = $costEntry['customer_part_number'];
+      $entry['jenkins_part_number'] = $costEntry['jenkins_part_number'];
+      $entry['revision1'] = $costEntry['revision1'];
+       $entry['revision2'] = $costEntry['revision2'];
+      $entry['jenkins_drawing_number'] = $costEntry['jenkins_drawing_number'];
+      $entry['jenkins_drawing_number_doc_no'] = $costEntry['jenkins_drawing_number_doc_no'];
+      $entry['customer_drawing_number'] = $costEntry['customer_drawing_number'];
       $template->assign("externalpricebreakdown",$entry);
     }
     $template->display("editexternalpricebreakdownform.tpl");

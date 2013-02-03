@@ -72,7 +72,7 @@
       
         <td align = "center">{$internalpricebreakdownlist[item].customer_model_number}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].jenkins_model_number}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].jenkins_model_number_doc_no}</td>
       
         <td align = "center">{$internalpricebreakdownlist[item].customer_assembly_number}</td>
       
@@ -86,7 +86,7 @@
       
         <td align = "center">{$internalpricebreakdownlist[item].revision1}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].jenkins_drawing_number}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].jenkins_drawing_number_doc_no}</td>
       
         <td align = "center">{$internalpricebreakdownlist[item].revision2}</td>
       

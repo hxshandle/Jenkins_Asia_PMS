@@ -110,6 +110,7 @@ switch($action){
     $internalpricebreakdown = new Internalpricebreakdown();
     $internalEntry = $internalpricebreakdown->getInternalpricebreakdownByCostId($id);
     $template->assign("internalpricebreakdownlist",$internalEntry);
+    
 
     $externalpricebreakdown = new Externalpricebreakdown();
     $externalEntry = $externalpricebreakdown->getExternalpricebreakdownByCostId($id);
