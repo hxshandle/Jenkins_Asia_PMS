@@ -94,36 +94,112 @@
             <div class="row">
               <label style="width:240px;" >{#internalbudgetaryprice#}</label>
               <input id = "internal_budgetary_price" name ="internal_budgetary_price" value="{$cost.internal_budgetary_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_budgetary_price_currency" name="internal_budgetary_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_budgetary_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#externalbudgetaryprice#}</label>
               <input id = "external_budgetary_price" name ="external_budgetary_price" value="{$cost.external_budgetary_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "external_budgetary_price_currency" name="external_budgetary_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.external_budgetary_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#internalalphaprice#}</label>
               <input id = "internal_alpha_price" name ="internal_alpha_price" value="{$cost.internal_alpha_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_alpha_price_currency" name="internal_alpha_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_alpha_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#externalalphaprice#}</label>
               <input id = "external_alpha_price" name ="external_alpha_price" value="{$cost.external_alpha_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "external_alpha_price_currency" name="external_alpha_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.external_alpha_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#internalbetaprice#}</label>
               <input id = "internal_beta_price" name ="internal_beta_price" value="{$cost.internal_beta_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_beta_price_currency" name="internal_beta_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_beta_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#externalbetaprice#}</label>
               <input id = "external_beta_price" name ="external_beta_price" value="{$cost.external_beta_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "external_beta_price_currency" name="external_beta_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.external_beta_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#internalfinalprice#}</label>
               <input id = "internal_final_price" name ="internal_final_price" value="{$cost.internal_final_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_final_price_currency" name="internal_final_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_final_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
+            </div>
+            <div class="row">
+              <label style="width:240px;" >{#externalfinalprice#}</label>
+              <input id = "external_final_price" name ="external_final_price" value="{$cost.external_final_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "external_final_price_currency" name="external_final_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.external_final_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
             </div>
             
             <div class="row">
@@ -131,18 +207,6 @@
               <input id = "quantity_per_product" name ="quantity_per_product" value="{$cost.quantity_per_product}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
             </div>
             
-            <div class="row">
-              <label style="width:240px;" >{#currency#}</label>
-              <select id = "currency" name="currency" class="currency">
-              {section name=curr loop=$currency}
-              {if $currency[curr] == $cost.cost}
-                  <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
-              {else}
-                  <option value="{$currency[curr]}">{$currency[curr]}</option>
-              {/if}
-              {/section}
-          </select>
-            </div>
             
             <div class="row-butn-bottom">
               <label></label>

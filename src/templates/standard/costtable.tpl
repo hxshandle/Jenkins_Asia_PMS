@@ -45,6 +45,8 @@
       <th>{#externalbetaprice#}</th>
     
       <th>{#internalfinalprice#}</th>
+
+      <th>{#externalfinalprice#}</th>
     
       <th>{#quantityperproduct#}</th>
     
@@ -90,19 +92,21 @@
       
         <td align = "center">{$costlist[item].revision2}</td>
       
-        <td align = "center">{$costlist[item].internal_budgetary_price}</td>
+        <td align = "center">{$costlist[item].internal_budgetary_price_currency} {$costlist[item].internal_budgetary_price}</td>
       
-        <td align = "center">{$costlist[item].external_budgetary_price}</td>
+        <td align = "center">{$costlist[item].external_budgetary_price_currency} {$costlist[item].external_budgetary_price}</td>
       
-        <td align = "center">{$costlist[item].internal_alpha_price}</td>
+        <td align = "center">{$costlist[item].internal_alpha_price_currency} {$costlist[item].internal_alpha_price}</td>
       
-        <td align = "center">{$costlist[item].external_alpha_price}</td>
+        <td align = "center">{$costlist[item].external_alpha_price_currency} {$costlist[item].external_alpha_price}</td>
       
-        <td align = "center">{$costlist[item].internal_beta_price}</td>
+        <td align = "center">{$costlist[item].internal_beta_price_currency} {$costlist[item].internal_beta_price}</td>
       
-        <td align = "center">{$costlist[item].external_beta_price}</td>
+        <td align = "center">{$costlist[item].external_beta_price_currency} {$costlist[item].external_beta_price}</td>
       
-        <td align = "center">{$costlist[item].internal_final_price}</td>
+        <td align = "center">{$costlist[item].internal_final_price_currency} {$costlist[item].internal_final_price}</td>
+
+        <td align = "center">{$costlist[item].external_final_price_currency} {$costlist[item].external_final_price}</td>
       
         <td align = "center">{$costlist[item].quantity_per_product}</td>
       

@@ -3033,4 +3033,9 @@ ul.tabs li.document a {
   height:200px;
 }
 
+.row select.currency{
+	width:52px;
+	margin-left:-52px;
+}
+
 /*****************Jenkins Asia Special***********************/

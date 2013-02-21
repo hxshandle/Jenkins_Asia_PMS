@@ -7,76 +7,104 @@
     }
 
 
-    function add($project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$external_budgetary_price,$internal_alpha_price,$external_alpha_price,$internal_beta_price,$external_beta_price,$internal_final_price,$quantity_per_product,$currency){
+    function add($project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid){
       $project = (int) $project;
-$project_no = mysql_escape_string($project_no);
-$customer_model_number = mysql_escape_string($customer_model_number);
-$jenkins_model_number = (int) $jenkins_model_number;
-$customer_assembly_number = mysql_escape_string($customer_assembly_number);
-$customer_parent_assembly_number = mysql_escape_string($customer_parent_assembly_number);
-$jenkins_assembly_number = mysql_escape_string($jenkins_assembly_number);
-$jenkins_parent_assembly_number = mysql_escape_string($jenkins_parent_assembly_number);
-$customer_part_number = mysql_escape_string($customer_part_number);
-$jenkins_part_number = mysql_escape_string($jenkins_part_number);
-$customer_drawing_number = mysql_escape_string($customer_drawing_number);
-$revision1 = mysql_escape_string($revision1);
-$jenkins_drawing_number = (int) $jenkins_drawing_number;
-$revision2 = mysql_escape_string($revision2);
-$internal_budgetary_price = (double) $internal_budgetary_price;
-$external_budgetary_price = (double) $external_budgetary_price;
-$internal_alpha_price = (double) $internal_alpha_price;
-$external_alpha_price = (double) $external_alpha_price;
-$internal_beta_price = (double) $internal_beta_price;
-$external_beta_price = (double) $external_beta_price;
-$internal_final_price = (double) $internal_final_price;
-$quantity_per_product = (double) $quantity_per_product;
-$currency = mysql_escape_string($currency);
+      $project_no = mysql_escape_string($project_no);
+      $customer_model_number = mysql_escape_string($customer_model_number);
+      $jenkins_model_number = (int) $jenkins_model_number;
+      $customer_assembly_number = mysql_escape_string($customer_assembly_number);
+      $customer_parent_assembly_number = mysql_escape_string($customer_parent_assembly_number);
+      $jenkins_assembly_number = mysql_escape_string($jenkins_assembly_number);
+      $jenkins_parent_assembly_number = mysql_escape_string($jenkins_parent_assembly_number);
+      $customer_part_number = mysql_escape_string($customer_part_number);
+      $jenkins_part_number = mysql_escape_string($jenkins_part_number);
+      $customer_drawing_number = mysql_escape_string($customer_drawing_number);
+      $revision1 = mysql_escape_string($revision1);
+      $jenkins_drawing_number = (int) $jenkins_drawing_number;
+      $revision2 = mysql_escape_string($revision2);
+      $internal_budgetary_price = (double) $internal_budgetary_price;
+      $internal_budgetary_price_currency = mysql_escape_string($internal_budgetary_price_currency);
+      $external_budgetary_price = (double) $external_budgetary_price;
+      $external_budgetary_price_currency = mysql_escape_string($external_budgetary_price_currency);
+      $internal_alpha_price = (double) $internal_alpha_price;
+      $internal_alpha_price_currency = mysql_escape_string($internal_alpha_price_currency);
+      $external_alpha_price = (double) $external_alpha_price;
+      $external_alpha_price_currency = mysql_escape_string($external_alpha_price_currency);
+      $internal_beta_price = (double) $internal_beta_price;
+      $internal_beta_price_currency = mysql_escape_string($internal_beta_price_currency);
+      $external_beta_price = (double) $external_beta_price;
+      $external_beta_price_currency = mysql_escape_string($external_beta_price_currency);
+      $internal_final_price = (double) $internal_final_price;
+      $external_final_price = (double) $external_final_price;
+      $external_final_price_currency = mysql_escape_string($external_final_price_currency);
+      $internal_final_price_currency = mysql_escape_string($internal_final_price_currency);
+      $quantity_per_product = (double) $quantity_per_product;
+      $currency = mysql_escape_string($currency);
+      $valid = (int) $valid;
 
       $sql = "insert into `cost` (`project`,
-`project_no`,
-`customer_model_number`,
-`jenkins_model_number`,
-`customer_assembly_number`,
-`customer_parent_assembly_number`,
-`jenkins_assembly_number`,
-`jenkins_parent_assembly_number`,
-`customer_part_number`,
-`jenkins_part_number`,
-`customer_drawing_number`,
-`revision1`,
-`jenkins_drawing_number`,
-`revision2`,
-`internal_budgetary_price`,
-`external_budgetary_price`,
-`internal_alpha_price`,
-`external_alpha_price`,
-`internal_beta_price`,
-`external_beta_price`,
-`internal_final_price`,
-`quantity_per_product`,
-`currency`) values ($project,
-'$project_no',
-'$customer_model_number',
-$jenkins_model_number,
-'$customer_assembly_number',
-'$customer_parent_assembly_number',
-'$jenkins_assembly_number',
-'$jenkins_parent_assembly_number',
-'$customer_part_number',
-'$jenkins_part_number',
-'$customer_drawing_number',
-'$revision1',
-$jenkins_drawing_number,
-'$revision2',
-$internal_budgetary_price,
-$external_budgetary_price,
-$internal_alpha_price,
-$external_alpha_price,
-$internal_beta_price,
-$external_beta_price,
-$internal_final_price,
-$quantity_per_product,
-'$currency')";
+              `project_no`,
+              `customer_model_number`,
+              `jenkins_model_number`,
+              `customer_assembly_number`,
+              `customer_parent_assembly_number`,
+              `jenkins_assembly_number`,
+              `jenkins_parent_assembly_number`,
+              `customer_part_number`,
+              `jenkins_part_number`,
+              `customer_drawing_number`,
+              `revision1`,
+              `jenkins_drawing_number`,
+              `revision2`,
+              `internal_budgetary_price`,
+              `internal_budgetary_price_currency`,
+              `external_budgetary_price`,
+              `external_budgetary_price_currency`,
+              `internal_alpha_price`,
+              `internal_alpha_price_currency`,
+              `external_alpha_price`,
+              `external_alpha_price_currency`,
+              `internal_beta_price`,
+              `internal_beta_price_currency`,
+              `external_beta_price`,
+              `external_beta_price_currency`,
+              `internal_final_price`,
+              `external_final_price`,
+              `external_final_price_currency`,
+              `internal_final_price_currency`,
+              `quantity_per_product`,
+              `currency`) values ($project,
+              '$project_no',
+              '$customer_model_number',
+              $jenkins_model_number,
+              '$customer_assembly_number',
+              '$customer_parent_assembly_number',
+              '$jenkins_assembly_number',
+              '$jenkins_parent_assembly_number',
+              '$customer_part_number',
+              '$jenkins_part_number',
+              '$customer_drawing_number',
+              '$revision1',
+              $jenkins_drawing_number,
+              '$revision2',
+              $internal_budgetary_price,
+              '$internal_budgetary_price_currency',
+              $external_budgetary_price,
+              '$external_budgetary_price_currency',
+              $internal_alpha_price,
+              '$internal_alpha_price_currency',
+              $external_alpha_price,
+              '$external_alpha_price_currency',
+              $internal_beta_price,
+              '$internal_beta_price_currency',
+              $external_beta_price,
+              '$external_beta_price_currency',
+              $internal_final_price,
+              $external_final_price,
+              '$external_final_price_currency',
+              '$internal_final_price_currency',
+              $quantity_per_product,
+              '$currency')";
       $ins = mysql_query($sql);
       if($ins){
         return mysql_insert_id();
@@ -85,55 +113,75 @@ $quantity_per_product,
       }
     }
 
-    function update($id,$project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$external_budgetary_price,$internal_alpha_price,$external_alpha_price,$internal_beta_price,$external_beta_price,$internal_final_price,$quantity_per_product,$currency){
+    function update($id,$project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid){
       $id = (int) $id;
       $project = (int) $project;
-$project_no = mysql_escape_string($project_no);
-$customer_model_number = mysql_escape_string($customer_model_number);
-$jenkins_model_number = (int) $jenkins_model_number;
-$customer_assembly_number = mysql_escape_string($customer_assembly_number);
-$customer_parent_assembly_number = mysql_escape_string($customer_parent_assembly_number);
-$jenkins_assembly_number = mysql_escape_string($jenkins_assembly_number);
-$jenkins_parent_assembly_number = mysql_escape_string($jenkins_parent_assembly_number);
-$customer_part_number = mysql_escape_string($customer_part_number);
-$jenkins_part_number = mysql_escape_string($jenkins_part_number);
-$customer_drawing_number = mysql_escape_string($customer_drawing_number);
-$revision1 = mysql_escape_string($revision1);
-$jenkins_drawing_number = (int) $jenkins_drawing_number;
-$revision2 = mysql_escape_string($revision2);
-$internal_budgetary_price = (double) $internal_budgetary_price;
-$external_budgetary_price = (double) $external_budgetary_price;
-$internal_alpha_price = (double) $internal_alpha_price;
-$external_alpha_price = (double) $external_alpha_price;
-$internal_beta_price = (double) $internal_beta_price;
-$external_beta_price = (double) $external_beta_price;
-$internal_final_price = (double) $internal_final_price;
-$quantity_per_product = (double) $quantity_per_product;
-$currency = mysql_escape_string($currency);
+      $project_no = mysql_escape_string($project_no);
+      $customer_model_number = mysql_escape_string($customer_model_number);
+      $jenkins_model_number = (int) $jenkins_model_number;
+      $customer_assembly_number = mysql_escape_string($customer_assembly_number);
+      $customer_parent_assembly_number = mysql_escape_string($customer_parent_assembly_number);
+      $jenkins_assembly_number = mysql_escape_string($jenkins_assembly_number);
+      $jenkins_parent_assembly_number = mysql_escape_string($jenkins_parent_assembly_number);
+      $customer_part_number = mysql_escape_string($customer_part_number);
+      $jenkins_part_number = mysql_escape_string($jenkins_part_number);
+      $customer_drawing_number = mysql_escape_string($customer_drawing_number);
+      $revision1 = mysql_escape_string($revision1);
+      $jenkins_drawing_number = (int) $jenkins_drawing_number;
+      $revision2 = mysql_escape_string($revision2);
+      $internal_budgetary_price = (double) $internal_budgetary_price;
+      $internal_budgetary_price_currency = mysql_escape_string($internal_budgetary_price_currency);
+      $external_budgetary_price = (double) $external_budgetary_price;
+      $external_budgetary_price_currency = mysql_escape_string($external_budgetary_price_currency);
+      $internal_alpha_price = (double) $internal_alpha_price;
+      $internal_alpha_price_currency = mysql_escape_string($internal_alpha_price_currency);
+      $external_alpha_price = (double) $external_alpha_price;
+      $external_alpha_price_currency = mysql_escape_string($external_alpha_price_currency);
+      $internal_beta_price = (double) $internal_beta_price;
+      $internal_beta_price_currency = mysql_escape_string($internal_beta_price_currency);
+      $external_beta_price = (double) $external_beta_price;
+      $external_beta_price_currency = mysql_escape_string($external_beta_price_currency);
+      $internal_final_price = (double) $internal_final_price;
+      $external_final_price = (double) $external_final_price;
+      $external_final_price_currency = mysql_escape_string($external_final_price_currency);
+      $internal_final_price_currency = mysql_escape_string($internal_final_price_currency);
+      $quantity_per_product = (double) $quantity_per_product;
+      $currency = mysql_escape_string($currency);
+      $valid = (int) $valid;
 
       $sql = "update `cost` set `project` = $project,
-`project_no` = '$project_no',
-`customer_model_number` = '$customer_model_number',
-`jenkins_model_number` = $jenkins_model_number,
-`customer_assembly_number` = '$customer_assembly_number',
-`customer_parent_assembly_number` = '$customer_parent_assembly_number',
-`jenkins_assembly_number` = '$jenkins_assembly_number',
-`jenkins_parent_assembly_number` = '$jenkins_parent_assembly_number',
-`customer_part_number` = '$customer_part_number',
-`jenkins_part_number` = '$jenkins_part_number',
-`customer_drawing_number` = '$customer_drawing_number',
-`revision1` = '$revision1',
-`jenkins_drawing_number` = $jenkins_drawing_number,
-`revision2` = '$revision2',
-`internal_budgetary_price` = $internal_budgetary_price,
-`external_budgetary_price` = $external_budgetary_price,
-`internal_alpha_price` = $internal_alpha_price,
-`external_alpha_price` = $external_alpha_price,
-`internal_beta_price` = $internal_beta_price,
-`external_beta_price` = $external_beta_price,
-`internal_final_price` = $internal_final_price,
-`quantity_per_product` = $quantity_per_product,
-`currency` = '$currency' where id = $id";
+            `project_no` = '$project_no',
+            `customer_model_number` = '$customer_model_number',
+            `jenkins_model_number` = $jenkins_model_number,
+            `customer_assembly_number` = '$customer_assembly_number',
+            `customer_parent_assembly_number` = '$customer_parent_assembly_number',
+            `jenkins_assembly_number` = '$jenkins_assembly_number',
+            `jenkins_parent_assembly_number` = '$jenkins_parent_assembly_number',
+            `customer_part_number` = '$customer_part_number',
+            `jenkins_part_number` = '$jenkins_part_number',
+            `customer_drawing_number` = '$customer_drawing_number',
+            `revision1` = '$revision1',
+            `jenkins_drawing_number` = $jenkins_drawing_number,
+            `revision2` = '$revision2',
+            `internal_budgetary_price` = $internal_budgetary_price,
+            `internal_budgetary_price_currency` = '$internal_budgetary_price_currency',
+            `external_budgetary_price` = $external_budgetary_price,
+            `external_budgetary_price_currency` = '$external_budgetary_price_currency',
+            `internal_alpha_price` = $internal_alpha_price,
+            `internal_alpha_price_currency` = '$internal_alpha_price_currency',
+            `external_alpha_price` = $external_alpha_price,
+            `external_alpha_price_currency` = '$external_alpha_price_currency',
+            `internal_beta_price` = $internal_beta_price,
+            `internal_beta_price_currency` = '$internal_beta_price_currency',
+            `external_beta_price` = $external_beta_price,
+            `external_beta_price_currency` = '$external_beta_price_currency',
+            `internal_final_price` = $internal_final_price,
+            `external_final_price` = $external_final_price,
+            `external_final_price_currency` = '$external_final_price_currency',
+            `internal_final_price_currency` = '$internal_final_price_currency',
+            `quantity_per_product` = $quantity_per_product,
+            `currency` = '$currency'
+            `where id = $id";
       $upd = mysql_query($sql);
       if($upd){
         return true;

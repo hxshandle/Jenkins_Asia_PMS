@@ -338,3 +338,41 @@ CREATE  TABLE `external_price_breakdown` (
   PRIMARY KEY (`ID`) )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
+
+
+ALTER TABLE `cost` 
+  ADD COLUMN `internal_budgetary_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `internal_budgetary_price` ,
+  ADD COLUMN `external_budgetary_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `external_budgetary_price` ,  
+  ADD COLUMN `internal_alpha_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `internal_alpha_price` , 
+  ADD COLUMN `external_alpha_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `external_alpha_price` , 
+  ADD COLUMN `internal_beta_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `internal_beta_price` , 
+  ADD COLUMN `external_beta_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `external_beta_price` , 
+  ADD COLUMN `internal_final_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `internal_final_price` , 
+  ADD COLUMN `external_final_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'   AFTER `internal_final_price` , 
+  ADD COLUMN `external_final_price` DOUBLE NULL  AFTER `internal_final_price` ;
+
+
+ALTER TABLE `internal_price_breakdown` 
+  ADD COLUMN `assembly_cost_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `assembly_cost`,
+  ADD COLUMN `overhead_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `overhead`,
+  ADD COLUMN `factory_profit_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `factory_profit`,
+  ADD COLUMN `tax_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `tax`,
+  ADD COLUMN `customs_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `customs`,
+  ADD COLUMN `freight_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `freight`,
+  ADD COLUMN `handling_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `handling`,
+  ADD COLUMN `internal_budgetary_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `internal_budgetary_price`,
+
+  CHANGE COLUMN `material` `material` TEXT NULL DEFAULT NULL, 
+  ADD COLUMN `material_cost_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `material_cost` ;
+
+
+ALTER TABLE `external_price_breakdown` 
+  ADD COLUMN `assembly_cost_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `assembly_cost`,
+  ADD COLUMN `overhead_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `overhead`,
+  ADD COLUMN `factory_profit_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `factory_profit`,
+  ADD COLUMN `tax_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `tax`,
+  ADD COLUMN `customs_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `customs`,
+  ADD COLUMN `freight_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `freight`,
+  ADD COLUMN `handling_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `handling`,
+  ADD COLUMN `internal_budgetary_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `internal_budgetary_price`,
+  ADD COLUMN `material_cost_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `material_cost` ;
