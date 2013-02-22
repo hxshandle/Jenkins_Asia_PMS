@@ -51,9 +51,7 @@
       <th>{#handling#}</th>
     
       <th>{#internalbudgetaryprice#}</th>
-    
-      <th>{#currency#}</th>
-    
+     
       <th>{#approved#}</th>
     
       <th>{#Published#}</th>
@@ -100,25 +98,23 @@
       
         <td align = "center">{$externalpricebreakdownlist[item].finish|truncate:"10":""}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].material_cost}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].material_cost_currency} {$externalpricebreakdownlist[item].material_cost}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].assembly_cost}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].assembly_cost_currency} {$externalpricebreakdownlist[item].assembly_cost}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].overhead}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].overhead_currency} {$externalpricebreakdownlist[item].overhead}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].factory_profit}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].factory_profit_currency} {$externalpricebreakdownlist[item].factory_profit}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].tax}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].tax_currency} {$externalpricebreakdownlist[item].tax}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].customs}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].customs_currency} {$externalpricebreakdownlist[item].customs}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].freight}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].freight_currency} {$externalpricebreakdownlist[item].freight}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].handling}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].handling_currency} {$externalpricebreakdownlist[item].handling}</td>
       
-        <td align = "center">{$externalpricebreakdownlist[item].internal_budgetary_price}</td>
-      
-        <td align = "center">{$externalpricebreakdownlist[item].currency}</td>
+        <td align = "center">{$externalpricebreakdownlist[item].internal_budgetary_price_currency} {$externalpricebreakdownlist[item].internal_budgetary_price}</td>
       
         <td align = "center">{if $externalpricebreakdownlist[item].approved == "1"}{#yes#}{else}{#no#}{/if}</td>
       

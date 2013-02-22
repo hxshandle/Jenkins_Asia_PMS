@@ -80,29 +80,49 @@ switch($action){
     
       $material_cost = getArrayVal($_POST, "material_cost");
     
+      $material_cost_currency = getArrayVal($_POST, "material_cost_currency");
+    
       $assembly_cost = getArrayVal($_POST, "assembly_cost");
+    
+      $assembly_cost_currency = getArrayVal($_POST, "assembly_cost_currency");
     
       $overhead = getArrayVal($_POST, "overhead");
     
+      $overhead_currency = getArrayVal($_POST, "overhead_currency");
+    
       $factory_profit = getArrayVal($_POST, "factory_profit");
+    
+      $factory_profit_currency = getArrayVal($_POST, "factory_profit_currency");
     
       $tax = getArrayVal($_POST, "tax");
     
+      $tax_currency = getArrayVal($_POST, "tax_currency");
+    
       $customs = getArrayVal($_POST, "customs");
+    
+      $customs_currency = getArrayVal($_POST, "customs_currency");
     
       $freight = getArrayVal($_POST, "freight");
     
+      $freight_currency = getArrayVal($_POST, "freight_currency");
+    
       $handling = getArrayVal($_POST, "handling");
+    
+      $handling_currency = getArrayVal($_POST, "handling_currency");
     
       $internal_budgetary_price = getArrayVal($_POST, "internal_budgetary_price");
     
+      $internal_budgetary_price_currency = getArrayVal($_POST, "internal_budgetary_price_currency");
+    
       $currency = getArrayVal($_POST, "currency");
     
+      $valid = getArrayVal($_POST, "valid");
+    
     if(!$internalpricebreakdownId){
-      $ret = $instance->add($cost,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$jenkins_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$material,$additional_material_specification,$finish,$material_cost,$assembly_cost,$overhead,$factory_profit,$tax,$customs,$freight,$handling,$internal_budgetary_price,$currency);
+      $ret = $instance->add($cost,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$jenkins_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$material,$additional_material_specification,$finish,$material_cost,$material_cost_currency,$assembly_cost,$assembly_cost_currency,$overhead,$overhead_currency,$factory_profit,$factory_profit_currency,$tax,$tax_currency,$customs,$customs_currency,$freight,$freight_currency,$handling,$handling_currency,$internal_budgetary_price,$internal_budgetary_price_currency,$currency,$valid);
       $internalpricebreakdownId = $ret;
     }else{
-      $ret = $instance->update($internalpricebreakdownId,$cost,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$jenkins_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$material,$additional_material_specification,$finish,$material_cost,$assembly_cost,$overhead,$factory_profit,$tax,$customs,$freight,$handling,$internal_budgetary_price,$currency);
+      $ret = $instance->update($internalpricebreakdownId,$cost,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$jenkins_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$material,$additional_material_specification,$finish,$material_cost,$material_cost_currency,$assembly_cost,$assembly_cost_currency,$overhead,$overhead_currency,$factory_profit,$factory_profit_currency,$tax,$tax_currency,$customs,$customs_currency,$freight,$freight_currency,$handling,$handling_currency,$internal_budgetary_price,$internal_budgetary_price_currency,$currency,$valid);
     }
     $template->assign("callback","J.refresh");
     $template->display("successclose.tpl");

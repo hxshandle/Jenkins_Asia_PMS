@@ -52,7 +52,6 @@
     
       <th>{#internalbudgetaryprice#}</th>
     
-      <th>{#currency#}</th>
      
     </tr>
     {section name = item loop = $internalpricebreakdownlist}
@@ -96,26 +95,24 @@
       
         <td align = "center">{$internalpricebreakdownlist[item].finish|truncate:"10":""}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].material_cost}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].material_cost_currency} {$internalpricebreakdownlist[item].material_cost}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].assembly_cost}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].assembly_cost_currency} {$internalpricebreakdownlist[item].assembly_cost}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].overhead}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].overhead_currency} {$internalpricebreakdownlist[item].overhead}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].factory_profit}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].factory_profit_currency} {$internalpricebreakdownlist[item].factory_profit}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].tax}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].tax_currency} {$internalpricebreakdownlist[item].tax}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].customs}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].customs_currency} {$internalpricebreakdownlist[item].customs}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].freight}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].freight_currency} {$internalpricebreakdownlist[item].freight}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].handling}</td>
+        <td align = "center">{$internalpricebreakdownlist[item].handling_currency} {$internalpricebreakdownlist[item].handling}</td>
       
-        <td align = "center">{$internalpricebreakdownlist[item].internal_budgetary_price}</td>
-      
-        <td align = "center">{$internalpricebreakdownlist[item].currency}</td>
-      
+        <td align = "center">{$internalpricebreakdownlist[item].internal_budgetary_price_currency} {$internalpricebreakdownlist[item].internal_budgetary_price}</td>
+            
       </tr>
     {/section}
   </table>

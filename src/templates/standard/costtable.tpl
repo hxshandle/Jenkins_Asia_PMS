@@ -31,26 +31,37 @@
       <th>{#jenkinsdrawingnumber#}</th>
     
       <th>{#revision2#}</th>
-    
-      <th>{#internalbudgetaryprice#}</th>
-    
-      <th>{#externalbudgetaryprice#}</th>
-    
-      <th>{#internalalphaprice#}</th>
-    
-      <th>{#externalalphaprice#}</th>
-    
-      <th>{#internalbetaprice#}</th>
-    
-      <th>{#externalbetaprice#}</th>
-    
-      <th>{#internalfinalprice#}</th>
+      {if $smarty.session.userRole < 5}
+        <th>{#internalbudgetaryprice#}</th>
+      
+        <th>{#externalbudgetaryprice#}</th>
 
-      <th>{#externalfinalprice#}</th>
+        <th>{#internalalphaprice#}</th>
+
+        <th>{#externalalphaprice#}</th>
+      
+        <th>{#internalbetaprice#}</th>
+      
+        <th>{#externalbetaprice#}</th>
+      
+        <th>{#internalfinalprice#}</th>
+
+        <th>{#externalfinalprice#}</th>
+      
+        <th>{#quantityperproduct#}</th>
+      {else}
+        <th>{#budgetaryprice#}</th>
+
+        <th>{#alphaprice#}</th>
+      
+        <th>{#betaprice#}</th>
+
+        <th>{#finalprice#}</th>
+      
+        <th>{#quantityperproduct#}</th>
+
+      {/if}
     
-      <th>{#quantityperproduct#}</th>
-    
-      <th>{#currency#}</th>
      
     </tr>
     {section name = item loop = $costlist}
@@ -60,8 +71,10 @@
         <tr class="color-b">
       {/if}
         <td align = "center">
+          {if $smarty.section.userRole < 5}
           <a target="_blank" href="managecost.php?action=show&id={$costlist[item].ID}">{#edit#}</a>
           <a href="#" onclick="J.delTableRow('managecost.php?action=del&id={$costlist[item].ID}',this);return false;">{#delete#}</a>
+          {/if}
         </td>
       
         <td align = "center">{$costlist[item].project}</td>
@@ -91,26 +104,39 @@
         <td align = "center">{$costlist[item].jenkins_drawing_number_doc_no}</td>
       
         <td align = "center">{$costlist[item].revision2}</td>
-      
-        <td align = "center">{$costlist[item].internal_budgetary_price_currency} {$costlist[item].internal_budgetary_price}</td>
-      
-        <td align = "center">{$costlist[item].external_budgetary_price_currency} {$costlist[item].external_budgetary_price}</td>
-      
-        <td align = "center">{$costlist[item].internal_alpha_price_currency} {$costlist[item].internal_alpha_price}</td>
-      
-        <td align = "center">{$costlist[item].external_alpha_price_currency} {$costlist[item].external_alpha_price}</td>
-      
-        <td align = "center">{$costlist[item].internal_beta_price_currency} {$costlist[item].internal_beta_price}</td>
-      
-        <td align = "center">{$costlist[item].external_beta_price_currency} {$costlist[item].external_beta_price}</td>
-      
-        <td align = "center">{$costlist[item].internal_final_price_currency} {$costlist[item].internal_final_price}</td>
 
-        <td align = "center">{$costlist[item].external_final_price_currency} {$costlist[item].external_final_price}</td>
+        {if $smarty.session.userRole < 5}
       
-        <td align = "center">{$costlist[item].quantity_per_product}</td>
+          <td align = "center">{$costlist[item].internal_budgetary_price_currency} {$costlist[item].internal_budgetary_price}</td>
+        
+          <td align = "center">{$costlist[item].external_budgetary_price_currency} {$costlist[item].external_budgetary_price}</td>
+        
+          <td align = "center">{$costlist[item].internal_alpha_price_currency} {$costlist[item].internal_alpha_price}</td>
+        
+          <td align = "center">{$costlist[item].external_alpha_price_currency} {$costlist[item].external_alpha_price}</td>
+        
+          <td align = "center">{$costlist[item].internal_beta_price_currency} {$costlist[item].internal_beta_price}</td>
+        
+          <td align = "center">{$costlist[item].external_beta_price_currency} {$costlist[item].external_beta_price}</td>
+        
+          <td align = "center">{$costlist[item].internal_final_price_currency} {$costlist[item].internal_final_price}</td>
+
+          <td align = "center">{$costlist[item].external_final_price_currency} {$costlist[item].external_final_price}</td>
+        
+          <td align = "center">{$costlist[item].quantity_per_product}</td>
+        {else}
+        
+          <td align = "center">{$costlist[item].external_budgetary_price_currency} {$costlist[item].external_budgetary_price}</td>
       
-        <td align = "center">{$costlist[item].currency}</td>
+          <td align = "center">{$costlist[item].external_alpha_price_currency} {$costlist[item].external_alpha_price}</td>
+        
+          <td align = "center">{$costlist[item].external_beta_price_currency} {$costlist[item].external_beta_price}</td>
+
+          <td align = "center">{$costlist[item].external_final_price_currency} {$costlist[item].external_final_price}</td>
+        
+          <td align = "center">{$costlist[item].quantity_per_product}</td>
+        {/if}
+      
       
       </tr>
     {/section}

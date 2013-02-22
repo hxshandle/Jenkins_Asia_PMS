@@ -79,7 +79,7 @@
             
             <div class="row">
               <label style="width:240px;" >{#material#}</label>
-              <input id = "material" name ="material" value="{$internalpricebreakdown.material}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <input id = "material" name ="material" value="{$internalpricebreakdown.material}"  ></input>
             </div>
             
             <div class="row">
@@ -106,61 +106,130 @@
             <div class="row">
               <label style="width:240px;" >{#materialcost#}</label>
               <input id = "material_cost" name ="material_cost" value="{$internalpricebreakdown.material_cost}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "material_cost_currency" name="material_cost_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.material_cost_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#assemblycost#}</label>
               <input id = "assembly_cost" name ="assembly_cost" value="{$internalpricebreakdown.assembly_cost}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "assembly_cost_currency" name="assembly_cost_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.assembly_cost_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#overhead#}</label>
               <input id = "overhead" name ="overhead" value="{$internalpricebreakdown.overhead}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "overhead_currency" name="overhead_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.overhead_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#factoryprofit#}</label>
               <input id = "factory_profit" name ="factory_profit" value="{$internalpricebreakdown.factory_profit}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "factory_profit_currency" name="factory_profit_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.factory_profit_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#tax#}</label>
               <input id = "tax" name ="tax" value="{$internalpricebreakdown.tax}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "tax_currency" name="factory_profit_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.factory_profit_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#customs#}</label>
               <input id = "customs" name ="customs" value="{$internalpricebreakdown.customs}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "customs_currency" name="customs_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.customs_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#freight#}</label>
               <input id = "freight" name ="freight" value="{$internalpricebreakdown.freight}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "freight_currency" name="freight_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.freight_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#handling#}</label>
               <input id = "handling" name ="handling" value="{$internalpricebreakdown.handling}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "handling_currency" name="handling_currency" class="currency">
+                {section name=curr loop=$currency}
+                  {if $currency[curr] == $internalpricebreakdown.handling_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
+              </select>
             </div>
             
             <div class="row">
               <label style="width:240px;" >{#internalbudgetaryprice#}</label>
               <input id = "internal_budgetary_price" name ="internal_budgetary_price" value="{$internalpricebreakdown.internal_budgetary_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
-            </div>
-            
-            <div class="row">
-              <label style="width:240px;" >{#currency#}</label>
-              <select id = "currency" name="currency" class="currency">
+              <select id = "internal_budgetary_price_currency" name="internal_budgetary_price_currency" class="currency">
                 {section name=curr loop=$currency}
-                {if $currency[curr] == $internalpricebreakdown.currency}
-                    <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
-                {else}
-                    <option value="{$currency[curr]}">{$currency[curr]}</option>
-                {/if}
-              {/section}
+                  {if $currency[curr] == $internalpricebreakdown.internal_budgetary_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                {/section}
               </select>
             </div>
             
+           
             <div class="row-butn-bottom">
               <label></label>
               <button onfocus="this.blur();" type="submit">{#save#}</button>
