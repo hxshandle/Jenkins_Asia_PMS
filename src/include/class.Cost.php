@@ -181,7 +181,7 @@
             `internal_final_price_currency` = '$internal_final_price_currency',
             `quantity_per_product` = $quantity_per_product,
             `currency` = '$currency'
-            `where id = $id";
+            where id = $id";
       $upd = mysql_query($sql);
       if($upd){
         return true;
