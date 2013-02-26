@@ -31,7 +31,7 @@
       <th>{#jenkinsdrawingnumber#}</th>
     
       <th>{#revision2#}</th>
-      {if $smarty.session.userRole < 5}
+      {if $smarty.session.userRole <= 3}
         <th>{#internalbudgetaryprice#}</th>
       
         <th>{#externalbudgetaryprice#}</th>
@@ -71,7 +71,7 @@
         <tr class="color-b">
       {/if}
         <td align = "center">
-          {if $smarty.session.userRole < 5}
+          {if $smarty.session.userRole <= 5}
           <a target="_blank" href="managecost.php?action=show&id={$costlist[item].ID}">{#edit#}</a>
           <a href="#" onclick="J.delTableRow('managecost.php?action=del&id={$costlist[item].ID}',this);return false;">{#delete#}</a>
           {/if}
@@ -105,7 +105,7 @@
       
         <td align = "center">{$costlist[item].revision2}</td>
 
-        {if $smarty.session.userRole < 5}
+        {if $smarty.session.userRole <= 3}
       
           <td align = "center">{$costlist[item].internal_budgetary_price_currency} {$costlist[item].internal_budgetary_price}</td>
         
@@ -124,6 +124,18 @@
           <td align = "center">{$costlist[item].external_final_price_currency} {$costlist[item].external_final_price}</td>
         
           <td align = "center">{$costlist[item].quantity_per_product}</td>
+        {elseif $smarty.session.userRole <= 5}
+
+          <td align = "center">{$costlist[item].internal_budgetary_price_currency} {$costlist[item].internal_budgetary_price}</td>
+      
+          <td align = "center">{$costlist[item].internal_alpha_price_currency} {$costlist[item].internal_alpha_price}</td>
+        
+          <td align = "center">{$costlist[item].internal_beta_price_currency} {$costlist[item].internal_beta_price}</td>
+
+          <td align = "center">{$costlist[item].internal_final_price_currency} {$costlist[item].internal_final_price}</td>
+        
+          <td align = "center">{$costlist[item].quantity_per_product}</td>
+
         {else}
         
           <td align = "center">{$costlist[item].external_budgetary_price_currency} {$costlist[item].external_budgetary_price}</td>

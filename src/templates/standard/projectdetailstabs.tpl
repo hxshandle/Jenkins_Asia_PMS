@@ -14,7 +14,7 @@
 <div  id ="projectdetailstab" class="block_in_wrapper">
   <ul id="tabs_example_one" class="subsection_tabs">  
     <li class="tab"><a href="#tabphase">{#phase#}</a></li>
-    {if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $isProjectLeader || $smarty.session.userRole == 6}  
+    {if $smarty.session.userRole <= 6}  
       <li class="tab"><a href="#tabcost">{#cost#}</a></li>
     {/if}
     {if $smarty.session.userRole <=5}
@@ -39,7 +39,7 @@
   </ul>
   
   <div id="tabphase">{include file="phasetab.tpl"}</div>
-  {if $smarty.session.userRole == 1 || $smarty.session.userRole == 3 || $isProjectLeader || $smarty.session.userRole == 6}
+  {if $smarty.session.userRole <= 6}
     <div id="tabcost">{include file="costtab.tpl"}</div>
   {/if}
   {if $smarty.session.userRole <=5}

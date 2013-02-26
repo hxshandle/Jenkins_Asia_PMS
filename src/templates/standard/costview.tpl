@@ -90,7 +90,7 @@
               <label style="width:240px;" >{#revision2#}</label>
               <input id = "revision2" name ="revision2" value="{$cost.revision2}"  ></input>
             </div>
-            
+            {if $smarty.session.userRole <=3}
             <div class="row">
               <label style="width:240px;" >{#internalbudgetaryprice#}</label>
               <input id = "internal_budgetary_price" name ="internal_budgetary_price" value="{$cost.internal_budgetary_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
@@ -201,7 +201,76 @@
                   {/section}
                 </select>
             </div>
+            {elseif $smarty.session.userRole <= 5}
+            <div class="row">
+              <label style="width:240px;" >{#internalbudgetaryprice#}</label>
+              <input id = "internal_budgetary_price" name ="internal_budgetary_price" value="{$cost.internal_budgetary_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_budgetary_price_currency" name="internal_budgetary_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_budgetary_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
+            </div>
+            <div style="display:none">
+              <input id = "external_budgetary_price" name ="external_budgetary_price" value="{$cost.external_budgetary_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <input id = "external_alpha_price" name ="external_alpha_price" value="{$cost.external_alpha_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <input id = "external_beta_price" name ="external_beta_price" value="{$cost.external_beta_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <input id = "external_final_price" name ="external_final_price" value="{$cost.external_final_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+
+              <input id = "external_budgetary_price_currency" name ="external_budgetary_price_currency" value="{$cost.external_budgetary_price_currency}"></input>
+              <input id = "external_alpha_price_currency" name ="external_alpha_price_currency" value="{$cost.external_alpha_price_currency}"></input>
+              <input id = "external_beta_price_currency" name ="external_beta_price_currency" value="{$cost.external_beta_price_currency}"></input>
+              <input id = "external_final_price_currency" name ="external_final_price_currency" value="{$cost.external_final_price_currency}"></input>
+          </div>
             
+
+            <div class="row">
+              <label style="width:240px;" >{#internalalphaprice#}</label>
+              <input id = "internal_alpha_price" name ="internal_alpha_price" value="{$cost.internal_alpha_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_alpha_price_currency" name="internal_alpha_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_alpha_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
+            </div>
+            
+            <div class="row">
+              <label style="width:240px;" >{#internalbetaprice#}</label>
+              <input id = "internal_beta_price" name ="internal_beta_price" value="{$cost.internal_beta_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_beta_price_currency" name="internal_beta_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_beta_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
+            </div>
+            
+            <div class="row">
+              <label style="width:240px;" >{#internalfinalprice#}</label>
+              <input id = "internal_final_price" name ="internal_final_price" value="{$cost.internal_final_price}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
+              <select id = "internal_final_price_currency" name="internal_final_price_currency" class="currency">
+                  {section name=curr loop=$currency}
+                  {if $currency[curr] == $cost.internal_final_price_currency}
+                      <option selected  value="{$currency[curr]}">{$currency[curr]}</option>
+                  {else}
+                      <option value="{$currency[curr]}">{$currency[curr]}</option>
+                  {/if}
+                  {/section}
+                </select>
+            </div>
+            {else}
+            {/if}
             <div class="row">
               <label style="width:240px;" >{#quantityperproduct#}</label>
               <input id = "quantity_per_product" name ="quantity_per_product" value="{$cost.quantity_per_product}"  regexp="{literal}^\d*\.?\d{0,2}${/literal}"  ></input>
@@ -239,7 +308,7 @@
           </div>
         </div>
 
-
+        {if $smarty.session.userRole <=3}
         <div class="content-spacer"></div>
         <div class="projects">
           <div class="headline">
@@ -262,7 +331,7 @@
             </div>
           </div>
         </div>
-
+        {/if}
       </div>
     </div>
   </div>
