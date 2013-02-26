@@ -71,7 +71,7 @@
         <tr class="color-b">
       {/if}
         <td align = "center">
-          {if $smarty.section.userRole < 5}
+          {if $smarty.session.userRole < 5}
           <a target="_blank" href="managecost.php?action=show&id={$costlist[item].ID}">{#edit#}</a>
           <a href="#" onclick="J.delTableRow('managecost.php?action=del&id={$costlist[item].ID}',this);return false;">{#delete#}</a>
           {/if}
