@@ -266,7 +266,7 @@ class JUtils{
     }else{
       $msg .="Quality issue note - ".$q['action_no']." was updated by ".$_SESSION["username"].".";
     }
-    $msg .="Click <a href='http://hxshandle.3322.org/managequality.php?action=showproject'>here</a> for more details.";
+    $msg .="Click <a href='http://hxshandle.3322.org/managequality.php?action=showEditDlg&id=".$q['ID']."'>here</a> for more details.";
     $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
 
     $msg .= "<b>Project<br/></b>";
@@ -345,13 +345,15 @@ class JUtils{
   function sendQualityMail($qualityId,$settings,$isNew = false) {
     $qualityId = (int) $qualityId;
     $sql = "select u.name,u.email from quality_notify qn, user u where qn.userId = u.id and qn.qualityId = $qualityId";
+    $quality = new Quality();
+    $q = $quality->get($qualityId);
     $sel = mysql_query($sql);
     while($row = mysql_fetch_array($sel)){
       $themail = new emailer($settings);
       $msg = $this->getQualityMailMsg($qualityId,$isNew);
-      $subject = "JANUS notification - New quality issue";
+      $subject = "JANUS notification - New quality issue ".$q['action_no'];
       if(!$isNew){
-        $subject="JANUS notification - Quality Issue updated";
+        $subject="JANUS notification - Quality Issue updated ".$q['action_no'];
       }
       $themail->send_mail($row["email"], $subject,$msg);
     }

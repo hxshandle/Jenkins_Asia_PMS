@@ -4,8 +4,6 @@
     <tr>
       <th></th>
     
-      <th>{#project#}</th>
-    
       <th>{#projectno#}</th>
     
       <th>{#customermodelnumber#}</th>
@@ -76,8 +74,6 @@
           <a href="#" onclick="J.delTableRow('managecost.php?action=del&id={$costlist[item].ID}',this);return false;">{#delete#}</a>
           {/if}
         </td>
-      
-        <td align = "center">{$costlist[item].project}</td>
       
         <td align = "center">{$costlist[item].project_no}</td>
       
