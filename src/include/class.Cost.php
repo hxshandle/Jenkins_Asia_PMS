@@ -7,9 +7,10 @@
     }
 
 
-    function add($project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid){
+    function add($project,$project_no,$description,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid){
       $project = (int) $project;
       $project_no = mysql_escape_string($project_no);
+      $description = mysql_escape_string($description);
       $customer_model_number = mysql_escape_string($customer_model_number);
       $jenkins_model_number = (int) $jenkins_model_number;
       $customer_assembly_number = mysql_escape_string($customer_assembly_number);
@@ -44,6 +45,7 @@
 
       $sql = "insert into `cost` (`project`,
               `project_no`,
+              `description`,
               `customer_model_number`,
               `jenkins_model_number`,
               `customer_assembly_number`,
@@ -75,6 +77,7 @@
               `quantity_per_product`,
               `currency`) values ($project,
               '$project_no',
+              '$description',
               '$customer_model_number',
               $jenkins_model_number,
               '$customer_assembly_number',
@@ -113,10 +116,11 @@
       }
     }
 
-    function update($id,$project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid){
+    function update($id,$project,$project_no,$description,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid){
       $id = (int) $id;
       $project = (int) $project;
       $project_no = mysql_escape_string($project_no);
+      $description = mysql_escape_string($description);
       $customer_model_number = mysql_escape_string($customer_model_number);
       $jenkins_model_number = (int) $jenkins_model_number;
       $customer_assembly_number = mysql_escape_string($customer_assembly_number);
@@ -151,6 +155,7 @@
 
       $sql = "update `cost` set `project` = $project,
             `project_no` = '$project_no',
+            `description` = '$description',
             `customer_model_number` = '$customer_model_number',
             `jenkins_model_number` = $jenkins_model_number,
             `customer_assembly_number` = '$customer_assembly_number',

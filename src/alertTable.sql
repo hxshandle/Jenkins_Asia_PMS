@@ -376,3 +376,6 @@ ALTER TABLE `external_price_breakdown`
   ADD COLUMN `handling_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `handling`,
   ADD COLUMN `internal_budgetary_price_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `internal_budgetary_price`,
   ADD COLUMN `material_cost_currency` VARCHAR(3) NULL DEFAULT 'RMB'  AFTER `material_cost` ;
+
+
+  ALTER TABLE `cost` ADD COLUMN `description` LONGTEXT NULL  AFTER `project_no` ;

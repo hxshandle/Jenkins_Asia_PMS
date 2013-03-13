@@ -40,6 +40,8 @@ switch($action){
     
       $project_no = getArrayVal($_POST, "project_no");
     
+      $description = getArrayVal($_POST, "description");
+
       $customer_model_number = getArrayVal($_POST, "customer_model_number");
     
       $jenkins_model_number = getArrayVal($_POST, "jenkins_model_number");
@@ -103,10 +105,10 @@ switch($action){
       $valid = getArrayVal($_POST, "valid");
     
     if(!$costId){
-      $ret = $instance->add($project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid);
+      $ret = $instance->add($project,$project_no,$description,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid);
       $costId = $ret;
     }else{
-      $ret = $instance->update($costId,$project,$project_no,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid);
+      $ret = $instance->update($costId,$project,$project_no,$description,$customer_model_number,$jenkins_model_number,$customer_assembly_number,$customer_parent_assembly_number,$jenkins_assembly_number,$jenkins_parent_assembly_number,$customer_part_number,$jenkins_part_number,$customer_drawing_number,$revision1,$jenkins_drawing_number,$revision2,$internal_budgetary_price,$internal_budgetary_price_currency,$external_budgetary_price,$external_budgetary_price_currency,$internal_alpha_price,$internal_alpha_price_currency,$external_alpha_price,$external_alpha_price_currency,$internal_beta_price,$internal_beta_price_currency,$external_beta_price,$external_beta_price_currency,$internal_final_price,$external_final_price,$external_final_price_currency,$internal_final_price_currency,$quantity_per_product,$currency,$valid);
     }
     $template->assign("callback","J.refresh");
     $template->display("successclose.tpl");

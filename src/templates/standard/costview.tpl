@@ -26,6 +26,10 @@
               <label style="width:240px;" >{#projectno#}</label>
               <input id = "project_no" name ="project_no" value="{$cost.project_no}"  ></input>
             </div>
+            <div class="row">
+              <label style="width:240px;" >{#description#}</label>
+              <textarea style="width:200px" id = "description" name ="description">{$cost.description}</textarea>
+            </div>
             
             <div class="row">
               <label style="width:240px;" >{#customermodelnumber#}</label>

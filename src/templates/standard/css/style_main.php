@@ -3022,6 +3022,15 @@ div.dataTable{
 ul.tabs li.document a {
 	background-image: url(../images/symbols/tab-document.png);
 }
+ul.tabs li.order a {
+	background-image: url(../images/symbols/tab-order.png);
+}
+ul.tabs li.ecn a {
+	background-image: url(../images/symbols/tab-ECN.png);
+}
+ul.tabs li.quality a {
+	background-image: url(../images/symbols/tab-quality.png);
+}
 .tx{
   text-align:center;
 }
