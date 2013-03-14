@@ -266,7 +266,7 @@ class JUtils{
     }else{
       $msg .="Quality issue note - ".$q['action_no']." was updated by ".$_SESSION["username"].".";
     }
-    $msg .="Click <a href='http://hxshandle.3322.org/managequality.php?action=showEditDlg&id=".$q['ID']."'>here</a> for more details.";
+    $msg .="Click <a href='http://janus.jenkins-asia.com/managequality.php?action=showEditDlg&id=".$q['ID']."'>here</a> for more details.";
     $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
 
     $msg .= "<b>Project<br/></b>";

@@ -198,7 +198,7 @@ if ($action == "editform")
             {
                 // send email
                 $themail = new emailer($settings);
-                $themail->send_mail($user["email"], $langfile["projectassignedsubject"] , $langfile["projectassignedtext"] . " <a href = \"" . $url . "manageproject.php?action=showproject&id=$id\">" . $url . "manageproject.php?action=showproject&id=$id</a>");
+                $themail->send_mail($user["email"], $langfile["projectassignedsubject"] , $langfile["projectassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "manageproject.php?action=showproject&id=$id\">" . $url . "manageproject.php?action=showproject&id=$id</a>");
             }
         }
         if ($redir)

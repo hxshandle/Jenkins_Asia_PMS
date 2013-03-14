@@ -100,7 +100,7 @@ if ($action == "addform") {
     }
 
     if ($settings["mailnotify"]) {
-      $link = $url."managetask.php?action=showtask&id=$id&tid=$tid";
+      $link = "http://janus.jenkins-asia.com/"."managetask.php?action=showtask&id=$id&tid=$tid";
       foreach ($assigned as $member) {
         $usr = (object) new user();
         $user = $usr->getProfile($member);
@@ -208,7 +208,7 @@ if ($action == "addform") {
       $hasCCed = false;
       foreach ($assigned as $assignee) {
         $assignChk = $task->assign($tid, $assignee);
-        $link = $url."managetask.php?action=showtask&id=$id&tid=$tid";
+        $link = "http://janus.jenkins-asia.com/"."managetask.php?action=showtask&id=$id&tid=$tid";
         if ($assignChk) {
           if ($settings["mailnotify"]) {
             $usr = (object) new user();
@@ -312,7 +312,7 @@ if ($action == "addform") {
       if (!empty($user["email"])) {
         // send email
         $themail = new emailer($settings);
-        $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . $url . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+        $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
       }
     }
     $template->assign("assigntask", 1);
