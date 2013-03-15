@@ -43,7 +43,7 @@
             </select>
           </div>
           <div class="row"><label for="statusUpdate">{#statusUpdate#}:</label><div style='margin-left:142px'>{$task.status_update}</div><div class="editor" style='margin-left:142px'><textarea name="statusUpdate" id="statusUpdate"   rows="3" cols="0" ></textarea></div></div>
-          <input type="hidden" id="oldStatusUpdate" name="oldStatusUpdate" value="{$task.status_update}"/>
+          <input type="hidden" id="oldStatusUpdate" name="oldStatusUpdate" value='{$task.status_update}'/>
           <div class="row">
             <label for="deliverableItems">{#deliverableItems#}: </label>
             <select name="deliverableItems" id="deliverableItems" onchange="deliverItemChanged(this)">
