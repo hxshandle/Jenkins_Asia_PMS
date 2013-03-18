@@ -1,0 +1,51 @@
+ul, li{
+  list-style: none;
+  margin:0;
+  padding:0;
+}
+
+
+h1,h2, .actions{
+  text-align: center;
+}
+
+@media print{
+  .actions{
+    display: none;
+  }
+}
+
+
+.print-content{
+  width:940px;
+  margin:0 auto;
+}
+.print-content li{
+  border-bottom: 1px solid gray;
+}
+.print-content .title{
+  width:240px;
+  display:inline-block;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 10px;
+  line-height: 2em;
+}
+
+.print-content .content{
+  display: inline-block;
+}
+.print-content .content img{
+  margin:10px 0;
+  display:block;
+}
+.details-section{
+  margin:20px 0;
+  border:4px solid gray;
+}
+.details-title{
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  color:gray;
+}
