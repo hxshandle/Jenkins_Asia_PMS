@@ -245,7 +245,7 @@
 
 
 		{*Messages*}
-		{if 1 > 0}
+		{if $smarty.session.userRole < 6}
 			<div class="msgs">
 				<div class="headline">
 					<a href="javascript:void(0);" id="activityhead_toggle" class="{$actbar}" onclick = "toggleBlock('activityhead');"></a>
