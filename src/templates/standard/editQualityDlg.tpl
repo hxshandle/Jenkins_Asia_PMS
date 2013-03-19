@@ -125,6 +125,7 @@
 <div  style="margin:10px 0 0 0">
   {if $smarty.session.userRole < 8}
   <button id="dlgBtnSaveQuality" type="submit">{#save#}</button>
+  <a id="dlgBtnPrint" class="butn_link" target="_blank" href="/managequality.php?action=printPreview&id={$quality.ID}">{#print#}</a>
   {/if}
 </div>
 </form>
@@ -236,7 +237,7 @@
           <div class="dlgRow" style="height:20px">
             <label style="width:200px;float:left;">&nbsp;</label>
             <button onfocus="this.blur()" type="submit">{#save#}</button>
-            <button onclick="blindtoggle('addQualityDetails');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
+            <a class="butn_link" onclick="javascript:blindtoggle('addQualityDetails');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</a>
           </div>
         </form>
 

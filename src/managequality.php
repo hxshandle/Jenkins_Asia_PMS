@@ -199,6 +199,17 @@ switch ($action) {
     $template->assign("qualityId", $id);
     $template->assign("notifyList",$notifyList);
     $template->display("editQualityDlg.tpl");
+    break;
+  case 'printPreview':
+    $id = getArrayVal($_GET, "id");
+    $quality = new Quality();
+    $q = $quality->get($id);
+    $template->assign("quality", $q);
+    $qualityDetails = new QualityDetails();
+    $detailsList = $qualityDetails->getQualityDetailsByQualityId($id);
+    $template->assign("details", $detailsList);
+    $template->display("printquality.tpl");
+    break;
   default:
     break;
 }
