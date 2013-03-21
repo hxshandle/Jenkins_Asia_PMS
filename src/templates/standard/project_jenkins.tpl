@@ -89,14 +89,14 @@
 <div class="nosmooth" id="sm_project">
 
 
-
+{if $smarty.session.userRole < 6}
 
 {*Activity Log*}
 <div class="neutral">
 	{include file="log.tpl" }
 </div>
 {*Activity Log End*}
-
+{/if}
 
 </div> {*nosmooth End*}
 
