@@ -363,7 +363,7 @@ class JUtils{
     $project = new project();
     $userRole = $_SESSION['userRole'];
     if($userRole == "1" || $userRole == "3"){
-      return $project->getProjects(1,1000);
+      return $project->getProjects(1,5000);
     }
     $pIds = $project->getMyProjectIds($_SESSION['userid']);
     $arrRet = array();
@@ -377,7 +377,7 @@ class JUtils{
 
   function getAllCustomers(){
     $ret = array();
-    $sql = "select DISTINCT customer_name from projekte where 1=1 ";
+    $sql = "select DISTINCT customer_name from projekte where 1=1 order by customer_name ";
     $sqlCondition = $this->getMyProjectSqlCondition();
     $sql .=$sqlCondition;
     $sel = mysql_query($sql);
