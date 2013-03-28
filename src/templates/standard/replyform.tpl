@@ -32,7 +32,9 @@
 						<div class="row">
 							<label>{#files#}:</label>
 							<button class="inner" onclick="blindtoggle('files-add');toggleClass(this,'inner-active','inner');return false;" onfocus="this.blur()">{#addbutton#}</button>
+							<!--
 							<button class="inner" onclick="blindtoggle('files-attach');toggleClass(this,'inner-active','inner');return false;" onfocus="this.blur()">{#attachbutton#}</button>
+						-->
 						</div>
 
 						{*Attach*}
