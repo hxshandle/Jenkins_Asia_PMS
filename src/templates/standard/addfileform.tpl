@@ -103,7 +103,7 @@
       flash9_url : "include/swfupload/swfupload_fp9.swf",
       upload_url: "uploadfileajax.php",
       post_params: {"PHPSESSID" : __sesionId,"id":__projectId,"userId":__userId},
-      file_size_limit : "1000 MB",
+      file_size_limit : "2000 MB",
       file_types : "*.*",
       file_types_description : "All Files",
       file_upload_limit : 100,
