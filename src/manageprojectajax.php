@@ -257,6 +257,13 @@ switch ($action) {
     $utils->updateProjectRealDateByDeliverDate($project,$strLastEndDate);
     echo 'Ok';
     break;
+  case "openAddSampleDlg":
+    $projectId = getArrayVal($_GET,'projectId');
+    $project = new project();
+    $projectObj = $project->getProject($projectId);
+    $template->assign("project", $projectObj);
+    $template->display("addsample.tpl");
+    break;
   case "addSample":
     $project = getArrayVal($_POST, "projectId");
     $newSampleName = getArrayVal($_POST, "sampleName");

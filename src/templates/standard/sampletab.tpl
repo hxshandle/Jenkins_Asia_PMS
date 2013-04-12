@@ -1,11 +1,8 @@
 <div class="phaseMenualBar">
   {if $editBaseInfo}
-    <button id="btnAddSample">{#addphase#}</button>
+    <button id="btnAddSample" onclick="openAddSampleDlg()">{#addphase#}</button>
   {/if}
   </div>
-<div id="addSampleDlg" class="modalContainer">
-  {include file="dlgmodal.tpl" templateName="addsample.tpl" title="add Sample"}
-</div>
 
 <div class="sampleList" id="sampleList">
  {if $editSampleInfo}
@@ -28,15 +25,18 @@
 
 {literal}
 <script type="text/javascript">
+/*
   if(!window.__addSampleDlgContent){
     window.__addSampleDlgContent=$("addSampleDlg").innerHTML;
     $("addSampleDlg").remove(); 
   }
+  */
   if(!window.__addSampleRequestDlgContent){
     window.__addSampleRequestDlgContent=$("addSampleRequestDlg").innerHTML;
     $("addSampleRequestDlg").remove(); 
   }
   //altert("1"+$("addFinanceDlg").innerHTML);
+  /*
   new Control.Modal("btnAddSample",{
                                 "contents":window.__addSampleDlgContent,
                                 fade:true,
@@ -44,6 +44,7 @@
                                 containerClassName: 'dlgmodal',
                                 overlayClassName: 'tasksoverlay'
                              });
+    */
     new Control.Modal("btnAddSampleRequest",{
                                 "contents":window.__addSampleRequestDlgContent,
                                 fade:true,
@@ -51,6 +52,9 @@
                                 containerClassName: 'dlgmodal',
                                 overlayClassName: 'tasksoverlay'
                              });                             
+  function openAddSampleDlg(){
+    J.openWindow('manageprojectajax.php?action=openAddSampleDlg&projectId='+__projectId);
+  }
   function reloadSample(){
     var theUrl = "manageprojectajax.php?action=reloadsample&id="+__projectId;
     new Ajax.Request(theUrl, {

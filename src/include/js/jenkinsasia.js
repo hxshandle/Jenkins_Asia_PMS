@@ -67,6 +67,7 @@ J.refresh = function(){
 }
 J.addSelectedDocument = function(docs,refElement,dispElement){
   var doc = docs[0];
+  alert('call back');
   $(refElement).value=doc[0];//document ID
   $(dispElement).value=doc[3];// document NO
 }
@@ -77,6 +78,10 @@ J.selectDocument = function(refElement,dispElement){
   url +="&dispElement="+dispElement;
   var _win = J.openWindow(url);
   _win.focus();
+}
+J.resetDocument = function(refElement,dispElement){
+  $("#"+dispElement).innerHTML = "";
+  $("#"+refElement).value = "";
 }
 
 J.delTableRow = function(url,el){
