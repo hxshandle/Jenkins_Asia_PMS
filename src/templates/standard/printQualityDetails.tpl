@@ -68,7 +68,7 @@
       <div class='content'>{$entry.long_term_verified}</div>
     </li>
     <li>
-      <div class='title'>{#file#}</div>
+      <div class='title'>{#attachment#}</div>
       <div class='content'>
         {foreach from=$entry.files item=image}
           <img src="/thumb.php?pic={$image.datei}&width=480"></img>
