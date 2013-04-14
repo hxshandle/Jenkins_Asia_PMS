@@ -43,7 +43,9 @@
     {else}
       <tr class="color-b">
     {/if}
-      <td align  = "center" style="cursor:pointer" onclick="showOrderSubInfo({$orderTab[order].ID})"><a onclick="javascript:return false;">{$orderTab[order].name}</a></td>
+      <td align  = "center" style="cursor:pointer" onclick="">
+        <span class="acc-toggle" onclick="javascript:accord_order.activate($$('#documentsTable .accordion_toggle')[{$smarty.section.order.index}]);toggleAccordeon('accord_order',this);"><a onclick="javascript:showOrderSubInfo({$orderTab[order].ID});return false;">{$orderTab[order].name}</a></span>
+      </td>
       <td  align  = "center">{$orderTab[order].quantity}</td>
       <td  align  = "center">{$orderTab[order].customerName}</td>
       <td  align  = "center">{$orderTab[order].customer_po_number}</td>
@@ -97,7 +99,20 @@
         
         </td>
     </tr>
+    <tr class="acc">
+        <td colspan="6">
+          <div class="accordion_toggle"></div>
+          <div class="accordion_content">
+            <p>
+              {$orderTab[order].desc}
+            </p>
+          </div>
+        </td>
+      </tr>
   {/section}
   </tbody>
 </table>
 </div>
+<script>
+ var accord_order = new accordion('documentsTable');
+</script>

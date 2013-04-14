@@ -271,12 +271,14 @@ switch ($action) {
     $newSampleAvailablecount = getArrayVal($_POST, "sampleAvailablecount");
     $newSampleTotalcount = getArrayVal($_POST, "sampleTotalcount");
     $newSampleDescription = getArrayVal($_POST, "sampleDescription");
+    $document_info_id = getArrayVal($_POST,"files");
     $sample = new Sample();
-    $sampleId = $sample->add($newSampleName, '', $project, $newSampleTotalcount, $newSampleAvailablecount, $newSampleTag, $newSampleDescription);
+    $sampleId = $sample->add($newSampleName, '', $project, $newSampleTotalcount, $newSampleAvailablecount, $newSampleTag, $newSampleDescription,$document_info_id);
     if ($sampleId) {
-      echo "Ok";
+      $template->assign("callback", "reloadSample");
+      $template->display("successclose.tpl");
     } else {
-      echo "Fail";
+      echo "Create Fail";
     }
     break;
   case "reloadsample":

@@ -213,7 +213,7 @@ class Order {
   }
   
   function getOrdersByCustomer($projectId,$customerId){
-    $sql = "select o.ID,o.name,o.quantity,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
+    $sql = "select o.ID,o.name,o.quantity,o.desc,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
      p.customer_name as customerName,
       (select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.inner_cost,o.inner_cost_currency,
       o.external_cost,o.external_cost_currency,(select value from status s where o.status = s.ID) as status,
@@ -240,7 +240,7 @@ class Order {
     return $arrOrder;
   }
   function getOrdersByManager($projectId){
- $sql = "select o.ID,o.name,o.quantity,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
+ $sql = "select o.ID,o.name,o.quantity,o.desc,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
      p.customer_name as customerName,
       (select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.inner_cost,o.inner_cost_currency,
       o.external_cost,o.external_cost_currency,(select value from status s where o.status = s.ID) as status,
@@ -411,7 +411,7 @@ class Order {
      if($userRole == "7" || $userRole == "9"){
       return array();
      }
-     $sql = "select o.ID,o.name,o.quantity,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
+     $sql = "select o.ID,o.name,o.quantity,o.desc,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
         p.customer_name as customerName,
       (select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.inner_cost,o.inner_cost_currency,
       o.external_cost,o.external_cost_currency,(select value from status s where o.status = s.ID) as status,
@@ -554,7 +554,7 @@ class Order {
   }
   
   function getBaseSql(){
-    return  "select o.ID,o.name,o.quantity,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
+    return  "select o.ID,o.name,o.quantity,o.desc,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
       p.customer_name as customerName,
       (select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.inner_cost,o.inner_cost_currency,
       o.external_cost,o.external_cost_currency,(select value from status s where o.status = s.ID) as status,

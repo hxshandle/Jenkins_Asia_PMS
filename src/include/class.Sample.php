@@ -18,7 +18,7 @@ class Sample {
     $this->myLog = new mylog;
   }
   
-  function add($name,$status,$project,$totalCount,$availableCount,$tagId,$desc){
+  function add($name,$status,$project,$totalCount,$availableCount,$tagId,$desc,$document_info_id){
     $name = mysql_escape_string($name);
     $desc = mysql_escape_string($desc);
     $tagId = mysql_escape_string($tagId);
@@ -26,6 +26,7 @@ class Sample {
     $project = (int) $project;
     $totalCount = (int) $totalCount;
     $availableCount = (int) $availableCount;
+    $document_info_id = (int) $document_info_id;
     $sql = "INSERT INTO `sample`
             (
             `name`,
@@ -35,6 +36,7 @@ class Sample {
             `available_count`,
             `tag_id`,
             `description`,
+            `document_info_id`,
             `valid`)
             VALUES
             (
@@ -45,6 +47,7 @@ class Sample {
             $availableCount,
             '$tagId',
             '$desc',
+            $document_info_id,
             1
             )";
     $ins = mysql_query($sql);
@@ -81,7 +84,20 @@ class Sample {
     $sql = "select * from `sample` where `project` = $projectId and valid = 1";
     $query = mysql_query($sql);
     $arr = array();
+    $curUserRole = $_SESSION['userRole'];
     while ($row = mysql_fetch_array($query)) {
+      $documentInfoId = $row['document_info_id'];
+      if(empty($documentInfoId)){
+          $documentInfoId = -1;
+      }
+      $sql1 = "select f.datei,di.document_no from document_info di,files f where di.id = $documentInfoId and  visibility like '%$curUserRole%' and di.file = f.id";
+      $sel = mysql_query($sql1);
+      $row['datei']='';
+      $row['document_no']='';
+      while ($fileInfo = mysql_fetch_array($sel)) {
+          $row['datei']=$fileInfo['datei'];
+          $row['document_no']=$fileInfo['document_info'];
+      }
       array_push($arr, $row);
     }
     return $arr;

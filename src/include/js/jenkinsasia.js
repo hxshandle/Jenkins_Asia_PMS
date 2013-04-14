@@ -67,9 +67,17 @@ J.refresh = function(){
 }
 J.addSelectedDocument = function(docs,refElement,dispElement){
   var doc = docs[0];
-  alert('call back');
+  
   $(refElement).value=doc[0];//document ID
-  $(dispElement).value=doc[3];// document NO
+  var dispEl = $(dispElement);
+  if(dispEl.tagName == "UL"){
+    var liEl = document.createElement("li");
+    dispEl.appendChild(liEl);
+    liEl.innerHTML = doc[3];
+  }else{
+    $(dispElement).value=doc[3];// document NO  
+  }
+  
 }
 J.selectDocument = function(refElement,dispElement){
   var url = "managedocument.php?action=selectDocuments";
