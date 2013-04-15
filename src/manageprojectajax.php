@@ -277,7 +277,23 @@ switch ($action) {
         echo "file upload failure";
 
     }else{
-        $uploadPath = "files/" . CL_CONFIG . "/$project/".$_FILES["photo"]["name"];
+        // find the extension
+        $teilnamen = explode(".", $_FILES["photo"]["name"]);
+        $teile = count($teilnamen);
+        $workteile = $teile - 1;
+        $erweiterung = $teilnamen[$workteile];
+        $subname = "";
+        $randval = mt_rand(1, 99999);
+        $subname = preg_replace("/[^-_0-9a-zA-Z]/", "_", $subname);
+        // remove whitespace
+        $subname = preg_replace("/\W/", "", $subname);
+        // if filename is longer than 200 chars, cut it.
+        if (strlen($subname) > 200) {
+          $subname = substr($subname, 0, 200);
+        }
+
+        $name = $subname . "_" . $randval . "." . $erweiterung;
+        $uploadPath = "files/" . CL_CONFIG . "/$project/".$name;
         $finalDatei = CL_ROOT.'/'.$uploadPath;
 
         if(!move_uploaded_file($_FILES["file"]["tmp_name"],$finalDatei)){
