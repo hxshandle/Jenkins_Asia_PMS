@@ -62,6 +62,7 @@
 		  onSuccess:function(payload) {
 		    if (payload.responseText != ""){ 
             $("sampleList").innerHTML=payload.responseText;
+            var accord_sample = new accordion('sample-table');
           }
         }
       });

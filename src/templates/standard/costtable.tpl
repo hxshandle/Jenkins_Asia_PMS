@@ -1,6 +1,6 @@
 {config_load file=lng.conf section = "strings" scope="global" }
 <div style="overflow:auto;max-height:400px;margin-right:20px;">
-  <table style="width: 3000px" cellspadding=0 cellspacing=0>
+  <table style="width: 4000px" cellspadding=0 cellspacing=0 id="cost-table">
     <tr>
       <th></th>
     
@@ -75,7 +75,13 @@
           {/if}
         </td>
       
-        <td align = "center">{$costlist[item].project_no}</td>
+        <td align = "center">
+          <div class="toggle-in">
+          <span style="padding-right:10px" class="acc-toggle" onclick="javascript:accord_cost.activate($$('#cost-table .accordion_toggle')[{$smarty.section.item.index}]);toggleAccordeon('accord_cost',this);">{$costlist[item].project_no}</span>
+            
+
+        </div>
+        </td>
       
         <td align = "center">{$costlist[item].customer_model_number}</td>
       
@@ -147,6 +153,18 @@
       
       
       </tr>
+      <tr class="acc">
+        <td colspan="6">
+          <div class="accordion_toggle"></div>
+          <div class="accordion_content">
+            <p>{$costlist[item].description}</p>
+          </div>
+        </td>
+      </tr>
     {/section}
   </table>
 </div>
+
+<script>
+  var accord_cost = new accordion('cost-table');
+</script>

@@ -37,7 +37,12 @@
         <td colspan="6">
           <div class="accordion_toggle"></div>
           <div class="accordion_content">
-            <img src="/thumb.php?pic={$sampleTab[sample].datei}&width=480"></img>
+            {if $sampleTab[sample].datei == '' }
+              <p></p>
+            {else}
+              <img src="/thumb.php?pic={$sampleTab[sample].datei}&width=480"></img>
+            {/if}
+            
           </div>
         </td>
       </tr>

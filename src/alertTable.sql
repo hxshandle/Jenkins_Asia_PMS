@@ -381,3 +381,5 @@ ALTER TABLE `external_price_breakdown`
   ALTER TABLE `cost` ADD COLUMN `description` LONGTEXT NULL  AFTER `project_no` ;
 
   ALTER TABLE `sample` ADD COLUMN `document_info_id` INT(10) NULL  AFTER `valid` ;
+
+  ALTER TABLE  `sample` CHANGE  `document_info_id`  `datei` TEXT NULL DEFAULT NULL

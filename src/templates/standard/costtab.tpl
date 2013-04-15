@@ -19,6 +19,7 @@
 		  onSuccess:function(payload) {
 		    if (payload.responseText != ""){ 
             $("costList").innerHTML=payload.responseText;
+            var accord_cost = new accordion('cost-table');
           }
         }
       });

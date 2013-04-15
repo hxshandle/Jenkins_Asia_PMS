@@ -3,7 +3,7 @@
   <div id="content-left" style="background:none">
     <div id="content-left-in">
       <div class="projects">
-      <form action="manageprojectajax.php?action=addSample" method="post">
+      <form action="manageprojectajax.php?action=addSample" method="post" enctype="multipart/form-data">
         <div class="dlgRow">
           <label  >{#samplename#}</label>
           <input id="sampleName" name="sampleName"></input>
@@ -22,13 +22,7 @@
         </div>
         <div class="dlgRow">
           <label style='float:left'>{#mydocuments#}</label>
-          <div style="float:left">
-            <ul id="documentList">
-            </ul>
-            <input type = 'hidden' name="files" id = "files"/>
-            <a class="butn_link" style="cursor:pointer" onclick="J.selectDocument('files','documentList');return false;">{#selDocuments#}</a>
-            <a class="butn_link" style="cursor:pointer" onclick="J.resetDocument('documentList');return false;">{#reset#}</a>
-          </div>
+          <input type ='file' name='photo' id='photo' accept='image/*'/>
         </div>
         <div style="clear:both"></div>
         <div class="dlgRow">

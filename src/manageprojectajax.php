@@ -271,9 +271,21 @@ switch ($action) {
     $newSampleAvailablecount = getArrayVal($_POST, "sampleAvailablecount");
     $newSampleTotalcount = getArrayVal($_POST, "sampleTotalcount");
     $newSampleDescription = getArrayVal($_POST, "sampleDescription");
-    $document_info_id = getArrayVal($_POST,"files");
+    $uploadPath = '';
+    //store files
+    if ($_FILES["photo"]["error"] > 0){
+        echo "file upload failure";
+
+    }else{
+        $uploadPath = "files/" . CL_CONFIG . "/$project/".$_FILES["photo"]["name"];
+        $finalDatei = CL_ROOT.'/'.$uploadPath;
+
+        if(!move_uploaded_file($_FILES["file"]["tmp_name"],$finalDatei)){
+            $uploadPath='';
+        }
+    }
     $sample = new Sample();
-    $sampleId = $sample->add($newSampleName, '', $project, $newSampleTotalcount, $newSampleAvailablecount, $newSampleTag, $newSampleDescription,$document_info_id);
+    $sampleId = $sample->add($newSampleName, '', $project, $newSampleTotalcount, $newSampleAvailablecount, $newSampleTag, $newSampleDescription,$uploadPath);
     if ($sampleId) {
       $template->assign("callback", "reloadSample");
       $template->display("successclose.tpl");
