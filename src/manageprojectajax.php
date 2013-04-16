@@ -298,8 +298,9 @@ switch ($action) {
         $name = $subname . "_" . $randval . "." . $erweiterung;
         $uploadPath = "files/" . CL_CONFIG . "/$project/".$name;
         $finalDatei = CL_ROOT.'/'.$uploadPath;
-        
-        if(!move_uploaded_file($_FILES["file"]["tmp_name"],$finalDatei)){
+        $bb = is_uploaded_file($_FILES["photo"]["tmp_name"]);
+        if(!move_uploaded_file($_FILES["photo"]["tmp_name"],$finalDatei)){
+            print_r($_FILES);
             $uploadPath='';
         }
     }
