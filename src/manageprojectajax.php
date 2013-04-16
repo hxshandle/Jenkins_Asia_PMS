@@ -283,6 +283,9 @@ switch ($action) {
         $workteile = $teile - 1;
         $erweiterung = $teilnamen[$workteile];
         $subname = "";
+        for ($i = 0; $i < $workteile; $i++) {
+          $subname .= $teilnamen[$i];
+        }
         $randval = mt_rand(1, 99999);
         $subname = preg_replace("/[^-_0-9a-zA-Z]/", "_", $subname);
         // remove whitespace
@@ -295,7 +298,7 @@ switch ($action) {
         $name = $subname . "_" . $randval . "." . $erweiterung;
         $uploadPath = "files/" . CL_CONFIG . "/$project/".$name;
         $finalDatei = CL_ROOT.'/'.$uploadPath;
-
+        
         if(!move_uploaded_file($_FILES["file"]["tmp_name"],$finalDatei)){
             $uploadPath='';
         }
