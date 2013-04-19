@@ -41,7 +41,7 @@
                 {/section}
               </select>
             </div>
-
+            {if $smarty.session.userRole < 6 }
             <div class="row">
               <label for="customer">{#customer#}:</label>
               <select name="criteriaCustomer" id="criteriaCustomer" onchange="onCriteriaCustomerChange(this)"; required = "1">
@@ -51,7 +51,7 @@
                 {/section}
               </select>
             </div>
-
+            {/if}
             <div class="row">
               <label for="order">{#order#}:</label>
               <select name="criteriaOrder" id="criteriaOrder" onchange="onCriteriaOrderChange(this)"; required = "1">
