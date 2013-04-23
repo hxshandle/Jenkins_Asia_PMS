@@ -367,12 +367,17 @@ elseif ($action == "login")
     $template->display("projectmembers.tpl");
 } elseif ($action == "onlinelist")
 {
+    $currentUserRole = $_SESSION['userRole'];
     $onlinelist = $user->getOnlinelist();
     if (!empty($onlinelist))
     {
         echo "<ul>";
         foreach($onlinelist as $online)
         {
+            $roleType = $online['role_type'];
+            if($currentUserRole>5 && $roleType >5 ){
+                continue;
+            }
             if ($online["avatar"])
             {
                 $userpic = "thumb.php?pic=files/" . CL_CONFIG . "/avatar/$online[avatar]&width=90";
