@@ -44,6 +44,7 @@
 						{include file="addproject.tpl" myprojects="1"}
 					</div>
 					<!-- customer filter-->
+				{if $smarty.session.userRole < 6}
 				<div class="row">
           <label for="customer">{#customer#}:</label>
 	      	<select name="criteriaCustomer" id="criteriaCustomer" onchange="onDeskTopCustomerChange(this)"; required = "1">
@@ -53,6 +54,7 @@
             {/section}
           </select>
         </div>
+        {/if}
         	<div id="desktop-project-table">
 					<table id = "desktopprojects" cellpadding="0" cellspacing="0" border="0">
 						<thead>
