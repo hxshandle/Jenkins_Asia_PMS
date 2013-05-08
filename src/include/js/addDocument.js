@@ -143,7 +143,10 @@ function filterDocument(param){
 function _buildFilterParam(){
   var project = document.getElementById("criteriaProject").value;
   var order = document.getElementById("criteriaOrder").value;
-  var customer = document.getElementById("criteriaCustomer").value;
+  var customer = "-1";
+  if(document.getElementById("criteriaCustomer")){
+    customer = document.getElementById("criteriaCustomer").value;
+  }
   var ret = "";
   ret = "projectId="+project+"&orderId="+order+"&customerName="+customer;
   return ret;

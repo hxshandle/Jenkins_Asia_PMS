@@ -20,7 +20,10 @@ function updateFileId(id){
 
 function _buildQualityFilterParam(){
   var project = document.getElementById("criteriaProject").value;
-  var customer = document.getElementById("criteriaCustomer").value;
+  var customer = "-1";
+  if(document.getElementById("criteriaCustomer")){
+    customer = document.getElementById("criteriaCustomer").value;
+  }
   var ret = "";
   ret = "projectId="+project+"&customerName="+customer;
   return ret;
