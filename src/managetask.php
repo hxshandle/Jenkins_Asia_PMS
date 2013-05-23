@@ -185,7 +185,7 @@ if ($action == "addform") {
   if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
     $dateFormat = CL_DATEFORMAT." H:i:s";
     $today = date($dateFormat);
-    $statusUpdate .= "</br> -- Task closed by".$_SESSION['username']." ".$today;
+    $statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
   }
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);

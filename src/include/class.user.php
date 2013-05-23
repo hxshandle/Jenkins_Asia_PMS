@@ -493,11 +493,11 @@ class user
         return true;
     }
 
-    functino getUsersByRole($lim = 10){
+    function getUsersByRole($lim = 10){
         $lim = (int) $lim;
         $currUserName = $_SESSION['username'];
         $prefix = explode("_",$_SESSION['username']);
-        $prefix = $prefix."_%";
+        $prefix = $prefix[0]."_%";
         // for all Jenkins staff,admin and self company team members.
         $sel = mysql_query("SELECT COUNT(*) FROM `user` where role_type < 6 or name like '$prefix'");
 
