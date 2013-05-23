@@ -493,6 +493,48 @@ class user
         return true;
     }
 
+    functino getUsersByRole($lim = 10){
+        $lim = (int) $lim;
+        $currUserName = $_SESSION['username'];
+        $prefix = explode("_",$_SESSION['username']);
+        $prefix = $prefix."_%";
+        // for all Jenkins staff,admin and self company team members.
+        $sel = mysql_query("SELECT COUNT(*) FROM `user` where role_type < 6 or name like '$prefix'");
+
+        $num = mysql_fetch_row($sel);
+        $num = $num[0];
+        SmartyPaginate::connect();
+        // set items per page
+        SmartyPaginate::setLimit($lim);
+        SmartyPaginate::setTotal($num);
+
+        $start = SmartyPaginate::getCurrentIndex();
+        $lim = SmartyPaginate::getLimit();
+        $sel2 = mysql_query("SELECT * FROM `user` where role_type < 6 or name like '$prefix' ORDER BY ID DESC LIMIT $start,$lim");
+
+        $users = array();
+        while ($user = mysql_fetch_array($sel2))
+        {
+            $user["name"] = stripslashes($user["name"]);
+            $user["company"] = stripslashes($user["company"]);
+            $user["adress"] = stripslashes($user["adress"]);
+            $user["adress2"] = stripslashes($user["adress2"]);
+            $user["state"] = stripslashes($user["state"]);
+            $user["country"] = stripslashes($user["country"]);
+            array_push($users, $user);
+        }
+
+        if (!empty($users))
+        {
+            return $users;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
     /**
      * Returns all users
      *
@@ -501,6 +543,11 @@ class user
      */
     function getAllUsers($lim = 10)
     {
+
+        if ($_SESSION["userRole"] > 5){
+            return $this->getUsersByRole($lim);
+        }
+
         $lim = (int) $lim;
 
         $sel = mysql_query("SELECT COUNT(*) FROM `user`");
