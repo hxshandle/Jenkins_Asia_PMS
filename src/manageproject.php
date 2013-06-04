@@ -748,7 +748,7 @@ if ($action == "editform")
     $addEcnInfo = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader) || ($_roleType == 5);
     $template->assign("addEcnInfo",$addEcnInfo);
     $editPhase = false;
-    $editPhase = $_roleType == 1 || $_roleType ==3 || ($_roleType == 4 and $isProjectLeader);
+    $editPhase = $_roleType == 1 || $_roleType ==3 || $isProjectLeader;
     $template->assign("editPhase",$editPhase);
     $addOrder = false;
     $addOrder = $_roleType == 6 ;

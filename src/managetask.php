@@ -180,12 +180,17 @@ if ($action == "addform") {
   }else{
     $statusUpdate = $oldStatusUpdate;
   }
-  $completeStatus = Status::getId("task", "complete");
+  $completeStatus = Status::getId("task", "completed");
   $closeStatus = Status::getId("task", "closed");
   if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
     $dateFormat = CL_DATEFORMAT." H:i:s";
     $today = date($dateFormat);
-    $statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
+    if($taskStatus == $completeStatus){
+      $statusUpdate .= "</br> -- Task completed by ".$_SESSION['username']." ".$today;
+    }else{
+      $statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
+    }
+    
   }
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);
