@@ -1849,10 +1849,10 @@ ul.tabs li.system-settings a {
 
 }
 .staterowin_right {
-	width:50px;
+	width:100px;
 	height: 23px;
 	overflow: hidden;
-	margin: -22px 0 0 650px;
+	margin: -22px 0 0 550px;
 	float:left;
 
 
