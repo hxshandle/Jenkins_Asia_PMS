@@ -43,6 +43,7 @@ case "addDocument":
   $orderId = getArrayVal($_POST,"order");
   $qualityId = getArrayVal($_POST,"quality");
   $visibility = getArrayVal($_POST,"visibility");
+
   $ecnId = getArrayVal($_POST, "ecn");
   $visibilityVal = "";
   foreach($visibility as $vis){

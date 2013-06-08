@@ -104,7 +104,10 @@ class Document{
     $sel = mysql_query($sql);
     while($row = mysql_fetch_array($sel)){
       $info = $this->getDocumentInfo($row[0]);
-      array_push($ret,$info);
+      if(!empty($info)){
+          array_push($ret,$info);
+      }
+      
     }
     return $ret;
   }
@@ -130,7 +133,9 @@ class Document{
     $sel = mysql_query($sql1);
     if($sel){
       $ret = mysql_fetch_array($sel);
-
+      if(empty($ret)){
+          return $ret;
+      }
       if($ret['order'] == -1){
         $ret['order_name'] = "";
       }else{

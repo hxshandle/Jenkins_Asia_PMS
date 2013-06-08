@@ -56,20 +56,20 @@
 				  <option value="-1" selected="selected">{#chooseone#}</option>
         </select>
       </div>
+
       <div class="row">
         <label for="visibility" >{#visibility#}:</label>
-        <select name = "visibility[]" multiple="multiple" style = "height:80px;" id="visibility" required = "1" exclude = "-1" realname = "{#visibility#}">
-            <option value = "1" >{#superAdmin#}</option>
-            <option value = "2" >{#admin#}</option>
-            <option value = "3" >{#manageLv1#}</option>
-            <option value = "4" >{#manageLv2#}</option>
-            <option value = "5" >{#staff#}</option>
-            <option value = "6" >{#customerLv1#}</option>
-            <option value = "7" >{#customerLv2#}</option>
-            <option value = "8" >{#supplierLv1#}</option>
-            <option value = "9" >{#supplierLv2#}</option>
-        
-         </select>
+        <ul class="chk-list">
+          <li><label>{#superAdmin#}<input type="checkbox" name="visibility[]" value="1"></label></li>
+          <li><label>{#admin#}<input type="checkbox" name="visibility[]" value="2"></label></li>
+          <li><label>{#manageLv1#}<input type="checkbox" name="visibility[]" value="3"></label></li>
+          <li><label>{#manageLv2#}<input type="checkbox" name="visibility[]" value="4"></label></li>
+          <li><label>{#staff#}<input type="checkbox" name="visibility[]" value="5"></label></li>
+          <li><label>{#customerLv1#}<input type="checkbox" name="visibility[]" value="6"></label></li>
+          <li><label>{#customerLv2#}<input type="checkbox" name="visibility[]" value="7"></label></li>
+          <li><label>{#supplierLv1#}<input type="checkbox" name="visibility[]" value="8"></label></li>
+          <li><label>{#supplierLv2#}<input type="checkbox" name="visibility[]" value="9"></label></li>
+        </ul>
       </div>
 
 	    <div class="row">

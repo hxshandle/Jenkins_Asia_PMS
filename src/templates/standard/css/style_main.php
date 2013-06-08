@@ -1854,9 +1854,6 @@ ul.tabs li.system-settings a {
 	overflow: hidden;
 	margin: -22px 0 0 550px;
 	float:left;
-
-
-
 }
 
 /* ## FILES ################ Specials ################## */
@@ -3046,5 +3043,21 @@ ul.tabs li.quality a {
 	width:52px;
 	margin-left:-52px;
 }
+
+.chk-list{
+	margin-left:140px;
+  width:200px;
+}
+.chk-list input[type="checkbox"]{
+	height:auto;
+	width:auto;
+	margin:0 6px 00;
+	padding:0;
+}
+
+ul.chk-list label{
+	font-weight:normal;
+}
+
 
 /*****************Jenkins Asia Special***********************/
