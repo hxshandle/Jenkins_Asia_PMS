@@ -6,6 +6,7 @@ if (!isset($_SESSION["userid"])) {
   $template->display("login.tpl");
   die();
 }
+$jUtils = new JUtils();
 
 $task = (object) new task();
 
@@ -84,7 +85,7 @@ if ($action == "addform") {
   $deliverableItemObj = $deliverableItem->getItem($deliverableId);
   // add the task
   $tid = $task->add($start, $end, $title, $text, $tasklist, $taskStatus, $projectId, $deliverableItemObj["phase"], $deliverableItemObj["ID"], $parentTask, $location);
-  $jUtils = new JUtils();
+  
   $jUtils->updateDeliverItemEndDate($deliverableItemObj["ID"],$end);
   // if tasks was added and mailnotify is activated, send an email
   if ($tid) {
@@ -194,7 +195,6 @@ if ($action == "addform") {
   }
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);
-  $jUtils = new JUtils();
   $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
 
 
@@ -364,6 +364,8 @@ if ($action == "addform") {
   $template->assign("projectId", $id);
   $template->assign("uploadType", "task");
   $template->assign("assignable_users", $project_members);
+  $groupedUser = $jUtils->groupUsers($project_members);
+   $template->assign("grouped_assignable_users", $groupedUser);
   $taskStatus = Status::getStatusByType("task");
   $template->assign("taskStatus", $taskStatus);
 

@@ -1,3 +1,4 @@
+<!-- addtask.tpl -->
 <div class="block_in_wrapper">
 
 	<h2>{#addtask#}</h2>
@@ -74,6 +75,12 @@
 		</select>
 	</div>
 	<div class="row">
+		<label for="assigned" >{#assignto#}:</label>
+		<div>
+			{include file="seluserlist.tpl" groupedUser=$grouped_assignable_users}
+		</div>
+	</div>
+	<div class="row">
 		<label for="distribution" >{#distribution#}:</label>
 		<select name="distribution[]" multiple="multiple" style = "height:80px;" id="distribution" required = "1" exclude = "-1" realname = "{#distribution#}" >
 			<option value="-1">{#chooseone#}</option>
@@ -133,3 +140,5 @@
   }
 </script>
 {/literal}
+
+<!-- end of addtask.tpl -->

@@ -23,6 +23,36 @@ class JUtils{
     }
   }
   
+  function groupUsers($arrUsers){
+      $gu = array("admin" => array(),"manager" => array(),"staff" => array(),"customer"=>array(),"supplier"=>array());
+      foreach ($arrUsers as $user) {
+          switch ($user["role_type"]) {
+              case "1":
+              case "2":
+                  array_push($gu["admin"], $user);
+                  break;
+              case "3":
+              case "4":
+                  array_push($gu["manager"], $user);
+                  break;
+              case "5":
+                  array_push($gu["staff"], $user);
+                  break;
+              case "6":
+              case "7":
+                  array_push($gu["customer"], $user);
+                  break;
+              case "8":
+              case "9":
+                  array_push($gu["supplier"], $user);
+                  break;
+              default:
+                  break;
+          }
+      }
+      return gu;
+  }
+  
   
   function getDelayedTaskMailMsg($mailTo,$title,$text,$link,$statusUpdate){
     $msg = "";

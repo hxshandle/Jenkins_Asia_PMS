@@ -1,6 +1,7 @@
 {include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce" }
 {include file="tabsmenue-project.tpl" taskstab = "active"}
 
+<!-- projecttaks.tpl -->
 <div id="content-left">
 <div id="content-left-in">
 <div class="tasks">

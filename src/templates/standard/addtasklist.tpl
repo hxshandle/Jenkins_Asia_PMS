@@ -1,3 +1,4 @@
+<!-- edittasklist.tpl -->
 <div class = "block_in_wrapper">
 	<h2>{#addtasklist#}</h2>
 	<form class="main" method="post" action="managetasklist.php?action=add&amp;id={$project.ID}" {literal} onsubmit="return validateCompleteForm(this);"{/literal} >
@@ -26,3 +27,4 @@
 </form>
 </div>
 <div class="content-spacer"></div>
+<!-- end of edittasklist.tpl -->
