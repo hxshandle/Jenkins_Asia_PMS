@@ -50,7 +50,7 @@ class JUtils{
                   break;
           }
       }
-      return gu;
+      return $gu;
   }
   
   

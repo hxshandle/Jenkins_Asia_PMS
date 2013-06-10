@@ -2,8 +2,8 @@ var J = {};
 
 J.validationAddTask=function(form,errCss){
   var ret = true;
-  var startDate = substr($("tips_startDate").innerHTML,2);
-  var endDate = substr($("tips_endDate").innerHTML,2);
+  var startDate = $("tips_startDate").innerHTML.substr(6);
+  var endDate = $("tips_endDate").innerHTML.substr(6);
   var deliverStartDate = new Date(Date.parse(startDate));
   var deliverEndDate = new Date(Date.parse(endDate));
   var taskStartDate = new Date(Date.parse(document.getElementsByName("start")[0].value));
@@ -13,6 +13,25 @@ J.validationAddTask=function(form,errCss){
   if(!ret){
     $(document.getElementsByName("start")[0].id).addClassName("hiErrorField");
     $(document.getElementsByName("end")[0].id).addClassName("hiErrorField");
+  }
+  
+  
+  if(ret){
+    //check assigned task
+    var chkAssigned =  $$('input[name="assigned[]"]');  
+    var hasChecked = false;
+    var len = chkAssigned.size();
+    for (var i = 0; i < len; i++ ){
+      var item = chkAssigned[i];
+      if(item.checked){
+        hasChecked = true;
+        break;
+      }
+    }
+    if(!hasChecked){
+      $$("#chk-list-assigned")[0].addClassName("hiErrorField");
+    }
+    ret = hasChecked;
   }
   if(ret){
     ret = validateCompleteForm(form,errCss);

@@ -3045,8 +3045,11 @@ ul.tabs li.quality a {
 }
 
 .chk-list{
-	margin-left:140px;
-  width:200px;
+ 	background-color: #FFFFFF;
+  border: 1px solid #869CAD;
+  margin-bottom: 6px;
+  margin-left: 140px;
+  width: 315px;
 }
 .chk-list input[type="checkbox"]{
 	height:auto;
@@ -3057,6 +3060,16 @@ ul.tabs li.quality a {
 
 ul.chk-list label{
 	font-weight:normal;
+}
+.grouped-user-list{
+	margin-bottom:10px;
+}
+.grouped-user-list li{
+	padding:4px 0;
+
+}
+.grouped-user-list li label{
+	float:none;
 }
 
 

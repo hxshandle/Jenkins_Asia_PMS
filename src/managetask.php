@@ -151,6 +151,8 @@ if ($action == "addform") {
   $title = $langfile["edittask"];
 
   $template->assign("members", $members);
+  $groupedUser = $jUtils->groupUsers($members);
+  $template->assign("grouped_members", $groupedUser);
   $template->assign("title", $title);
   $template->assign("tasklists", $tasklists);
   $template->assign("tl", $tl);
@@ -365,7 +367,7 @@ if ($action == "addform") {
   $template->assign("uploadType", "task");
   $template->assign("assignable_users", $project_members);
   $groupedUser = $jUtils->groupUsers($project_members);
-   $template->assign("grouped_assignable_users", $groupedUser);
+  $template->assign("grouped_assignable_users", $groupedUser);
   $taskStatus = Status::getStatusByType("task");
   $template->assign("taskStatus", $taskStatus);
 
@@ -422,6 +424,8 @@ if ($action == "addform") {
   }
 
   $template->assign("members", $members);
+  $groupedUser = $jUtils->groupUsers($members);
+  $template->assign("grouped_members", $groupedUser);
   $template->assign("projectId", $id);
   $template->assign("tasklists", $tasklists);
   $template->assign("deliverableItems", $deliverableItems);

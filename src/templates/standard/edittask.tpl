@@ -102,24 +102,15 @@
 						{/section}</select>
 					</div>
 
+
           <div class="row">
-                  <label for="assigned" >{#assignto#}:</label>
-                  <select name = "assigned[]" multiple="multiple" style = "height:80px;" id="assigned" required = "1" exclude = "-1" realname = "{#assignto#}">
-                          <option value="-1">{#chooseone#}</option>
-                          {section name=member loop=$members}
-                                  <option value="{$members[member].user}" {if in_array($members[member].user, $task.users)}selected = "selected"{/if}>{$members[member].name}</option>
-                          {/section}
-                  </select>
+            <label for="assigned" >{#assignto#}:</label>
+            {include file="seluserlist.tpl" groupedUser=$grouped_members chkName="assigned" checkedUsers=$task.users}
           </div>
 
           <div class="row">
-                  <label for="distribution" >{#distribution#}:</label>
-                  <select name = "distribution[]" multiple="multiple" style = "height:80px;" id="distribution" required = "1" exclude = "-1" realname = "{#assignto#}">
-                          <option value="-1">{#chooseone#}</option>
-                          {section name=member loop=$members}
-                                  <option value="{$members[member].user}" {if in_array($members[member].user, $task.distribution)}selected = "selected"{/if}>{$members[member].name}</option>
-                          {/section}
-                  </select>
+            <label for="distribution" >{#distribution#}:</label>
+            {include file="seluserlist.tpl" groupedUser=$grouped_members chkName="distribution" checkedUsers=$task.distribution}
           </div>
 
 					<div class="row-butn-bottom">
