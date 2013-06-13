@@ -25,7 +25,10 @@
           <tr class ="color-b">
         {/if}
             {if $smarty.session.userRole == "1"}
-            <td><a class="butn_link" href="#" onclick='deleteDocument({$documents[doc].ID})'>{#delete#}</a></td>
+            <td style="width:130px">
+              <a class="butn_link" href="#" onclick='deleteDocument({$documents[doc].ID})'>{#delete#}</a>
+              <a class="butn_link" href="#" onclick='editDocument({$documents[doc].ID})'>{#edit#}</a>
+            </td>
             {/if}
             <td><a href="{$documents[doc].download_url}" target="blank">{$documents[doc].name}</a></td>
             <td>{$documents[doc].document_no}</td>

@@ -31,6 +31,35 @@ case "deleteDocument":
     echo "Fail";
   }
   break;
+case "editDocument":
+    $id = $docName = getArrayVal($_GET,"id");
+    $doc = new Document();
+    $document = $doc->getDocumentInfo($id);
+    $project = new project();
+    $proj = $project->getProject($document["project"]);
+    $template->assign("docInfo",$document);
+    $template->assign("project",$proj);
+    $visibilityList = explode(",", $document["visibility"]);
+    $template->assign("visibilityList",$visibilityList);
+    $template->display("editDocuments.tpl");
+    break;
+case "updateDocument":
+    $id = getArrayVal($_POST, "documentId");
+    $docName = getArrayVal($_POST,"name");
+    $docNo = getArrayVal($_POST,"documentNo");
+    $docVer = getArrayVal($_POST,"revision");
+    $docDesc = getArrayVal($_POST,"description");
+    $projectId = getArrayVal($_POST,"project");
+    $visibility = getArrayVal($_POST,"visibility");
+    $visibilityVal = "";
+    foreach($visibility as $vis){
+        $visibilityVal .= $vis.",";
+    }
+    $doc = new Document();
+    $doc->update($id, $docName, $docNo, $docVer, $docDesc, $projectId, $visibilityVal);
+    $template->assign("callback", "refreshFilteredDocuments");
+    $template->display("successclose.tpl");
+    break;
 case "addDocument":
   $isAjax = getArrayVal($_POST,'isAjax');
   $docName = getArrayVal($_POST,"name");

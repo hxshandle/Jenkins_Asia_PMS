@@ -17,6 +17,23 @@ class Document{
       return false;
     }
   }
+  
+  function update($id,$docName,$docNo,$docVer,$docDesc,$projectId,$visibility){
+    $id = (int) $id;
+    $docName = mysql_escape_string($docName);
+    $docVer = mysql_escape_string($docVer);
+    $docDesc = mysql_escape_string($docDesc);
+    $docNo = mysql_escape_string($docNo);
+    $sql = "update document_info set 
+    `name` = '$docName',
+    `revision`='$docVer',
+    `description`='$docDesc', 
+    `document_no` = '$docNo',
+    `visibility`='$visibility' 
+    where ID=$id";
+    $upd = mysql_query($sql);
+    return $upd;
+  }
   function add($docName,$docNo,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibility,$ecnId = -1){
     $docName = mysql_escape_string($docName);
     $docVer = mysql_escape_string($docVer);

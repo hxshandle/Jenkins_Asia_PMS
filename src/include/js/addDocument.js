@@ -62,6 +62,12 @@ function deleteDocument(id){
           }
       });
 }
+
+function editDocument(id){
+  var url = "managedocument.php?action=editDocument&id="+id;
+  J.openWindow(url);
+}
+
 function getProjectNumber(id){
   var theUrl = "manageprojectajax.php?action=getProjectNumber&&id="+id;
   new Ajax.Request(theUrl, {
@@ -73,6 +79,9 @@ function getProjectNumber(id){
             }
           }
       }); 
+}
+function refreshFilteredDocuments(){
+  onCriteriaProjectChange();
 }
 function getProjectSubInfo(id){
     var theUrl = "manageprojectajax.php?action=getProjectSubInfo&&id="+id;
