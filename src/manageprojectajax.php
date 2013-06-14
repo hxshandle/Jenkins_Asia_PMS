@@ -1027,7 +1027,7 @@ switch ($action) {
         $tkName = $tk["title"];
         $str = $str."{";
         $str = $str."'id':'$tkId',";
-        $str = $str."'name':'$tkName'";
+        $str = $str."'name':\"$tkName\"";
         $str = $str."},";
     }
     $str = substr($str,0, -1);
