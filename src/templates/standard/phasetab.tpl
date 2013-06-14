@@ -1,5 +1,5 @@
 <div class="phaseMenualBar">
-  {if $project.status == 9}
+  {if $project.status == 9 || $project.status == 4}
   <button id="btnAddPhase" onclick="showAddPhaseDlg()">{#addphase#}</button>
   {/if}
 </div>
