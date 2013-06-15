@@ -55,7 +55,7 @@
           </select>
         </div>
         {/if}
-        	<div id="desktop-project-table">
+        	<div id="desktop-project-table" class="height500">
 					<table id = "desktopprojects" cellpadding="0" cellspacing="0" border="0">
 						<thead>
 							<tr>
@@ -164,7 +164,7 @@
 					</h2>
 				</div>
 
-				<div class="block" id="taskhead" style = "{$taskstyle}">
+				<div class="block" id="taskhead" style = "{$taskstyle}" class="height500">
 				
 					<table id = "desktoptasks" cellpadding="0" cellspacing="0" border="0">
 						<thead>
@@ -265,7 +265,7 @@
         </h2>
       </div>
 
-      <div class="block" id="my-taskhead" style = "{$taskstyle}">
+      <div class="block" id="my-taskhead" style = "{$taskstyle}" class="height500">
 
         <table id = "desktoptasks" cellpadding="0" cellspacing="0" border="0">
           <thead>
@@ -351,7 +351,7 @@
 		{if $smarty.session.userRole < 6}
 			<div class="msgs">
 				<div class="headline">
-					<a href="javascript:void(0);" id="activityhead_toggle" class="{$actbar}" onclick = "toggleBlock('activityhead');"></a>
+					<a href="javascript:void(0);" id="activityhead_toggle" class="{$actbar}" style="height:500px;overflow: auto" onclick = "toggleBlock('activityhead');"></a>
 
 					<div class="wintools">
 						<div class="export-main">
