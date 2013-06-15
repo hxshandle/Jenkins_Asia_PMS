@@ -451,7 +451,7 @@ ul.subsection_tabs li.tab a{
   margin-bottom: 20px;
 }
 .height500{
-    height: 500px;
+    max-height: 500px;
     overflow: auto;
 
 }
