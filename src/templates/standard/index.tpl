@@ -368,7 +368,7 @@
 					</h2>
 				</div>
 
-				<div class="block" id="activityhead" style = "{$actstyle}" class="height500">
+				<div class="block height500" id="activityhead" style = "{$actstyle}">
 					<table id = "desktopmessages" cellpadding="0" cellspacing="0" border="0">
 
 						<thead>
