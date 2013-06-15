@@ -135,7 +135,11 @@ $template->assign("projectnum", $projectnum);
 $mode = getArrayVal($_GET, "mode");
 $template->assign("mode", $mode);
 
+
+$myRequestedTasks = $mtask->getMyRequestedTasks();
+
 $template->assign("tasks", $etasks);
+$template->assign("myRequestedTasks", $myRequestedTasks);
 $template->assign("tasknum", $tasknum);
 
 $template->assign("messages", $messages);

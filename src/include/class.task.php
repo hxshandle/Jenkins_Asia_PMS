@@ -60,6 +60,7 @@ class task {
     $deliverableItem = (int) $deliverableItem;
     $parent = $parent == NULL ? 'NULL' : (int) $parent;
     $location = mysql_escape_string($location);
+    $created_by = $_SESSION['userid'];
     $valid = (int) $valid;
     $sql = "INSERT INTO `tasks`
               (
@@ -74,6 +75,7 @@ class task {
               `deliverable_item`,
               `parent`,
               `location`,
+              `created_by`,
               `valid`)
               VALUES
               (
@@ -88,6 +90,7 @@ class task {
               $deliverableItem,
               $parent,
               '$location',
+              $created_by,
               $valid
               );
               ";
@@ -175,6 +178,21 @@ class task {
       return false;
     }
   }
+
+  function getMyRequestedTasks(){
+    $userId = $_SESSION['userid'];
+    $st1 = Status::getId("task","closed");
+    $st2 = Status::getId("task","completed");
+    $sql = "select ID from tasks where created_by = $userId and status not in ($st1,$st2)";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while ($tk = mysql_fetch_array($sel)){
+      $task = $this->getTask($tk["ID"]);
+      array_push($ret,task);
+    }
+    return $ret;
+  }
+
 
   /**
    * Delete a task

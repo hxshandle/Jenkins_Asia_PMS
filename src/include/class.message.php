@@ -153,9 +153,9 @@ class message
             $message["gender"] = $gender;
 
             $project = mysql_query("SELECT name FROM projekte WHERE ID = $message[project]");
-            $project = mysql_fetch_row($project);
-            $project = $project[0];
-            $project["name"] = stripslashes($project["name"]);
+            $project = mysql_fetch_array($project);
+            $project = stripslashes($project[0]);
+            //$project["name"] = stripslashes($project["name"]);
             $message["pname"] = $project;
 
             $posted = date(CL_DATEFORMAT . " - H:i", $message["posted"]);
@@ -278,8 +278,8 @@ class message
         $milesobj = new milestone();
 
         while ($message = mysql_fetch_array($sel1))
-        {
-            $themessage = $this->getMessage($message["ID"]);
+        { $themessage = $this->getMessage($message["ID"]
+           );
             array_push($messages, $themessage);
         }
 

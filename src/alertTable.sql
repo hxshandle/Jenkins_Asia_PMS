@@ -382,4 +382,6 @@ ALTER TABLE `external_price_breakdown`
 
   ALTER TABLE `sample` ADD COLUMN `document_info_id` INT(10) NULL  AFTER `valid` ;
 
-  ALTER TABLE  `sample` CHANGE  `document_info_id`  `datei` TEXT NULL DEFAULT NULL
+  ALTER TABLE  `sample` CHANGE  `document_info_id`  `datei` TEXT NULL DEFAULT NULL;
+
+  ALTER TABLE `tasks` ADD COLUMN `created_by` INT(10);
