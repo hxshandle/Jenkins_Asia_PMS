@@ -62,6 +62,12 @@ switch ($action) {
     $ins = $qualityDetails->add($quality,$status,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
     Header("Location: managequality.php?action=showEditDlg&id=".$quality); 
     break;
+  case "deleteQuality":
+      $id = getArrayVal($_GET, "id");
+      $quality = new Quality();
+      $quality->del($id);
+      echo "OK";
+      break;
   case "getQualityDetailsInfo":
     $detailsId = getArrayVal($_GET, "detailsId");
     $qualityId = getArrayVal($_GET, "qualityId");
