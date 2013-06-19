@@ -29,6 +29,22 @@ function _buildQualityFilterParam(){
   return ret;
 }
 
+function deleteQuality(id){
+  var p = window.confirm("Are you sure to delete this item?");
+  if(p){
+    var theUrl = "managequality.php?action=deleteQuality&id="+id;
+    new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              var row = document.getElementById("quality-data-row-"+id);
+              row.parentNode.removeChild(row);
+            }
+          }
+      }); 
+  }
+}
+
 
 function onCriteriaProjectChange(el){
   filterQuality(_buildQualityFilterParam());
