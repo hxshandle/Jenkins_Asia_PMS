@@ -95,19 +95,21 @@ function openEditQualityDlg(id){
 function onAddQualitySelProjectChange(el){
   var val = el.value;
   if(val == "-1"){
-    $("notify").options.length = 0;
+    //$("notify").options.length = 0;
+    $("notify-outer").innerHTML="";
     $('qualityNo').value='';
     return;
   }
 
-  var theUrl = "manageprojectajax.php?action=getProjectNotifyList&id="+val;
+  var theUrl = "manageprojectajax.php?action=getProjectNotifyGroupedList&id="+val;
   new Ajax.Request(theUrl, {
           method: 'get',
           onSuccess:function(payload) {
             if (payload.responseText != ""){
-              var data = eval("("+payload.responseText+")");
-              var opts = $("notify").options;
-              _buildSelOpts(opts,data,false);
+              //var data = eval("("+payload.responseText+")");
+              //var opts = $("notify").options;
+              //_buildSelOpts(opts,data,false);
+              $("notify-outer").innerHTML=payload.responseText;
             }
           }
       });

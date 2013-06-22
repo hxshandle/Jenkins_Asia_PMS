@@ -117,9 +117,10 @@
 
 <div class="dlgRow">
   <label style="">{#notify#}</label>
-  <select name = "notify[]" multiple="multiple" style = "height:80px;width:150px" id="notify">
-  </select>
+  <div id="notify-outer">
+  </div>
 </div>
+
   <input type="hidden" id ="qMode" name="qMode" value = "{$mode}"></input>
   <input type = "hidden" id ="qId" name="qId" value = "{$qId}"></input>
 <div  style="margin:10px 0 0 0">

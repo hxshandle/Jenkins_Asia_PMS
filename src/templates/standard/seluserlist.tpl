@@ -1,4 +1,4 @@
-<ul class="chk-list" id="chk-list-{$chkName}">
+<ul class="chk-list" id="chk-list-{$chkName}" style="{$ulstyle}">
   <!-- admin -->
   <li>
     <ul class="grouped-user-list">

@@ -140,7 +140,35 @@ class Quality {
     
     $sel = mysql_query($sql);
     $arrRet = array();
+    $qDetails = new QualityDetails();
+    $openSt = Status::getId("qualityDetails","Open");
+    $closeSt = Status::getId("qualityDetails","Closed");
+    $hasNew = false;
+    $hasOpen = false;
+    $hasClosed = false;
+    $project = new project();
     while($row = mysql_fetch_array($sel)){
+      $qds = $qDetails->getQualityDetailsByQualityId($row['ID']);
+      foreach($qds as $details){
+        if($details["status"] == $closeSt){
+          $hasClosed = true;
+        }elseif($details["status"] == $openSt){
+          $hasOpen = true;
+        }else{
+          $hasNew = true;
+        }
+      }
+      $status = "new";
+      if($hasNew == true && $hasClosed == false && $hasOpen == false){
+        $status = "new";
+      }elseif($hasOpen == true && $hasNew == false && $hasClosed == false){
+        $status = "open";
+      }elseif($hasClosed == true && $hasNew == false && $hasOpen == false){
+        $status = "closed";
+      }
+      $row["status"] = $status;
+      $proj = $project->getProject($row['project']);
+      $row["project_name"] = $proj["name"];
       array_push($arrRet,$row);
     }
     return $arrRet;
@@ -234,7 +262,35 @@ function getQualityByProjectId($projectId){
   $sql = "select * from quality where project=$projectId";
   $sel = mysql_query($sql);
   $arr = array();
+  $qDetails = new QualityDetails();
+  $openSt = Status::getId("qualityDetails","Open");
+  $closeSt = Status::getId("qualityDetails","Closed");
+  $hasNew = false;
+  $hasOpen = false;
+  $hasClosed = false;
+  $project = new project();
   while ($row = mysql_fetch_array($sel)) {
+    $qds = $qDetails->getQualityDetailsByQualityId($row['ID']);
+    foreach($qds as $details){
+      if($details["status"] == $closeSt){
+        $hasClosed = true;
+      }elseif($details["status"] == $openSt){
+        $hasOpen = true;
+      }else{
+        $hasNew = true;
+      }
+    }
+    $status = "new";
+    if($hasNew == true && $hasClosed == false && $hasOpen == false){
+      $status = "new";
+    }elseif($hasOpen == true && $hasNew == false && $hasClosed == false){
+      $status = "open";
+    }elseif($hasClosed == true && $hasNew == false && $hasOpen == false){
+      $status = "closed";
+    }
+    $row["status"] = $status;
+    $proj = $project->getProject($row['project']);
+    $row["project_name"] = $proj["name"];
     array_push($arr, $row);
   }
   return $arr;
@@ -254,6 +310,7 @@ function del($id){
     }
     return $ret;
   }
+
   
   function get($id){
      $id = (int) $id;

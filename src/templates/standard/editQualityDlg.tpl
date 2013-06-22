@@ -112,14 +112,10 @@
   </div>
 </div>
 
-<div class="dlgRow">
-  <label style="">{#notify#}</label>
-  <select name = "notify[]" multiple="multiple" style = "height:80px;width:150px" id="notify">
-    {section name = m loop=$memberList}
-      <option value="{$memberList[m].id}" {if in_array($memberList[m].id, $notifyList)}selected = "selected"{/if}>{$memberList[m].name}</option>
-    {/section}
-  </select>
-</div>
+  <div class="dlgRow">
+    <label style="">{#notify#}</label>
+    {include file="seluserlist.tpl" groupedUser=$groupedNotifyList chkName="notify" checkedUsers=$notifyList ulstyle="margin-left:200px"}
+  </div>
   <input type="hidden" id ="mode" name="mode" value = "update"></input>
   <input type = "hidden" id ="qId" name="qId" value = "{$quality.ID}"></input>
 <div  style="margin:10px 0 0 0">

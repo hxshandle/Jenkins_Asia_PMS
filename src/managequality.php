@@ -204,6 +204,9 @@ switch ($action) {
     $template->assign("details", $detailsList);
     $template->assign("qualityId", $id);
     $template->assign("notifyList",$notifyList);
+    $groupedNotifyList = $jUtils->groupUsers($memberList);
+    $template->assign("groupedNotifyList",$groupedNotifyList);
+
     $template->display("editQualityDlg.tpl");
     break;
   case 'printPreview':

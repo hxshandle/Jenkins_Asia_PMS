@@ -5,9 +5,10 @@
   <tr>
     <th class="a"></th>
     <th class="b">{#actionNo#}</th>
+    <th class="b">{#project#}</th>
     <th class="ce">{#customerComplianceNo#}</th>
     <th class="ce" style="text-align:right">{#issueDate#}&nbsp;&nbsp;</th>
-    <th class="de">{#acknowledgeBy#}</th>
+    <th class="de">{#status#}</th>
   </tr>
 </thead>
 
@@ -38,6 +39,9 @@
       </div>
     </td>
     <td>
+      {$qualitys[quality].project_name|truncate:35:"...":true}
+    </td>
+    <td>
       {$qualitys[quality].quality_no|truncate:35:"...":true}
     </td>
     <td style="text-align:right">
@@ -45,7 +49,7 @@
       &nbsp;
     </td>
     <td>
-      {$qualitys[quality].acknowledge_by}
+      {$qualitys[quality].status}
       &nbsp;
     </td>
   </tr>

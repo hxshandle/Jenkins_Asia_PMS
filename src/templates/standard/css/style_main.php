@@ -3071,6 +3071,9 @@ ul.chk-list label{
 .grouped-user-list li label{
 	float:none;
 }
+.grouped-user-list input{
+	float:left;
+}
 
 
 /*****************Jenkins Asia Special***********************/
