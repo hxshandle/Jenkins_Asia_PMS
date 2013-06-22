@@ -104,9 +104,11 @@ class Quality {
   function close($id){
     $id = (int) $id;
     $status = Status::getId("quality", "closed");
-    $sql = "update `quality` set `status` = $status where ID = $id";
+    $sql = "update `quality` set `valid` = 0 where ID = $id";
     $upd = mysql_query($sql);
     if($upd){
+      $qDeetails = new QualityDetails();
+      $qDeetails->closeByQualityId($id);
       return true;
     }else{
       return false;
@@ -132,6 +134,8 @@ class Quality {
     if($customerName != "-1"){
       $sql .=" and p.customer_name = '$customerName' ";
     }
+    
+    $sql .=" and q.valid = 1";
     
     
     $sel = mysql_query($sql);

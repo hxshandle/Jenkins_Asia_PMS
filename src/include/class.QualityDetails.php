@@ -86,6 +86,14 @@ class QualityDetails {
       return false;
     }
   }
+  
+  function closeByQualityId($qualityId){
+      $qualityId = (int) $qualityId;
+      $st = Status::getId("qualityDetails", "Closed");
+      $sql = "update quality_details set `status` = $st where quality = $qualityId";
+      $upd = mysql_query($sql);
+      return $upd;
+  }
 
   function update($id,$status,$reject_desc,$quantity,$required_desc,$root_cause,$containment_action,$supplier_short_term_corrective_act,$shot_term_implementation_date,$short_term_verified,$supplier_long_term_corrective_act,$long_term_implementation_date,$vendor_process_audit_plan_revision,$long_term_verified){
     

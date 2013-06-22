@@ -25,11 +25,11 @@
 {else}
 <tbody class="color-b" id="q_{$qualitys[quality].ID}">
 {/if}
-  <tr>
+  <tr id="quality-data-row-{$qualitys[quality].ID}">
     <td>
-      <!--
-      <a class="butn_link" href="#" onclick='openEditQualityDlg("{$qualitys[quality].ID}")'>{#edit#}</a>
-    -->
+      {if $smarty.session.userRole == "1"}
+      <a class="butn_link" href="#" onclick='deleteQuality("{$qualitys[quality].ID}")'>{#delete#}</a>
+      {/if}
     </td>
     <td>
       <div class="toggle-in">
