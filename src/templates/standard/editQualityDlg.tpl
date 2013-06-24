@@ -121,8 +121,9 @@
 <div  style="margin:10px 0 0 0">
   {if $smarty.session.userRole < 8}
   <button id="dlgBtnSaveQuality" type="submit">{#save#}</button>
-  <a id="dlgBtnPrint" class="butn_link" target="_blank" href="/managequality.php?action=printPreview&id={$quality.ID}">{#print#}</a>
   {/if}
+  <a id="dlgBtnPrint" class="butn_link" target="_blank" href="/managequality.php?action=printPreview&id={$quality.ID}">{#print#}</a>
+  
 </div>
 </form>
 </div>
