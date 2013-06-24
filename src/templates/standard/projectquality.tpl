@@ -84,7 +84,7 @@
         </div>
 
         <div class="nosmooth" id="qualityTable">
-          {include file = "qualityTable.tpl"}
+          {include file = "qualityTable.tpl" qualitys=$qualitys}
         </div> {*smooth End*}
 
           <div class="tablemenue">

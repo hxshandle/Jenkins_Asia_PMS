@@ -26,7 +26,13 @@ switch ($action) {
     $myproject = new project();
     $quality = new Quality();
     $pro = $myproject->getProject($id);
-    $qualityList = $quality->getQualityByProjectId($id);
+    $qualityList = array();
+    if($_SESSION["userRole"]>5){
+        $myProjects = $jUtils->getAllProjects();
+        foreach($myProjects as $p){
+          $qualityList = array_merge($qualityList,$quality->filterQuality($p['ID'],"-1","-1"));  
+        }
+    }
     $projects = $jUtils->getAllProjects();
     $template->assign("projects",$projects);
     $customers = $jUtils->getAllCustomers();
