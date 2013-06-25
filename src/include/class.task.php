@@ -188,7 +188,7 @@ class task {
     $ret = array();
     while ($tk = mysql_fetch_array($sel)){
       $task = $this->getTask($tk["ID"]);
-      array_push($ret,task);
+      array_push($ret,$task);
     }
     return $ret;
   }

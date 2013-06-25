@@ -284,41 +284,41 @@
           </tr>
           </tfoot>
 
-          {section name = task loop=$myRequestedTasks}
+ {section name = task loop=$myRequestedTasks}
           {*Color-Mix*}
             {if $smarty.section.task.index % 2 == 0}
-              <tbody class="color-a" id="task_{$tasks[task].ID}" rel = "{$tasks[task].ID},{$tasks[task].title},{$tasks[task].daysleft},{$tasks[task].pname}">
+              <tbody class="color-a" id="task_{$myRequestedTasks[task].ID}" rel = "{$myRequestedTasks[task].ID},{$myRequestedTasks[task].title},{$myRequestedTasks[task].daysleft},{$myRequestedTasks[task].pname}">
               {else}
-              <tbody class="color-b" id="task_{$tasks[task].ID}" rel = "{$tasks[task].ID},{$tasks[task].title},{$tasks[task].daysleft},{$tasks[task].pname}">
+              <tbody class="color-b" id="task_{$myRequestedTasks[task].ID}" rel = "{$myRequestedTasks[task].ID},{$myRequestedTasks[task].title},{$myRequestedTasks[task].daysleft},{$myRequestedTasks[task].pname}">
             {/if}
-            <tr {if $tasks[task].daysleft < 0} class="marker-late"{elseif $tasks[task].daysleft == 0} class="marker-today"{/if}>
+            <tr {if $myRequestedTasks[task].daysleft < 0} class="marker-late"{elseif $myRequestedTasks[task].daysleft == 0} class="marker-today"{/if}>
               <td>
-                {if $userpermissions.tasks.close and $tasks[task].editable != 'false'}
-                  <a class="butn_check" href="javascript:closeElement('task_{$tasks[task].ID}','managetask.php?action=close&amp;tid={$tasks[task].ID}&amp;id={$tasks[task].project}');" title="{#close#}"></a>
+                {if $userpermissions.tasks.close and $myRequestedTasks[task].editable != 'false'}
+                  <a class="butn_check" href="javascript:closeElement('task_{$myRequestedTasks[task].ID}','managetask.php?action=close&amp;tid={$myRequestedTasks[task].ID}&amp;id={$myRequestedTasks[task].project}');" title="{#close#}"></a>
                 {/if}
               </td>
               <td>
                 <div class="toggle-in">
-                  <span id = "desktoptaskstoggle{$tasks[task].ID}" class="acc-toggle" onclick="javascript:accord_tasks.activate($$('#my-taskhead .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('taskhead',this);"></span>
-                  <a href="managetask.php?action=showtask&amp;id={$tasks[task].project}&amp;tid={$tasks[task].ID}" title="{$tasks[task].title}">
-                    {if $tasks[task].title != ""}
-                      {$tasks[task].title|truncate:35:"...":true}
+                  <span id = "desktoptaskstoggle{$myRequestedTasks[task].ID}" class="acc-toggle" onclick="javascript:accord_tasks.activate($$('#my-taskhead .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('taskhead',this);"></span>
+                  <a href="managetask.php?action=showtask&amp;id={$myRequestedTasks[task].project}&amp;tid={$myRequestedTasks[task].ID}" title="{$myRequestedTasks[task].title}">
+                    {if $myRequestedTasks[task].title != ""}
+                      {$myRequestedTasks[task].title|truncate:35:"...":true}
                     {else}
-                      {$tasks[task].text|truncate:35:"...":true}
+                      {$myRequestedTasks[task].text|truncate:35:"...":true}
                     {/if}
                   </a>
                 </div>
               </td>
               <td>
-                <a href = "managetask.php?action=showproject&amp;id={$tasks[task].project}">{$tasks[task].pname|truncate:30:"...":true}</a>
+                <a href = "managetask.php?action=showproject&amp;id={$myRequestedTasks[task].project}">{$myRequestedTasks[task].pname|truncate:30:"...":true}</a>
               </td>
-              <td style="text-align:right">{$tasks[task].daysleft}&nbsp;&nbsp;</td>
+              <td style="text-align:right">{$myRequestedTasks[task].daysleft}&nbsp;&nbsp;</td>
               <td class="tools">
-                {if $userpermissions.tasks.edit and $tasks[task].editable != 'false'}
-                  <a class="tool_edit" href="managetask.php?action=editform&amp;tid={$tasks[task].ID}&amp;id={$tasks[task].project}" title="{#edit#}"></a>
+                {if $userpermissions.tasks.edit and $myRequestedTasks[task].editable != 'false'}
+                  <a class="tool_edit" href="managetask.php?action=editform&amp;tid={$myRequestedTasks[task].ID}&amp;id={$myRequestedTasks[task].project}" title="{#edit#}"></a>
                 {/if}
-                {if $userpermissions.tasks.del and $tasks[task].editable != 'false'}
-                  <a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'task_{$tasks[task].ID}\',\'managetask.php?action=del&amp;tid={$tasks[task].ID}&amp;id={$tasks[task].project}\')');"  title="{#delete#}"></a>
+                {if $userpermissions.tasks.del and $myRequestedTasks[task].editable != 'false'}
+                  <a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'task_{$myRequestedTasks[task].ID}\',\'managetask.php?action=del&amp;tid={$myRequestedTasks[task].ID}&amp;id={$myRequestedTasks[task].project}\')');"  title="{#delete#}"></a>
                 {/if}
               </td>
             </tr>
@@ -329,7 +329,7 @@
                 <div class="accordion_content">
                   <div class="acc-in">
                     <div class="message-in">
-                      {$tasks[task].text|nl2br}
+                      {$myRequestedTasks[task].text|nl2br}
                     </div>
                   </div>
                 </div>
