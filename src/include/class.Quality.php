@@ -158,14 +158,15 @@ class Quality {
           $hasNew = true;
         }
       }
-      $status = "new";
-      if($hasNew == true && $hasClosed == false && $hasOpen == false){
+      $status = "";
+      if($hasNew == true){
         $status = "new";
-      }elseif($hasOpen == true && $hasNew == false && $hasClosed == false){
+      }elseif($hasOpen == true && $hasNew == false){
         $status = "open";
       }elseif($hasClosed == true && $hasNew == false && $hasOpen == false){
         $status = "closed";
       }
+
       $row["status"] = $status;
       $proj = $project->getProject($row['project']);
       $row["project_name"] = $proj["name"];
