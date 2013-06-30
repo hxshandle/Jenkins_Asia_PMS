@@ -32,7 +32,7 @@
           <div class="row"><label for="location">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location" required = "1" value = "{$task.location}" /></div>
 
           <div class="row"><label for="status">{#status#}:</label>
-            <select type="text" class="text" name="status" realname="{#status#}"  id="status" required = "1" >
+            <select type="text" class="text" name="status" realname="{#status#}"  id="status" >
             {section name = idx loop=$taskStatus}
               {if $taskStatus[idx].id == $task.status}
                 <option selected value = "{$taskStatus[idx].id}">{$taskStatus[idx].value}</option>
@@ -112,11 +112,16 @@
             <label for="distribution" >{#distribution#}:</label>
             {include file="seluserlist.tpl" groupedUser=$grouped_members chkName="distribution" checkedUsers=$task.distribution}
           </div>
+            <input type="hidden" id = "task_status_action" name = "task_status_action" value=""/>
 
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
             {if $editable != 'false'}
 						<button type="submit" onfocus="this.blur();">{#send#}</button>
+              {if $task.created_by == $smarty.session.userid || $isProjectLeader || $smarty.session.userRole == 3}
+                <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$completeStatusId}')">{#completeTask#}</button>
+                <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$closeStatusId}')">{#closeTask#}</button>
+                {/if}
             {/if}
 						<button onclick="blindtoggle('form_edit');toggleClass('edit_butn','edit-active','edit');toggleClass('sm_task','smooth','nosmooth');return false;" onfocus="this.blur();" {if $showhtml != "no"} style="display:none;"{/if}>{#cancel#}</button>
 					</div>

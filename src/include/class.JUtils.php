@@ -22,6 +22,16 @@ class JUtils{
       $this->updateProjectRealDateByDeliverDate($deliverObj["project"],$strLastEndDate);
     }
   }
+
+  function isProjectLeader($projectId){
+    $flag = false;
+    $project = new project();
+    $proj = $project->getProject($projectId);
+    if($proj['project_leader'] == $_SESSION['userid']){
+      $flag = true;
+    }
+    return $flag;
+  }
   
   function groupUsers($arrUsers){
       $gu = array("admin" => array(),"manager" => array(),"staff" => array(),"customer"=>array(),"supplier"=>array());

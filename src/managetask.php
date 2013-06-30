@@ -157,10 +157,24 @@ if ($action == "addform") {
   $template->assign("tasklists", $tasklists);
   $template->assign("tl", $tl);
   $template->assign("task", $thistask);
+  $template->assign("isProjectLeader", $jUtils->isProjectLeader($id));
   $template->assign("pid", $id);
   $template->assign("deliverableItems", $deliverableItems);
   $taskStatus = Status::getStatusByType("task");
-  $template->assign("taskStatus", $taskStatus);
+  $st1 = Status::getId("task","closed");
+  $st2 = Status::getId("task","completed");
+  $template->assign("completeStatusId", $st2);
+  $template->assign("closeStatusId", $st1);
+  $filterTaskStatus = array();
+  foreach( $taskStatus as $ts){
+    if($ts['id'] == $st1 || $ts['id'] == $st2){
+      continue;
+    }else{
+      array_push($filterTaskStatus,$ts);
+    }
+  }
+
+  $template->assign("taskStatus", $filterTaskStatus);
   $template->assign("parentTasks", $parentTasks);
 
   $template->display("edittask.tpl");
@@ -185,6 +199,10 @@ if ($action == "addform") {
   }
   $completeStatus = Status::getId("task", "completed");
   $closeStatus = Status::getId("task", "closed");
+  $taskStatusAction = getArrayVal($_POST,"task_status_action");
+  if(!empty($taskStatusAction)){
+    $taskStatus = $taskStatusAction;
+  }
   if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
     $dateFormat = CL_DATEFORMAT." H:i:s";
     $today = date($dateFormat);
@@ -430,7 +448,21 @@ if ($action == "addform") {
   $template->assign("tasklists", $tasklists);
   $template->assign("deliverableItems", $deliverableItems);
   $taskStatus = Status::getStatusByType("task");
-  $template->assign("taskStatus", $taskStatus);
+
+  $st1 = Status::getId("task","closed");
+  $st2 = Status::getId("task","completed");
+  $template->assign("completeStatusId", $st2);
+  $template->assign("closeStatusId", $st1);
+  $filterTaskStatus = array();
+  foreach( $taskStatus as $ts){
+    if($ts['id'] == $st1 || $ts['id'] == $st2){
+      continue;
+    }else{
+      array_push($filterTaskStatus,$ts);
+    }
+  }
+
+  $template->assign("taskStatus", $filterTaskStatus);
   $parentTasks = $tasklist->getTasksFromList($task['liste']);
   $template->assign("parentTasks", $parentTasks);
   $template->assign("tl", $tl);

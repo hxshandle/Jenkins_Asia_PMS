@@ -217,6 +217,12 @@ function normalSelAll(el,targetId){
   }
 }
 
+function setValue(elementId,val){
+    var el = document.getElementById(elementId);
+    if(!el)  return;
+    el.value = val;
+}
+
 function sendTaskDelayReminder(){
   var els = $$("input[name=selectedDelayTask]");
   var hasSelected = false;
