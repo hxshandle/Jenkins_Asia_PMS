@@ -129,6 +129,8 @@
 </form>
 
 <script>
+  var _acknowledgeDate = "{$quality.verification_date}";
+  var _verificationDate = "{$quality.verification_date}";
 {literal}
   function bindDateOPicker(relateTo,target){
 {/literal}
@@ -146,6 +148,8 @@
     bindDateOPicker('issueDate','issueDatePicker');
     bindDateOPicker('acknowledgeDate','acknowledgeDatePicker');
     bindDateOPicker('verificationDate','verificationDatePicker');
+    if(_acknowledgeDate =="") $("acknowledgeDate").value="";
+    if(_verificationDate =="") $("verificationDate").value="";
   })();
 {/literal}
 </script>
