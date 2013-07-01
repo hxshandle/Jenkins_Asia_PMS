@@ -118,7 +118,7 @@
 						<label>&nbsp;</label>
             {if $editable != 'false'}
 						<button type="submit" onfocus="this.blur();">{#send#}</button>
-              {if $task.created_by == $smarty.session.userid || $isProjectLeader || $smarty.session.userRole == 3}
+              {if $task.created_by == $smarty.session.userid || $isProjectLeader || $smarty.session.userRole < 4}
                 <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$completeStatusId}')">{#completeTask#}</button>
                 <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$closeStatusId}')">{#closeTask#}</button>
                 {/if}
