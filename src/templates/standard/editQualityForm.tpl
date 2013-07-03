@@ -117,8 +117,7 @@
 
 <div class="dlgRow">
   <label style="">{#notify#}</label>
-  <div id="notify-outer">
-  </div>
+  <div id="notify-outer"> </div>
 </div>
 
   <input type="hidden" id ="qMode" name="qMode" value = "{$mode}"></input>

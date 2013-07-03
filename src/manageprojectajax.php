@@ -1136,12 +1136,16 @@ switch ($action) {
     break;
   case "getProjectNotifyGroupedList":
     $id = getArrayVal($_GET,"id");
+    $ulstyle = getArrayVal($_GET,"ulstyle");
+    if(empty($ulstyle)){
+      $ulstyle = "margin-left:200px";
+    }
     $jUtils = new JUtils();
     $list = $jUtils->getProjectNotifyList($id);
     $groupedList = $jUtils->groupUsers($list);
     $template->assign("groupedUser",$groupedList);
     $template->assign("chkName","notify");
-    $template->assign("ulstyle","margin-left:200px");
+    $template->assign("ulstyle",$ulstyle);
     $template->display("seluserlist.tpl");
     break;
   case "getProjectNotifyList":

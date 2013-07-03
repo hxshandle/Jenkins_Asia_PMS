@@ -385,3 +385,14 @@ ALTER TABLE `external_price_breakdown`
   ALTER TABLE  `sample` CHANGE  `document_info_id`  `datei` TEXT NULL DEFAULT NULL;
 
   ALTER TABLE `tasks` ADD COLUMN `created_by` INT(10);
+
+
+  CREATE TABLE document_notify
+(
+    ID INT(11) AUTO_INCREMENT NOT NULL,
+    document_info_id INT(11) NOT NULL,
+    user_id INT(11) NOT NULL,
+    PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;

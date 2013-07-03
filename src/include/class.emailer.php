@@ -70,6 +70,7 @@ class emailer
         }
         else
         {
+            error_log("send mail to ".$to." failed",0);
             return false;
         }
     }

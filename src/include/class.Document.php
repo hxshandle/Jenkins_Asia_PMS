@@ -17,7 +17,21 @@ class Document{
       return false;
     }
   }
-  
+
+  function addDocumentNotify($id,$notifyUserIds){
+    $id = (int) $id;
+    if(empty($notifyUserIds)){
+      return false;
+    }
+    foreach ($notifyUserIds as $userId) {
+      $userId = (int) $userId;
+      $sql = "insert into document_info_notify(`document_info_id`,`user_id`) values ($id,$userId)";
+      $ins = mysql_query($sql);
+    }
+    return true;
+
+
+  }
   function update($id,$docName,$docNo,$docVer,$docDesc,$projectId,$visibility){
     $id = (int) $id;
     $docName = mysql_escape_string($docName);

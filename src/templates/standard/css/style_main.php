@@ -3060,6 +3060,7 @@ ul.tabs li.quality a {
 
 ul.chk-list label{
 	font-weight:normal;
+  float:none;
 }
 .grouped-user-list{
 	margin-bottom:10px;

@@ -72,6 +72,7 @@ case "addDocument":
   $orderId = getArrayVal($_POST,"order");
   $qualityId = getArrayVal($_POST,"quality");
   $visibility = getArrayVal($_POST,"visibility");
+  $notifyList = getArrayVal($_POST,"notify");
 
   $ecnId = getArrayVal($_POST, "ecn");
   $visibilityVal = "";
@@ -79,7 +80,13 @@ case "addDocument":
     $visibilityVal .= $vis.",";
   }
   $doc = new Document();
-  $doc->add($docName,$docNo,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibilityVal,$ecnId);
+  $docId = $doc->add($docName,$docNo,$docVer,$docDesc,$fileId,$projectId,$taskId,$orderId,$qualityId,$visibilityVal,$ecnId);
+  if($docId){
+    $ret = $doc->addDocumentNotify($docId,$notifyList);
+    if($ret && $settings["mailnotify"]){
+      $jUtils->sendDocumentMail($docId,$notifyList,$settings);
+    }
+  }
   $loc = $url . "managedocument.php?action=mydocument";
   if($isAjax == '1'){
     $loc = $url."managedocument.php?action=selectDocuments";

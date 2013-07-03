@@ -72,6 +72,13 @@
         </ul>
       </div>
 
+      <div class="row">
+        <label style="">{#notify#}</label>
+        <div id="notify-outer"> </div>
+      </div>
+
+
+
 	    <div class="row">
 		    <label for="uploadfile" >{#upload#}:</label>
 		    {include file = "uploadfile.tpl" callbackFunc="afterUploadFile"}
