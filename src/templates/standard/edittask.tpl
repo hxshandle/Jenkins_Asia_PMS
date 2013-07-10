@@ -102,13 +102,12 @@
 						{/section}</select>
 					</div>
 
-
-          <div class="row">
+          <div class="row" {if $smarty.session.userRole > 7} style='display:none' {/if} >
             <label for="assigned" >{#assignto#}:</label>
             {include file="seluserlist.tpl" groupedUser=$grouped_members chkName="assigned" checkedUsers=$task.users}
           </div>
 
-          <div class="row">
+          <div class="row" {if $smarty.session.userRole > 7} style='display:none' {/if} >
             <label for="distribution" >{#distribution#}:</label>
             {include file="seluserlist.tpl" groupedUser=$grouped_members chkName="distribution" checkedUsers=$task.distribution}
           </div>

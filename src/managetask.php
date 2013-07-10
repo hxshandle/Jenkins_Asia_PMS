@@ -257,8 +257,8 @@ if ($action == "addform") {
         }
       }
     }
-    if ($redir) {
-      $redir = $url . $redir;
+    if ($_SESSION['userRole'] > 7) {
+      $redir = $url . "mytasks.php";
       header("Location: $redir");
     } else {
       $loc = $url . "managetask.php?action=showproject&id=$id&mode=edited";
