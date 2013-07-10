@@ -387,7 +387,7 @@ ALTER TABLE `external_price_breakdown`
   ALTER TABLE `tasks` ADD COLUMN `created_by` INT(10);
 
 
-  CREATE TABLE document_notify
+  CREATE TABLE document_info_notify
 (
     ID INT(11) AUTO_INCREMENT NOT NULL,
     document_info_id INT(11) NOT NULL,
