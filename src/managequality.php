@@ -12,6 +12,7 @@ if (!$action) {
   $action = getArrayVal($_GET, "action");
 }
 $jUtils = new JUtils();
+$auditTrail = new AuditTrail();
 
 switch ($action) {
   case "showproject":
@@ -105,10 +106,16 @@ switch ($action) {
     $fileId = getArrayVal($_POST, "fileId");
     $qualityDetails = new QualityDetails();
     $ins = $qualityDetails->update($detailsId,$status,$rejectDesc,$quantity,$requiredDesc,$rootCause,$containmentAction,$supplierShortTermCorrectiveAct,$shotTermImplementationDate,$shortTermVerified,$supplierLongTermCorrectiveAct,$longTermImplementationDate,$vendorProcessAuditPlanRevision,$longTermVerified);
-    
-    if(!empty($fileId)){
+    if($ins){
+      $auditTrail->create("quality_details",$detailsId,"update","");
+
+      if(!empty($fileId)){
         $qualityDetails->attachFile($detailsId,$fileId);
-    } 
+        $f = new datei();
+        $attachedFile = $f->getFile($fileId);
+        $auditTrail->create("quality_details",$detailsId,"attach file",$attachedFile['name']);
+      }
+    }
     Header("Location: managequality.php?action=showEditDlg&id=".$qualityId);
     
     break;
@@ -158,6 +165,7 @@ switch ($action) {
         foreach($notify as $n){
           $quality->addNotifyList($ret,$n);
         }
+        $auditTrail->create("quality",$ret,"create","");
       }
       $jUtils->sendQualityMail($ret,$settings,true);
     }else{
@@ -168,6 +176,7 @@ switch ($action) {
           $quality->addNotifyList($qId,$n);
           }
           $jUtils->sendQualityMail($qId,$settings,false);
+          $auditTrail->create("quality",$ret,"update","");
         }
         
         Header("Location: managequality.php?action=showEditDlg&id=".$qId);

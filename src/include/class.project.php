@@ -354,10 +354,10 @@ class project {
 
         $sel = mysql_query("SELECT * FROM projekte WHERE ID = $id");
         $project = mysql_fetch_array($sel, MYSQL_ASSOC);
-
+        $st1 = Status::getId("project", "closed");
         if (!empty($project)) {
             $user = new user();
-            if ($project["end_date"]) {
+            if ($project["end_date"] && $project['status']!=$st1 ) {
                 $daysleft = $this->getDaysLeft($project["end_date"]);
                 $project["daysleft"] = $daysleft;
                 $endstring = date("Y-m-d", $project["end_date"]);

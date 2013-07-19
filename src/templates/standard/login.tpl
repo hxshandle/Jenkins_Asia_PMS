@@ -31,6 +31,7 @@
 					</div>
 					</fieldset>
 				</form>
+        <span style="color:#ffffff">For best using experience please use <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a> browser </span>
 			</div>
 
 			{if $loginerror == 1}

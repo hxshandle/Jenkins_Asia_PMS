@@ -155,6 +155,7 @@ class QualityDetails {
     $sql = "select * from quality_details where quality=$id";
     $sel = mysql_query($sql);
     $arr = array();
+    $auditTrail = new AuditTrail();
     while($row = mysql_fetch_array($sel)){
         $sql2 = "select f.* from files f,quality_details_attached q where q.file_id = f.id and q.details_id = $row[ID]";
         $sel2 = mysql_query($sql2);
@@ -167,8 +168,11 @@ class QualityDetails {
             array_push($images,$rowf);
           }
         }
+        // get audit trails
+        $audits = $auditTrail->getAuditTrails("quality_details",$id);
         $row["images"] = $images;
         $row["files"]=$files;
+        $row["audits"] = $audits;
         array_push($arr, $row);
       }
     return $arr;
@@ -179,6 +183,7 @@ class QualityDetails {
       $sql = "select * from quality_details where id=$id";
       $sel = mysql_query($sql);
       $arr = array();
+      $auditTrail = new AuditTrail();
       while($row = mysql_fetch_array($sel)){
         $sql2 = "select f.* from files f,quality_details_attached q where q.file_id = f.id and q.details_id = $row[ID]";
         $sel2 = mysql_query($sql2);
@@ -187,6 +192,8 @@ class QualityDetails {
           array_push($files,$rowf);
         }
         $row["files"]=$files;
+        $audits = $auditTrail->getAuditTrails("quality_details",$id);
+        $row["audits"] = $audits;
         array_push($arr, $row);
       }
       return  $arr;

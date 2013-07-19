@@ -112,7 +112,7 @@
   </div>
 </div>
 
-  <div class="dlgRow">
+  <div class="dlgRow" {if $smarty.session.userRole >7 } style="display:none" {/if}>
     <label style="">{#notify#}</label>
     {include file="seluserlist.tpl" groupedUser=$groupedNotifyList chkName="notify" checkedUsers=$notifyList ulstyle="margin-left:200px"}
   </div>

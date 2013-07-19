@@ -207,7 +207,7 @@ if ($action == "addform") {
     $dateFormat = CL_DATEFORMAT." H:i:s";
     $today = date($dateFormat);
     if($taskStatus == $completeStatus){
-      $statusUpdate .= "</br> -- Task completed by ".$_SESSION['username']." ".$today;
+      $statusUpdate .= "</br> -- Task marked as completed by ".$_SESSION['username']." ".$today;
     }else{
       $statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
     }

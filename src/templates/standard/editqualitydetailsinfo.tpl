@@ -98,12 +98,21 @@
     <div>
       {include file="uploadfile.tpl" lazyLoad=true callbackFunc=updateFileId}
     </div>
+      <div style="clear:both"></div>
   </div>
+  <!-- audit trail-->
+  <div class="dlgRow">
+    <label style="float:left">{#auditTrail#}</label>
+    <div style="float:left">
+      {include file="audittrail.tpl" audits=$data.audits}
+    </div>
+  </div>
+
   <div class="clear_both_b"></div>
   <div class="dlgRow" style="height:20px">
     <label style="width:200px;float:left;">&nbsp;</label>
     <button onfocus="this.blur()" type="submit">{#save#}</button>
-    <button onclick="blindtoggle('editDetailsInfo');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</button>
+    <a class="butn_link" onclick="blindtoggle('editDetailsInfo');toggleClass('add','add-active','add');toggleClass('add_butn','butn_link_active','butn_link');toggleClass('sm_msgs','smooth','nosmooth');return false;" onfocus="this.blur()">{#cancel#}</a>
   </div>
   <script>
   </script>

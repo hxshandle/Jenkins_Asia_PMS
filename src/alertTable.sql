@@ -396,3 +396,20 @@ ALTER TABLE `external_price_breakdown`
 )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
+
+
+
+  CREATE TABLE audit_trail
+(
+    `ID` INT(11) AUTO_INCREMENT NOT NULL,
+    `table_name` varchar(255) NOT NULL,
+    `ref_id` INT(11) NOT NULL,
+    `user_id` INT(11) NOT NULL,
+    `action` varchar(255) NOT NULL,
+    `comments` longtext,
+    `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
