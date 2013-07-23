@@ -366,7 +366,7 @@ class project {
                 $project["daysleft"] = "";
             }
 
-            $startstring = date(CL_DATEFORMAT, $project["start"]);
+            $startstring = date(CL_DATEFORMAT, $project["start_date"]);
             $project["startstring"] = $startstring;
 
             $project["name"] = stripslashes($project["name"]);
