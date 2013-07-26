@@ -16,7 +16,7 @@
     <fieldset {if !$editBaseInfo} disabled {/if}>
 	    <div class="row4">
         <label for="projectName">{#name#}:</label>
-        <input type="text" class="text" {if  $smarty.session.userRole != "1" &&  $smarty.session.userRole != "3"}disabled{/if} name="projectName" id="projectName" required="1" realname="{#name#}" value = "{$project.name}" />
+        <input type="text" class="text" {if  $smarty.session.userRole != "1" &&  $smarty.session.userRole != "3"}readOnly="readOnly"{/if} name="projectName" id="projectName" required="1" realname="{#name#}" value = "{$project.name}" />
         <label for="status">{#status#}:</label>
         <select id = "projectStatus" name ="projectStatus">
           {section name = idx loop=$projectStatus}
@@ -30,7 +30,7 @@
       </div>
       <div class="row4">
         <label for="projectNo">{#projectNo#}:</label>
-        <input type="text" class="text" {if  $smarty.session.userRole != "1" &&  $smarty.session.userRole != "3"}disabled{/if} name="projectNo" id="projectNo" required="1" realname="{#projectNo#}" value = "{$project.project_no}" />
+        <input type="text" class="text" {if  $smarty.session.userRole != "1" &&  $smarty.session.userRole != "3"}readOnly="readOnly"{/if} name="projectNo" id="projectNo" required="1" realname="{#projectNo#}" value = "{$project.project_no}" />
         <label for="projectRealEndDate">{#realEndDate#}:</label>
         <label for="projectRealEndDate" style="margin-left:8px">{$project.real_end_date|truncate:"10":""}</label>
       </div>
