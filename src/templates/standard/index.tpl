@@ -107,7 +107,7 @@
 									<td style="text-align:right">{$myprojects[project].daysleft}&nbsp;&nbsp;</td>
 									<td class="tools">
 										{if $smarty.session.userRole < 5}
-											<a class="tool_edit" href="manageproject.php?action=editform&amp;id={$myprojects[project].ID}" title="{#edit#}" ></a>{/if}
+											<!--<a class="tool_edit" href="manageproject.php?action=editform&amp;id={$myprojects[project].ID}" title="{#edit#}" ></a>-->{/if}
 										{if $smarty.session.userRole < 5}
 											<a class="tool_del" href="javascript:confirmfunction('{#confirmdel#}','deleteElement(\'proj_{$myprojects[project].ID}\',\'manageproject.php?action=del&amp;id={$myprojects[project].ID}\')');"  title="{#delete#}"></a>
 										{/if}
