@@ -148,6 +148,7 @@ class Quality {
     $hasClosed = false;
     $project = new project();
     while($row = mysql_fetch_array($sel)){
+      $hasNew = false;
       $qds = $qDetails->getQualityDetailsByQualityId($row['ID']);
       foreach($qds as $details){
         if($details["status"] == $closeSt){
@@ -271,6 +272,7 @@ function getQualityByProjectId($projectId){
   $hasClosed = false;
   $project = new project();
   while ($row = mysql_fetch_array($sel)) {
+    $hasNew = false;
     $qds = $qDetails->getQualityDetailsByQualityId($row['ID']);
     foreach($qds as $details){
       if($details["status"] == $closeSt){
