@@ -216,6 +216,9 @@ if ($action == "addform") {
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);
   $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
+  $project = new project();
+  $proj = $project->getProject($tk['project']);
+
 
 
   // edit the task
@@ -245,7 +248,7 @@ if ($action == "addform") {
               if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
                 $mailSubject = $langfile["taskclosedsubject"];
               }
-              $msg = $jUtils->getModifiedTaskMailMsg($user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
+              $msg = $jUtils->getModifiedTaskMailMsg($proj['name'],$user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
               if($hasCCed){
                 $themail->send_mail($user["email"], $mailSubject." | ".$title, $msg);
               }else{

@@ -114,13 +114,16 @@ class JUtils
     return $msg;
   }
 
-  function getModifiedTaskMailMsg($mailTo, $operator, $link, $title, $text, $statusUpdate)
+  function getModifiedTaskMailMsg($projectName,$mailTo, $operator, $link, $title, $text, $statusUpdate)
   {
     $msg = "";
     $msg .= "Dear " . $mailTo . ",<br/><br/>";
     $msg .= "Task updated by " . $operator;
     $msg .= "<br/>";
     $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
+    $msg .= "<b>Project Name<br/></b>";
+    $msg .= "<p style='padding-left:15px'>" . $projectName . "</p>";
+    $msg .= "<hr/>";
     $msg .= "<b>Task Name<br/></b>";
     $msg .= "<p style='padding-left:15px'>" . $title . "</p>";
     $msg .= "<hr/>";
