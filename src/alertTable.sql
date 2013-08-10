@@ -413,3 +413,4 @@ DEFAULT CHARACTER SET = utf8;
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
 
+INSERT INTO `status`( `type`, `value`) VALUES ('task','delayed');

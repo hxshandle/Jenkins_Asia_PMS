@@ -36,12 +36,22 @@ class task {
     }
     return $ret;
   }
-  
-  function getDelayTasksByCustomerName($customer){
-    $customer = mysql_escape_string($customer);
+
+  function updateDeleyTasks(){
     $st1 = Status::getId("task", "completed");
     $st2 = Status::getId("task", "closed");
-    $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status not in ($st1,$st2) and p.customer_name= '$customer' and t.project=p.id";
+    $st3 = Status::getId("task","delayed");
+    $sql = "update tasks set status=$st3 where end_date < NOW() and status not in ($st1,$st2,$st3)";
+    $upd = mysql_query($sql);
+    return $upd;
+
+  }
+  
+  function getDelayTasksByCustomerName($customer){
+    $this->updateDeleyTasks();
+    $customer = mysql_escape_string($customer);
+    $st1 = Status::getId("task","delayed");
+    $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status = $st1 and p.customer_name= '$customer' and t.project=p.id";
     $sel = mysql_query($sql);
     $ret = array();
     while($row = mysql_fetch_array($sel)){
