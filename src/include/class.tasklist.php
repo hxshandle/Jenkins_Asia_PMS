@@ -237,14 +237,14 @@ class tasklist
               $list['start_date'] = $deliverRow[0];
               $list['end_date'] = $deliverRow[1];
             }
-            $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status not in ($st1,$st2)  ORDER BY `end_date` ASC");
+            $sel2 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status not in ($st1,$st2) and valid=1  ORDER BY `end_date` ASC");
             $list['tasks'] = array();
             while ($tasks = mysql_fetch_array($sel2))
             {
                 array_push($list['tasks'], $taskobj->getTask($tasks["ID"]));
             }
 
-            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status in ($st1,$st2) ORDER BY `end_date` ASC");
+            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status in ($st1,$st2) and valid = 1ORDER BY `end_date` ASC");
             $list['oldtasks'] = array();
             while ($oldtasks = mysql_fetch_array($sel3))
             {
