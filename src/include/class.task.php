@@ -193,7 +193,7 @@ class task {
     $userId = $_SESSION['userid'];
     $st1 = Status::getId("task","closed");
     $st2 = Status::getId("task","completed");
-    $sql = "select ID from tasks where created_by = $userId and status not in ($st1,$st2)";
+    $sql = "select ID from tasks where created_by = $userId and status not in ($st1,$st2) and valid=1";
     $sel = mysql_query($sql);
     $ret = array();
     while ($tk = mysql_fetch_array($sel)){
