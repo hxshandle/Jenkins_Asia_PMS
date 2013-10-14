@@ -726,8 +726,10 @@ class task {
     $user = $_SESSION["userid"];
     $lists = array();
     $now = time();
+    $st1 = Status::getId("task", "completed");
+    $st2 = Status::getId("task", "closed");
 
-    $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project AND status=0 ORDER BY `end_date` ASC LIMIT $limit");
+    $sel2 = mysql_query("SELECT tasks.*,tasks_assigned.user FROM tasks,tasks_assigned WHERE tasks.ID = tasks_assigned.task HAVING tasks_assigned.user = $user AND tasks.project = $project AND status in ($st1, $st2) ORDER BY `end_date` ASC LIMIT $limit");
 
     while ($tasks = mysql_fetch_array($sel2, MYSQL_ASSOC)) {
       $task = $this->getTask($tasks["ID"]);
