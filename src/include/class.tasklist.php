@@ -244,7 +244,7 @@ class tasklist
                 array_push($list['tasks'], $taskobj->getTask($tasks["ID"]));
             }
 
-            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status in ($st1,$st2) and valid = 1ORDER BY `end_date` ASC");
+            $sel3 = mysql_query("SELECT ID FROM tasks WHERE liste = $list[ID] AND status in ($st1,$st2) and valid = 1 ORDER BY `end_date` ASC");
             $list['oldtasks'] = array();
             while ($oldtasks = mysql_fetch_array($sel3))
             {
