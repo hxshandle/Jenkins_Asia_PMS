@@ -28,7 +28,7 @@
 					<fieldset>
 
 					<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" value="{$task.title}" name="title" id="title" realname="{#title#}" required="1" /></div>
-					<div class="row"><label for="text">{#sampledescription#}:</label><div class="editor" style='border:0;'>{$task.text}</div></div>
+					<div class="row"><label for="text">{#sampledescription#}:</label><div class="editor" style='border:0;'>{$task.text}</div><input type="hidden" value="{$task.text}" id="text" name="text"/></div>
           <div class="row"><label for="location">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location" required = "1" value = "{$task.location}" /></div>
 
           <div class="row"><label for="status">{#status#}:</label>
