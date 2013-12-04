@@ -57,7 +57,7 @@ if ($action == "search")
                     {
                         $res["name"] = substr($res["name"], 0, $strlim);
                     }
-                    echo "<li><img src = \"templates/$settings[template]/images/files/$res[ftype].png\">$res[name]</li>";
+                    echo "<li><img src = \"templates/$settings[template]/images/symbols/files.png\">$res[name]</li>";
                 } elseif ($res["type"] != "task" and $res["type"] != "message")
                 {
                     if (strlen($res["name"]) > $strlim)

@@ -45,7 +45,7 @@
 											</td>
 											<td class="thumb">
 												{if $result[obj].type == "file"}
-													<a style="top:-33px;" href = "files/{$cl_config}/{$result[obj].project}/{$result[obj].name}" {if $result[obj].imgfile == 1} rel="lytebox[]" {elseif $result[obj].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;" {/if}>
+													<a style="top:-33px;" href = "{$result[obj].download_url}" {if $result[obj].imgfile == 1} rel="lytebox[]" {elseif $result[obj].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;" {/if}>
 														{if $result[obj].imgfile == 1}
 														<img src = "thumb.php?pic={$result[obj].datei}&amp;width=32" alt="" />
 														{else}
@@ -71,7 +71,7 @@
 											<td colspan="3">
 												<span class="name">
 														{if $result[obj].type == "file"}
-															<a href = "files/{$cl_config}/{$result[obj].project}/{$result[obj].name}" {if $result[obj].imgfile == 1} rel="lytebox[]" {elseif $result[obj].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;" {/if} title="{$result[obj].name}">{$result[obj].name|truncate:13:"...":true}</a>
+															<a href = "{$result[obj].download_url}" {if $result[obj].imgfile == 1} rel="lytebox[]" {elseif $result[obj].imgfile == 2} rel = "lyteframe[text]" rev="width: 650px; height: 500px;" {/if} title="{$result[obj].name}">{$result[obj].name|truncate:13:"...":true}</a>
 														{elseif $result[obj].name != ""}
 															<a href = "{$result[obj].url}" title="{$result[obj].name}">{$result[obj].name|truncate:13:"...":true}</a>
 														{else}

@@ -143,13 +143,13 @@ class Quality {
     $qDetails = new QualityDetails();
     $openSt = Status::getId("qualityDetails","Open");
     $closeSt = Status::getId("qualityDetails","Closed");
-    $hasNew = false;
-    $hasOpen = false;
-    $hasClosed = false;
     $project = new project();
     while($row = mysql_fetch_array($sel)){
       $hasNew = false;
       $qds = $qDetails->getQualityDetailsByQualityId($row['ID']);
+      $hasNew = false;
+      $hasOpen = false;
+      $hasClosed = false;
       foreach($qds as $details){
         if($details["status"] == $closeSt){
           $hasClosed = true;

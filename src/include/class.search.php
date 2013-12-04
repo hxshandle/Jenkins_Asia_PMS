@@ -24,7 +24,7 @@ class search
         if ($project == 0)
         {
             $projects = $this->searchProjects($query);
-            $milestones = $this->searchMilestones($query);
+            //$milestones = $this->searchMilestones($query);
             if ($_SESSION["adminstate"] > 0)
             {
                 $messages = $this->searchMessage($query);
@@ -34,10 +34,12 @@ class search
                 $messages = array();
             }
             $tasks = $this->searchTasks($query);
-            $files = $this->searchFiles($query);
+            // Commit for permission
+            //$files = $this->searchFiles($query);
             $user = $this->searchUser($query);
 
-            $result = array_merge($projects, $milestones, $tasks, $messages , $files, $user);
+            //$result = array_merge($projects, $tasks, $messages , $files, $user);
+          $result = array_merge($projects, $tasks, $messages , $user);
         }
         else
         {
@@ -236,14 +238,15 @@ class search
 
         if ($project > 0)
         {
-            $sel = mysql_query("SELECT `ID`,`name`,`desc`,`type`,`datei`,`title`,`project` FROM `files` WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' OR `title` LIKE '%$query%' HAVING project = $project");
+            $sel = mysql_query("SELECT `ID`,`name`,`document_no`,`project` FROM `document_info` WHERE `name` LIKE '%$query%' OR `document_no` LIKE '%$query%'  HAVING project = $project");
         }
         else
         {
-            $sel = mysql_query("SELECT `ID`,`name`,`desc`,`type`,`datei`,`title`,`project` FROM `files` WHERE `name` LIKE '%$query%' OR `desc` LIKE '%$query%' OR `title` LIKE '%$query%'");
+            $sel = mysql_query("SELECT `ID`,`name`,`document_no`,`project` FROM `document_info` WHERE `name` LIKE '%$query%' OR `document_no` LIKE '%$query%'");
         }
 
         $files = array();
+        $doc = new Document();
         while ($result = mysql_fetch_array($sel))
         {
             if (!empty($result))
@@ -256,7 +259,7 @@ class search
                 $result["ftype"] = str_replace("/", "-", $result["type"]);
                 $set = new settings();
                 $settings = $set->getSettings();
-                $myfile = CL_ROOT . "/templates/" . $settings["template"] . "/images/symbols/files/" . $result["ftype"] . ".png";
+                $myfile = CL_ROOT . "/templates/" . $settings["template"] . "/images/symbols/files.png";
                 if (stristr($result["type"], "image"))
                 {
                     $result["imgfile"] = 1;
@@ -273,8 +276,10 @@ class search
                 {
                     $result["ftype"] = "none";
                 }
-                $result["title"] = stripslashes($result["title"]);
-                $result["desc"] = stripslashes($result["desc"]);
+                $result["name"] = stripslashes($result["name"]);
+                $result["desc"] = stripslashes($result["document_no"]);
+                $docInfo = $doc->getDocumentInfo($result["ID"]);
+                $result["download_url"] = $docInfo["download_url"];
                 // $result["tags"] = stripslashes($result["tags"]);
                 $result["type"] = "file";
                 $result[3] = "file";
