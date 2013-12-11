@@ -35,11 +35,11 @@ class search
             }
             $tasks = $this->searchTasks($query);
             // Commit for permission
-            //$files = $this->searchFiles($query);
+            $files = $this->searchFiles($query);
             $user = $this->searchUser($query);
 
-            //$result = array_merge($projects, $tasks, $messages , $files, $user);
-          $result = array_merge($projects, $tasks, $messages , $user);
+            $result = array_merge($projects, $tasks, $messages , $files, $user);
+            //$result = array_merge($projects, $tasks, $messages , $user);
         }
         else
         {
@@ -231,6 +231,22 @@ class search
         }
     }
 
+    function hasFilePermission($file){
+      $user = $_SESSION['userid'];
+      $roleType = $_SESSION['role_type'];
+      if($roleType < 3){
+        return true;
+      }
+
+      $sql = "select projekt as projectId from `projekte_assigned` where user = $user";
+      $sel= mysql_query($sql);
+      $userProjects = mysql_fetch_array($sel);
+      if( in_array($file['project'],$userProjects) && strpos($roleType,$file["visibility"])){
+        return true;
+      }
+      return false;
+    }
+
     function searchFiles($query, $project = 0)
     {
         $query = mysql_real_escape_string($query);
@@ -238,11 +254,11 @@ class search
 
         if ($project > 0)
         {
-            $sel = mysql_query("SELECT `ID`,`name`,`document_no`,`project` FROM `document_info` WHERE `name` LIKE '%$query%' OR `document_no` LIKE '%$query%'  HAVING project = $project");
+            $sel = mysql_query("SELECT `ID`,`name`,`document_no`,`project`,`visibility` FROM `document_info` WHERE `name` LIKE '%$query%' OR `document_no` LIKE '%$query%'  HAVING project = $project");
         }
         else
         {
-            $sel = mysql_query("SELECT `ID`,`name`,`document_no`,`project` FROM `document_info` WHERE `name` LIKE '%$query%' OR `document_no` LIKE '%$query%'");
+            $sel = mysql_query("SELECT `ID`,`name`,`document_no`,`project`,`visibility` FROM `document_info` WHERE `name` LIKE '%$query%' OR `document_no` LIKE '%$query%'");
         }
 
         $files = array();
@@ -284,7 +300,9 @@ class search
                 $result["type"] = "file";
                 $result[3] = "file";
                 $result["icon"] = "files.png";
-                array_push($files, $result);
+                if($this->hasFilePermission($result)){
+                  array_push($files, $result);
+                }
             }
         }
 
