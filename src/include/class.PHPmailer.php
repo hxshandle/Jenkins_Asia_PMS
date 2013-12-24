@@ -181,7 +181,7 @@ class PHPMailer {
    * Sets the default SMTP server port.
    * @var int
    */
-  public $Port        = 25;
+  public $Port        = 465;
 
   /**
    * Sets the SMTP HELO of the message (Default is $Hostname).
