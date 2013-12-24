@@ -233,7 +233,7 @@ class search
 
     function hasFilePermission($file){
       $user = $_SESSION['userid'];
-      $roleType = $_SESSION['role_type'];
+      $roleType = $_SESSION['userRole'];
       if($roleType < 3){
         return true;
       }
