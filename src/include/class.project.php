@@ -355,18 +355,20 @@ class project {
         $sel = mysql_query("SELECT * FROM projekte WHERE ID = $id");
         $project = mysql_fetch_array($sel, MYSQL_ASSOC);
         $st1 = Status::getId("project", "closed");
-        if (!empty($project)) {
+          if (!empty($project)) {
             $user = new user();
             if ($project["end_date"] && $project['status']!=$st1 ) {
-                $daysleft = $this->getDaysLeft($project["end_date"]);
-                $project["daysleft"] = $daysleft;
-                $endstring = date("Y-m-d", $project["end_date"]);
-                $project["endstring"] = $endstring;
+              $daysleft = $this->getDaysLeft($project["end_date"]);
+              $project["daysleft"] = $daysleft;
+              $endDate = date_create($project["end_date"]);
+              $endstring = date_format($endDate,CL_DATEFORMAT);
+              $project["endstring"] = $endstring;
             } else {
-                $project["daysleft"] = "";
+              $project["daysleft"] = "";
             }
-
-            $startstring = date(CL_DATEFORMAT, $project["start_date"]);
+            $startDate = date_create($project["start_date"]);
+            $startstring = date_format($startDate,CL_DATEFORMAT);
+            //$startstring = date(CL_DATEFORMAT, $project["start_date"]);
             $project["startstring"] = $startstring;
 
             $project["name"] = stripslashes($project["name"]);
