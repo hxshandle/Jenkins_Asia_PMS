@@ -188,18 +188,37 @@ class search
         }
     }
 
+    function hasTaskPermission($task)
+    {
+      $user = $_SESSION['userid'];
+      $roleType = $_SESSION['userRole'];
+      $ret = false;
+
+      $sql1 = "select * from `tasks_assigned` where `task` = $task and `user` = $user";
+      $sel1 = mysql_query($sql1);
+      while($result = mysql_fetch_array($sel1)){
+        if(!empty($result)){
+          $ret = true;
+        }
+      }
+
+      return $ret;
+    }
+
     function searchTasks($query, $project = 0)
     {
         $query = mysql_real_escape_string($query);
         $project = (int) $project;
+        $st1 = Status::getId("task","completed");
+        $st2 = Status::getId("task","closed");
 
         if ($project > 0)
         {
-            $sel = mysql_query("SELECT `ID`,`title`,`text`,`status`,`project` FROM tasks WHERE `title` LIKE '%$query%' OR `text` LIKE '%$query%' HAVING project = $project AND status=1");
+            $sel = mysql_query("SELECT `ID`,`title`,`text`,`status`,`project` FROM tasks WHERE `title` LIKE '%$query%' OR `text` LIKE '%$query%' HAVING project = $project AND status not in ($st1,$st2)");
         }
         else
         {
-            $sel = mysql_query("SELECT `ID`,`title`,`text`,`status`,`project` FROM tasks WHERE `title` LIKE '%$query%' OR `text` LIKE '%$query%' HAVING status=1");
+            $sel = mysql_query("SELECT `ID`,`title`,`text`,`status`,`project` FROM tasks WHERE `title` LIKE '%$query%' OR `text` LIKE '%$query%' and status not in ($st1,$st2)");
         }
 
         $tasks = array();
@@ -217,7 +236,10 @@ class search
                 $result["title"] = stripslashes($result["title"]);
                 $result["text"] = stripslashes($result["text"]);
                 $result["url"] = "managetask.php?action=showtask&amp;tid=$result[ID]&id=$result[project]";
-                array_push($tasks, $result);
+                if($this->hasTaskPermission($result["ID"])){
+                  array_push($tasks, $result);
+                }
+
             }
         }
 
@@ -230,6 +252,8 @@ class search
             return array();
         }
     }
+
+
 
     function hasFilePermission($file){
       $user = $_SESSION['userid'];
