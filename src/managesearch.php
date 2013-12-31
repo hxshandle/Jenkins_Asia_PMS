@@ -25,7 +25,7 @@ if ($action == "search")
     }
     $template->assign("title", $langfile["results"]);
     $template->assign("num", $num);
-    $template->display("search.tpl");
+    $template->display("search2.tpl");
 } elseif ($action == "projectsearch")
 {
     $result = $such->dosearch($query, $project);
@@ -34,7 +34,7 @@ if ($action == "search")
     $template->assign("num", $num);
     $template->assign("title", $langfile["results"]);
     $template->assign("result", $result);
-    $template->display("search.tpl");
+    $template->display("search2.tpl");
 } elseif ($action == "ajaxsearch")
 {
     $query = getArrayVal($_POST, "query");

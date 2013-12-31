@@ -3075,6 +3075,14 @@ ul.chk-list label{
 .grouped-user-list input{
 	float:left;
 }
+.inwrapper li {
+	text-align:left;
+	width:auto;
+	float:none;
+}
+.inwrapper li a{
+	line-height:32px;
+}
 
 
 /*****************Jenkins Asia Special***********************/
