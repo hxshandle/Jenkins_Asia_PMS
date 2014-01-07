@@ -49,6 +49,8 @@ if (isset($_SESSION["userid"]))
     $locale = $_SESSION["userlocale"];
     // gender
     $gender = $_SESSION["usergender"];
+    // user role
+    $userRole = $_SESSION["userRole"];
     $_SESSION['sessionId']=session_id();
     // what the user may or may not do
     $userpermissions = $_SESSION["userpermissions"];

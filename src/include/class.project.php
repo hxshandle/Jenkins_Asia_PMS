@@ -458,6 +458,10 @@ class project {
             return false;
         }
     }
+
+    function getMyProjectsByCustomerName($user,$customer){
+      return $this->ngetMyProjectsByCustomerName($user,$customer);
+    }
     
     
     function ngetMyProjectsByCustomerName($user,$customer,$status = 1){
@@ -504,6 +508,32 @@ class project {
         }
     }
 
+    function filterMyProjectIdsByProjectLeader($projectIds,$projectLeader){
+      $projectLeader = (int) $projectLeader;
+      $projStr = join(",",$projectIds);
+      $sql = "select * from `projekte` where `project_leader` = $projectLeader and id in ($projStr)";
+      $sel = mysql_query($sql);
+      $ret = array();
+      while($proj = mysql_fetch_array($sel)){
+        array_push($ret,$proj);
+      }
+      return $ret;
+
+    }
+
+
+    function filterMyProjectIdsByCustomer($projectIds,$customer){
+      $projStr = join(",",$projectIds);
+      $customer = mysql_real_escape_string($customer);
+      $sql = "select * from `projekte` where `customer_name` = '$customer' and id in ($projStr)";
+      $sel= mysql_query($sql);
+      $ret = array();
+      while($proj = mysql_fetch_array($sel)){
+        array_push($ret,$proj);
+      }
+      return $ret;
+    }
+
     /**
      * Listet alle IDs der Projekte eines Mitglieds auf
      *
@@ -519,7 +549,7 @@ class project {
         $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user");
         if ($sel) {
             while ($projs = mysql_fetch_row($sel)) {
-                $sel2 = mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0]");
+                $sel2 = mysql_query("SELECT ID,`name` FROM projekte WHERE ID = $projs[0]");
                 $projekt = mysql_fetch_array($sel2);
                 if ($projekt) {
                     array_push($myprojekte, $projekt);

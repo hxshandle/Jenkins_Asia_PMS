@@ -460,13 +460,23 @@ class JUtils
     return $arrRet;
   }
 
+  function convertProjectId($myprojects){
+    $projectIds = array();
+    foreach($myprojects as $id){
+      array_push($projectIds,$id[0]);
+    }
+    return $projectIds;
+  }
+
+
 
   function getAllCustomers()
   {
     $ret = array();
-    $sql = "select DISTINCT customer_name from projekte where 1=1 order by customer_name ";
+    $sql = "select DISTINCT customer_name from projekte where 1=1 ";
     $sqlCondition = $this->getMyProjectSqlCondition();
     $sql .= $sqlCondition;
+    $sql .= " order by customer_name";
     $sel = mysql_query($sql);
     while ($row = mysql_fetch_row($sel)) {
       array_push($ret, $row);

@@ -414,3 +414,8 @@ ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
 
 INSERT INTO `status`( `type`, `value`) VALUES ('task','delayed');
+
+
+-- Add index
+CREATE INDEX idx_tasks_project ON `tasks`(project);
+CREATE INDEX idx_tasks_status ON `tasks`(status);
