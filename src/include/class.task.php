@@ -46,6 +46,36 @@ class task {
     return $upd;
 
   }
+
+  function groupTasksByProjectName($tasks){
+    $groups = array();
+    foreach($tasks as $task){
+      $pname = $task["pname"];
+      if (!isset($groups[$pname])){
+        $groups[$pname] = array();
+        $groups[$pname]["tasks"] = array();
+      }
+      array_push($groups[$pname]["tasks"],$task);
+    }
+    return $groups;
+
+  }
+
+
+  function getDelayTasksByProjectLeader($projectLeader){
+    $this->updateDeleyTasks();
+    $projectLeader = (int) $projectLeader;
+    $st1 = Status::getId("task","delayed");
+    $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status = $st1 and p.project_leader= $projectLeader and t.project=p.id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      $tk = $this->getTask($row[0]);
+      array_push($ret,$tk);
+    }
+    $groupedTasks = $this->groupTasksByProjectName($ret);
+    return $groupedTasks;
+  }
   
   function getDelayTasksByCustomerName($customer){
     $this->updateDeleyTasks();
@@ -58,7 +88,8 @@ class task {
       $tk = $this->getTask($row[0]);
       array_push($ret,$tk);
     }
-    return $ret;
+    $groupedTasks = $this->groupTasksByProjectName($ret);
+    return $groupedTasks;
   }
   
 

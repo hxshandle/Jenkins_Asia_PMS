@@ -31,6 +31,17 @@
                 {/section}
               </select>
             </div>
+			{if $smarty.session.userRole <=3}
+            <div class="row">
+              <label for="customer">{#projectLeader#}:</label>
+              <select name="criteriaProjectLeader" id="criteriaProjectLeader" onchange='onNormalSelProjectLeaderChange(this,"managedelaytasks.php?action=filterDelayTasks","delayTaskTableContainer")'; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=leader loop=$projectLeaders}
+                  <option value="{$projectLeaders[leader].ID}">{$projectLeaders[leader].name}</option>
+                {/section}
+              </select>
+            </div>
+			{/if}
             <div class="row">
               <a class="butn_link" onclick="sendTaskDelayReminder()">{#sendreminder#}</a>
             </div>

@@ -19,14 +19,23 @@ $jUtils = new JUtils();
 switch ($action) {
   case "showdelaytasks":
     $customers = $jUtils->getAllCustomers();
+    $projectLeaders = $jUtils->getAllProjectLeaders();
     $template->assign("customers",$customers);
+    $template->assign("projectLeaders",$projectLeaders);
     $template->display("delaytasks.tpl");
     break;
   case "filterDelayTasks":
     $customer = getArrayVal($_GET, "customer");
+	  $projectLeader = getArrayVal($_GET,"projectLeader");
     $task = new task();
-    $tasks = $task->getDelayTasksByCustomerName($customer);
+    if(empty($projectLeader)){
+      $tasks = $task->getDelayTasksByCustomerName($customer);
+    }else{
+      $tasks = $task->getDelayTasksByProjectLeader($projectLeader);
+    }
+
     $template->assign("tasks",$tasks);
+    $template->assign("groupedTasks",$tasks);
     $template->display("delaytaskTable.tpl");
     break;
   case "sendReminder":

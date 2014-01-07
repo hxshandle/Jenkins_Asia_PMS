@@ -207,6 +207,19 @@ function onNormalSelCustomerChange(val,url,targetEl){
       }); 
 }
 
+function onNormalSelProjectLeaderChange(val,url,targetEl){
+  url = url+'&projectLeader='+val.value;
+  var targetElId = targetEl;
+  new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              document.getElementById(targetElId).innerHTML=payload.responseText;
+            }
+          }
+      }); 
+}
+
 function normalSelAll(el,targetId){
   
   var isChk = el.checked;  

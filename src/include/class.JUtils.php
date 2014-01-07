@@ -474,6 +474,16 @@ class JUtils
     return $ret;
   }
 
+  function getAllProjectLeaders(){
+    $ret = array();
+    $sql = "select * from user where id in (select DISTINCT project_leader from projekte) order by `name`";
+    $sel = mysql_query($sql);
+    while($user = mysql_fetch_array($sel)){
+      array_push($ret,$user);
+    }
+    return $ret;
+  }
+
 
   function getAllOrders()
   {
