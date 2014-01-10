@@ -62,11 +62,46 @@ class task {
   }
 
 
+  function getTaskSummaryByProjectLeader($projectLeader){
+    $this->updateDeleyTasks();
+    $projectLeader = (int) $projectLeader;
+    $st1 = Status::getId("task","delayed");
+    $st2 = Status::getId("task","not_start");
+    $st3 = Status::getId("task","in_progress");
+    $sql = "select t.ID from tasks t,projekte p where  t.status in($st1,$st2,$st3) and p.project_leader= $projectLeader and t.project=p.id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      $tk = $this->getTask($row[0]);
+      array_push($ret,$tk);
+    }
+    $groupedTasks = $this->groupTasksByProjectName($ret);
+    return $groupedTasks;
+  }
+
+
   function getDelayTasksByProjectLeader($projectLeader){
     $this->updateDeleyTasks();
     $projectLeader = (int) $projectLeader;
     $st1 = Status::getId("task","delayed");
     $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status = $st1 and p.project_leader= $projectLeader and t.project=p.id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while($row = mysql_fetch_array($sel)){
+      $tk = $this->getTask($row[0]);
+      array_push($ret,$tk);
+    }
+    $groupedTasks = $this->groupTasksByProjectName($ret);
+    return $groupedTasks;
+  }
+
+  function getTaskSummaryByCustomerName($customer){
+    $this->updateDeleyTasks();
+    $customer = mysql_escape_string($customer);
+    $st1 = Status::getId("task","delayed");
+    $st2 = Status::getId("task","not_start");
+    $st3 = Status::getId("task","in_progress");
+    $sql = "select t.ID from tasks t,projekte p where t.status in($st1,$st2,$st3) and p.customer_name= '$customer' and t.project=p.id";
     $sel = mysql_query($sql);
     $ret = array();
     while($row = mysql_fetch_array($sel)){
