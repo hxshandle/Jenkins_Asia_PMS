@@ -22,7 +22,7 @@ switch ($action) {
     $projectLeaders = $jUtils->getAllProjectLeaders();
     $template->assign("customers",$customers);
     $template->assign("projectLeaders",$projectLeaders);
-    $template->display("tasksummary.tpl");
+    $template->display("taskSummary.tpl");
     break;
   case "filterTasks":
     $customer = getArrayVal($_GET, "customer");
