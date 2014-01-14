@@ -25,6 +25,8 @@
 
     {if $smarty.session.userRole < 6}
         <li class="msgs"><a {if $delaytasktab == "active" }class="active"{/if} href="managedelaytasks.php?action=showdelaytasks"><span>{#delaytasks#}</span></a></li>
+    {/if}				
+    {if $smarty.session.userRole < 7}
         <li class="msgs"><a {if $tasksumarytab == "active" }class="active"{/if} href="managetasksummary.php?action=showtasks"><span>{#tasksummary#}</span></a></li>
     {/if}				
 	</ul>
