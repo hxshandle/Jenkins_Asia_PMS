@@ -450,6 +450,7 @@ if ($action == "addform") {
   $template->assign("projectId", $id);
   $template->assign("tasklists", $tasklists);
   $template->assign("deliverableItems", $deliverableItems);
+  $template->assign("isProjectLeader", $jUtils->isProjectLeader($id));
   $taskStatus = Status::getStatusByType("task");
 
   $st1 = Status::getId("task","closed");

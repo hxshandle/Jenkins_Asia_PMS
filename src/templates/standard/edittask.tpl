@@ -118,9 +118,9 @@
             {if $editable != 'false'}
 						<button type="submit" onfocus="this.blur();">{#send#}</button>
               {if $task.created_by == $smarty.session.userid || $isProjectLeader || $smarty.session.userRole < 4}
-                <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$completeStatusId}')">{#completeTask#}</button>
-                <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$closeStatusId}')">{#closeTask#}</button>
-                {/if}
+              <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$completeStatusId}')">{#completeTask#}</button>
+              <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$closeStatusId}')">{#closeTask#}</button>
+            {/if}
             {/if}
 						<button onclick="blindtoggle('form_edit');toggleClass('edit_butn','edit-active','edit');toggleClass('sm_task','smooth','nosmooth');return false;" onfocus="this.blur();" {if $showhtml != "no"} style="display:none;"{/if}>{#cancel#}</button>
 					</div>
