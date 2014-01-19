@@ -383,6 +383,17 @@ class project {
         }
     }
 
+
+  function getProjectBeans(){
+    $sql = "select * from projekte";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while ($row = mysql_fetch_array($sel)) {
+      $ret[$row["ID"]] = $row;
+    }
+    return $ret;
+  }
+
     /**
      * Listet die aktuellsten Projekte auf
      *

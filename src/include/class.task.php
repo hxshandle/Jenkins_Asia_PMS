@@ -11,7 +11,8 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  * @global $mylog
  */
-class task {
+class task
+{
 
   private $mylog;
   private $plugins;
@@ -20,124 +21,133 @@ class task {
    * Constructor
    * Initializes the event log
    */
-  function __construct() {
+  function __construct()
+  {
     $this->mylog = new mylog;
   }
-  
-  
-  function getDelayTasks(){
+
+
+  function getDelayTasks()
+  {
     $st1 = Status::getId("task", "completed");
     $st2 = Status::getId("task", "closed");
     $sql = "select ID from tasks where end_date < NOW() and status not in ($st1,$st2)";
     $sel = mysql_query($sql);
     $ret = array();
-    while($row = mysql_fetch_array($sel)){
-      array_push($ret,$row[0]);
+    while ($row = mysql_fetch_array($sel)) {
+      array_push($ret, $row[0]);
     }
     return $ret;
   }
 
-  function updateDeleyTasks(){
+  function updateDeleyTasks()
+  {
     $st1 = Status::getId("task", "completed");
     $st2 = Status::getId("task", "closed");
-    $st3 = Status::getId("task","delayed");
+    $st3 = Status::getId("task", "delayed");
     $sql = "update tasks set status=$st3 where end_date < NOW() and status not in ($st1,$st2,$st3)";
     $upd = mysql_query($sql);
     return $upd;
 
   }
 
-  function groupTasksByProjectName($tasks){
+  function groupTasksByProjectName($tasks)
+  {
     $groups = array();
-    foreach($tasks as $task){
+    foreach ($tasks as $task) {
       $pname = $task["pname"];
-      if (!isset($groups[$pname])){
+      if (!isset($groups[$pname])) {
         $groups[$pname] = array();
         $groups[$pname]["tasks"] = array();
       }
-      array_push($groups[$pname]["tasks"],$task);
+      array_push($groups[$pname]["tasks"], $task);
     }
     return $groups;
 
   }
 
 
-  function getTaskSummaryByProjectLeader($projectLeader){
+  function getTaskSummaryByProjectLeader($projectLeader)
+  {
     $this->updateDeleyTasks();
-    $projectLeader = (int) $projectLeader;
-    $st1 = Status::getId("task","delayed");
-    $st2 = Status::getId("task","not_start");
-    $st3 = Status::getId("task","in_progress");
+    $projectLeader = (int)$projectLeader;
+    $st1 = Status::getId("task", "delayed");
+    $st2 = Status::getId("task", "not_start");
+    $st3 = Status::getId("task", "in_progress");
     $sql = "select t.ID from tasks t,projekte p where  t.status in($st1,$st2,$st3) and p.project_leader= $projectLeader and t.project=p.id";
     $sel = mysql_query($sql);
     $ret = array();
-    while($row = mysql_fetch_array($sel)){
+    while ($row = mysql_fetch_array($sel)) {
       $tk = $this->getTask($row[0]);
-      array_push($ret,$tk);
+      array_push($ret, $tk);
     }
     $groupedTasks = $this->groupTasksByProjectName($ret);
     return $groupedTasks;
   }
 
 
-  function getDelayTasksByProjectLeader($projectLeader){
+  function getDelayTasksByProjectLeader($projectLeader)
+  {
     $this->updateDeleyTasks();
-    $projectLeader = (int) $projectLeader;
-    $st1 = Status::getId("task","delayed");
+    $projectLeader = (int)$projectLeader;
+    $st1 = Status::getId("task", "delayed");
     $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status = $st1 and p.project_leader= $projectLeader and t.project=p.id";
     $sel = mysql_query($sql);
     $ret = array();
-    while($row = mysql_fetch_array($sel)){
+    while ($row = mysql_fetch_array($sel)) {
       $tk = $this->getTask($row[0]);
-      array_push($ret,$tk);
+      array_push($ret, $tk);
     }
     $groupedTasks = $this->groupTasksByProjectName($ret);
     return $groupedTasks;
   }
 
-  function getTaskSummaryByCustomerName($customer){
+  function getTaskSummaryByCustomerName($customer)
+  {
     $this->updateDeleyTasks();
     $customer = mysql_escape_string($customer);
-    $st1 = Status::getId("task","delayed");
-    $st2 = Status::getId("task","not_start");
-    $st3 = Status::getId("task","in_progress");
+    $st1 = Status::getId("task", "delayed");
+    $st2 = Status::getId("task", "not_start");
+    $st3 = Status::getId("task", "in_progress");
     $sql = "select t.ID from tasks t,projekte p where t.status in($st1,$st2,$st3) and p.customer_name= '$customer' and t.project=p.id";
     $sel = mysql_query($sql);
     $ret = array();
-    while($row = mysql_fetch_array($sel)){
+    while ($row = mysql_fetch_array($sel)) {
       $tk = $this->getTask($row[0]);
-      array_push($ret,$tk);
+      array_push($ret, $tk);
     }
     $groupedTasks = $this->groupTasksByProjectName($ret);
     return $groupedTasks;
   }
-  
-  function getDelayTasksByCustomerName($customer){
+
+  function getDelayTasksByCustomerName($customer)
+  {
     $this->updateDeleyTasks();
     $customer = mysql_escape_string($customer);
-    $st1 = Status::getId("task","delayed");
+    $st1 = Status::getId("task", "delayed");
     $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status = $st1 and p.customer_name= '$customer' and t.project=p.id";
     $sel = mysql_query($sql);
     $ret = array();
-    while($row = mysql_fetch_array($sel)){
+    while ($row = mysql_fetch_array($sel)) {
       $tk = $this->getTask($row[0]);
-      array_push($ret,$tk);
+      array_push($ret, $tk);
     }
     $groupedTasks = $this->groupTasksByProjectName($ret);
     return $groupedTasks;
   }
-  
 
-  function add($startDate, $endDate, $title, $text, $liste, $status, $project, $phase, $deliverableItem, $parent, $location, $valid = 1) {
+
+  function add($startDate, $endDate, $title, $text, $liste, $status, $project, $phase, $deliverableItem, $parent, $location, $valid = 1)
+  {
     $title = mysql_escape_string($title);
     $text = mysql_escape_string($text);
-    $status = $status == NULL ? Status::getId("task", "not_start") : (int) $status;
-    $project = (int) $project;
-    $deliverableItem = (int) $deliverableItem;
-    $parent = $parent == NULL ? 'NULL' : (int) $parent;
+    $status = $status == NULL ? Status::getId("task", "not_start") : (int)$status;
+    $project = (int)$project;
+    $deliverableItem = (int)$deliverableItem;
+    $parent = $parent == NULL ? 'NULL' : (int)$parent;
     $location = mysql_escape_string($location);
     $created_by = $_SESSION['userid'];
-    $valid = (int) $valid;
+    $valid = (int)$valid;
     $sql = "INSERT INTO `tasks`
               (
               `start_date`,
@@ -178,9 +188,10 @@ class task {
     }
   }
 
-  function addAttachment($taskId, $fileId) {
-    $taskId = (int) $taskId;
-    $fileId = (int) $fileId;
+  function addAttachment($taskId, $fileId)
+  {
+    $taskId = (int)$taskId;
+    $fileId = (int)$fileId;
     $sql = "INSERT INTO `task_attachement`
               (
               `taskId`,
@@ -191,26 +202,26 @@ class task {
               $fileId
               )";
     $ins = mysql_query($sql);
-    
+
     if ($ins) {
-      $insertId =  mysql_insert_id();
+      $insertId = mysql_insert_id();
       $sql0 = "select name from files where id = $fileId";
       $sel0 = mysql_query($sql0);
       $fileName = "";
-      while($row = mysql_fetch_row($sel0)){
+      while ($row = mysql_fetch_row($sel0)) {
         $fileName = $row[0];
       }
       $sql1 = "select status_update from tasks where id =  $taskId";
       $sel1 = mysql_query($sql1);
       while ($row = mysql_fetch_row($sel1)) {
-       $updateStatus =  $row[0];
-       $dateFormat = CL_DATEFORMAT." H:i:s";
-       $today = date($dateFormat);
-       $updateStatus .="<br/> added new file ".$fileName."<br/>  --".$_SESSION['username']." ".$today;
-       $sql2 = "update tasks set status_update = '$updateStatus' where id = $taskId";
-       mysql_query($sql2);
+        $updateStatus = $row[0];
+        $dateFormat = CL_DATEFORMAT . " H:i:s";
+        $today = date($dateFormat);
+        $updateStatus .= "<br/> added new file " . $fileName . "<br/>  --" . $_SESSION['username'] . " " . $today;
+        $sql2 = "update tasks set status_update = '$updateStatus' where id = $taskId";
+        mysql_query($sql2);
       }
-      
+
       return $insertId;
     } else {
       return false;
@@ -228,15 +239,16 @@ class task {
    * @param int $assigned ID of the user who has to complete the task
    * @return bool
    */
-  function edit($id, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location) {
+  function edit($id, $start, $end, $title, $text, $taskStatus, $statusUpdate, $parentTask, $location)
+  {
     $end = mysql_real_escape_string($end);
     $title = mysql_real_escape_string($title);
     $text = mysql_real_escape_string($text);
     $statusUpdate = mysql_real_escape_string($statusUpdate);
-    $id = (int) $id;
-    $liste = (int) $liste;
-    $taskStatus = (int) $taskStatus;
-    $parentTask = (int) $parentTask;
+    $id = (int)$id;
+    $liste = (int)$liste;
+    $taskStatus = (int)$taskStatus;
+    $parentTask = (int)$parentTask;
     $location = mysql_real_escape_string($location);
 
     //$end = strtotime($end);
@@ -255,16 +267,17 @@ class task {
     }
   }
 
-  function getMyRequestedTasks(){
+  function getMyRequestedTasks()
+  {
     $userId = $_SESSION['userid'];
-    $st1 = Status::getId("task","closed");
-    $st2 = Status::getId("task","completed");
+    $st1 = Status::getId("task", "closed");
+    $st2 = Status::getId("task", "completed");
     $sql = "select ID from tasks where created_by = $userId and status not in ($st1,$st2) and valid=1";
     $sel = mysql_query($sql);
     $ret = array();
-    while ($tk = mysql_fetch_array($sel)){
+    while ($tk = mysql_fetch_array($sel)) {
       $task = $this->getTask($tk["ID"]);
-      array_push($ret,$task);
+      array_push($ret, $task);
     }
     return $ret;
   }
@@ -276,7 +289,8 @@ class task {
    * @param int $id Task ID
    * @return bool
    */
-  function del($id) {
+  function del($id)
+  {
 
     return $this->close($id);
     /*
@@ -291,40 +305,46 @@ class task {
     }*/
   }
 
-  function delTasksByDeliverableItemId($id) {
-    $id = (int) $id;
+  function delTasksByDeliverableItemId($id)
+  {
+    $id = (int)$id;
     $del = mysql_query("update `tasks` set `valid` = 0 where `deliverable_item`=$id");
     return $del;
   }
 
-  function delTasksByProjectId($id) {
-    $id = (int) $id;
+  function delTasksByProjectId($id)
+  {
+    $id = (int)$id;
     $del = mysql_query("update `tasks` set `valid` = 0 where `project`=$id");
     return $del;
   }
 
-  function delTasksByPhaseId($id) {
-    $id = (int) $id;
+  function delTasksByPhaseId($id)
+  {
+    $id = (int)$id;
     $del = mysql_query("update `tasks` set `valid` = 0 where `phase`=$id");
     return $del;
   }
 
-  function closeTasksByDeliverableItemId($id) {
-    $id = (int) $id;
+  function closeTasksByDeliverableItemId($id)
+  {
+    $id = (int)$id;
     $status = Status::getId("task", "closed");
     $del = mysql_query("update `tasks` set `status` = $status where `deliverable_item`=$id");
     return $del;
   }
 
-  function closeTasksByPhaseId($id) {
-    $id = (int) $id;
+  function closeTasksByPhaseId($id)
+  {
+    $id = (int)$id;
     $status = Status::getId("task", "closed");
     $del = mysql_query("update `tasks` set `status` = $status where `phase`=$id");
     return $del;
   }
 
-  function closeTasksByProjectId($id) {
-    $id = (int) $id;
+  function closeTasksByProjectId($id)
+  {
+    $id = (int)$id;
     $status = Status::getId("task", "closed");
     $del = mysql_query("update `tasks` set `status` = $status where `project`=$id");
     return $del;
@@ -336,8 +356,9 @@ class task {
    * @param int $id Task ID
    * @return bool
    */
-  function open($id) {
-    $id = (int) $id;
+  function open($id)
+  {
+    $id = (int)$id;
 
     $upd = mysql_query("UPDATE tasks SET status = 1 WHERE ID = $id");
     if ($upd) {
@@ -355,8 +376,9 @@ class task {
    * @param int $id Task ID
    * @return bool
    */
-  function close($id) {
-    $id = (int) $id;
+  function close($id)
+  {
+    $id = (int)$id;
 
     $upd = mysql_query("UPDATE tasks SET status = 0 WHERE ID = $id");
 
@@ -383,9 +405,10 @@ class task {
   }
 
 
-  function addDistribution($task,$userId){
-    $task = (int) $task;
-    $userId = (int) $userId;
+  function addDistribution($task, $userId)
+  {
+    $task = (int)$task;
+    $userId = (int)$userId;
     $sql = "
             INSERT INTO `task_distribution`
             (
@@ -398,9 +421,9 @@ class task {
             )";
 
     $upd = mysql_query($sql);
-    if($upd){
+    if ($upd) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -412,9 +435,10 @@ class task {
    * @param int $id User ID
    * @return bool
    */
-  function assign($task, $id) {
-    $task = (int) $task;
-    $id = (int) $id;
+  function assign($task, $id)
+  {
+    $task = (int)$task;
+    $id = (int)$id;
 
     $upd = mysql_query("INSERT INTO tasks_assigned (user,task) VALUES ($id,$task)");
     if ($upd) {
@@ -431,9 +455,10 @@ class task {
    * @param int $id User ID
    * @return bool
    */
-  function deassign($task, $id) {
-    $task = (int) $task;
-    $id = (int) $id;
+  function deassign($task, $id)
+  {
+    $task = (int)$task;
+    $id = (int)$id;
 
     $upd = mysql_query("DELETE FROM tasks_assigned WHERE user = $id AND task = $task");
     if ($upd) {
@@ -449,8 +474,9 @@ class task {
    * @param int $id Task ID
    * @return array $task Task details
    */
-  function getTask($id) {
-    $id = (int) $id;
+  function getTask($id)
+  {
+    $id = (int)$id;
 
     $sel = mysql_query("SELECT * FROM tasks WHERE ID = $id");
     $task = mysql_fetch_array($sel, MYSQL_ASSOC);
@@ -500,16 +526,16 @@ class task {
       $query4 = mysql_query($sql4);
       $task["distribution"] = array();
       while ($ccUser = mysql_fetch_row($query4)) {
-        array_push($task["distribution"],$ccUser[0]);
+        array_push($task["distribution"], $ccUser[0]);
       }
-      
+
       $sql2 = "select fileId from task_attachement where taskId = $id;";
       $sel2 = mysql_query($sql2);
       $attachments = array();
       while ($fId = mysql_fetch_row($sel2)) {
         $sql3 = "select * from files where id = $fId[0];";
         $sel3 = mysql_query($sql3);
-        while($file = mysql_fetch_array($sel3)){
+        while ($file = mysql_fetch_array($sel3)) {
           array_push($attachments, $file);
         }
       }
@@ -527,48 +553,51 @@ class task {
       return false;
     }
   }
-  
-  
-  function checkStatus($tk){
+
+
+  function checkStatus($tk)
+  {
     $startDate = strtotime($tk['start_date']);
     $endDate = strtotime($tk['end_date']);
     $now = strtotime(date(CL_DATEFORMAT));
-    $stNotStart = Status::getId("task","not_start");
-    $stInProgress = Status::getId("task","in_progress");
-    $stClosed = Status::getId("task","closed");
-    $stCompleted = Status::getId("task","completed");
+    $stNotStart = Status::getId("task", "not_start");
+    $stInProgress = Status::getId("task", "in_progress");
+    $stClosed = Status::getId("task", "closed");
+    $stCompleted = Status::getId("task", "completed");
     $st = $tk['status'];
-    if($st == $stCompleted || $st ==$stClosed){
+    if ($st == $stCompleted || $st == $stClosed) {
       return $tk;
     }
-    if($now >= $startDate && $now <=$endDate && $st == $stNotStart){
-      $this->updateStatus($tk['ID'],$stInProgress);
+    if ($now >= $startDate && $now <= $endDate && $st == $stNotStart) {
+      $this->updateStatus($tk['ID'], $stInProgress);
       $tk['status'] = $stInProgress;
       return $tk;
     }
-    if($now > $endDate && $st != $stCompleted && $st !=$stClosed){
-      $this->updateStatus($tk['ID'],$stInProgress);
+    if ($now > $endDate && $st != $stCompleted && $st != $stClosed) {
+      $this->updateStatus($tk['ID'], $stInProgress);
       $tk['status'] = $stInProgress;
-      $tk['delay'] =true;
+      $tk['delay'] = true;
     }
-    return $deliverItem;
+    return $tk;
   }
 
-  function updateStatus($id,$status){
+  function updateStatus($id, $status)
+  {
     $sql = "update tasks set status =$status where ID=$id";
     $upd = mysql_query($sql);
     return $upd;
   }
-  
+
   /**
    * Return all open tasks of a project
    *
    * @param int $project Project ID
    * @return array $lists Tasks
    */
-  function getProjectTasks($project, $valid = 1) {
-    $project = (int) $project;
-    $valid = (int) $valid;
+  function getProjectTasks($project, $valid = 1)
+  {
+    $project = (int)$project;
+    $valid = (int)$valid;
 
     $lists = array();
     if ($valid !== false) {
@@ -595,9 +624,10 @@ class task {
    * @param int $limit Number of tasks to return
    * @return array $lists Tasks
    */
-  function getMyProjectTasks($project, $limit = 10, $userId = -1) {
-    $project = (int) $project;
-    $limit = (int) $limit;
+  function getMyProjectTasks($project, $limit = 10, $userId = -1)
+  {
+    $project = (int)$project;
+    $limit = (int)$limit;
     $user = $_SESSION['userid'];
     if ($userId != -1) {
       $user = $userId;
@@ -624,9 +654,60 @@ class task {
     }
   }
 
-  function getTodayTasksByUserAndProject($m, $y, $d, $project, $user, $limit = 100) {
-    $project = (int) $project;
-    $user = (int) $user;
+
+  function Query($sql)
+  {
+    $sel = mysql_query($sql);
+    $ret = array();
+    while ($row = mysql_fetch_array($sel)) {
+      array_push($ret, $row);
+    }
+    return $ret;
+  }
+
+  function getLastWeekNewTasks($user,$startDate)
+  {
+    $sql = "SELECT t.* FROM tasks t, tasks_assigned ta WHERE t.id = ta.task and ta.user= $user  and t.created_date > '$startDate'";
+    return $this->Query($sql);
+  }
+
+  function getLastWeekOpenTasks($user,$startDate)
+  {
+    $stOpen = Status::getId("task","in_progress");
+    $sql = "SELECT t.* FROM tasks t, tasks_assigned ta WHERE t.id = ta.task and ta.user= $user AND t.status = $stOpen ";
+    return $this->Query($sql);
+  }
+
+  function getLastWeekClosedTasks($user,$startDate){
+    $stComplete = Status::getId("task","completed");
+    $stClosed = Status::getId("task","closed");
+    $sql ="SELECT t.* FROM tasks t, tasks_assigned ta WHERE t.id = ta.task and ta.user= $user  and t.end_date > '$startDate' and t.status in ($stClosed,$stComplete)";
+    return $this->Query($sql);
+  }
+
+  function getLastWeekDelayTasks($user,$startDate){
+    $stDelayed = Status::getId("task","delayed");
+    $sql ="SELECT t.* FROM tasks t, tasks_assigned ta WHERE t.id = ta.task and ta.user= $user AND t.status = $stDelayed ";
+    return $this->Query($sql);
+  }
+
+  function getTasksWeeklyByUserId($user, $startDate)
+  {
+    $user = (int)$user;
+    $st1 = Status::getId("task", "completed");
+    $st2 = Status::getId("task", "closed");
+    $sql = "SELECT t.* FROM tasks t, tasks_assigned ta WHERE t.id = ta.task and ta.user= $user AND t.status not in ($st1,$st2) ORDER BY t.end_date ASC";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while ($row = mysql_fetch_array($sel)) {
+      array_push($ret, $row);
+    }
+  }
+
+  function getTodayTasksByUserAndProject($m, $y, $d, $project, $user, $limit = 100)
+  {
+    $project = (int)$project;
+    $user = (int)$user;
     $st1 = Status::getId("task", "completed");
     $st2 = Status::getId("task", "closed");
     $dt = $y . "-" . $m . "-" . $d;
@@ -647,10 +728,11 @@ class task {
    * @param int $user User ID (0 means the user, to whom the session belongs)
    * @return array $lists Tasks
    */
-  function getAllMyProjectTasks($project, $limit = 10, $user = 0) {
-    $project = (int) $project;
-    $limit = (int) $limit;
-    $user = (int) $user;
+  function getAllMyProjectTasks($project, $limit = 10, $user = 0)
+  {
+    $project = (int)$project;
+    $limit = (int)$limit;
+    $user = (int)$user;
 
     if ($user < 1) {
       $user = $_SESSION['userid'];
@@ -667,12 +749,12 @@ class task {
       array_push($lists, $task);
     }
 
-    if($_SESSION['userRole'] >= 8 ){
+    if ($_SESSION['userRole'] >= 8) {
       $st1 = Status::getId("task", "not_start");
       $st2 = Status::getId("task", "in_progress");
       $sql3 = "select ts.id from tasks ts, task_distribution td where ts.project = $project and ts.id = td.task_id and td.user_id = $user and ts.status in ($st1,$st2)";
       $sel = mysql_query($sql3);
-      while($row = mysql_fetch_array($sel)){
+      while ($row = mysql_fetch_array($sel)) {
         $task = $this->getTask($row['id']);
         $task['editable'] = 'false';
         array_push($lists, $task);
@@ -686,8 +768,9 @@ class task {
     }
   }
 
-  function getTasksByDeliverableId($id) {
-    $id = (int) $id;
+  function getTasksByDeliverableId($id)
+  {
+    $id = (int)$id;
     $sql = "select * from tasks where deliverable_item = $id";
     $sel = mysql_query($sql);
     $ret = array();
@@ -726,9 +809,10 @@ class task {
    * @param int $limit Number of tasks to return
    * @return array $lists Tasks
    */
-  function getMyLateProjectTasks($project, $limit = 10) {
-    $project = (int) $project;
-    $limit = (int) $limit;
+  function getMyLateProjectTasks($project, $limit = 10)
+  {
+    $project = (int)$project;
+    $limit = (int)$limit;
 
     $user = $_SESSION["userid"];
     $lists = array();
@@ -755,9 +839,10 @@ class task {
    * @param int $limit Number of tasks to return
    * @return array $lists Tasks
    */
-  function getMyTodayProjectTasks($project, $limit = 10) {
-    $project = (int) $project;
-    $limit = (int) $limit;
+  function getMyTodayProjectTasks($project, $limit = 10)
+  {
+    $project = (int)$project;
+    $limit = (int)$limit;
 
     $user = $_SESSION["userid"];
     $tod = date("d.m.Y");
@@ -785,9 +870,10 @@ class task {
    * @param int $limit Number of tasks to return
    * @return array $lists Tasks
    */
-  function getMyDoneProjectTasks($project, $limit = 5) {
-    $project = (int) $project;
-    $limit = (int) $limit;
+  function getMyDoneProjectTasks($project, $limit = 5)
+  {
+    $project = (int)$project;
+    $limit = (int)$limit;
 
     $user = $_SESSION["userid"];
     $lists = array();
@@ -818,9 +904,10 @@ class task {
    * @param int $project Project ID (Default: 0 = all projects)
    * @return array $timeline Tasks
    */
-  function getTodayTasks($m, $y, $d, $project = 0, $userId = -1) {
-    $m = (int) $m;
-    $y = (int) $y;
+  function getTodayTasks($m, $y, $d, $project = 0, $userId = -1)
+  {
+    $m = (int)$m;
+    $y = (int)$y;
 
     if ($m > 9) {
       $startdate = date($d . "." . $m . "." . $y);
@@ -829,7 +916,7 @@ class task {
     }
     $starttime = strtotime($startdate);
 
-    $user = (int) $_SESSION["userid"];
+    $user = (int)$_SESSION["userid"];
     if ($userId != -1) {
       $user = $userId;
     }
@@ -854,12 +941,13 @@ class task {
     }
   }
 
-  function getTaskCCList($taskId){
+  function getTaskCCList($taskId)
+  {
     $arrCC = array();
     $sql = "select u.email as email from user u,task_distribution td where td.user_id = u.ID and td.task_id = $taskId";
     $query = mysql_query($sql);
     while ($cc = mysql_fetch_array($query)) {
-      array_push($arrCC,$cc[0]);
+      array_push($arrCC, $cc[0]);
     }
     return $arrCC;
 
@@ -871,8 +959,9 @@ class task {
    * @param int $id Task ID
    * @return array $user ID of the user who has to complete the task
    */
-  function getUser($id) {
-    $id = (int) $id;
+  function getUser($id)
+  {
+    $id = (int)$id;
 
     $sql = mysql_query("SELECT user FROM tasks_assigned WHERE task = $id");
     $user = mysql_fetch_row($sql);
@@ -895,8 +984,9 @@ class task {
    * @param int $id Task ID
    * @return array $user ID of the users who has to complete the task
    */
-  function getUsers($id) {
-    $id = (int) $id;
+  function getUsers($id)
+  {
+    $id = (int)$id;
 
     $sql = mysql_query("SELECT user FROM tasks_assigned WHERE task = $id");
     if (mysql_num_rows($sql) > 0) {
@@ -924,8 +1014,9 @@ class task {
    * @param int $user User ID
    * @return bool
    */
-  function getIcal($user) {
-    $user = (int) $user;
+  function getIcal($user)
+  {
+    $user = (int)$user;
 
     $username = $_SESSION["username"];
     $project = new project();
@@ -994,7 +1085,8 @@ class task {
    * @param array $task Task ID
    * @return array $details Name of associated project and tasklist
    */
-  private function getTaskDetails(array $task) {
+  private function getTaskDetails(array $task)
+  {
     $psel = mysql_query("SELECT name FROM projekte WHERE ID = $task[project]");
     $pname = mysql_fetch_row($psel);
     $pname = stripslashes($pname[0]);
@@ -1020,7 +1112,8 @@ class task {
    * @param string $end Timestamp of the date the task is due
    * @return int $days Days left
    */
-  private function getDaysLeft($end) {
+  private function getDaysLeft($end)
+  {
     $tod = date("Y-m-d");
     $now = strtotime($tod);
     $endDate = strtotime($end);
@@ -1029,15 +1122,16 @@ class task {
     return $days;
   }
 
-  function getTasksByProjectId($pId){
-    $pId = (int) $pId;
+  function getTasksByProjectId($pId)
+  {
+    $pId = (int)$pId;
     $st1 = Status::getId("task", "closed");
     $st2 = Status::getId("task", "completed");
     $sql = "select * from tasks where project = $pId and status not in($st1,$st2) ";
     $sel = mysql_query($sql);
     $ret = array();
-    while($task = mysql_fetch_array($sel)){
-      array_push($ret,$task);
+    while ($task = mysql_fetch_array($sel)) {
+      array_push($ret, $task);
     }
     return $ret;
   }
@@ -1048,8 +1142,9 @@ class task {
    * @param int $id Task ID
    * @return array $nameproject Name and project
    */
-  private function getNameProject($id) {
-    $id = (int) $id;
+  private function getNameProject($id)
+  {
+    $id = (int)$id;
 
     $nam = mysql_query("SELECT text,liste,title FROM tasks WHERE ID = $id");
     $nam = mysql_fetch_row($nam);
