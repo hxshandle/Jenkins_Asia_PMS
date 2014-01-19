@@ -17,14 +17,14 @@ $report = new TaskWeeklyReport();
 $reports = $report->getWeeklyReport();
 $themail = new emailer($settings);
 foreach ($reports as $p) {
-  echo "Send mail to :".$p["email"];
+  //echo "Send mail to :".$p["email"];
   echo "<br/>";
   echo "Subject:".$p["subject"];
   echo "<br/>";
   echo $p["mailContent"];
   echo "<hr/>";
   //$mailSend = $themail->send_mail($p["email"], $p["subject"],$p["mailContent"]);
-  echo "mail sent: ".$mailSend;
+  //echo "mail sent: ".$mailSend;
 }
 }
 
