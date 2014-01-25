@@ -43,8 +43,8 @@ class Phase {
   }
   
   function add($name,$desc,$project,$status,$valid=1,$parentPhase=-1,$childPhase=-1){
-    $name = mysql_escape_string($name);
-    $desc = mysql_escape_string($desc);
+    $name = mysql_real_escape_string($name);
+    $desc = mysql_real_escape_string($desc);
     $project = (int) $project;
     $status = (int) $status;
     $parentPhase= (int) $parentPhase;
@@ -77,7 +77,7 @@ class Phase {
   
   function update($id,$desc,$status,$valid,$parentPhase=-1,$childPhase=-1){
     $id = (int) $id;
-    $desc = mysql_escape_string($desc);
+    $desc = mysql_real_escape_string($desc);
     $parentPhase = (int) $parentPhase;
     $childPhase = (int) $childPhase;
     $sql = "UPDATE `phase`
