@@ -23,7 +23,7 @@ foreach ($reports as $p) {
   echo "<br/>";
   echo $p["mailContent"];
   echo "<hr/>";
-  //$mailSend = $themail->send_mail($p["email"], $p["subject"],$p["mailContent"]);
+  $mailSend = $themail->send_mail($p["email"], $p["subject"],$p["mailContent"]);
   //echo "mail sent: ".$mailSend;
 }
 }
