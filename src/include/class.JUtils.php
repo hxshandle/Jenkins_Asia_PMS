@@ -1,4 +1,5 @@
 <?php
+
 class JUtils
 {
 
@@ -12,6 +13,43 @@ class JUtils
     if ($deliverLastEndDate > $proRealEndDate) {
       $project->updateRealEndDate($projectId, $strLastEndDate);
     }
+  }
+
+  function Query($sql)
+  {
+    $sel = mysql_query($sql);
+    $ret = array();
+    while ($row = mysql_fetch_array($sel)) {
+      array_push($ret, $row);
+    }
+    return $ret;
+  }
+
+  function updateDeliverItemStatus($deliverId)
+  {
+    $deliverId = (int) $deliverId;
+    $deliverItem = new DeliverableItem();
+    $stNotStart = Status::getId("task","not_start");
+    $stInProgress = Status::getId("task","in_progress");
+    $stDelayed = Status::getId("task","delayed");
+    $sql = "select `status`,count(*) as `count` from tasks t where t.`deliverable_item` = $deliverId group by `status`";
+    $ret = $this->Query($sql);
+    $countArr = array();
+    $isCompleted = true;
+    foreach ($ret as $stCount) {
+      if(!$isCompleted){
+        break;
+      }
+      $st = $stCount["status"];
+      if($st == $stNotStart || $st == $stInProgress || $st == $stDelayed){
+        $isCompleted = false;
+      }
+    }
+    if($isCompleted){
+      $stDeliverCompleted = Status::getId("deliverable","closed");
+      $deliverItem->updateStatus($deliverId,$stDeliverCompleted);
+    }
+    return $isCompleted;
   }
 
   function updateDeliverItemEndDate($deliverId, $strLastEndDate)
@@ -114,7 +152,7 @@ class JUtils
     return $msg;
   }
 
-  function getModifiedTaskMailMsg($projectName,$mailTo, $operator, $link, $title, $text, $statusUpdate)
+  function getModifiedTaskMailMsg($projectName, $mailTo, $operator, $link, $title, $text, $statusUpdate)
   {
     $msg = "";
     $msg .= "Dear " . $mailTo . ",<br/><br/>";
@@ -429,17 +467,17 @@ class JUtils
     return $msg;
   }
 
-  function sendDocumentMail($documentId, $notifyUserIds,$settings)
+  function sendDocumentMail($documentId, $notifyUserIds, $settings)
   {
     $document = new Document();
     $docInfo = $document->getDocumentInfo($documentId);
     foreach ($notifyUserIds as $userId) {
       $themail = new emailer($settings);
       $user = new user();
-      $userId = (int) $userId;
+      $userId = (int)$userId;
       $u = $user->getProfile($userId);
       $msg = $this->getDocumentMailMsg($docInfo, $u['name']);
-      $subject = "JANUS Document Upload Notification: ".$docInfo["document_no"]." ".$docInfo["name"];
+      $subject = "JANUS Document Upload Notification: " . $docInfo["document_no"] . " " . $docInfo["name"];
       $themail->send_mail($u["email"], $subject, $msg);
     }
   }
@@ -460,14 +498,14 @@ class JUtils
     return $arrRet;
   }
 
-  function convertProjectId($myprojects){
+  function convertProjectId($myprojects)
+  {
     $projectIds = array();
-    foreach($myprojects as $id){
-      array_push($projectIds,$id[0]);
+    foreach ($myprojects as $id) {
+      array_push($projectIds, $id[0]);
     }
     return $projectIds;
   }
-
 
 
   function getAllCustomers()
@@ -484,12 +522,13 @@ class JUtils
     return $ret;
   }
 
-  function getAllProjectLeaders(){
+  function getAllProjectLeaders()
+  {
     $ret = array();
     $sql = "select * from user where id in (select DISTINCT project_leader from projekte) order by `name`";
     $sel = mysql_query($sql);
-    while($user = mysql_fetch_array($sel)){
-      array_push($ret,$user);
+    while ($user = mysql_fetch_array($sel)) {
+      array_push($ret, $user);
     }
     return $ret;
   }

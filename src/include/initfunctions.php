@@ -37,7 +37,7 @@ function chkproject($user, $project , $checkRoleType=true)
 
 function getAvailableLanguages()
 {
-    $dir = scandir("./language/");
+    $dir = scandir(CL_ROOT."/language/");
     $languages = array();
 
     foreach($dir as $folder)
@@ -89,7 +89,7 @@ function countLanguageStrings($locale)
 
 function readLangfile($locale)
 {
-    $langfile = file("./language/$locale/lng.conf");
+    $langfile = file(CL_ROOT."/language/$locale/lng.conf");
     $langkeys = array();
     $langvalues = array();
     foreach($langfile as $lang)

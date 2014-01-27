@@ -133,12 +133,12 @@
 								<tr {if $lists[list].tasks[task].daysleft < 0} class="marker-late"{elseif $lists[list].tasks[task].daysleft == 0} class="marker-today"{/if}>
 									<td>
 										{if $userpermissions.tasks.close}
-											<a class="butn_check" href="javascript:closeElement('task_{$lists[list].tasks[task].ID}','managetask.php?action=close&amp;tid={$lists[list].tasks[task].ID}&amp;id={$project.ID}');" title="{#close#}"></a>
+											<a class="butn_check" style="height:20px;" href="javascript:closeElement('task_{$lists[list].tasks[task].ID}','managetask.php?action=close&amp;tid={$lists[list].tasks[task].ID}&amp;id={$project.ID}');" title="{#close#}"></a>
 										{/if}
 									</td>
 									<td>
-										<div class="toggle-in">
-										<span class="acc-toggle" onclick="javascript:accord_{$lists[list].ID}.activate($$('#acc_{$lists[list].ID} .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('acc_{$lists[list].ID}',this);"></span>
+										<div class="toggle-in" style="display:inline-block;height:auto;">
+										<span class="acc-toggle" style="height:20px;" onclick="javascript:accord_{$lists[list].ID}.activate($$('#acc_{$lists[list].ID} .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('acc_{$lists[list].ID}',this);"></span>
 											<a href="managetask.php?action=showtask&amp;tid={$lists[list].tasks[task].ID}&amp;id={$lists[list].tasks[task].project}" title="{$lists[list].tasks[task].title}">
 												{if $lists[list].tasks[task].title != ""}
 												{$lists[list].tasks[task].title|truncate:30:"...":true}

@@ -216,6 +216,7 @@ if ($action == "addform") {
   $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
   $tk = $task->getTask($tid);
   $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
+  $jUtils->updateDeliverItemStatus($tk["deliverable_item"]);
   $project = new project();
   $proj = $project->getProject($tk['project']);
 
