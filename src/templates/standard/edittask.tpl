@@ -117,8 +117,8 @@
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
             {if $editable != 'false'}
-						<button type="submit" onfocus="this.blur();">{#send#}</button>
-            <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$completeStatusId}')">{#completeTask#}</button>
+						<button type="submit" onfocus="this.blur();" onclick="setValue('save_and_send_mail','false')">{#send#}</button>
+            <button type="submit" onfocus="this.blur();" >{#saveAndSend#}</button>
               {if $task.created_by == $smarty.session.userid || $isProjectLeader || $smarty.session.userRole < 4}
               <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$completeStatusId}')">{#completeTask#}</button>
               <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$closeStatusId}')">{#closeTask#}</button>
