@@ -200,6 +200,9 @@ if ($action == "addform") {
   $completeStatus = Status::getId("task", "completed");
   $closeStatus = Status::getId("task", "closed");
   $taskStatusAction = getArrayVal($_POST,"task_status_action");
+  $isSendMail = getArrayVal($_POST,"save_and_send_mail");
+  $isSendMail = $isSendMail == "true";
+
   if(!empty($taskStatusAction)){
     $taskStatus = $taskStatusAction;
   }
@@ -239,7 +242,7 @@ if ($action == "addform") {
         $assignChk = $task->assign($tid, $assignee);
         $link = "http://janus.jenkins-asia.com/"."managetask.php?action=showtask&id=$id&tid=$tid";
         if ($assignChk) {
-          if ($settings["mailnotify"]) {
+          if ($settings["mailnotify"] && $isSendMail) {
             $usr = (object) new user();
             $user = $usr->getProfile($assignee);
             if (!empty($user["email"])) {

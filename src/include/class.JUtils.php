@@ -35,21 +35,21 @@ class JUtils
     $sql = "select `status`,count(*) as `count` from tasks t where t.`deliverable_item` = $deliverId group by `status`";
     $ret = $this->Query($sql);
     $countArr = array();
+    $toalCount = 0;
     $isCompleted = true;
     foreach ($ret as $stCount) {
-      if(!$isCompleted){
-        break;
-      }
+      $toalCount += $stCount["count"];
       $st = $stCount["status"];
       if($st == $stNotStart || $st == $stInProgress || $st == $stDelayed){
         $isCompleted = false;
       }
     }
-    if($isCompleted){
+
+    if($isCompleted && $toalCount > 0 ){
       $stDeliverCompleted = Status::getId("deliverable","closed");
       $deliverItem->updateStatus($deliverId,$stDeliverCompleted);
     }
-    return $isCompleted;
+    return $isCompleted && $toalCount > 0 ;
   }
 
   function updateDeliverItemEndDate($deliverId, $strLastEndDate)

@@ -11,11 +11,11 @@ class AuditTrail
 {
   function create($table_name, $ref_id, $action, $comments)
   {
-    $table_name = mysql_escape_string($table_name);
+    $table_name = mysql_real_escape_string($table_name);
     $ref_id = (int)$ref_id;
     $user_id = $_SESSION['userid'];
-    $action = mysql_escape_string($action);
-    $comments = mysql_escape_string($comments);
+    $action = mysql_real_escape_string($action);
+    $comments = mysql_real_escape_string($comments);
     $sql = "INSERT INTO `audit_trail` 
     (`table_name`,
       `ref_id`,
@@ -56,7 +56,7 @@ class AuditTrail
 
   function getAuditTrails($table_name, $ref_id)
   {
-    $table_name = mysql_escape_string($table_name);
+    $table_name = mysql_real_escape_string($table_name);
     $ref_id = (int)$ref_id;
     $sql = "select ID from audit_trail where table_name = '$table_name' and ref_id = $ref_id order by create_at DESC";
     $sel = mysql_query($sql);
