@@ -380,7 +380,9 @@ class task
   {
     $id = (int)$id;
 
-    $upd = mysql_query("UPDATE tasks SET status = 0 WHERE ID = $id");
+    $stClosed = Status::getId("task","closed");
+
+    $upd = mysql_query("UPDATE tasks SET status = $stClosed WHERE ID = $id");
 
     /*
       $sql = mysql_query("SELECT liste FROM tasks WHERE ID = $id");
