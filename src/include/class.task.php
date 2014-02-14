@@ -16,6 +16,7 @@ class task
 
   private $mylog;
   private $plugins;
+  private $jUtils;
 
   /**
    * Constructor
@@ -24,6 +25,7 @@ class task
   function __construct()
   {
     $this->mylog = new mylog;
+    $this->jUtils = new JUtils();
   }
 
 
@@ -546,6 +548,7 @@ class task
       $task["title"] = stripslashes($task["title"]);
       $task["text"] = stripslashes($task["text"]);
       $task["pname"] = stripslashes($pname);
+      $task["assigned_by"] = $this->jUtils->getUserName($task["created_by"]);
       $task["list"] = $list;
       $task["daysleft"] = $tage;
       $this->checkStatus($task);

@@ -16,7 +16,13 @@
 <span>&nbsp;/...</span>
 </div>
 
-<h1 class="second"><img src="./templates/standard/images/symbols/task.png" alt="" />{$task.title|truncate:40:"...":true}</h1>
+<div class="second">
+  <img style='float:left' src="./templates/standard/images/symbols/task.png" alt="" />
+  <div style="float:left;width:600px;font-size:21px;font-weight:bold;line-height:34px;">
+    {$task.title}
+  </div>
+</div>
+  <div style='clear:both;padding-bottom:15px;'></div>
 
 	<div class="statuswrapper">
 			<ul>
@@ -34,7 +40,7 @@
 
 
 				<li><a>{#user#}: {$task.user|truncate:25:"...":true}</a></li>
-
+        <li><a>{#createby#}: {$task.assigned_by|truncate:25:"...":true}</a></li>
 				<li><a>{#end#}: {$task.endstring}</a></li>
 			</ul>
 	</div>

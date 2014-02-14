@@ -25,6 +25,17 @@ class JUtils
     return $ret;
   }
 
+  function getUserName($id){
+    $id = (int)$id;
+    $sql = "select `name` from user where id = $id";
+    $ret = $this->Query($sql);
+    if( count($ret) > 0){
+      return $ret[0][0];
+    }else{
+      return "";
+    }
+  }
+
   function updateDeliverItemStatus($deliverId)
   {
     $deliverId = (int) $deliverId;

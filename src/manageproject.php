@@ -692,7 +692,7 @@ if ($action == "editform")
     $qualityList = $tabs->getQualityByProjectId($id);
     $template->assign("qualityList", $qualityList);
     
-    if(($_SESSION['userRole'] == 4 && $isProjectLeader) || $_SESSION['userRole'] == 1 || $_SESSION['userRole'] == 3){
+    if($isProjectLeader || $_SESSION['userRole'] == 1 || $_SESSION['userRole'] == 3){
         $sampleRequestTab = $tabs->getSampleRequestTab($id,null); 
     }else{
         $sampleRequestTab = $tabs->getSampleRequestTab($id,$_SESSION['userid']);
