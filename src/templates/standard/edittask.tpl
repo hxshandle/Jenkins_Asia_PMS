@@ -113,16 +113,19 @@
           </div>
             <input type="hidden" id = "task_status_action" name = "task_status_action" value=""/>
             <input type="hidden" id = "save_and_send_mail" name = "save_and_send_mail" value="true"/>
-
 					<div class="row-butn-bottom">
 						<label>&nbsp;</label>
             {if $editable != 'false'}
-						<button type="submit" onfocus="this.blur();" onclick="setValue('save_and_send_mail','false')">{#send#}</button>
-            <button type="submit" onfocus="this.blur();" >{#saveAndSend#}</button>
+              {if $smarty.session.userRole <=5}
+                <button type="submit" onfocus="this.blur();" onclick="setValue('save_and_send_mail','false')">{#send#}</button>
+                <button type="submit" onfocus="this.blur();" >{#saveAndSend#}</button>
+              {else}
+                <button type="submit" onfocus="this.blur();" >{#saveAndSend#}</button>
+              {/if}
               {if $task.created_by == $smarty.session.userid || $isProjectLeader || $smarty.session.userRole < 4}
               <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$completeStatusId}')">{#completeTask#}</button>
               <button type="submit" onfocus="this.blur();" onclick="setValue('task_status_action','{$closeStatusId}')">{#closeTask#}</button>
-            {/if}
+              {/if}
             {/if}
 						<button onclick="blindtoggle('form_edit');toggleClass('edit_butn','edit-active','edit');toggleClass('sm_task','smooth','nosmooth');return false;" onfocus="this.blur();" {if $showhtml != "no"} style="display:none;"{/if}>{#cancel#}</button>
 					</div>
