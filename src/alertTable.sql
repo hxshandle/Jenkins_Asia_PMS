@@ -422,3 +422,15 @@ CREATE INDEX idx_tasks_status ON `tasks`(status);
 
 ALTER TABLE .`tasks` ADD COLUMN `created_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER `valid`;
 
+-- for supplier module
+CREATE TABLE `supplier` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `Address` longtext,
+  `representative_name` varchar(255) DEFAULT NULL,
+  `representative_user_id` int(10) NOT NULL,
+  `phone_1` varchar(255) DEFAULT NULL,
+  `phone_2` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+

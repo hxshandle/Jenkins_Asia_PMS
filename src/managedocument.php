@@ -1,5 +1,10 @@
 <?php
 require("init.php");
+if (!isset($_SESSION["userid"])) {
+  $template->assign("loginerror", 0);
+  $template->display("login.tpl");
+  die();
+}
 $action = getArrayVal($_POST, "action");
 if (!$action) {
   $action = getArrayVal($_GET, "action");
