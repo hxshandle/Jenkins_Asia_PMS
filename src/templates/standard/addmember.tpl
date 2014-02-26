@@ -3,9 +3,13 @@
 </div>
 
 <div  style="margin:10px 0 0 0">
+  <ul>
    {section name = cur loop = $availableUsers}
-    <input type="checkbox" name="members" value="{$availableUsers[cur].ID}"/>{$availableUsers[cur].name}&nbsp;&nbsp;&nbsp;
+   <li style="margin:4px 0;">
+    <label style="cursor:pointer;"><input type="checkbox" name="members" value="{$availableUsers[cur].ID}"/>{$availableUsers[cur].name}</label>
+    </li>
     {/section}
+  </ul>
 </div>
 <div  style="margin:10px 0 0 0">
     <button id="dlgBtnSaveMembers" onclick="saveMember();">{#save#}</button>
