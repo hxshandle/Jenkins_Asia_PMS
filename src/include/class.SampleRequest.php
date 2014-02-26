@@ -82,9 +82,9 @@ class SampleRequest {
   function getSampleRequestByProjectId($projectId,$currentUserId){
     $projectId = (int) $projectId;
     if($currentUserId!=null){
-      $sql = "select t.ID,t.approved as approveId,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d  where t.project = $projectId  and `submit_by` = $currentUserId and t.sample = f.ID and d.ID = t.project and t.isretrieve = 1";  
+      $sql = "select t.ID,t.submitter_comments,t.approved as approveId,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d  where t.project = $projectId  and `submit_by` = $currentUserId and t.sample = f.ID and d.ID = t.project and t.isretrieve = 1";
     }else{
-      $sql = "select  t.ID,t.approved as approveId,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d where t.project = $projectId and t.sample = f.ID and d.ID = t.project and t.isretrieve = 1";  
+      $sql = "select  t.ID,t.submitter_comments,t.approved as approveId,(select e.value from `status` e where t.approved = e.ID) as approved,(select g.name from `user` g where g.ID= t.submit_by) as submit_by,t.submit_time,f.name as samplename,d.name as projectname from `sample_request` t,`sample` f,`projekte` d where t.project = $projectId and t.sample = f.ID and d.ID = t.project and t.isretrieve = 1";
     }
     $query = mysql_query($sql);
     $arr = array();

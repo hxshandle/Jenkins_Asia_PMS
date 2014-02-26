@@ -25,26 +25,10 @@
 
 {literal}
 <script type="text/javascript">
-/*
-  if(!window.__addSampleDlgContent){
-    window.__addSampleDlgContent=$("addSampleDlg").innerHTML;
-    $("addSampleDlg").remove(); 
-  }
-  */
   if(!window.__addSampleRequestDlgContent){
     window.__addSampleRequestDlgContent=$("addSampleRequestDlg").innerHTML;
     $("addSampleRequestDlg").remove(); 
   }
-  //altert("1"+$("addFinanceDlg").innerHTML);
-  /*
-  new Control.Modal("btnAddSample",{
-                                "contents":window.__addSampleDlgContent,
-                                fade:true,
-                                opacity: 0.8,
-                                containerClassName: 'dlgmodal',
-                                overlayClassName: 'tasksoverlay'
-                             });
-    */
     new Control.Modal("btnAddSampleRequest",{
                                 "contents":window.__addSampleRequestDlgContent,
                                 fade:true,

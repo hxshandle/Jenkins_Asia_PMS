@@ -422,6 +422,9 @@ CREATE INDEX idx_tasks_status ON `tasks`(status);
 
 ALTER TABLE .`tasks` ADD COLUMN `created_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER `valid`;
 
+-- for sample localtion
+ALTER TABLE `sample` ADD COLUMN `location` TEXT NULL  AFTER `name` ;
+
 -- for supplier module
 CREATE TABLE `supplier` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

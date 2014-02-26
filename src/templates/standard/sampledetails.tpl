@@ -20,8 +20,6 @@
       <td align  = "center">
        <div class="toggle-in">
           <span class="acc-toggle" onclick="javascript:accord_sample.activate($$('#sample-table .accordion_toggle')[{$smarty.section.sample.index}]);toggleAccordeon('accord_sample',this);">{$sampleTab[sample].name}</span>
-            
-
         </div>
       </td>
       <td  align  = "center">{$sampleTab[sample].total_count}</td>
@@ -42,7 +40,10 @@
             {else}
               <img src="/thumb.php?pic={$sampleTab[sample].datei}&width=480"></img>
             {/if}
-            
+            <h3>{#description#}</h3>
+            <p>{$sampleTab[sample].description}<p>
+            <h3>{#samplelocation#}</h3>
+            <p>{$sampleTab[sample].location}<p>
           </div>
         </td>
       </tr>
