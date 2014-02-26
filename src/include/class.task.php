@@ -107,7 +107,7 @@ class task
   function getTaskSummaryByCustomerName($customer)
   {
     $this->updateDeleyTasks();
-    $customer = mysql_escape_string($customer);
+    $customer = mysql_real_escape_string($customer);
     $st1 = Status::getId("task", "delayed");
     $st2 = Status::getId("task", "not_start");
     $st3 = Status::getId("task", "in_progress");

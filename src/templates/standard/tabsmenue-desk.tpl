@@ -30,7 +30,7 @@
         <li class="msgs"><a {if $tasksumarytab == "active" }class="active"{/if} href="managetasksummary.php?action=showtasks"><span>{#tasksummary#}</span></a></li>
     {/if}
     {* supplier module*}
-    {if $smarty.session.userRole < 4}
+    {if $smarty.session.userRole < -1}
       <li class="msgs"><a {if $suppliertab == "active" }class="active"{/if} href="managesupplier.php"><span>{#managesupplier#}</span></a></li>
     {/if}
 	</ul>
