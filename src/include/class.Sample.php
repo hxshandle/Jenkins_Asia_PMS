@@ -18,10 +18,11 @@ class Sample {
     $this->myLog = new mylog;
   }
   
-  function add($name,$status,$project,$totalCount,$availableCount,$tagId,$desc,$datei){
-    $name = mysql_escape_string($name);
-    $desc = mysql_escape_string($desc);
-    $tagId = mysql_escape_string($tagId);
+  function add($name,$location,$status,$project,$totalCount,$availableCount,$tagId,$desc,$datei){
+    $name = mysql_real_escape_string($name);
+    $desc = mysql_real_escape_string($desc);
+    $tagId = mysql_real_escape_string($tagId);
+    $location = mysql_real_escape_string($location);
     $status = (int) $status;
     $project = (int) $project;
     $totalCount = (int) $totalCount;
@@ -30,6 +31,7 @@ class Sample {
     $sql = "INSERT INTO `sample`
             (
             `name`,
+            `location`,
             `status`,
             `project`,
             `total_count`,
@@ -41,6 +43,7 @@ class Sample {
             VALUES
             (
             '$name',
+            '$location',
             $status,
             $project,
             $totalCount,

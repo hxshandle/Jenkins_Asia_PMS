@@ -14,11 +14,15 @@
         </div>
         <div class="dlgRow">
           <label >{#totalcount#}</label>
-          <input id="sampleTotalcount" name="sampleTotalcount" regexp="{literal}\d+{/literal}"></input>
+          <input id="sampleTotalcount" name="sampleTotalcount" regexp="{literal}\d+{/literal}"/>
         </div>
         <div class="dlgRow">
           <label >{#availablecount#}</label>
-          <input id="sampleAvailablecount" name="sampleAvailablecount" regexp="{literal}\d+{/literal}"></input>
+          <input id="sampleAvailablecount" name="sampleAvailablecount" regexp="{literal}\d+{/literal}"/>
+        </div>
+        <div class="dlgRow">
+          <label >{#samplelocation#}</label>
+          <input id="sampleLocation" name="sampleLocation"/>
         </div>
         <div class="dlgRow">
           <label style='float:left'>{#mydocuments#}</label>

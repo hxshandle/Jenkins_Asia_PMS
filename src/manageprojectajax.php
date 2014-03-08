@@ -268,6 +268,7 @@ switch ($action) {
     $project = getArrayVal($_POST, "projectId");
     $newSampleName = getArrayVal($_POST, "sampleName");
     $newSampleTag = getArrayVal($_POST, "sampleTag");
+    $newSampleLocation = getArrayVal($_POST, "sampleLocation");
     $newSampleAvailablecount = getArrayVal($_POST, "sampleAvailablecount");
     $newSampleTotalcount = getArrayVal($_POST, "sampleTotalcount");
     $newSampleDescription = getArrayVal($_POST, "sampleDescription");
@@ -305,7 +306,7 @@ switch ($action) {
         }
     }
     $sample = new Sample();
-    $sampleId = $sample->add($newSampleName, '', $project, $newSampleTotalcount, $newSampleAvailablecount, $newSampleTag, $newSampleDescription,$uploadPath);
+    $sampleId = $sample->add($newSampleName,$newSampleLocation, '', $project, $newSampleTotalcount, $newSampleAvailablecount, $newSampleTag, $newSampleDescription,$uploadPath);
     if ($sampleId) {
       $template->assign("callback", "reloadSample");
       $template->display("successclose.tpl");

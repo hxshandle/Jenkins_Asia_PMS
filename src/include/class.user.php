@@ -709,7 +709,7 @@ class user
     }
     
     function getAvailableUser($projectId){
-      $sql = "select ID,name from user where `id` not in(select user from projekte_assigned where projekt = $projectId)";
+      $sql = "select ID,name from user where `id` not in(select user from projekte_assigned where projekt = $projectId) order by `name`";
       $sel = mysql_query($sql);
       $users = array();
       while($availableUsers = mysql_fetch_array($sel)){

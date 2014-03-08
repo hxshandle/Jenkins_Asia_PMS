@@ -1,5 +1,5 @@
 {config_load file=lng.conf section = "strings" scope="global" }
-<table style="width: 100%" cellspadding=0 cellspacing=0>
+<table style="width: 100%" cellspadding=0 cellspacing=0 id="sample-request-table">
     <tr>
         <td colspan="6">
         {#mysample#}
@@ -20,7 +20,14 @@
       <tr class="color-b">
     {/if}
 
+      <!--
       <td align  = "center">{$sampleRequestTab[sampleRequest].samplename}</td>
+      -->
+      <td>
+       <div class="toggle-in">
+          <span class="acc-toggle" onclick="javascript:accord_sample_request.activate($$('#sample-request-table .accordion_toggle')[{$smarty.section.sampleRequest.index}]);toggleAccordeon('accord_sample_request',this);">{$sampleRequestTab[sampleRequest].samplename}</span>
+        </div>
+      </td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].projectname}</td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].submit_by}</td>
       <td  align  = "center">{$sampleRequestTab[sampleRequest].approved}</td>
@@ -33,7 +40,15 @@
         {if $sampleRequestTab[sampleRequest].approveId == 26 && $editBaseInfo}
           <a class="tool_del"  title="{#retrieve#}" href="javascript:void(0);"onclick="retrieveSample({$sampleRequestTab[sampleRequest].ID});"></a>
          {/if}
-
+      </td>
+    </tr>
+    <tr class="acc">
+      <td colspan="6">
+        <div class="accordion_toggle"></div>
+          <div class="accordion_content" style="padding-left:20px">
+            <h5>{#comment#}</h5>
+            <p>{$sampleRequestTab[sampleRequest].submitter_comments}</p>
+          </div>
       </td>
     </tr>
   {/section}
@@ -92,6 +107,7 @@
                              });
         dlgRejectRequest.open();     
   }    
+  var accord_sample_request = new accordion('sample-request-table');
   </script>
    
 {/literal}
