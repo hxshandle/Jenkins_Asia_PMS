@@ -369,6 +369,7 @@ if ($action == "addform") {
   }
   $tasklist = new tasklist();
   $lists = $tasklist->getProjectTasklists($id);
+  $groupedTasks = $tasklist->groupTasks($lists,$id);
   $oldlists = $tasklist->getProjectTasklists($id, 0);
 
   $myproject = new project();
@@ -397,7 +398,9 @@ if ($action == "addform") {
   $template->assign("taskStatus", $taskStatus);
 
   $template->assign("lists", $lists);
+  $template->assign("groupedTasks",$groupedTasks);
   $template->assign("oldlists", $oldlists);
+  $template->debugging = false;
   $template->display("projecttasks.tpl");
 } elseif ($action == "showtask") {
   if (!chkproject($userid, $id)) {
