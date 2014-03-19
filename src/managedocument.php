@@ -105,14 +105,17 @@ case "filterDocument":
   $isSelectedTable = getArrayVal($_POST,"isSelectedTable");
   $doc = new Document();
   $documents = $doc->filterDocuments($projectId,$orderId,$customerName);
+  $groupedDocs = $doc->groupDocumentsByDocNo($documents);
+
   if($projectId == "-1" && $orderId == "-1" && $customerName =="-1"){
     $documents = array();
   }
-  $template->assign("documents",$documents);
+  //$template->assign("documents",$documents);
+  $template->assign("groupedDocuments",$groupedDocs);
   if($isSelectedTable == 1){
     $template->display("selectDocumentsTable.tpl");
   }else{
-    $template->display("documentsTable.tpl");  
+    $template->display("groupedDocumentsTable.tpl");
   }
   
   break;

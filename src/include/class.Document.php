@@ -107,6 +107,24 @@ class Document{
     return $ret;
   }
 
+  function groupDocumentsByDocNo($documents){
+    $arr = array();
+    foreach ($documents as $doc) {
+      $arr[$doc['document_no']][$doc['revision']] = $doc;
+    }
+    ksort($arr,SORT_DESC);
+    $ret = array();
+    foreach ($arr as $docs) {
+      $docRow = array();
+      $docRow['latest'] = array_shift($docs);
+      $docRow['old'] = $docs;
+      array_push($ret,$docRow);
+    }
+
+
+    return $ret;
+  }
+
   function filterDocuments($projectId,$orderId,$customerName){
     $userRole = $_SESSION["userRole"];;
     $sql = "select id from document_info where visibility like '%$userRole%'";

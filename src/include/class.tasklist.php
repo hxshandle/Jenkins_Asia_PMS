@@ -209,6 +209,20 @@ class tasklist
             return false;
         }
     }
+    /*
+     * Grouped task list by phase and deliverable item
+     *
+     */
+    function groupTasks($tasklists){
+      if(empty($tasklists)){
+        return $tasklists;
+      }
+      foreach ($tasklists as $lst) {
+
+      }
+
+
+    }
 
     /*
      * Return all tasklists (including its open tasks) associated with a given project

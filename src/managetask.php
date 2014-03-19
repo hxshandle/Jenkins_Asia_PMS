@@ -369,6 +369,7 @@ if ($action == "addform") {
   }
   $tasklist = new tasklist();
   $lists = $tasklist->getProjectTasklists($id);
+  $groupedTasks = $tasklist->groupTasks($lists);
   $oldlists = $tasklist->getProjectTasklists($id, 0);
 
   $myproject = new project();
