@@ -15,6 +15,31 @@ class JUtils
     }
   }
 
+
+  function getProjectStructure($id){
+    $id = (int) $id;
+    $project = array();
+    $sql = "select * from projekte where id = $id";
+    $proj = $this->Query($sql);
+    $proj = $proj[0];
+    $_pId = (int) $proj['ID'];
+    $phaseSql = "select * from phase where project = $_pId";
+    $phases = $this->Query($phaseSql);
+    $phaseArr = array();
+    foreach ($phases as $phase) {
+      $_phaseId = (int) $phase['ID'];
+      $deliverableSql = "select * from deliverable_item where phase = $_phaseId";
+      $deliverableItems = $this->Query($deliverableSql);
+      $deliverableArr = array();
+      foreach ($deliverableItems as $deliverableItem) {
+        $deliverableArr[$deliverableItem["ID"]] = array("name" =>$deliverableItem['name']);
+      }
+      $phaseArr[$phase["ID"]] = array("name" => $phase["name"],"deliverableItems" =>$deliverableArr);
+    }
+    $project[$proj["ID"]] = array("name" => $proj["name"],"phases" =>$phaseArr );
+    return $project;
+  }
+
   function Query($sql)
   {
     $sel = mysql_query($sql);

@@ -3083,6 +3083,19 @@ ul.chk-list label{
 .inwrapper li a{
 	line-height:32px;
 }
+.tasklist-phase-name,.tasklist-deliverable-name{
+	font-size:18px;
+	padding: 10px 0 10px 16px;
+	background:#f5f5f5;
+}
+.tasklist-phase-name{
+	font-size:24px;
+	font-weight:bold;
+	padding-bottom:0px;
+}
+.tasklist-deliverable-name{
+	border-bottom:2px solid #888;
+}
 
 
 /*****************Jenkins Asia Special***********************/

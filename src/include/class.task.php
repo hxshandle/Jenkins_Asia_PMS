@@ -125,7 +125,7 @@ class task
   function getDelayTasksByCustomerName($customer)
   {
     $this->updateDeleyTasks();
-    $customer = mysql_escape_string($customer);
+    $customer = mysql_real_escape_string($customer);
     $st1 = Status::getId("task", "delayed");
     $sql = "select t.ID from tasks t,projekte p where t.end_date < NOW() and t.status = $st1 and p.customer_name= '$customer' and t.project=p.id";
     $sel = mysql_query($sql);
@@ -141,13 +141,13 @@ class task
 
   function add($startDate, $endDate, $title, $text, $liste, $status, $project, $phase, $deliverableItem, $parent, $location, $valid = 1)
   {
-    $title = mysql_escape_string($title);
-    $text = mysql_escape_string($text);
+    $title = mysql_real_escape_string($title);
+    $text = mysql_real_escape_string($text);
     $status = $status == NULL ? Status::getId("task", "not_start") : (int)$status;
     $project = (int)$project;
     $deliverableItem = (int)$deliverableItem;
     $parent = $parent == NULL ? 'NULL' : (int)$parent;
-    $location = mysql_escape_string($location);
+    $location = mysql_real_escape_string($location);
     $created_by = $_SESSION['userid'];
     $valid = (int)$valid;
     $sql = "INSERT INTO `tasks`

@@ -12,6 +12,7 @@
 class tasklist
 {
     public $mylog;
+    public  $jUtil;
 
     /*
     * Constructor
@@ -20,6 +21,7 @@ class tasklist
     function __construct()
     {
         $this->mylog = new mylog;
+        $this->jUtil = new JUtils();
     }
 
     /*
@@ -209,18 +211,40 @@ class tasklist
             return false;
         }
     }
-    /*
-     * Grouped task list by phase and deliverable item
-     *
-     */
-    function groupTasks($tasklists){
-      if(empty($tasklists)){
-        return $tasklists;
-      }
-      foreach ($tasklists as $lst) {
 
+    function _groupTask($tasks,$projectId,$projectStructure){
+      $groupedTasks = array();
+      $phases = $projectStructure[$projectId]["phases"];
+      foreach ($tasks as $task) {
+        $phaseName = $phases[$task["phase"]]["name"];
+        if(empty($groupedTasks[$phaseName])){
+          $groupedTasks[$phaseName] = array();
+        }
+        $deliverableName =  $phases[$task["phase"]]["deliverableItems"][$task["deliverable_item"]]["name"];
+        if(empty($groupedTasks[$phaseName][$deliverableName])){
+          $groupedTasks[$phaseName][$deliverableName] = array();
+        }
+        array_push($groupedTasks[$phaseName][$deliverableName],$task);
       }
+      return $groupedTasks;
+    }
 
+    function groupTasks($tasklsts,$projectId){
+      if(empty($tasklsts)){
+        return $tasklsts;
+      }
+      $ret = array();
+      $tasklst = $tasklsts[0];
+      $tasks = $tasklst["tasks"];
+      $oldTasks = $tasklst["oldtasks"];
+      $projectStructure = $this->jUtil->getProjectStructure($projectId);
+      $ret["ID"] = $tasklst['ID'];
+      $ret["start_date"] = $tasklst['start_date'];
+      $ret["end_date"] = $tasklst['end_date'];
+      $ret["tasksListName"] =$tasklst['name'];
+      $ret["tasks"] = $this->_groupTask($tasks,$projectId,$projectStructure);
+      $ret["oldTasks"] = $this->_groupTask($oldTasks,$projectId,$projectStructure);
+      return $ret;
 
     }
 
