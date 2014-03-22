@@ -3096,6 +3096,10 @@ ul.chk-list label{
 .tasklist-deliverable-name{
 	border-bottom:2px solid #888;
 }
+.doc-more-version{
+	font-style:italic;
+	color:#D14233;
+}
 
 
 /*****************Jenkins Asia Special***********************/

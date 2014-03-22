@@ -191,6 +191,25 @@ function onCriteriaOrderChange(el) {
     filterDocument(_buildFilterParam());
 }
 
+function nextElementSibling(el) {
+    if (el.nextElementSibling) return el.nextElementSibling;
+    do { el = el.nextSibling } while (el && el.nodeType !== 1);
+    return el;
+}
+
+function toggleOldVersion(target){
+    var isShow = target.getAttribute("data-show") == "true" ? true:false;
+    var displayTxt = !isShow ? "Hide old versions" : "Show old versions";
+    target.setAttribute("data-show",isShow? "false":"true");
+    target.innerHTML = displayTxt;
+    var toggleEl = nextElementSibling(target.parentNode);
+    if(isShow){
+        toggleEl.style.display = "none";
+    }else{
+        toggleEl.style.display = "block";
+    }
+}
+
 (function () {
 
     function disableUploadButton() {

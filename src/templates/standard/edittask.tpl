@@ -135,6 +135,38 @@
 					</form>
 
 			</div> {*block_in_wrapper end*}
+      {literal}
+      <script>
+        function deliverItemChanged(arg){
+          var theUrl = "manageprojectajax.php?action=getTasksBydeliverableId&deliverableId="+arg.value;
+          new Ajax.Request(theUrl, {
+          method: 'get',
+          onSuccess:function(payload) {
+            alert(payload.responseText);
+            var jsonObj = JSON.parse(payload.responseText);
+            //var jsonObj = eval("("+payload.responseText+")");
+            $("tips_startDate").innerHTML = " > "+jsonObj['startDate'];
+            $("tips_endDate").innerHTML = " < "+jsonObj['endDate'];
+            var tasks = jsonObj['tasks'];
+            var parentTaskEl = $("parent");
+            parentTaskEl.innerHTML = "";
+            parentTaskEl.value = "-1";
+            var optionEl = document.createElement("option");
+            optionEl.value = "-1";
+            optionEl.innerHTML = unescape(MSGS.chooseone);
+            parentTaskEl.appendChild(optionEl);
+            for (var i = 0; i < tasks.length; i++) {
+              var tk = tasks[i];
+              var optionEl = document.createElement("option");
+              optionEl.value = ""+tk['id'];
+              optionEl.innerHTML = ""+tk['name'];
+              parentTaskEl.appendChild(optionEl);
+            };
+          }
+          });
+        }
+      </script>
+      {/literal}
 
 
 {if $showhtml != "no"}

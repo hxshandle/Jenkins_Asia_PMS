@@ -11,9 +11,20 @@
     </td>
     {/if}
     <td style="height:auto">
-      <div class="toggle-in">
-        <span class="acc-toggle" style="height:20px;" onclick="javascript:accord_1.activate($$('#documentsTable .accordion_toggle')[{$idx}]);toggleAccordeon('documentTable',this);"></span>
+      <div class="">
         <a href="{$latest.download_url}" target="blank"><div>{$latest.name}</div></a>
+        {if $old|@count > 0}
+          <span style="display:block;text-align:right;padding-right:10px">
+          <a href="javascript:void(0)" class="doc-more-version" style="color:#D14233;" data-show="false" onclick="toggleOldVersion(this)">Show old versions</a>
+          </span>
+          <div id="old-version-docs-{$latest.document_no}" style="display:none">
+            <ul>
+            {foreach from=$old key=k item=doc name=oldDoc}
+              <li><a href="{$doc.download_url}">{$doc.document_no}-{$doc.revision}</a></li>
+            {/foreach}
+            </ul>
+          </div>
+        {/if}
       </div>
     </td>
     <td>{$latest.document_no}</td>

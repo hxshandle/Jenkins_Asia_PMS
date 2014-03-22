@@ -30,6 +30,6 @@
 </div>
 {literal}
   <script type = "text/javascript">
-    var accord_1 = new accordion('acc_1');
+    var accord_1 = new accordion('documentsTable');
   </script>
 {/literal}
