@@ -6,8 +6,8 @@
 {/if}
     {if $smarty.session.userRole == "1"}
     <td style="width:130px">
-      <a class="butn_link" href="#" onclick='deletelatestument({$latest.ID})'>{#delete#}</a>
-      <a class="butn_link" href="#" onclick='editlatestument({$latest.ID})'>{#edit#}</a>
+      <a class="butn_link" href="#" onclick='deleteDocument({$latest.ID})'>{#delete#}</a>
+      <a class="butn_link" href="#" onclick='editDocument({$latest.ID})'>{#edit#}</a>
     </td>
     {/if}
     <td style="height:auto">
@@ -20,7 +20,13 @@
           <div id="old-version-docs-{$latest.document_no}" style="display:none">
             <ul>
             {foreach from=$old key=k item=doc name=oldDoc}
-              <li><a href="{$doc.download_url}">{$doc.document_no}-{$doc.revision}</a></li>
+              <li>
+                {if $smarty.session.userRole == "1"}
+                  <a class="butn_link" href="#" onclick='deleteDocument({$doc.ID})'>{#delete#}</a>
+                  <a class="butn_link" href="#" onclick='editDocument({$doc.ID})'>{#edit#}</a>
+                {/if}
+                <a href="{$doc.download_url}">{$doc.document_no}-{$doc.revision}</a>
+              </li>
             {/foreach}
             </ul>
           </div>
