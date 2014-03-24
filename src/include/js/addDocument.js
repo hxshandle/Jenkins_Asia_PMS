@@ -65,6 +65,9 @@ function getProjectNotifyList(projectId) {
     });
 }
 function deleteDocument(id) {
+    if(!window.confirm("Are you sure to delete the document?")){
+      return false;
+    }
     var theUrl = "managedocument.php?action=deleteDocument&&id=" + id;
     new Ajax.Request(theUrl, {
         method: 'get',
