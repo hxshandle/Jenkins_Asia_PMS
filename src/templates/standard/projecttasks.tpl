@@ -65,6 +65,7 @@
     <span id="listopened" style="display:none;" class="info_in_green"><img
                 src="templates/standard/images/symbols/tasklist.png" alt=""/>{#tasklistwasopened#}</span>
 </div>
+<p id="mailErr" style="display:none">{if $mailErr=="true"}{#taskMailError#}{/if}</p>
 
 {literal}
     <script type="text/javascript">

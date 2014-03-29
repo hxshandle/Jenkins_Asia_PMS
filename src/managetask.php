@@ -109,7 +109,9 @@ if ($action == "addform") {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
-          $themail->send_mail($user["email"], $langfile["taskassignedsubject"],$msg);
+          if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"],$msg)){
+            $template->assign("mailErr",'true');
+          }
         }
       }
     }
@@ -254,9 +256,13 @@ if ($action == "addform") {
               }
               $msg = $jUtils->getModifiedTaskMailMsg($proj['name'],$user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
               if($hasCCed){
-                $themail->send_mail($user["email"], $mailSubject." | ".$title, $msg);
+                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title, $msg)){
+                  $template->assign("mailErr",'true');$template->assign("mailErr",'true');
+                }
               }else{
-                $themail->send_mail($user["email"], $mailSubject." | ".$title, $msg,$arrCC);
+                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title, $msg,$arrCC)){
+                  $template->assign("mailErr",'true');
+                }
                 $hasCCed = true;
               }
             }
@@ -344,7 +350,10 @@ if ($action == "addform") {
       if (!empty($user["email"])) {
         // send email
         $themail = new emailer($settings);
-        $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+        $mailSent = $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+        if(!$mailSent){
+          $template->assign("mailErr","true");
+        }
       }
     }
     $template->assign("assigntask", 1);

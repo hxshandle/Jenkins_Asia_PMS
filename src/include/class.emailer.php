@@ -13,10 +13,20 @@ class emailer
 {
     private $from;
     private $mailsettings;
+    private $delayMail;
 
     function __construct($settings)
     {
         $this->mailsettings = $settings;
+        $this->delayMail = new DelayMail();
+    }
+
+    function doDelayMail($to, $subject, $text,$arrCC=null){
+      $strCC = "";
+      if(!empty($arrCC)){
+        $strCC  = implode(",", $arrCC);
+      }
+      $this->delayMail->createDelayMail($to,$subject,$text,$strCC);
     }
 
 
@@ -71,6 +81,7 @@ class emailer
         else
         {
             error_log("send mail to ".$to." failed",0);
+            $this->doDelayMail($to, $subject, $text,$arrCC);
             return false;
         }
     }
