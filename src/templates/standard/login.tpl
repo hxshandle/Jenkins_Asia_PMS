@@ -9,6 +9,7 @@
 
 				<form id = "loginform" name = "loginform" method="post" action="manageuser.php?action=login" {literal} onsubmit="return validateCompleteForm(this,'input_error');"{/literal}>
 					<fieldset>
+					<input type="hidden" name="requestedUri" id="requestedUri" value="{$requestedUri}"/>
 
 					<div class="row">
 						<label for="username" class="username"></label>

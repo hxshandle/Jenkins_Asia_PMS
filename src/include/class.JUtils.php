@@ -162,6 +162,7 @@ class JUtils
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
     $msg .= "Thank you from JANUS.<br/>";
     $msg .= "Please do not reply to this mail.<br/>";
+    $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
 
@@ -178,13 +179,11 @@ class JUtils
     $msg .= "<b>Description</b>";
     $msg .= "<p style='padding-left:15px'>" . $text . "</p>";
     $msg .= "<hr/>";
-    $msg .= "<b>Status Update</b>";
-    $msg .= "<p style='padding-left:15px'>" . $statusUpdate . "</p>";
-    $msg .= "</div>";
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
     $msg .= "Thank you from JANUS.<br/>";
     $msg .= "Please do not reply to this mail.<br/>";
+    $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
 
@@ -211,6 +210,7 @@ class JUtils
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
     $msg .= "Thank you from JANUS.<br/>";
     $msg .= "Please do not reply to this mail.<br/>";
+    $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
 
@@ -223,6 +223,7 @@ class JUtils
     $msg .= "<a href=\"" . $link . "\">Go to Project</a><br/><br/>";
     $msg .= "Thank you from JANUS.<br/>";
     $msg .= "Please do not reply to this mail.<br/>";
+    $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
 
@@ -471,6 +472,7 @@ class JUtils
 
 
     $msg .= "</div>";
+    $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
 
@@ -500,6 +502,7 @@ class JUtils
     $msg .= "Document " . $doc["document_no"] . " Revision " . $doc["revision"] . ": " . $doc["name"] . " has been uploaded by " . $_SESSION["username"] . " on " . $now . ".";
     $msg .= "<br/>";
     $msg .= "Please click on the <a href='http://janus.jenkins-asia.com/" . $doc["download_url"] . "'/>here</a> to access the document. Thank you.";
+    $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
 

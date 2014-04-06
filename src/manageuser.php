@@ -128,6 +128,7 @@ elseif ($action == "login")
         {
             $loc = $url . "index.php?mode=login";
             header("Location: $loc");
+
         }
         else
         {

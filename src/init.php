@@ -29,7 +29,9 @@ $template->register_function('dispstatus','display_status');
 $languages = getAvailableLanguages();
 // get URL to collabtive
 $url = getMyUrl();
+$requestedUrl=$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $template->assign("url", $url);
+$template->assign("requestedUri", $requestedUrl);
 $template->assign("languages", $languages);
 $template->assign("myversion", "0.7");
 $template->assign("cl_config", CL_CONFIG);
