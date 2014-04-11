@@ -11,9 +11,9 @@
   <tbody>
     {foreach from=$tasks item=task name=foo}
       {if $smarty.foreach.foo.index % 2 == 0}
-        <tr class="color-b" id="task_{$task.ID}">
+        <tr class="color-b {if $task.daysleft < 0}marker-late{/if}" id="task_{$task.ID}">
       {else}
-        <tr class="color-a" id="task_{$task.ID}">
+        <tr class="color-a {if $task.daysleft < 0}marker-late{/if}" id="task_{$task.ID}">
       {/if}
         <td>
           {if $userpermissions.tasks.close}
