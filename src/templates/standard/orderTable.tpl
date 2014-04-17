@@ -44,7 +44,7 @@
       <tr class="color-b">
     {/if}
       <td align  = "center" style="cursor:pointer" onclick="">
-        <span class="acc-toggle" onclick="javascript:accord_order.activate($$('#documentsTable .accordion_toggle')[{$smarty.section.order.index}]);toggleAccordeon('accord_order',this);"><a onclick="javascript:showOrderSubInfo({$orderTab[order].ID});return false;">{$orderTab[order].name}</a></span>
+        <span class="acc-toggle" onclick="javascript:accord_order.activate($$('#documentsTable .accordion_toggle')[{$smarty.section.order.index}]);toggleAccordeon('accord_order',this);"><a onclick="javascript:showOrderSubInfo({$orderTab[order].ID});return false;">{$orderTab[order].name|default:'N/A'}</a></span>
       </td>
       <td  align  = "center">{$orderTab[order].quantity}</td>
       <td  align  = "center">{$orderTab[order].customerName}</td>

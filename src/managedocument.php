@@ -110,7 +110,7 @@ case "filterDocument":
   if($projectId == "-1" && $orderId == "-1" && $customerName =="-1"){
     $documents = array();
   }
-  //$template->assign("documents",$documents);
+  $template->assign("documents",$documents);
   $template->assign("groupedDocuments",$groupedDocs);
   if($isSelectedTable == 1){
     $template->display("selectDocumentsTable.tpl");
