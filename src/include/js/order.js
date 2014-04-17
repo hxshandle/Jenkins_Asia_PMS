@@ -25,6 +25,32 @@ function _buildOrderFilterParam(){
   return ret;
 }
 
+  function showOrderDlg(ctx){
+    var dlg = new Control.Modal("priceOrderDlg",{
+                                "contents":ctx,
+                                fade:true,
+                                opacity: 0.8,
+                                containerClassName: 'dlgmodal',
+                                overlayClassName: 'tasksoverlay'
+                             });
+   dlg.open();      
+  }  
+  
+  function priceOrderDlg(id){
+    var orderId = id;
+    var theUrl = "manageprojectajax.php?action=priceOrder&id="+orderId;
+    new Ajax.Request(theUrl, {
+      method: 'get',
+      onSuccess:function(payload) {
+        if (payload.responseText != ""){ 
+                     showOrderDlg(payload.responseText);
+                     }else{
+                         alert("faild");
+                        }
+                    }
+                    });  
+  }
+
 function refreshOrder(){
   filterOrder(_buildOrderFilterParam());  
 }

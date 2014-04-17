@@ -87,7 +87,7 @@
       <td  align  = "center">{$orderTab[order].status}</td>
       <td>
         {if $orderTab[order].statusId == 14 || $orderTab[order].statusId == 17 || $orderTab[order].statusId == 15}
-         {if $smarty.session.userRole == 1 || $smarty.session.userRole ==3}
+         {if $smarty.session.userRole == 1 || $smarty.session.userRole ==3 ||$smarty.session.userid = 91}
         <a class="tool_edit" title="{#price#}" href="javascript:void(0);" onclick="priceOrderDlg({$orderTab[order].ID});"></a>
         <a class="tool_edit" title="{#edit#}" href="javascript:void(0);" onclick="editOrderDlg({$orderTab[order].ID});"></a>
          {/if}

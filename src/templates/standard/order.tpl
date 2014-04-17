@@ -1,7 +1,7 @@
 {include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce"}
 {include file="tabsmenue-desk.tpl" ordertab = "active"}
 <script type = "text/javascript" src = "include/js/order.js" ></script>
-
+<div id = "priceOrderDlg"></div>
 
 <div id="content-left">
   <div id="content-left-in">
