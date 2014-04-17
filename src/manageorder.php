@@ -124,7 +124,7 @@ case "editOrder":
   $arrComplianceFiles = $jUtils->getUploadedFileIds($compliancefilesAttachement);
 
   $order = new Order();
-  $upd = $order->updateOrder($orderId, $orderTime, $orderDesc,
+  $upd = $order->updateOrder($orderId,$orderQuantity, $orderTime, $orderDesc,
                       $arrFiles, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
                       $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                       $paymentOneSchedule,$paymentOneStatus,$arrP1Files,$paymentTwoSchedule,

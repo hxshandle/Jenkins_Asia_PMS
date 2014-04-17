@@ -45,7 +45,7 @@ class Order {
   function addCompliance($orderId,$compliance){
     $orderId = (int) $orderId;
     foreach($compliance as $c){
-      $c = mysql_escape_string($c);
+      $c = mysql_real_escape_string($c);
       $sql = "INSERT INTO `order_compliance`
               (
               `orderId`,
@@ -105,12 +105,12 @@ class Order {
   function add($name,$project,$quantity,$desc,$endTime,$status,$customerPoNumber,$attachment1,$deliveryDateOne,$deliveryDateTwo,$valid=1){
     $project = (int) $project;
     $quantity = (int) $quantity;
-    $name = mysql_escape_string($name);
-    $desc = mysql_escape_string($desc);
-    $customerPoNumber = mysql_escape_string($customerPoNumber);
-    $attachment1 = mysql_escape_string($attachment1);
-    $deliveryDateOne = mysql_escape_string($deliveryDateOne);
-    $deliveryDateTwo = mysql_escape_string($deliveryDateTwo);
+    $name = mysql_real_escape_string($name);
+    $desc = mysql_real_escape_string($desc);
+    $customerPoNumber = mysql_real_escape_string($customerPoNumber);
+    $attachment1 = mysql_real_escape_string($attachment1);
+    $deliveryDateOne = mysql_real_escape_string($deliveryDateOne);
+    $deliveryDateTwo = mysql_real_escape_string($deliveryDateTwo);
     $sql = "INSERT INTO `order`
             (name,
             project,
@@ -174,7 +174,7 @@ class Order {
   
   function update($id,$desc,$endTime,$status,$valid){
     $id = (int) $id;
-    $desc = mysql_escape_string($desc);
+    $desc = mysql_real_escape_string($desc);
     $sql = "update `order` set desc='$desc',end_time='$endTime',status=$status,valid=$valid where ID = $id";
     $upd = mysql_query($sql);
     if($upd){
@@ -190,7 +190,7 @@ class Order {
       $status= Status::getId("order", "in_progress");
     }
     $id = (int) $id;
-    $desc = mysql_escape_string($desc);
+    $desc = mysql_real_escape_string($desc);
     $sql = "update `order` set inner_cost_currency='$innercostcurrency',inner_cost=$innercost,external_cost_currency='$externalcostcurrency',external_cost='$externalcost',published='$published',end_time='$endTime',status=$status where ID = $id";
     $upd = mysql_query($sql);
     if($upd){
@@ -334,7 +334,7 @@ class Order {
   }
 
 
-  function updateOrder($orderId, $orderTime, $orderDesc,
+  function updateOrder($orderId,$orderQuantity, $orderTime, $orderDesc,
                         $attachment1, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
                         $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                         $paymentOneSchedule,$paymentOneStatus,$paymentOneAttachment,$paymentTwoSchedule,
@@ -342,29 +342,30 @@ class Order {
                         $paymentThreeAttachment,$complianceAttachment,$finalTotalAmountReceived,$deliveryDateOne,$deliveryStatus1,
                         $deliveryDateTwo,$deliveryStatus2,$waiverDesc = "",$isFulfilled=-1){
     $id = (int) $orderId;
-    $desc = mysql_escape_string($orderDesc);
-    $jenkinsPoNumber = mysql_escape_string($jenkinsPoNumber);
-    $factory = mysql_escape_string($factory);
-    $terms = mysql_escape_string($terms);
-    $accountPayment = mysql_escape_string($accountPayment);
-    $customerModelNumber = mysql_escape_string($customerModelNumber);
-    $customerPartNumber = mysql_escape_string($customerPartNumber);
-    $jenkinsModelNumber = mysql_escape_string($jenkinsModelNumber);
-    $jenkinsPartNumber = mysql_escape_string($jenkinsPartNumber);
-    $paymentOneSchedule = mysql_escape_string($paymentOneSchedule);
+    $orderQuantity = (int) $orderQuantity;
+    $desc = mysql_real_escape_string($orderDesc);
+    $jenkinsPoNumber = mysql_real_escape_string($jenkinsPoNumber);
+    $factory = mysql_real_escape_string($factory);
+    $terms = mysql_real_escape_string($terms);
+    $accountPayment = mysql_real_escape_string($accountPayment);
+    $customerModelNumber = mysql_real_escape_string($customerModelNumber);
+    $customerPartNumber = mysql_real_escape_string($customerPartNumber);
+    $jenkinsModelNumber = mysql_real_escape_string($jenkinsModelNumber);
+    $jenkinsPartNumber = mysql_real_escape_string($jenkinsPartNumber);
+    $paymentOneSchedule = mysql_real_escape_string($paymentOneSchedule);
     $paymentOneStatus = (int)$paymentOneStatus;
-    $paymentTwoSchedule = mysql_escape_string($paymentTwoSchedule);
+    $paymentTwoSchedule = mysql_real_escape_string($paymentTwoSchedule);
     $paymentTwoStatus = (int)$paymentTwoStatus;
-    $paymentThreeSchedule = mysql_escape_string($paymentThreeSchedule);
+    $paymentThreeSchedule = mysql_real_escape_string($paymentThreeSchedule);
     $paymentThreeStatus = (int)$paymentThreeStatus;
-    $finalTotalAmountReceived = mysql_escape_string($finalTotalAmountReceived);
-    $deliveryDateOne = mysql_escape_string($deliveryDateOne);
-    $deliveryDateTwo = mysql_escape_string($deliveryDateTwo);
+    $finalTotalAmountReceived = mysql_real_escape_string($finalTotalAmountReceived);
+    $deliveryDateOne = mysql_real_escape_string($deliveryDateOne);
+    $deliveryDateTwo = mysql_real_escape_string($deliveryDateTwo);
     $deliveryStatusOne = (int)$deliveryStatus1;
     $deliveryStatusTwo = (int)$deliveryStatus2;
-    $waiverDesc = mysql_escape_string($waiverDesc);
+    $waiverDesc = mysql_real_escape_string($waiverDesc);
     $isFulfilled = (int) $isFulfilled;
-    $sql = "update `order` set `desc`='$desc',end_time='$orderTime',jenkins_po_number='$jenkinsPoNumber',
+    $sql = "update `order` set `quantity` = $orderQuantity,`desc`='$desc',end_time='$orderTime',jenkins_po_number='$jenkinsPoNumber',
             factory='$factory',terms='$terms',account_payment='$accountPayment',
             customer_model_number='$customerModelNumber',customer_part_number='$customerPartNumber',
             jenkins_model_number='$jenkinsModelNumber',jenkins_part_number='$jenkinsPartNumber',
@@ -580,7 +581,7 @@ class Order {
      }
      $projectId = (int) $projectId;
      $orderId = (int) $orderId;
-     $customer = mysql_escape_string($customer);
+     $customer = mysql_real_escape_string($customer);
      $sql = $this->getBaseSql();
     if($projectId != -1){
       $str = " and p.id = $projectId";
