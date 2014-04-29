@@ -53,6 +53,14 @@ class task
 
   }
 
+  function _group_by($array, $key) {
+    $return = array();
+    foreach($array as $val) {
+      $return[$val[$key]][] = $val;
+    }
+    return $return;
+  }
+
   function groupTasksByProjectName($tasks)
   {
     $groups = array();
@@ -65,7 +73,24 @@ class task
       array_push($groups[$pname]["tasks"], $task);
     }
     return $groups;
+  }
 
+  /**
+   * Project -> phase -> deliverable
+   */
+  function groupTasks($tasks){
+    $projectGroup = $this->_group_by($tasks,"pname");
+    $arrProject = array();
+    foreach ($projectGroup as $projectName=>$projectTasks) {
+      $phaseGroup=$this->_group_by($projectTasks,"phaseName");
+      $arrPhase = array();
+      foreach ($phaseGroup as $phaseName=>$phaseTasks) {
+        $deliverGroup = $this->_group_by($phaseTasks,"deliverableName");
+        $arrPhase[$phaseName]=$deliverGroup;
+      }
+      $arrProject[$projectName]=$arrPhase;
+    }
+    return $arrProject;
   }
 
 
@@ -83,7 +108,8 @@ class task
       $tk = $this->getTask($row[0]);
       array_push($ret, $tk);
     }
-    $groupedTasks = $this->groupTasksByProjectName($ret);
+    $groupedTasks = $this->groupTasks($ret);
+    //$groupedTasks = $this->groupTasksByProjectName($ret);
     return $groupedTasks;
   }
 
@@ -118,7 +144,8 @@ class task
       $tk = $this->getTask($row[0]);
       array_push($ret, $tk);
     }
-    $groupedTasks = $this->groupTasksByProjectName($ret);
+    $groupedTasks = $this->groupTasks($ret);
+    //$groupedTasks = $this->groupTasksByProjectName($ret);
     return $groupedTasks;
   }
 
@@ -496,6 +523,8 @@ class task
       $details = $this->getTaskDetails($task);
       $list = $details["list"];
       $pname = $details["pname"];
+      $phaseName = $details["phaseName"];
+      $deliverableName = $details["deliverableName"];
       // get remainig days until due date
       $tage = $this->getDaysLeft($task['end_date']);
 
@@ -548,6 +577,8 @@ class task
       $task["title"] = stripslashes($task["title"]);
       $task["text"] = stripslashes($task["text"]);
       $task["pname"] = stripslashes($pname);
+      $task["phaseName"] = stripslashes($phaseName);
+      $task["deliverableName"] = stripslashes($deliverableName);
       $task["assigned_by"] = $this->jUtils->getUserName($task["created_by"]);
       $task["list"] = $list;
       $task["daysleft"] = $tage;
@@ -1100,8 +1131,16 @@ class task
     $list = mysql_fetch_row($list);
     $list = stripslashes($list[0]);
 
+    $phase = mysql_query("SELECT name FROM phase WHERE ID = $task[phase]");
+    $phase = mysql_fetch_row($phase);
+    $phase = stripslashes($phase[0]);
+
+    $deliverable = mysql_query("SELECT name FROM deliverable_item WHERE ID = $task[deliverable_item]");
+    $deliverable = mysql_fetch_row($deliverable);
+    $deliverable = stripslashes($deliverable[0]);
+
     if (isset($list) or isset($pname)) {
-      $details = array("list" => $list, "pname" => $pname);
+      $details = array("list" => $list, "pname" => $pname,"phaseName"=>$phase,"deliverableName"=>$deliverable);
     }
 
     if (!empty($details)) {
