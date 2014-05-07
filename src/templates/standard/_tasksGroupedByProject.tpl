@@ -31,7 +31,7 @@
 					           <tr class ="color-b">
 					         {/if}
 					             <td><input type="checkbox" name="selectedDelayTask" value = "{$tasks[tk].ID}"/></td>
-					             <td><a target="_blank" href="managetask.php?action=showtask&tid={$tasks[tk].ID}&id={$tasks[tk].project}">{$tasks[tk].title|truncate:30:"..."}</a></td>
+					             <td><a target="_blank" href="managetask.php?action=showtask&tid={$tasks[tk].ID}&id={$tasks[tk].project}">{$tasks[tk].title}</a></td>
 					             <td>{dispstatus statusId =$tasks[tk].status}</td>
 					             <td>{$tasks[tk].endstring}</td>
 					             <td style="border-right:1px solid #aaa;">{$tasks[tk].user}</td>
