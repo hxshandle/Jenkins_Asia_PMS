@@ -105,7 +105,7 @@ if ($action == "addform") {
       foreach ($assigned as $member) {
         $usr = (object) new user();
         $user = $usr->getProfile($member);
-        if (!empty($user["email"]) && $userid != $user["ID"]) {
+        if (!empty($user["email"])) {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
