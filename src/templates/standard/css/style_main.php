@@ -1768,7 +1768,7 @@ ul.tabs li.system-settings a {
 }
 
 .statusbar, .statusbar_b {
-	width: 128px;
+	width: 100px;
 	height:	12px;
 	background: url(../images/statusbar_incomplete_b.jpg) repeat-x 0 0;
 	border: 1px solid #000;
@@ -3099,6 +3099,20 @@ ul.chk-list label{
 .doc-more-version{
 	font-style:italic;
 	color:#D14233;
+}
+
+.block .notruncation td{
+	height:auto;
+}
+
+.notruncation a.butn_check,.notruncation a.butn_checked,.notruncation a.butn_reply{
+	height:27px;
+}
+.notruncation .acc-toggle,.notruncation .acc-toggle-active{
+	width:27px;
+	height:27px;
+	float:right;
+	margin-right:10px;
 }
 
 

@@ -30,7 +30,7 @@
     {/if}
 
     <div class="nosmooth" id="sm_{$myprojects[project].ID}">
-      <table id="acc_{$myprojects[project].ID}" cellpadding="0" cellspacing="0" border="0">
+      <table id="acc_{$myprojects[project].ID}" cellpadding="0" cellspacing="0" border="0" class="notruncation">
 
         <thead>
         <tr>
@@ -64,16 +64,16 @@
                                                       href="javascript:closeElement('task_{$myprojects[project].tasks[task].ID}','managetask.php?action=close&amp;tid={$myprojects[project].tasks[task].ID}&amp;id={$myprojects[project].ID}');"
                                                       title="{#close#}"></a>{/if}</td>
               <td>
-                <div class="toggle-in">
+                <div class="toggle-in111">
                     <span class="acc-toggle"
                           onclick="javascript:accord_{$myprojects[project].ID}.activate($$('#acc_{$myprojects[project].ID} .accordion_toggle')[{$smarty.section.task.index}]);toggleAccordeon('acc_{$myprojects[project].ID}',this);"></span>
                   <a
                     href="managetask.php?action=showtask&amp;tid={$myprojects[project].tasks[task].ID}&amp;id={$myprojects[project].tasks[task].project}"
                     title="{$myprojects[project].tasks[task].title}">
                     {if $myprojects[project].tasks[task].title != ""}
-                      {$myprojects[project].tasks[task].title|truncate:30:"...":true}
+                      {$myprojects[project].tasks[task].title}
                     {else}
-                      {$myprojects[project].tasks[task].text|truncate:30:"...":true}
+                      {$myprojects[project].tasks[task].text}
                     {/if}
                   </a>
                 </div>
@@ -127,7 +127,7 @@
 
       {*Tasks donetasks*}
       <div id="doneblock_{$myprojects[project].ID}" class="doneblock" style="display: none;">
-        <table class="second-thead" cellpadding="0" cellspacing="0" border="0"
+        <table class="second-thead " cellpadding="0" cellspacing="0" border="0"
                onclick="blindtoggle('doneblock_{$myprojects[project].ID}');toggleClass('donebutn_{$myprojects[project].ID}','butn_link_active','butn_link');toggleClass('toggle-done-{$myprojects[project].ID}','acc-toggle','acc-toggle-active');">
 
           <tr>
@@ -142,7 +142,7 @@
         </table>
 
         <div class="toggleblock">
-          <table cellpadding="0" cellspacing="0" border="0" id="done_{$myprojects[project].ID}">
+          <table cellpadding="0" cellspacing="0" border="0" id="done_{$myprojects[project].ID}" class="notruncation">
             {section name=oldtask loop=$myprojects[project].oldtasks}
 
               {if $smarty.section.oldtask.index % 2 == 0}
@@ -155,16 +155,16 @@
                                                                   href="javascript:closeElement('task_{$myprojects[project].oldtasks[oldtask].ID}','managetask.php?action=open&amp;tid={$myprojects[project].oldtasks[oldtask].ID}&amp;id={$myprojects[project].ID}');"
                                                                   title="{#open#}"></a>{/if}</td>
                 <td class="b">
-                  <div class="toggle-in">
+                  <div class="toggle-in111">
                       <span class="acc-toggle"
                             onclick="javascript:done_{$myprojects[project].ID}.activate($$('#done_{$myprojects[project].ID} .accordion_toggle')[{$smarty.section.oldtask.index}]);toggleAccordeon('done_{$myprojects[project].ID}',this);"></span>
                     <a
                       href="managetask.php?action=showtask&amp;tid={$myprojects[project].oldtasks[oldtask].ID}&amp;id={$myprojects[project].oldtasks[oldtask].project}"
                       title="{$myprojects[project].oldtasks[oldtask].title}">
                       {if $myprojects[project].oldtasks[oldtask].title != ""}
-                        {$myprojects[project].oldtasks[oldtask].title|truncate:30:"...":true}
+                        {$myprojects[project].oldtasks[oldtask].title}
                       {else}
-                        {$myprojects[project].oldtasks[oldtask].text|truncate:30:"...":true}
+                        {$myprojects[project].oldtasks[oldtask].text}
                       {/if}
                     </a>
                   </div>

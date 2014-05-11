@@ -1,4 +1,4 @@
-<table id="acc_{$taskListId}_{$pseq}_{$dseq}_{$isDone}" cellpadding="0" cellspacing="0" border="0">
+<table id="acc_{$taskListId}_{$pseq}_{$dseq}_{$isDone}" cellpadding="0" cellspacing="0" border="0" class="notruncation">
   <thead>
     <tr>
       <th class="a"></th>
@@ -24,15 +24,15 @@
           {/if}
         </td>
         <td>
-          <div class="toggle-in" style="display:inline-block;height:auto;">
+          <div class="toggle-in111" style="display:inline-block;height:auto;">
             <span class="acc-toggle" style="height:20px;"
                   onclick="javascript:accord_{$taskListId}.activate($$('#acc_{$taskListId}_{$pseq}_{$dseq}_{$isDone} .accordion_toggle')[{$smarty.foreach.foo.index}]);toggleAccordeon('acc_{$taskListId}',this);"></span>
             <a href="managetask.php?action=showtask&tid={$task.ID}&amp;id={$task.project}"
                title="{$task.title}">
               {if $task.title != ""}
-                  {$task.title|truncate:30:"...":true}
+                  {$task.title}
               {else}
-                  {$task.text|truncate:30:"...":true}
+                  {$task.text}
               {/if}
             </a>
           </div>

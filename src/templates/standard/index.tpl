@@ -56,7 +56,7 @@
         </div>
         {/if}
         	<div id="desktop-project-table" class="height500">
-					<table id = "desktopprojects" cellpadding="0" cellspacing="0" border="0">
+					<table id = "desktopprojects" cellpadding="0" cellspacing="0" border="0" class="notruncation">
 						<thead>
 							<tr>
 								<th class="a"></th>
@@ -88,10 +88,10 @@
 										{/if}
 									</td>
 									<td>
-										<div class="toggle-in">
+										<div class="toggle-in111">
 											<span id = "desktopprojectstoggle{$myprojects[project].ID}" class="acc-toggle" onclick="javascript:accord_projects.activate($$('#projecthead .accordion_toggle')[{$smarty.section.project.index}]);toggleAccordeon('projecthead',this);"></span>
 											<a href="manageproject.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name}">
-												{$myprojects[project].name|truncate:40:"...":true}
+												{$myprojects[project].name}
 											</a>
 										</div>
 									</td>
