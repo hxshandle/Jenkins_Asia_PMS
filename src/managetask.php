@@ -390,9 +390,14 @@ if ($action == "addform") {
   $deliverable = new DeliverableItem();
   $deliverableItems = $deliverable->getDeliverableItemsByProjectId($id);
 
+  $planSt = Status::getId("project","planning");
   $pro = $myproject->getProject($id);
   $projectname = $pro["name"];
   $title = $langfile['tasks'];
+  $curUserId = $_SESSION["userid"];
+  if($pro["status"] == $planSt && ($pro["project_leader"] || $_SESSION["userRole"] <= 3)){
+    $template->assign("canEditDeilverableItem", true);
+  }
 
   $template->assign("title", $title);
   $template->assign("milestones", $milestones);

@@ -1,4 +1,5 @@
 <!-- addtask.tpl -->
+<div id="mode-dialog"></div>
 <div class="block_in_wrapper">
 
 	<h2>{#addtask#}</h2>
@@ -24,11 +25,15 @@
 	<div class="row">
 				<label for="deliverableItems">{#deliverableItems#}: </label>
 				<select name="deliverableItems" id="deliverableItems" onchange="deliverItemChanged(this)">
-				<option value="-1" selected="selected">{#chooseone#}</option>
+				<option value="-1" >{#chooseone#}</option>
 				{section name=stone loop=$deliverableItems}
 					<option value="{$deliverableItems[stone].ID}">{$deliverableItems[stone].name}</option>
 				{/section}
 				</select>
+				{if $canEditDeilverableItem}
+					<a class="butn_link" onclick="J.addNewDeliverableItem()">{#add#}</a>
+					<a class="butn_link" onclick="J.editDeliverableItemDate()">{#edit#}</a>
+				{/if}
 	</div>	
 	<div class="row"><label for="parent{$lists[list].ID}">{#parentTask#}:</label>
 		<select type="text" class="text" name="parent" realname="{#parent#}"  id="parent" required = "1" >
@@ -101,7 +106,12 @@
 {literal}
 <script>
   function deliverItemChanged(arg){
-  	var theUrl = "manageprojectajax.php?action=getTasksBydeliverableId&deliverableId="+arg.value;
+  	J.showLoading();
+  	var deliverableId = arg.value;
+  	J.editDeliverableItemDateId = deliverableId;
+  	J.canEditDeliverableItemDate = deliverableId == "-1" ? false:true;
+
+  	var theUrl = "manageprojectajax.php?action=getTasksBydeliverableId&deliverableId="+deliverableId;
     new Ajax.Request(theUrl, {
 	  method: 'get',
 	  onSuccess:function(payload) {
@@ -123,8 +133,10 @@
 		  	optionEl.innerHTML = ""+tk['name'];
 		  	parentTaskEl.appendChild(optionEl);
 	  	};
+	  	J.hideLoading();
     }
     });
+    return true;
   }
 </script>
 {/literal}

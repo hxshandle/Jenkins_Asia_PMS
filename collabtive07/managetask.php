@@ -271,9 +271,14 @@ if ($action == "addform") {
     $milestone = new milestone;
     $milestones = $milestone->getAllProjectMilestones($id);
 
+    $planSt = Status::getId("project","planning");
     $pro = $myproject->getProject($id);
     $projectname = $pro["name"];
     $title = $langfile['tasks'];
+    $curUserId = $_SESSION["userid"];
+    if($pro["status"] == $planSt && ($pro["project_leader"])){
+
+    }
 
     $template->assign("title", $title);
     $template->assign("milestones", $milestones);

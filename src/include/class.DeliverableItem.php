@@ -53,6 +53,20 @@ class DeliverableItem {
     }
   }
 
+  function updateDate($id,$startDate,$endDate){
+    $id = (int) $id;
+    $startDate = mysql_real_escape_string($startDate);
+    $endDate = mysql_real_escape_string($endDate);
+    $id = (int) $id;
+    $sql ="update deliverable_item set end_date = '$endDate',start_date='$startDate' where id = $id";
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   function updateEndDate($id,$strDate){
     $id = (int) $id;
     $sql ="update deliverable_item set end_date = '$strDate' where id = $id";

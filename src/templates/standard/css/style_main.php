@@ -3114,6 +3114,25 @@ ul.chk-list label{
 	float:right;
 	margin-right:10px;
 }
-
+#j-mask-overlay{
+	position:fixed;
+	background:#000;
+	width:100%;
+	height:100%;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	left:0;
+	top:0;
+	z-index:100;
+}
+#j-loading-text{
+	font-size:36px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	color:#fff;
+	margin-top:-18px;
+	margin-left:-20px;
+}
 
 /*****************Jenkins Asia Special***********************/

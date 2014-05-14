@@ -181,6 +181,120 @@ J.initSwfUploader=function(url,param,btnHolder,cancelBtnId,callBackFunc,queueCom
     return handler;
   }
 
+J.hideLoading = function(){
+  var mask = $('j-mask-overlay');
+  mask.style.display="none";
+}
+J.showLoading = function(){
+  var mask = $('j-mask-overlay');
+  if(!mask){
+    var el = document.createElement('div');
+    document.body.appendChild(el);
+    var loadingText = document.createElement('div')
+    el.appendChild(loadingText);
+    loadingText.id="j-loading-text";
+    loadingText.innerHTML = "Loading...";
+    el.id = "j-mask-overlay";
+    mask = el;
+  }
+  mask.style.display="block";
+}
+
+J.modeDialog = null;
+J.showModeDialog = function(ctx){
+  J.hideLoading();
+  J.modeDialog = new Control.Modal("mode-dialog",{
+                                "contents":ctx,
+                                fade:true,
+                                opacity: 0.8,
+                                containerClassName: 'dlgmodal',
+                                overlayClassName: 'tasksoverlay'
+                             });
+   J.modeDialog.open();
+}
+
+J.updateDeliverableItemDate = function(){
+  J.modeDialog.close();
+  J.showLoading();
+  var startDate = $('newStartDate').value;
+  var endDate = $('newEndDate').value;
+  var deliverableId = $('updateDeliverableItemId').value;
+  var url = "manageprojectajax.php?action=updateDeliverableItemDate&deliverableId="+J.editDeliverableItemDateId;
+  var postData = "deliverableId="+deliverableId+"&start_date="+startDate+"&end_date="+endDate;
+  new Ajax.Request(url, {
+          method: 'post',
+          postBody:postData,
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              var jsonObj = eval("("+payload.responseText+")");
+              $("tips_startDate").innerHTML = " > "+jsonObj['startDate'];
+              $("tips_endDate").innerHTML = " < "+jsonObj['endDate'];
+            }else{
+              alert("save faild");
+            }
+            J.hideLoading();
+          }
+      });  
+}
+
+J.addNewDeliverableItem = function(){
+  J.modeDialog.close();
+  J.showLoading();
+  var projectId = $('projectId').value;
+  var phaseId = $("phaseId").value;
+  var dName = $('deliverableName').value;
+  var startDate = $('newStartDate').value;
+  var endDate = $('newEndDate').value;
+  var url = "manageprojectajax.php?action=addDeliverableItem"
+  var postData ="projectId="+projectId+"&phaseId="+phaseId+"&start_date="+startDate+"&end_date="+endDate+"&deliverableName="+dName;
+  new Ajax.Request(url, {
+          method: 'post',
+          postBody:postData,
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+             alert("OK");
+            }else{
+              alert("save faild");
+            }
+            J.hideLoading();
+          }
+      });  
+}
+
+J.addNewDeliverableItem = function(){
+  J.showLoading();
+   var url = "manageprojectajax.php?action=getAddDeliverableItemDateForm&projectId="+__projectId;
+  new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              J.showModeDialog(payload.responseText);
+            }
+          }
+      }); 
+}
+
+
+J.canEditDeliverableItemDate = false;
+J.editDeliverableItemDateId = null;
+J.editDeliverableItemDate = function(){
+  if(!J.canEditDeliverableItemDate){
+    alert("Please select a Deliverable Items");
+    return;
+  }
+  J.showLoading();
+  var url = "manageprojectajax.php?action=getEditDeliverableItemDateForm&deliverableId="+J.editDeliverableItemDateId;
+  new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              J.showModeDialog(payload.responseText);
+            }
+          }
+      }); 
+  
+}
+
 
 function onDeskTopCustomerChange(val){
   var theUrl = "manageprojectajax.php?action=filterProjectsByCustomerName&&customer="+val.value;

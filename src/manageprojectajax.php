@@ -1162,6 +1162,45 @@ switch ($action) {
     $template->assign("myprojects", $projects);
     $template->display("desktopProjectsTable.tpl");
     break;
+  case "getAddDeliverableItemDateForm":
+    $pId = getArrayVal($_GET,"projectId");
+    $phase = new Phase();
+    $phases = $phase->getPhasesByProjectId($pId);
+    $template->assign("id",$pId);
+    $template->assign("phases",$phases);
+    $template->assign("templateName", "_addDeliverableItemDate.tpl");
+    $template->display("dlgmodal.tpl");
+    break;
+  case "addDeliverableItem":
+    $projectId = getArrayVal($_POST,"projectId");
+    $start_date = getArrayVal($_POST,"start_date");
+    $end_date = getArrayVal($_POST,"end_date");
+    $deliverableName = getArrayVal($_POST,"projectId");
+    
+    break;
+  case "getEditDeliverableItemDateForm":
+     $deliverId = getArrayVal($_GET,"deliverableId");
+     $deliverableItem = new DeliverableItem();
+     $item = $deliverableItem->getItem($deliverId);
+     $template->assign("name",$item["name"]);
+    $template->assign("id",$item["ID"]);
+    $template->assign("start_date",$item["start_date"]);
+    $template->assign("end_date",$item["end_date"]);
+     $template->assign("templateName", "_editDeliverableItemDate.tpl");
+     $template->display("dlgmodal.tpl");
+     break;
+  case "updateDeliverableItemDate":
+    $deliverableItem = new DeliverableItem();
+    $deliverableId = getArrayVal($_POST,"deliverableId");
+    $start_date = getArrayVal($_POST,"start_date");
+    $end_date = getArrayVal($_POST,"end_date");
+    $deliverableItem->updateDate($deliverableId,$start_date,$end_date);
+    $json = "{";
+    $json .="'startDate':'".$start_date."',";
+    $json .="'endDate':'".$end_date."'";
+    $json .="}";
+    echo $json;
+    break;
   default:
     break;
 }
