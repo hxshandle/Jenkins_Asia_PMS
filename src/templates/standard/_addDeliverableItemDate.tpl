@@ -27,5 +27,5 @@
 </div>
 
 <div>
-  <button id="dlgBtnSavePhase" onclick="J.addNewDeliverableItem()">Save</button>
+  <button id="dlgBtnSavePhase" onclick="J.saveNewDeliverableItem()">Save</button>
 </div>

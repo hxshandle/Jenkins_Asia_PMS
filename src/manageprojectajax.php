@@ -1173,10 +1173,21 @@ switch ($action) {
     break;
   case "addDeliverableItem":
     $projectId = getArrayVal($_POST,"projectId");
+    $phaseId = getArrayVal($_POST,"phaseId");
     $start_date = getArrayVal($_POST,"start_date");
     $end_date = getArrayVal($_POST,"end_date");
-    $deliverableName = getArrayVal($_POST,"projectId");
-    
+    $deliverableName = getArrayVal($_POST,"deliverableName");
+    $deliverableItem = new DeliverableItem();
+    $st = Status::getId("deliverable","not_start");
+    $ret = $deliverableItem->add($deliverableName,$st,$start_date,$end_date,$projectId,$phaseId,'');
+    $json = "";
+    if($ret){
+      $json .="{";
+      $json .="id:"."'".$ret."',";
+      $json .="name:'".$deliverableName."'";
+      $json .="}";
+    }
+    echo $ret ? $json:"fail";
     break;
   case "getEditDeliverableItemDateForm":
      $deliverId = getArrayVal($_GET,"deliverableId");

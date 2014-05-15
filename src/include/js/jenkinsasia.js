@@ -237,7 +237,7 @@ J.updateDeliverableItemDate = function(){
       });  
 }
 
-J.addNewDeliverableItem = function(){
+J.saveNewDeliverableItem = function(){
   J.modeDialog.close();
   J.showLoading();
   var projectId = $('projectId').value;
@@ -251,8 +251,10 @@ J.addNewDeliverableItem = function(){
           method: 'post',
           postBody:postData,
           onSuccess:function(payload) {
-            if (payload.responseText != ""){
-             alert("OK");
+            if (payload.responseText != "fail"){
+             var jsonObj = eval("("+payload.responseText+")");
+             var sel = $("deliverableItems");
+             sel.options[sel.options.length] = new Option(jsonObj.name,jsonObj.id);
             }else{
               alert("save faild");
             }
