@@ -25,13 +25,17 @@
 					   </thead>
 					   <tbody id="tkumentTBody">
 					     {section name=tk loop=$tasks}
+					     		 {assign var='cStyle' value=''}
+					     		 {if $tasks[tk].status == 47}
+					     		 	{assign var='cStyle' value='color:red'}
+					     		 {/if}
 					         {if $smarty.section.tk.index % 2 == 0}
-					           <tr class="color-a">
+					           <tr class="color-a" style="{$cStyle}">
 					         {else}
-					           <tr class ="color-b">
+					           <tr class ="color-b" style="{$cStyle}">
 					         {/if}
 					             <td><input type="checkbox" name="selectedDelayTask" value = "{$tasks[tk].ID}"/></td>
-					             <td><a target="_blank" href="managetask.php?action=showtask&tid={$tasks[tk].ID}&id={$tasks[tk].project}">{$tasks[tk].title}</a></td>
+					             <td><a style="{$cStyle}" target="_blank" href="managetask.php?action=showtask&tid={$tasks[tk].ID}&id={$tasks[tk].project}">{$tasks[tk].title}</a></td>
 					             <td>{dispstatus statusId =$tasks[tk].status}</td>
 					             <td>{$tasks[tk].endstring}</td>
 					             <td style="border-right:1px solid #aaa;">{$tasks[tk].user}</td>
