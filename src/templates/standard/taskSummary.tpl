@@ -31,7 +31,7 @@
                 {/section}
               </select>
             </div>
-			{if $smarty.session.userRole <=3 || $smarty.session.userid == 6}
+			{if $smarty.session.userRole <=4 || $smarty.session.userid == 6}
             <div class="row">
               <label for="customer">{#projectLeader#}:</label>
               <select name="criteriaProjectLeader" id="criteriaProjectLeader" onchange='onNormalSelProjectLeaderChange(this,"managetasksummary.php?action=filterTasks","delayTaskTableContainer")'; required = "1">
