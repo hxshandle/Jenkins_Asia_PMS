@@ -76,7 +76,7 @@
 <h1>{$projectname|truncate:45:"...":true}<span>/ {#tasklists#}</span></h1>
 
 
-{if $userpermissions.tasks.add} {*Add Tasklist*}
+{if $userpermissions.tasks.add && $smarty.session.userRole < 8} {*Add Tasklist*}
     <div id="addlist" class="addmenue" style="display:none;">
        
     </div>
@@ -88,7 +88,7 @@
         <a href="javascript:void(0);" id="block-{$groupedTasks.ID}_toggle" class="win_block"
            onclick="toggleBlock('block-{$groupedTasks.ID}');"></a>
         <div class="wintools">
-            {if $userpermissions.tasks.add}
+            {if $userpermissions.tasks.add && $smarty.session.userRole < 8}
                 <a class="add" href="javascript:blindtoggle('form_{$groupedTasks.ID}');" id="add_{$groupedTasks.ID}"
                    onclick="toggleClass(this,'add-active','add');toggleClass('add_butn_{$groupedTasks.ID}','butn_link_active','butn_link');toggleClass('sm_{$groupedTasks.ID}','smooth','nosmooth');"><span>{#addtask#}</span></a>
             {/if}
@@ -100,7 +100,7 @@
     </div>
     <div id="block-{$groupedTasks.ID}" class="block">
         {*Add Task*}
-        {if $userpermissions.tasks.add}
+        {if $userpermissions.tasks.add && $smarty.session.userRole < 8}
             <div id="form_{$groupedTasks.ID}" class="addmenue" style="display:none;">
                 {include file="addtask.tpl" deliverStartDate = $groupedTasksstart_date deliverEndDate=$groupedTasks.end_date tasklist = $groupedTasks}
             </div>
@@ -137,7 +137,7 @@
         </div>
         <div class="tablemenue">
             <div class="tablemenue-in">
-                {if $userpermissions.tasks.add}
+                {if $userpermissions.tasks.add && $smarty.session.userRole < 8}
                     <a class="butn_link" href="javascript:blindtoggle('form_{$groupedTasks.ID}');"
                        id="add_butn_{$groupedTasks.ID}"
                        onclick="toggleClass('add_{$groupedTasks.ID}','add-active','add');toggleClass(this,'butn_link_active','butn_link');toggleClass('sm_{$lists[list].ID}','smooth','nosmooth');">{#addtask#}</a>
