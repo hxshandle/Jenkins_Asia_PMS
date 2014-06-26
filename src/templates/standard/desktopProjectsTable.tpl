@@ -3,10 +3,10 @@
             <thead>
               <tr>
                 <th class="a"></th>
-                <th class="b" style="cursor:pointer;" onclick = "sortBlock('desktopprojects','');">{#project#}</th>
-                <th class="b" style="cursor:pointer;" onclick = "sortBlock('desktopprojects','');">{#projectNo#}</th>
+                <th class="b" style="cursor:pointer;width:300px" onclick = "sortBlock('desktopprojects','');">{#project#}</th>
+                <th class="b" style="cursor:pointer;width:100px" onclick = "sortBlock('desktopprojects','');">{#projectNo#}</th>
                 <th class="c" style="cursor:pointer" onclick = "sortBlock('desktopprojects','done');">{#done#}</th>
-                <th class="d" style="text-align:right" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}&nbsp;&nbsp;</th>
+                <th class="d" style="text-align:right;width:70px" onclick = "sortBlock('desktopprojects','daysleft');">{#daysleft#}&nbsp;&nbsp;</th>
                 <th class="tools"></th>
               </tr>
             </thead>
@@ -34,7 +34,7 @@
                     <div class="toggle-in">
                       <span id = "desktopprojectstoggle{$myprojects[project].ID}" class="acc-toggle" onclick="javascript:accord_projects.activate($$('#projecthead .accordion_toggle')[{$smarty.section.project.index}]);toggleAccordeon('projecthead',this);"></span>
                       <a href="manageproject.php?action=showproject&amp;id={$myprojects[project].ID}" title="{$myprojects[project].name}">
-                        {$myprojects[project].name|truncate:17:"...":true}
+                        {$myprojects[project].name}
                       </a>
                     </div>
                   </td>
