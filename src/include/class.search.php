@@ -261,6 +261,9 @@ class search
       if($roleType < 3){
         return true;
       }
+      if($roleType > 5){
+        return false;
+      }
 
       $sql = "select projekt as projectId from `projekte_assigned` where user = $user";
       $sel= mysql_query($sql);
