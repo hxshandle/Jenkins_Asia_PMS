@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
   var __sesionId = "{$smarty.session.sessionId}";
-  var __projectId = {$projectId};
+  var __projectId = {$projectId|default:-1};
   var __userId = "{$smarty.session.userid}";
   var __callbackFunc = null;
   {if $callbackFunc}

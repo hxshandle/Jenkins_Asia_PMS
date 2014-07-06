@@ -417,7 +417,13 @@ if ($action == "addform") {
   $template->assign("oldlists", $oldlists);
   $template->debugging = false;
   $template->display("projecttasks.tpl");
-} elseif ($action == "showtask") {
+}elseif($action == "quickAddTask"){
+  $myProjects = $jUtils->getAllProjects();
+  $taskStatus = Status::getStatusByType("task");
+  $template->assign("taskStatus", $taskStatus);
+  $template->assign("myProjects", $myProjects);
+  $template->display("quickAddTask.tpl");
+}elseif ($action == "showtask") {
   if (!chkproject($userid, $id)) {
     $errtxt = $langfile["notyourproject"];
     $noperm = $langfile["accessdenied"];

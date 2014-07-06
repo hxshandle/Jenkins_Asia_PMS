@@ -1,5 +1,16 @@
 <div id="content-right">
 
+	{*Quick Actions*}
+		<div class="content-right-in">
+			<h2><a id = "actionstoggle" class="win-up" href="javascript:blindtoggle('quick-actions');toggleClass('actionstoggle','win-up','win-down');">Quick Actions</a></h2>
+			<div id = "quick-actions">
+				<a class="butn_link" type="button" target="_blank" href="/managetask.php?action=quickAddTask">{#addtask#}</a>
+
+			</div>
+			<br/>
+		</div>
+	{*Quick Actions End*}
+
 
 	{*Search*}
 	<div class="content-right-in">
