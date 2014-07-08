@@ -1,5 +1,7 @@
 <div id="content-right">
 
+
+	{if $smarty.session.userRole <6}
 	{*Quick Actions*}
 		<div class="content-right-in">
 			<h2><a id = "actionstoggle" class="win-up" href="javascript:blindtoggle('quick-actions');toggleClass('actionstoggle','win-up','win-down');">Quick Actions</a></h2>
@@ -10,6 +12,7 @@
 			<br/>
 		</div>
 	{*Quick Actions End*}
+	{/if}
 
 
 	{*Search*}
