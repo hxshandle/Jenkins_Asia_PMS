@@ -78,6 +78,9 @@ if ($action == "addform") {
     $template->display("error.tpl");
     die();
   }
+  if(!$id){
+    $id = getArrayVal($_POST,'id');
+  }
   $projectId = $id;
   $projectIns = new project();
   $project = $projectIns->getProject($id);

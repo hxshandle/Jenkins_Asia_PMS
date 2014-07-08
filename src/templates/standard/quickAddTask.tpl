@@ -5,6 +5,8 @@
     <h2>{#addtask#}</h2>
     <form name = "addtaskform" id = "addtaskform" class="main" method="post" action="managetask.php?action=add"  onsubmit="return J.validationAddTask(this,'hiErrorField')">
         <fieldset>
+            <input type="hidden" name="id" id="id"/>
+            <input type="hidden" value="1" name="tasklist">
         	<div class="row">
         		<label for="project">{#project#}:</label>
         		<select type="text" class="text" name="project" realname="{#project#}"  id="project" required = "1" onchange="onProjectChange(this)">
@@ -80,26 +82,36 @@
 
 			<div class="row">
 				<label for="assigned" >{#assignto#}:</label>
-				<div>
+				<div id="assigned-member-list">
 					{include file="seluserlist.tpl" groupedUser=$grouped_assignable_users chkName="assigned"}
 				</div>
 			</div>
 			<div class="row">
 				<label for="distribution" >{#distribution#}:</label>
-				<div>
+				<div id="distribution-member-list">
 					{include file="seluserlist.tpl" groupedUser=$grouped_assignable_users chkName="distribution"}
 				</div>
 			</div>
+			<link rel="stylesheet" href="templates/standard/css/swfupload.css" type="text/css"  />
+			<script type="text/javascript" src="include/swfupload/swfupload.js"></script>
+			<script type="text/javascript" src="include/swfupload/swfupload.queue.js"></script>
+			<script type="text/javascript" src="include/js/fileprogress.js"></script>
+			<script type="text/javascript" src="include/js/handlers.js"></script>
 			<div class="row">
 				<label for="uploadfile" >{#upload#}:</label>
-				{include file = "uploadfile.tpl"}
+				<div style="float:left" id="file-uploader">
+				  <div class="fieldset flash" id="fsUploadProgress">
+				    <span class="legend">Upload Queue</span>
+				  </div>
+				  <div id="divStatus">0 Files Uploaded</div>
+				  <div>
+				    <span id="spanButtonPlaceHolder"></span>
+				    <input id="btnCancel" type="button" class = "butn_link" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;width:auto;" />
+				  </div>
+				</div>
 			</div>
 			<input type = "hidden" id = "fileId" name = "fileId"></input>
-			{if $lists[list].ID != ""}
-			<input type="hidden" value="{$lists[list].ID }" name="tasklist" />
-			{else}
-			<input type="hidden" value="{$tasklist.ID }" name="tasklist" />
-			{/if}
+
 
 			<div class="row-butn-bottom">
 				<label>&nbsp;</label>
@@ -111,13 +123,115 @@
     </form>
 
 </div>
+<script>
+    var __sesionId = "{$smarty.session.sessionId}";
+    var __userId = "{$smarty.session.userid}";
+</script>
 {literal}
 <script>
+
+    var __loadingPromise = 0;
+    
+	var __projectId = -1;
+	
+	var __callbackFunc = null;
+
+	var __uploadType = "{$uploadType}";
+
+    function __closeLoading(){
+    	__loadingPromise++;
+    	if(__loadingPromise==3){
+    		J.hideLoading();
+    	}
+    }
+
+	function deliverItemChanged(arg){
+	  	J.showLoading();
+	  	var deliverableId = arg.value;
+	  	J.editDeliverableItemDateId = deliverableId;
+	  	J.canEditDeliverableItemDate = deliverableId == "-1" ? false:true;
+
+	  	var theUrl = "manageprojectajax.php?action=getTasksBydeliverableId&deliverableId="+deliverableId;
+	    new Ajax.Request(theUrl, {
+		  method: 'get',
+		  onSuccess:function(payload) {
+				var jsonObj = eval("("+payload.responseText+")");
+		  	$("tips_startDate").innerHTML = " > "+jsonObj['startDate'];
+		  	$("tips_endDate").innerHTML = " < "+jsonObj['endDate'];
+		  	var tasks = jsonObj['tasks'];
+		  	var parentTaskEl = $("parent");
+		  	parentTaskEl.innerHTML = "";
+		  	parentTaskEl.value = "-1";
+		  	var optionEl = document.createElement("option");
+		  	optionEl.value = "-1";
+		  	optionEl.innerHTML = unescape(MSGS.chooseone);
+		  	parentTaskEl.appendChild(optionEl);
+		  	for (var i = 0; i < tasks.length; i++) {
+		  		var tk = tasks[i];
+		  		var optionEl = document.createElement("option");
+			  	optionEl.value = ""+tk['id'];
+			  	optionEl.innerHTML = ""+tk['name'];
+			  	parentTaskEl.appendChild(optionEl);
+		  	};
+		  	J.hideLoading();
+	    }
+	    });
+	    return true;
+	  }
+
+	function _getProjectDeliverable(projectId){
+		var url = "/manageprojectajax.php?action=getProjectDeliverable&id="+projectId;
+		new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              var options = eval('('+payload.responseText+')');
+              J.buildSelectByJSON('deliverableItems',options,true);
+              __closeLoading();
+            }
+          }
+      });
+	}
+
+	function _getProjectMembers(projectId,chkName){
+		var url = "/manageprojectajax.php?action=getSelUserList&id="+projectId+"&chkName="+chkName;
+		new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              $(chkName+"-member-list").innerHTML = payload.responseText;
+              __closeLoading();
+            }
+          }
+      });
+	}
+
+	function rebuildFileUpload(){
+        var element = $('file-uploader');
+        element.innerHTML = "";
+		var h = [];
+		h.push('<div class="fieldset flash" id="fsUploadProgress">');
+		h.push('<span class="legend">Upload Queue</span>');
+		h.push('</div>');
+		h.push('<div id="divStatus">0 Files Uploaded</div>');
+		h.push('<div>');
+		h.push('<span id="spanButtonPlaceHolder"></span>');
+		h.push('<input id="btnCancel" type="button" class = "butn_link" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;width:auto;" />');
+		h.push('</div>');
+        element.innerHTML=h.join('');
+        window.__swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':__uploadType,"id":__projectId},"spanButtonPlaceHolder","btnCancel",__callbackFunc,null,"fsUploadProgress");
+	}
+
 	function onProjectChange(el){
-		alert(el.value);
 		__projectId = el.value;
-		window.__swfu = null;
-		window.__swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':__uploadType,"id":__projectId},"spanButtonPlaceHolder","btnCancel",__callbackFunc,null,"fsUploadProgress");
+        $('id').value=__projectId;
+        rebuildFileUpload();
+		
+		J.showLoading();
+		__loadingPromise=0;
+		_getProjectDeliverable(__projectId);
+		_getProjectMembers(__projectId,'assigned');
+		_getProjectMembers(__projectId,'distribution');
 	}
 </script>
 {/literal}

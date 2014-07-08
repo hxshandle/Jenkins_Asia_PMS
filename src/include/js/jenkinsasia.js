@@ -296,6 +296,30 @@ J.editDeliverableItemDate = function(){
       }); 
   
 }
+/**
+  @param id the select id
+  @param jsonData [{id:1,name:'abc'}]
+  @param hasDefaultOption if True will add "please select" option
+
+*/
+J.buildSelectByJSON = function (id,jsonData,hasDefaultOption){
+  var selector = $(id);
+  if(selector){
+    selector.innerHTML = "";
+    var h = [];
+    if(hasDefaultOption){
+      h.push('<option value="-1" >Please choose</option>');
+    }
+    for(var i = 0 ; i < jsonData.length ; i++){
+      var option = jsonData[i];
+      h.push('<option value="'+option.id+'">');
+      h.push(option.name);
+      h.push('</option>');
+    }
+    selector.innerHTML=h.join('');
+  }
+}
+
 
 
 function onDeskTopCustomerChange(val){

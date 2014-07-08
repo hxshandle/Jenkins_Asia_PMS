@@ -1135,6 +1135,17 @@ switch ($action) {
     $ret = $jUtils->getProjectDeliverable($oId);
     echo $ret;
     break;
+  case "getSelUserList":
+    $jUtils = new JUtils();
+    $id = getArrayVal($_GET,"id");
+    $chkName = getArrayVal($_GET,"chkName");
+    $project = new project();
+    $members = $project->getProjectMembers($id, $project->countMembers($id));
+    $groupedUser = $jUtils->groupUsers($members);
+    $template->assign("groupedUser", $groupedUser);
+    $template->assign("chkName", $chkName);
+    $template->display("seluserlist.tpl");
+    break;
   case "getProjectNotifyGroupedList":
     $id = getArrayVal($_GET,"id");
     $ulstyle = getArrayVal($_GET,"ulstyle");
