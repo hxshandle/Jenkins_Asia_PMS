@@ -1223,6 +1223,11 @@ switch ($action) {
     $json .="}";
     echo $json;
     break;
+  case "getProjectTasklistId":
+    $projectId = getArrayVal($_GET,"id");
+    $tasklist = new tasklist();
+    $listId = $tasklist->getTasklistIdByProjectId($projectId);
+    echo $listId;
   default:
     break;
 }

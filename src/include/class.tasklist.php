@@ -333,6 +333,16 @@ class tasklist
         }
     }
 
+    function getTasklistIdByProjectId($projectId){
+      $projectId = (int) $projectId;
+      $sql = "select ID from tasklist where project = $projectId";
+      $sel = mysql_query($sql);
+      if($row = mysql_fetch_array($sel)){
+        return $row["ID"];
+      }
+      return -1;
+    }
+
     /*
      * Return all open or all finished tasks of a given tasklist
      *

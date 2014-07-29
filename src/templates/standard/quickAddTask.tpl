@@ -6,7 +6,7 @@
     <form name = "addtaskform" id = "addtaskform" class="main" method="post" action="managetask.php?action=add"  onsubmit="return J.validationAddTask(this,'hiErrorField')">
         <fieldset>
             <input type="hidden" name="id" id="id"/>
-            <input type="hidden" value="1" name="tasklist">
+            <input type="hidden" value="1" name="tasklist" id="tasklist">
         	<div class="row">
         		<label for="project">{#project#}:</label>
         		<select type="text" class="text" name="project" realname="{#project#}"  id="project" required = "1" onchange="onProjectChange(this)">
@@ -140,7 +140,7 @@
 
     function __closeLoading(){
     	__loadingPromise++;
-    	if(__loadingPromise==3){
+    	if(__loadingPromise==4){
     		J.hideLoading();
     	}
     }
@@ -206,6 +206,19 @@
       });
 	}
 
+    function _getProjectTasklistId(projectId){
+        var url = "/manageprojectajax.php?action=getProjectTasklistId&id="+projectId;
+        new Ajax.Request(url, {
+            method: 'get',
+            onSuccess:function(payload) {
+                if (payload.responseText != ""){
+                    document.getElementById('tasklist').value = payload.responseText;
+                    __closeLoading();
+                }
+            }
+        });
+    }
+
 	function rebuildFileUpload(){
         var element = $('file-uploader');
         element.innerHTML = "";
@@ -232,6 +245,7 @@
 		_getProjectDeliverable(__projectId);
 		_getProjectMembers(__projectId,'assigned');
 		_getProjectMembers(__projectId,'distribution');
+        _getProjectTasklistId(__projectId);
 	}
 </script>
 {/literal}
