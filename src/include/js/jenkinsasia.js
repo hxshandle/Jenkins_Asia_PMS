@@ -375,6 +375,43 @@ function setValue(elementId,val){
     if(!el)  return;
     el.value = val;
 }
+function getNewSubmitForm(){
+    var submitForm = document.createElement("FORM");
+    document.body.appendChild(submitForm);
+    submitForm.method = "POST";
+    return submitForm;
+}
+
+//helper function to add elements to the form
+function createNewFormElement(inputForm, elementName, elementValue){
+    var newElement = document.createElement("input");
+    newElement.name=elementName;
+    newElement.type="hidden";
+    inputForm.appendChild(newElement);
+    newElement.value = elementValue;
+    return newElement;
+}
+
+function exportTaskSummaryPDF(){
+    var customer = $('criteriaCustomer').value;
+    var projectLeader = $('criteriaProjectLeader').value;
+    if(customer == "-1" && projectLeader == "-1"){
+        alert("Please select at least one condition");
+        return;
+    }
+    var submitForm = getNewSubmitForm();
+    createNewFormElement(submitForm, "action", "exportPDF");
+    if(customer != "-1"){
+        createNewFormElement(submitForm, "customer", customer);
+    }
+    if(projectLeader!="-1"){
+        createNewFormElement(submitForm, "projectLeader", projectLeader);
+    }
+
+    submitForm.action= "/managetasksummary.php";
+    alert("The PDF maybe processing for a while please wait and don't resubmit the task.");
+    submitForm.submit();
+}
 
 function sendTaskDelayReminder(){
   var els = $$("input[name=selectedDelayTask]");

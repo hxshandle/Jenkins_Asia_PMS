@@ -44,6 +44,7 @@
 			{/if}
             <div class="row">
               <a class="butn_link" onclick="sendTaskDelayReminder()">{#sendreminder#}</a>
+              <a class="butn_link" onclick="exportTaskSummaryPDF()">Export PDF</a>
             </div>
             </fieldset>
             </form>
