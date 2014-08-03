@@ -46,6 +46,7 @@ switch ($action) {
     }else{
       $tasks = $task->getTaskSummaryByProjectLeader($projectLeader);
     }
+
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
     $pdf->SetHeaderData("", 0, "" , "Task Summary");
 
@@ -67,6 +68,7 @@ switch ($action) {
     $html = $template->fetch("_tasksGroupedByProject.tpl",null,null,false);
     $pdf->writeHTML($html, true, 0, true, 0);
     $pdf->Output("task-summary.pdf", "D");
+
     break;
   default:
     echo "coming soon...";

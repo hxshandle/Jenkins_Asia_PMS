@@ -10,7 +10,7 @@
                 <h2><img alt="" src="./templates/standard/images/symbols/projects.png">{$pname}</h2>
             </div>
         {else}
-                <h2><img alt="" src="./templates/standard/images/symbols/projects.png">{$pname}</h2>
+                <h2>{$pname}</h2>
         {/if}
 
 		<div id="delaytaskhead-{$smarty.foreach.p.index}" class="block" style="margin-top:0">
