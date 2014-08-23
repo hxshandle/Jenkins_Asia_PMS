@@ -153,6 +153,19 @@ function _buildSelOpts(opts, data) {
 }
 
 function filterDocument(param) {
+
+    var project = document.getElementById("criteriaProject").value;
+    var order = document.getElementById("criteriaOrder").value;
+    var customer = "-1";
+    if (document.getElementById("criteriaCustomer")) {
+        customer = document.getElementById("criteriaCustomer").value;
+    }
+
+    if(project =="-1" && order =="-1" && customer =="-1"){
+        document.getElementById("documentTableContainer").innerHTML = "";
+        return;
+    }
+
     var theUrl = "managedocument.php?action=filterDocument";
     var thePost = param || "";
     new Ajax.Request(theUrl, {
