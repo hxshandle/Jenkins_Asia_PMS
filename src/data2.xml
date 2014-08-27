@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<projects>
+  <project id="1" name="Project A" startdate="2012,02,01">
+    <task id="3">
+      <name>new Phase 3</name>
+      <est>2012,02,03</est>
+      <duration>24</duration>
+      <percentcompleted>20</percentcompleted>
+      <predecessortasks/>
+      <childtasks>
+        <task id="1">
+          <name>item-3-1</name>
+          <est>2012,02,03</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+        <task id="2">
+          <name>item-3-2</name>
+          <est>2012,02,04</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+        <task id="9">
+          <name>item-3-3</name>
+          <est>2012,02,05</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+      </childtasks>
+    </task>
+    <task id="4">
+      <name>new Phase 4</name>
+      <est>2012,02,03</est>
+      <duration>16</duration>
+      <percentcompleted>20</percentcompleted>
+      <predecessortasks/>
+      <childtasks>
+        <task id="3">
+          <name>item-4-1</name>
+          <est>2012,02,03</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+        <task id="12">
+          <name>item-4-3</name>
+          <est>2012,02,03</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+      </childtasks>
+    </task>
+    <task id="5">
+      <name>new Phase 5</name>
+      <est>2012,03,01</est>
+      <duration>16</duration>
+      <percentcompleted>20</percentcompleted>
+      <predecessortasks/>
+      <childtasks>
+        <task id="5">
+          <name>item-5-1</name>
+          <est>2012,03,01</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+        <task id="6">
+          <name>item-5-2</name>
+          <est>2012,03,02</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+      </childtasks>
+    </task>
+    <task id="6">
+      <name>new Phase 6</name>
+      <est>2012,02,02</est>
+      <duration>8</duration>
+      <percentcompleted>20</percentcompleted>
+      <predecessortasks/>
+      <childtasks>
+        <task id="7">
+          <name>item 6-1</name>
+          <est>2012,02,02</est>
+          <percentcompleted>30</percentcompleted>
+          <predecessortasks/>
+          <childtasks/>
+        </task>
+      </childtasks>
+    </task>
+  </project>
+
+</projects>
