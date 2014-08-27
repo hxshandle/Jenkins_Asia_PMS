@@ -1,0 +1,54 @@
+<mockup version="1.0" skin="sketch" measuredW="766" measuredH="202" mockupW="706" mockupH="182">
+  <controls>
+    <control controlID="0" controlTypeID="__group__" x="60" y="20" w="706" h="182" measuredW="706" measuredH="182" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>Phase%20Table</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="0" w="706" h="182" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="0"/>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::VRule" x="146" y="0" w="-1" h="182" measuredW="5" measuredH="100" zOrder="1" locked="false" isInGroup="0"/>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="53" y="63" w="-1" h="-1" measuredW="43" measuredH="21" zOrder="2" locked="false" isInGroup="0">
+          <controlProperties>
+            <text>Desgin</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::ProgressBar" x="24" y="91" w="-1" h="-1" measuredW="100" measuredH="20" zOrder="3" locked="false" isInGroup="0"/>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::DataGrid" x="151" y="35" w="540" h="124" measuredW="466" measuredH="145" zOrder="4" locked="false" isInGroup="0">
+          <controlProperties>
+            <text>Delete%09Delivery%20Item%09Responsibility%09Deadline%09Status%0A%5BX%5D%09Market%20Product%20Proposal%09SKLZ%0914-Jan-12%09Complete%0A%5BX%5D%09Preliminary%20Cost%09Jenkins%20Asia%091-Feb-12%09Padding%0A%5B%20%5D%09Product%20Specifications%09Jenkins%20Asia%0921-Mar-12%09In%20Progress%0A%5B%20%5D%093D%20Drawing%09Jenkins%20Asia%20%0911-Apr-12%09%0A%7B0C%2C1%2C1%2C1%7D</text>
+            <verticalScrollbar>true</verticalScrollbar>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::HorizontalScrollBar" x="151" y="159" w="540" h="-1" measuredW="100" measuredH="16" zOrder="5" locked="false" isInGroup="0"/>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="574" y="8" w="43" h="21" measuredW="47" measuredH="27" zOrder="6" locked="false" isInGroup="0">
+          <controlProperties>
+            <text>Add</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Button" x="628" y="6" w="63" h="23" measuredW="63" measuredH="27" zOrder="7" locked="false" isInGroup="0">
+          <controlProperties>
+            <text>Delete</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::Icon" x="124" y="10" w="-1" h="-1" measuredW="16" measuredH="16" zOrder="8" locked="false" isInGroup="0">
+          <controlProperties>
+            <icon>CircledXIcon%7Cxsmall</icon>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="1" controlTypeID="__group__" x="60" y="80" w="218" h="22" measuredW="218" measuredH="22" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>Input%20Item</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="0" w="-1" h="-1" measuredW="41" measuredH="21" zOrder="0" locked="false" isInGroup="1">
+          <controlProperties>
+            <text>Name</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::HRule" x="71" y="17" w="147" h="-1" measuredW="100" measuredH="5" zOrder="1" locked="false" isInGroup="1"/>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>

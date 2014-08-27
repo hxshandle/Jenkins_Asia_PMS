@@ -1,0 +1,7 @@
+Questions for Jenkins-Asia-PMS:
+1.Can Level2 Customers and Suppliers ADD and EDIT tasks?
+2.For Level2 Customers and Suppliers you mentioned that they are involved task only, so what's the scope for task only can you answer the sub-questions listed below:
+	2.1 Can they add new tasks?
+	2.2 Can they view tasks which are not assigned to them?
+	2.3 Can they close tasks?
+	2.4 Can they add or edit task's comments?
