@@ -451,3 +451,25 @@ CREATE TABLE `delay_mail` (
 ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 
+
+-- for comments
+
+CREATE TABLE `jenkins_asia`.`task_comments` (
+  `ID` INT(10) AUTO_INCREMENT NOT NULL,
+  `comment` LONGTEXT NOT NULL,
+  `insert_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_from_email` INT(1) NOT NULL DEFAULT 0,
+  `comment_by` INT(10) NOT NULL,
+  `commnet_user_name` VARCHAR(255) NOT NULL,
+  `task` INT(10) NOT NULL,
+  PRIMARY KEY (`ID`))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+ALTER TABLE `task_comments`
+ADD INDEX `idx_task_comments_task` (`task` ASC);
+
+ALTER TABLE `task_comments`
+ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 AFTER `task`;
+
