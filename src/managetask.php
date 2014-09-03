@@ -112,7 +112,7 @@ if ($action == "addform") {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
-          if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"],$msg)){
+          if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"]." JTiD-".$tid,$msg)){
             $template->assign("mailErr",'true');
           }
         }
@@ -194,6 +194,7 @@ if ($action == "addform") {
   }
   $len1 = strlen($statusUpdate);
   $len2 = strlen($oldStatusUpdate);
+  $cmt = $statusUpdate;
   if($len1 > 0){
     $statusUpdate = $oldStatusUpdate.'</br></br>'.$statusUpdate;
     $dateFormat = CL_DATEFORMAT." H:i:s";
@@ -202,6 +203,11 @@ if ($action == "addform") {
   }else{
     $statusUpdate = $oldStatusUpdate;
   }
+  $taskComments = new Comments();
+  if($len1 > 0){
+    $taskComments->addTaskComments($cmt,0,$_SESSION["userid"],$_SESSION["username"],$tid);
+  }
+
   $completeStatus = Status::getId("task", "completed");
   $closeStatus = Status::getId("task", "closed");
   $taskStatusAction = getArrayVal($_POST,"task_status_action");
@@ -215,9 +221,13 @@ if ($action == "addform") {
     $dateFormat = CL_DATEFORMAT." H:i:s";
     $today = date($dateFormat);
     if($taskStatus == $completeStatus){
-      $statusUpdate .= "</br> -- Task marked as completed by ".$_SESSION['username']." ".$today;
+      //$statusUpdate .= "</br> -- Task marked as completed by ".$_SESSION['username']." ".$today;
+      $cmt = "Task marked as completed by ".$_SESSION['username'];
+      $taskComments->addTaskComments($cmt,0,$_SESSION["userid"],$_SESSION["username"],$tid);
     }else{
-      $statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
+      $cmt = " Task closed by ".$_SESSION['username'];
+      $taskComments->addTaskComments($statusUpdate,0,$_SESSION["userid"],$_SESSION["username"],$tid);
+      //$statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
     }
     
   }
@@ -253,7 +263,7 @@ if ($action == "addform") {
             if (!empty($user["email"])) {
               // send email
               $themail = new emailer($settings);
-              $mailSubject = $langfile["taskmodifiedsubject"];
+              $mailSubject = $langfile["taskmodifiedsubject"]." JTiD-".$tid." ";
               if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
                 $mailSubject = $langfile["taskclosedsubject"];
               }
@@ -353,7 +363,7 @@ if ($action == "addform") {
       if (!empty($user["email"])) {
         // send email
         $themail = new emailer($settings);
-        $mailSent = $themail->send_mail($user["email"], $langfile["taskassignedsubject"], $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+        $mailSent = $themail->send_mail($user["email"], $langfile["taskassignedsubject"]." JTiD-".$id, $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
         if(!$mailSent){
           $template->assign("mailErr","true");
         }
@@ -442,6 +452,8 @@ if ($action == "addform") {
 
   $mytask = new task();
   $task = $mytask->getTask($tid);
+  $comments = new Comments();
+  $commentsList = $comments->getTaskComments($tid);
 
   $members = $myproject->getProjectMembers($id, $myproject->countMembers($id));
   $tasklist = new tasklist();
@@ -482,6 +494,7 @@ if ($action == "addform") {
   $template->assign("tasklists", $tasklists);
   $template->assign("deliverableItems", $deliverableItems);
   $template->assign("isProjectLeader", $jUtils->isProjectLeader($id));
+  $template->assign("taskComments",$commentsList);
   $taskStatus = Status::getStatusByType("task");
 
   $st1 = Status::getId("task","closed");

@@ -3135,4 +3135,34 @@ ul.chk-list label{
 	margin-left:-20px;
 }
 
+.comments-outer{
+  border: 1px solid #ccc;
+  margin: 12px 0;
+}
+.comments-header{
+  font-size: 18px;
+  color: #fff;
+  background: #6d83b4;
+  padding-left: 12px;
+  line-height: 24px;
+  font-style:italic;
+}
+.comments-content{
+  padding:12px;
+}
+.comments-footer{
+  text-align:right;
+  background:#f2f2f2;
+  border-top:1px solid #ccc;
+  color:green;
+  padding-right:12px;
+  font-style:italic;
+  display:none;
+}
+.comment-ts{
+  float: right;
+  padding-right: 12px;
+  font-size: 12px;
+}
+
 /*****************Jenkins Asia Special***********************/

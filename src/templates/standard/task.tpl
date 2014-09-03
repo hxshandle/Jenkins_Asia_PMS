@@ -86,7 +86,8 @@ function refreshFileList(fileId){
 	</div>
 		<div id="status-update" class="descript">
 			<h2>{#statusUpdate#}</h2>
-			{$task.status_update}
+			{*$task.status_update*}
+            {include file="_task_comments.tpl" commentList = $taskComments}
 			<div class="content-spacer"></div>
 	  </div>
 	<div class="nosmooth" id="attachment_task">

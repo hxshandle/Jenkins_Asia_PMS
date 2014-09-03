@@ -219,6 +219,7 @@ class task
 
   function addAttachment($taskId, $fileId)
   {
+    $comment = new Comments();
     $taskId = (int)$taskId;
     $fileId = (int)$fileId;
     $sql = "INSERT INTO `task_attachement`
@@ -246,8 +247,10 @@ class task
         $updateStatus = $row[0];
         $dateFormat = CL_DATEFORMAT . " H:i:s";
         $today = date($dateFormat);
-        $updateStatus .= "<br/> added new file " . $fileName . "<br/>  --" . $_SESSION['username'] . " " . $today;
+        //$updateStatus .= "<br/> added new file " . $fileName . "<br/>  --" . $_SESSION['username'] . " " . $today;
         $sql2 = "update tasks set status_update = '$updateStatus' where id = $taskId";
+        $cmt = $_SESSION['username']." added new file " . $fileName;
+        $comment->addTaskComments("$cmt",0,0,"System",$taskId);
         mysql_query($sql2);
       }
 

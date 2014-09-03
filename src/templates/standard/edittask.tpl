@@ -42,7 +42,24 @@
             {/section}
             </select>
           </div>
-          <div class="row"><label for="statusUpdate">{#statusUpdate#}:</label><div style='margin-left:142px'>{$task.status_update}</div><div class="editor" style='margin-left:142px'><textarea name="statusUpdate" id="statusUpdate"   rows="3" cols="0" ></textarea></div></div>
+                        <div class="row">
+                            <label for="statusUpdate">{#statusUpdate#}:</label>
+
+                            <div class="right-wrapper" style="float:left; width:500px">
+                                <!--div style='margin-left:142px'>{$task.status_update}</div-->
+                                <div class="editor">
+                                    <textarea name="statusUpdate"
+                                              id="statusUpdate" rows="3"
+                                              cols="0">
+
+                                    </textarea>
+                                </div>
+                                <div style="clear:both"></div>
+                                <div>
+                                    {include file="_task_comments.tpl" commentList = $taskComments}
+                                </div>
+                            </div>
+                        </div>
           <input type="hidden" id="oldStatusUpdate" name="oldStatusUpdate" value="{$task.status_update|escape}"/>
 
           <div class="row">

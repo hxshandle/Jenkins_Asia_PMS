@@ -473,3 +473,7 @@ ADD INDEX `idx_task_comments_task` (`task` ASC);
 ALTER TABLE `task_comments`
 ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 AFTER `task`;
 
+ALTER TABLE `task_comments`
+ADD COLUMN `isMergeData` INT(1) NOT NULL DEFAULT 0 AFTER `valid`;
+
+

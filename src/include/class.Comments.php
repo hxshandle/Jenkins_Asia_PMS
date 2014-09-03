@@ -11,8 +11,41 @@ class Comments {
   private $jUtils;
 
   function __construct() {
-    $this->$jUtils = new JUtils();
+    $this->jUtils = new JUtils();
   }
+
+  function mergeComments($comments,$isFromEmail,$commentUserName,$ts,$taskId){
+    $comments = mysql_real_escape_string($comments);
+    $isFromEmail = (int) $isFromEmail;
+    $commentUserName = mysql_real_escape_string($commentUserName);
+    $taskId = (int) $taskId;
+    $sql = "INSERT INTO `task_comments`
+            (
+            `comment`,
+            `is_from_email`,
+            `comment_by`,
+            `commnet_user_name`,
+            `isMergeData`,
+            `last_update`,
+            `task`)
+            VALUES
+            (
+            '$comments',
+            $isFromEmail,
+            0,
+            '$commentUserName',
+            1,
+            '$ts',
+            $taskId)
+            ";
+    $sel = mysql_query($sql);
+    if($sel){
+      return mysql_insert_id();
+    }else{
+      return false;
+    }
+  }
+
 
   function addTaskComments($comments,$isFromEmail,$commentBy,$commentUserName,$taskId){
     $comments = mysql_real_escape_string($comments);
@@ -57,9 +90,9 @@ class Comments {
     }
   }
 
-  function getComments($taskId){
+  function getTaskComments($taskId){
     $taskId = (int) $taskId;
-    $sql = "select * from task_comments where id = $taskId and valid = 1";
+    $sql = "select * from task_comments where task = $taskId and valid = 1 order by last_update DESC ";
     return $this->jUtils->Query($sql);
 
   }
