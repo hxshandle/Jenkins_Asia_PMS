@@ -115,7 +115,8 @@ class Imap {
     }
     
     public function haveFolder($src_folderId){
-    	$folderIds=getFolderIds();
+    	//$folderIds=getFolderIds();
+      $folderIds=$this->getFolders();//getFolderIds();
     	foreach($folderIds as $folderId) {
     		if (strcasecmp($src_folderId, $folderId) == 0){
     			return true;

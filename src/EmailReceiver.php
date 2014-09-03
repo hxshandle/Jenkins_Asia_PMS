@@ -4,7 +4,7 @@ require_once CL_ROOT . "/include/Imap.php";
 require_once CL_ROOT . "/include/html2text.php";
 require_once CL_ROOT . "/include/CommentExtractor.php";
 
-$mailbox = 'imap.mail.yahoo.com';
+$mailbox = 'imap.mail.yahoo.com:993';
 $username = '****@yahoo.com';
 $password = '****';
 $encryption = 'ssl'; // or ssl or ''
@@ -13,7 +13,7 @@ $username = $settings["mailuser"];
 $password = $settings["mailpass"];
 
 $srcFolder = "UnReadTasks";
-$moveToFolder = "ReadedTasks";
+$moveToFolder = "ReadTasks";
 
 // ===================================
 // connect to mail server
@@ -55,7 +55,7 @@ foreach ( $emails as $message ) {
 	$email_date = $message ['date'];
 	
 	$taskId = extractTaskIdFromEmailSubject ( $email_subject );
-	if ($taskId == NIL) {
+	if ($taskId != NIL) {
 		continue;
 	}
 	
@@ -71,6 +71,8 @@ foreach ( $emails as $message ) {
 	print $email_uid . "\n";
 	print $email_subject . "\n";
 	print $email_date . "\n";
+  print "<hr/>";
+  print $comment;
 	
 	echo ">>>>>>>>>>>>>>>>eamil end>>>>>>>>>>>>\n";
 	
