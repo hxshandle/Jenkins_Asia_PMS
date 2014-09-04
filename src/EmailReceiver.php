@@ -5,12 +5,12 @@ require_once CL_ROOT . "/include/html2text.php";
 require_once CL_ROOT . "/include/CommentExtractor.php";
 
 $mailbox = 'imap.mail.yahoo.com:993';
-$username = '****@yahoo.com';
-$password = '****';
+$username = 'handle.huang@yahoo.com';
+$password = 'Iamallgood';
 $encryption = 'ssl'; // or ssl or ''
 
-$username = $settings["mailuser"];
-$password = $settings["mailpass"];
+//$username = $settings["mailuser"];
+//$password = $settings["mailpass"];
 
 $srcFolder = "UnReadTasks";
 $moveToFolder = "ReadTasks";
@@ -81,6 +81,6 @@ foreach ( $emails as $message ) {
 	// ==============================
 	
 	// move to another folder
-	//$imap->moveMessage ( $message ['id'], $moveToFolder );
+	$imap->moveMessage ( $message ['uid'], $moveToFolder );
 }//end loop 1
 
