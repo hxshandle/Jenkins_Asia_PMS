@@ -22,6 +22,17 @@ class user
         $this->mylog = new mylog;
     }
 
+  function getUserByEmail($mail){
+    $mail = mysql_real_escape_string($mail);
+    $sql = "select * from user where email = '$mail'";
+    $sel = mysql_query($sql);
+    if($sel){
+      return mysql_fetch_array($sel);
+    }else{
+      return false;
+    }
+  }
+
     /**
      * Creates a user
      *

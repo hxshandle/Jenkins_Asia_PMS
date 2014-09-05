@@ -46,6 +46,9 @@ $imap->selectFolder ( $srcFolder );
 // fetch all messages in the current folder
 // =======================================
 $emails = $imap->getMessages ();
+$taskComments = new Comments();
+$user = new user();
+
 // start loop 1
 foreach ( $emails as $message ) {
 	$email_body = $message ['body'];
@@ -65,7 +68,7 @@ foreach ( $emails as $message ) {
 	}
 	$comment = extractCommmentFromTextEmailBody ( $plainEmailBody );
 	
-	echo ">>>>>>>>>>>>>>>>eamil header>>>>>>>>>>>>\n";
+/*	echo ">>>>>>>>>>>>>>>>eamil header>>>>>>>>>>>>\n";
 	print $taskId . "\n";
 	print $email_from . "\n";
 	print $email_uid . "\n";
@@ -74,10 +77,17 @@ foreach ( $emails as $message ) {
   print "<hr/>";
   print $comment;
 	
-	echo ">>>>>>>>>>>>>>>>eamil end>>>>>>>>>>>>\n";
+	echo ">>>>>>>>>>>>>>>>eamil end>>>>>>>>>>>>\n";*/
 	
 	// ===============================
 	// insert DB
+  //get user info
+  $userInfo = $user->getUserByEmail($email_from);
+  if($user){
+    $tid = str_replace("JTiD-","",$taskId);
+    $commentsId = $taskComments->insertMailComments($comment,$userInfo['ID'],$userInfo['name'],$tid,$message ['uid']);
+    print "<br/>comments ID -> ".$commentsId;
+  }
 	// ==============================
 	
 	// move to another folder

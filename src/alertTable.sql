@@ -476,4 +476,7 @@ ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 AFTER `task`;
 ALTER TABLE `task_comments`
 ADD COLUMN `isMergeData` INT(1) NOT NULL DEFAULT 0 AFTER `valid`;
 
+ALTER TABLE `jenkins_asia`.`task_comments`
+ADD COLUMN `email_id` INT(11) NULL AFTER `isMergeData`;
+
 
