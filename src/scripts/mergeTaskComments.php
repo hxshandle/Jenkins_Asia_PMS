@@ -31,7 +31,7 @@ function getUserInfo($userStr){
 //  echo "----------getUserInfo--------";
 //  var_dump($nameMatches);
 //  var_dump($tsMatchs);
-  return [$nameMatches[0],$tsMatchs[0]];
+  return array($nameMatches[0],$tsMatchs[0]);
 }
 
 
