@@ -5,12 +5,12 @@ require_once CL_ROOT . "/include/html2text.php";
 require_once CL_ROOT . "/include/CommentExtractor.php";
 
 $mailbox = 'imap.mail.yahoo.com:993';
-$username = 'handle.huang@yahoo.com';
-$password = 'Iamallgood';
+$username = '***@yahoo.com';
+$password = '***';
 $encryption = 'ssl'; // or ssl or ''
 
-//$username = $settings["mailuser"];
-//$password = $settings["mailpass"];
+$username = $settings["mailuser"];
+$password = $settings["mailpass"];
 
 $srcFolder = "UnReadTasks";
 $moveToFolder = "ReadTasks";

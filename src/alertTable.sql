@@ -454,7 +454,7 @@ ENGINE = MyISAM DEFAULT CHARSET=utf8;
 
 -- for comments
 
-CREATE TABLE `jenkins_asia`.`task_comments` (
+CREATE TABLE `task_comments` (
   `ID` INT(10) AUTO_INCREMENT NOT NULL,
   `comment` LONGTEXT NOT NULL,
   `insert_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -479,4 +479,24 @@ ADD COLUMN `isMergeData` INT(1) NOT NULL DEFAULT 0 AFTER `valid`;
 ALTER TABLE `jenkins_asia`.`task_comments`
 ADD COLUMN `email_id` INT(11) NULL AFTER `isMergeData`;
 
+--create tigger if needed
+USE `jenkins_asia`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS jenkins_asia.task_comments_BINS$$
+USE `jenkins_asia`$$
+CREATE TRIGGER `task_comments_BINS` BEFORE INSERT ON `task_comments` FOR EACH ROW SET NEW.insert_time = NOW(),NEW.last_update = NOW()
+$$
+DELIMITER ;
+USE `jenkins_asia`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS jenkins_asia.task_comments_BUPD$$
+USE `jenkins_asia`$$
+CREATE TRIGGER `task_comments_BUPD` BEFORE UPDATE ON `task_comments` FOR EACH ROW SET NEW.last_update = NOW()
+$$
+DELIMITER ;
+--end trigger
 
