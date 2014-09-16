@@ -1,6 +1,7 @@
 <?php
 //$mbox = imap_open("{imap.mail.yahoo.com}", "janus@jenkins-asia.com", "830406jenny", OP_HALFOPEN)
-$mbox = imap_open("{imap.mail.yahoo.com:993/imap/ssl}", "janus@jenkins-asia.com", "830406jenny")
+//$mbox = imap_open("{imap.mail.yahoo.com:993/imap/ssl}", "janus@jenkins-asia.com", "830406jenny")
+$mbox = imap_open("{imap.mail.yahoo.com:993/imap/ssl}", "handle.huang@yahoo.com", "Iamallgood")
 or die("can't connect: " . imap_last_error());
 
 $list = imap_getmailboxes($mbox, "{imap.mail.yahoo.com}", "*");

@@ -1038,9 +1038,28 @@ switch ($action) {
     break;
   case "attachTaskFile":
     $task = new task();
+    $jutils = new JUtils();
     $taskId = getArrayVal($_GET, "taskId");
     $fileId = getArrayVal($_GET, "fileId");
     $ret = $task->addAttachment($taskId, $fileId);
+    $taskObj = $task->getTask($taskId);
+    $subject = $langfile["taskmodifiedsubject"]." [JTiD-".$taskId."]";
+    $assignee = $taskObj['users'];
+    $link = "http://janus.jenkins-asia.com/"."managetask.php?action=showtask&id=".$taskObj["project"]."&tid=$taskId";
+    $title = $taskObj["title"];
+    $subject = $langfile["taskmodifiedsubject"]." - ".$title." [JTiD-".$taskId."]";
+    $text = $taskObj["text"];
+    $statusUpdate = $taskObj["status_update"];
+    $projectName = $taskObj["pname"];
+
+    $datei = new datei();
+    $fileInfo = $datei->getFile($fileId);
+    $fileInfo = $datei->getFile($fileId);
+    $attachmentPath=CL_ROOT."/".$fileInfo['datei'];
+    foreach($assignee as $user){
+      $msg = $jutils->getModifiedTaskMailMsg($projectName,$user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
+      $jutils->sendMail($user["email"],$subject,$msg,null,$attachmentPath);
+    }
     echo $ret;
     break;
   case "getAddQualityDlgContent":

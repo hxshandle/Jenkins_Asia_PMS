@@ -9,8 +9,13 @@ $username = '***@yahoo.com';
 $password = '***';
 $encryption = 'ssl'; // or ssl or ''
 
+
 $username = $settings["mailuser"];
 $password = $settings["mailpass"];
+
+//$username = "handle.huang@yahoo.com";
+//$password = "Iamallgood";
+
 
 $srcFolder = "UnReadTasks";
 $moveToFolder = "ReadTasks";
@@ -58,7 +63,8 @@ foreach ( $emails as $message ) {
 	$email_date = $message ['date'];
 	
 	$taskId = extractTaskIdFromEmailSubject ( $email_subject );
-	if ($taskId != NIL) {
+	if ($taskId == NIL) {
+    //$imap->moveMessage ( $message ['uid'], $moveToFolder );
 		continue;
 	}
 	
@@ -85,7 +91,7 @@ foreach ( $emails as $message ) {
   $userInfo = $user->getUserByEmail($email_from);
   if($user){
     $commentsId = $taskComments->insertMailComments($comment,$userInfo['ID'],$userInfo['name'],$taskId,$message ['uid']);
-    print "<br/>comments ID -> ".$commentsId;
+    print "<br/>comments ID -> ".$commentsId."taskid -> ".$taskId;
   }
 	// ==============================
 	

@@ -992,6 +992,18 @@ class task
 
   }
 
+  function getTaskAssignMailList($taskId)
+  {
+    $arrCC = array();
+    $sql = "select u.email as email from user u,tasks_assigned td where td.user = u.ID and td.task = $taskId";
+    $query = mysql_query($sql);
+    while ($cc = mysql_fetch_array($query)) {
+      array_push($arrCC, $cc[0]);
+    }
+    return $arrCC;
+
+  }
+
   /**
    * Return the owner of a given task
    *

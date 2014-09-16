@@ -16,6 +16,14 @@ class JUtils
   }
 
 
+  function sendMail($email,$subject,$msg,$arrCC=null,$attachmentPath=null){
+    $set = (object) new settings();
+    $settings = $set->getSettings();
+    $themail = new emailer($settings);
+    $ret = $themail->send_mail($email, $subject,$msg,$arrCC,$attachmentPath);
+    return $ret;
+  }
+
   function getProjectStructure($id){
     $id = (int) $id;
     $project = array();

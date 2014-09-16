@@ -191,6 +191,8 @@ class Imap {
     return $emails;
   }
 
+
+
   /**
    * @param $id
    * @param bool $withbody
@@ -205,7 +207,12 @@ class Imap {
     // get email data
     if ( isset($header->subject) && strlen($header->subject) > 0 ) {
       $subject = imap_mime_header_decode($header->subject);
-      $subject = $subject[0]->text;
+      $_tmp="";
+      foreach($subject as $p){
+        $_tmp .=$p->text;
+      }
+      //$subject = $subject[0]->text;
+      $subject = $_tmp;
     } else {
       $subject = '';
     }
@@ -634,7 +641,7 @@ class Imap {
    * @param $string utf8 encoded string
    */
   function convertToUtf8($str) {
-    $str_encoding=mb_detect_encoding($str, array('GB2312','GBK','ASCII','ISO-8859-1','UTF-8'));
+    $str_encoding=mb_detect_encoding($str, array('GB2312','GBK','ASCII','ISO-8859-1','UTF-8','CP936'));
     return  iconv($str_encoding, 'UTF-8//IGNORE', $str);
   }
 
