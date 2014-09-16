@@ -38,7 +38,7 @@ class emailer
      * @param string $text Textbody of the mail, HTML allowed
      * @return bool
      */
-    function send_mail($to, $subject, $text,$arrCC=null)
+    function send_mail($to, $subject, $text,$arrCC=null,$attachement=null)
     {
 		//create PHP Mailer object
 		$mailer = (object) new PHPmailer();
@@ -47,6 +47,9 @@ class emailer
 		$mailer->Sender = $this->mailsettings["mailfrom"];
 		$mailer->FromName = $this->mailsettings["mailfromname"];
 		$mailer->AddAddress($to);
+    if($attachement != null){
+      $mailer->AddAttachment($attachement);
+    }
     if($arrCC!=null){
       foreach ($arrCC as $cc){
         $mailer->AddCC($cc);

@@ -82,7 +82,6 @@ function extractTaskIdFromEmailSubject($str){
       }else{
         return NIL;
       }
-
     }
 
   }

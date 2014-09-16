@@ -91,9 +91,13 @@ if ($action == "addform") {
   
   $jUtils->updateDeliverItemEndDate($deliverableItemObj["ID"],$end);
   // if tasks was added and mailnotify is activated, send an email
+  $attachmentPath = null;
   if ($tid) {
     if(!empty($fileId)){
       $task->addAttachment($tid,$fileId);
+      $datei = new datei();
+      $fileInfo = $datei->getFile($fileId);
+      $attachmentPath=CL_ROOT."/".$fileInfo['datei'];
     }
 
     foreach ($assigned as $member) {
@@ -112,7 +116,7 @@ if ($action == "addform") {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
-          if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$tid."]",$msg)){
+          if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$tid."]",$msg,null,$attachmentPath)){
             $template->assign("mailErr",'true');
           }
         }

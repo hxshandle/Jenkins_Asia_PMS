@@ -62,6 +62,7 @@
 function refreshFileList(fileId){
 	if(fileId){
   	var theUrl = "manageprojectajax.php?action=attachTaskFile&fileId="+fileId+"&taskId="+__taskId;
+		var message = window.prompt("Leave your message","");
     new Ajax.Request(theUrl, {
 	  method: 'get',
 	  onSuccess:function(payload) {
