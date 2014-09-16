@@ -84,8 +84,7 @@ foreach ( $emails as $message ) {
   //get user info
   $userInfo = $user->getUserByEmail($email_from);
   if($user){
-    $tid = str_replace("JTiD-","",$taskId);
-    $commentsId = $taskComments->insertMailComments($comment,$userInfo['ID'],$userInfo['name'],$tid,$message ['uid']);
+    $commentsId = $taskComments->insertMailComments($comment,$userInfo['ID'],$userInfo['name'],$taskId,$message ['uid']);
     print "<br/>comments ID -> ".$commentsId;
   }
 	// ==============================

@@ -69,11 +69,20 @@ function extractTaskIdFromEmailSubject($str){
   }
 
   $array_len = count ( $str_lines );
+  $regex = "/\d+/";
+
   for($x = 0; $x < $array_len; $x ++) {
     $line = $str_lines [$x];
-    if (startsWith ( $line, "JTiD-" )) {
+    if (startsWith ( $line, "[JTiD-" )) {
       echo "task id-->$line";
-      return $line;
+      $m = array();
+      preg_match($regex,$line,$m);
+      if(count($m>0)){
+        return $m[0];
+      }else{
+        return NIL;
+      }
+
     }
 
   }

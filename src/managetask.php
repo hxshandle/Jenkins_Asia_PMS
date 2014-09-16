@@ -112,7 +112,7 @@ if ($action == "addform") {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
-          if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"]." JTiD-".$tid,$msg)){
+          if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$tid."]",$msg)){
             $template->assign("mailErr",'true');
           }
         }
@@ -263,17 +263,17 @@ if ($action == "addform") {
             if (!empty($user["email"])) {
               // send email
               $themail = new emailer($settings);
-              $mailSubject = $langfile["taskmodifiedsubject"]." JTiD-".$tid." ";
+              $mailSubject = $langfile["taskmodifiedsubject"];
               if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
                 $mailSubject = $langfile["taskclosedsubject"];
               }
               $msg = $jUtils->getModifiedTaskMailMsg($proj['name'],$user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
               if($hasCCed){
-                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title, $msg)){
+                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title." [JTiD-".$tid."]", $msg)){
                   $template->assign("mailErr",'true');$template->assign("mailErr",'true');
                 }
               }else{
-                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title, $msg,$arrCC)){
+                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title." [JTiD-".$tid."]", $msg,$arrCC)){
                   $template->assign("mailErr",'true');
                 }
                 $hasCCed = true;
@@ -363,7 +363,7 @@ if ($action == "addform") {
       if (!empty($user["email"])) {
         // send email
         $themail = new emailer($settings);
-        $mailSent = $themail->send_mail($user["email"], $langfile["taskassignedsubject"]." JTiD-".$id, $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
+        $mailSent = $themail->send_mail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$id."]", $langfile["hello"] . ",<br /><br/>" . $langfile["taskassignedtext"] . " <a href = \"" . "http://janus.jenkins-asia.com/" . "managetask.php?action=showtask&id=$id&tid=$tid\">$title</a>");
         if(!$mailSent){
           $template->assign("mailErr","true");
         }
