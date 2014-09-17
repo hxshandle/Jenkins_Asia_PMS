@@ -21,12 +21,12 @@ class emailer
         $this->delayMail = new DelayMail();
     }
 
-    function doDelayMail($to, $subject, $text,$arrCC=null){
+    function doDelayMail($to, $subject, $text,$arrCC=null,$attachment=null){
       $strCC = "";
       if(!empty($arrCC)){
         $strCC  = implode(",", $arrCC);
       }
-      $this->delayMail->createDelayMail($to,$subject,$text,$strCC);
+      $this->delayMail->createDelayMail($to,$subject,$text,$strCC,$attachment);
     }
 
 
@@ -84,7 +84,7 @@ class emailer
         else
         {
             error_log("send mail to ".$to." failed",0);
-            $this->doDelayMail($to, $subject, $text,$arrCC);
+            $this->doDelayMail($to, $subject, $text,$arrCC,$attachement);
             return false;
         }
     }

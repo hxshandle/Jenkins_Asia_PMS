@@ -15,24 +15,27 @@ class DelayMail {
     $this->jUtils = new JUtils();
   }
 
-  function createDelayMail($to,$subject,$text,$strCC){
+  function createDelayMail($to,$subject,$text,$strCC,$attachment=null){
     $to = mysql_real_escape_string($to);
     $subject = mysql_real_escape_string($subject);
     $text = mysql_real_escape_string($text);
     $strCC = mysql_real_escape_string($strCC);
+    $attachment = mysql_real_escape_string($attachment);
     $sql = "INSERT INTO `delay_mail`
             (
             `to`,
             `subject`,
             `cc`,
-            `text`
+            `text`,
+            `attachments`
             )
             VALUES
             (
             '$to',
             '$subject',
             '$strCC',
-            '$text')";
+            '$text',
+            '$attachment')";
     $ins = mysql_query($sql);
     return $ins;
   }

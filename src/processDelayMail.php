@@ -12,9 +12,17 @@ $mailMgr = new DelayMail();
 $mails = $mailMgr->getDelayMails();
 $themail = new emailer($settings);
 foreach ($mails as $mail) {
-  $arrCC = explode(",", $mail['cc']);
+  $arrCC = null;
+  if(!empty($mail['cc'])){
+    $arrCC = explode(",", $mail['cc']);
+  }
+
+  $attachment = $mail['attachments'];
+  if(empty($attachment)){
+    $attachment = null;
+  }
   $mailMgr->del($mail['ID']);
-  $themail->send_mail($mail['to'],$mail['subject'],$mail['text'],$arrCC);
+  $themail->send_mail($mail['to'],$mail['subject'],$mail['text'],$arrCC,$attachment);
 }
 
 echo "DONE";

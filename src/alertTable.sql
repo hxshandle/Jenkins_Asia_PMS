@@ -500,3 +500,8 @@ $$
 DELIMITER ;
 --end trigger
 
+
+ALTER TABLE `delay_mail`
+ADD COLUMN `attachments` LONGTEXT NULL DEFAULT NULL AFTER `last_update`;
+
+

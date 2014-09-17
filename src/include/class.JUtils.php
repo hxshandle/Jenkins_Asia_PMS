@@ -20,6 +20,7 @@ class JUtils
     $set = (object) new settings();
     $settings = $set->getSettings();
     $themail = new emailer($settings);
+    //$ret = $themail->doDelayMail($email, $subject,$msg,$arrCC,$attachmentPath);
     $ret = $themail->send_mail($email, $subject,$msg,$arrCC,$attachmentPath);
     return $ret;
   }
