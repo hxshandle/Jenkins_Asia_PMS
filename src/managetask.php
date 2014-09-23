@@ -98,6 +98,7 @@ if ($action == "addform") {
       $datei = new datei();
       $fileInfo = $datei->getFile($fileId);
       $attachmentPath=CL_ROOT."/".$fileInfo['datei'];
+
     }
 
     foreach ($assigned as $member) {
@@ -116,11 +117,7 @@ if ($action == "addform") {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
-          if($attachmentPath!=null){
-            $themail->doDelayMail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$tid."]",$msg,null,$attachmentPath);
-          }else if(!$themail->send_mail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$tid."]",$msg,null,$attachmentPath)){
-            $template->assign("mailErr",'true');
-          }
+          $jUtils->sendMail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$tid."]",$msg,null,$attachmentPath);
         }
       }
     }
