@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 include("./init.php");
-xdebug_disable();
+
 // check if user is logged in
 $id = getArrayVal($_POST, "id");
 $name = getArrayVal($_POST, "name");
