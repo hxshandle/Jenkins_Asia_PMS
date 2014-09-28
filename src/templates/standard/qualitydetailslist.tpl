@@ -20,7 +20,7 @@
         <td> 
           <div class="toggle-in">
             <span class="acc-toggle" onclick="javascript:accord_qualityDetails.activate($$('#block_details .accordion_toggle')[{$smarty.section.item.index}]);toggleAccordeon('accord_qualityDetails',this);"></span>
-              <a href="javascript:void(0);" onclick='showDetailsInfo({$details[item].ID},{$projectId})'>{$details[item].reject_desc|truncate:"10":"..."}</a>
+              <a href="javascript:void(0);" onclick='showDetailsInfo({$details[item].ID},{$projectId})'>{$details[item].reject_desc|default:"N/A"|truncate:"10":"..."}</a>
           </div>
         </td>
         <td> {$details[item].quantity}
