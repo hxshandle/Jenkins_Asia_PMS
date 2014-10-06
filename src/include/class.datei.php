@@ -548,7 +548,7 @@ class datei {
    * @param int $ folder Optional parameter. It holds the ID of the subfolder the file is uploaded to (0 = root directory)
    * @return bool $insid
    */
-  private function add_file($name, $desc, $project, $milestone, $tags, $datei, $type, $title, $folder = 0, $visstr = "") {
+  public function add_file($name, $desc, $project, $milestone, $tags, $datei, $type, $title, $folder = 0, $visstr = "",$uploadedBy = null) {
     $name = mysql_real_escape_string($name);
     $desc = mysql_real_escape_string($desc);
     $tags = mysql_real_escape_string($tags);
@@ -556,7 +556,11 @@ class datei {
     $project = (int) $project;
     $milestone = (int) $milestone;
     $folder = (int) $folder;
+
     $userid = getArrayVal($_POST, "userId");
+    if($uploadedBy != null){
+      $userid = $uploadedBy;
+    }
     $type = mysql_real_escape_string($type);
     $title = mysql_real_escape_string($title);
     $now = time();

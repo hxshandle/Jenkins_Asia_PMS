@@ -16,7 +16,46 @@ class JUtils
   }
 
 
+  function getValidCCList($arrCC){
+    $ret = Array();
+    if($arrCC ==  null){
+      return null;
+    }else{
+      foreach ($arrCC as $cc){
+        if($this->_validateEmailAddress($cc)){
+          array_push($ret,$cc);
+        }
+      }
+    }
+    return $ret;
+
+  }
+
+  function _validateEmailCCAddress($arrCC){
+    if($arrCC!=null){
+      foreach ($arrCC as $cc){
+        if(!$this->_validateEmailAddress($cc)){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  function detechStringEncoding($str){
+    return mb_detect_encoding($str, array('GB2312','GBK','ASCII','ISO-8859-1','UTF-8','CP936'));
+  }
+
+  function _validateEmailAddress($email){
+    return filter_var($email,FILTER_VALIDATE_EMAIL);
+
+  }
+
   function sendMail($email,$subject,$msg,$arrCC=null,$attachmentPath=null){
+    if(!$this->_validateEmailAddress($email)){
+      return;
+    }
+    $arrCC = $this->getValidCCList($arrCC);
     $set = (object) new settings();
     $settings = $set->getSettings();
     $themail = new emailer($settings);
@@ -511,7 +550,9 @@ class JUtils
       if (!$isNew) {
         $subject = "JANUS notification - Quality Issue updated " . $q['action_no'];
       }
-      $themail->send_mail($row["email"], $subject, $msg);
+      if($this->_validateEmailAddress($row["email"])){
+        $themail->send_mail($row["email"], $subject, $msg);
+      }
     }
   }
 
@@ -538,7 +579,10 @@ class JUtils
       $u = $user->getProfile($userId);
       $msg = $this->getDocumentMailMsg($docInfo, $u['name']);
       $subject = "JANUS Document Upload Notification: " . $docInfo["document_no"] . " " . $docInfo["name"];
-      $themail->send_mail($u["email"], $subject, $msg);
+      if($this->_validateEmailAddress($u["email"])){
+        $themail->send_mail($u["email"], $subject, $msg);
+      }
+
     }
   }
 

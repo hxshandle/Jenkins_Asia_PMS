@@ -9,6 +9,7 @@
 include("init.php");
 
 $mailMgr = new DelayMail();
+$jUtils = new JUtils();
 $mails = $mailMgr->getDelayMails();
 $themail = new emailer($settings);
 foreach ($mails as $mail) {
@@ -16,13 +17,19 @@ foreach ($mails as $mail) {
   if(!empty($mail['cc'])){
     $arrCC = explode(",", $mail['cc']);
   }
+  $arrCC = $jUtils->getValidCCList($arrCC);
 
   $attachment = $mail['attachments'];
   if(empty($attachment)){
     $attachment = null;
   }
   $mailMgr->del($mail['ID']);
-  $themail->send_mail($mail['to'],$mail['subject'],$mail['text'],$arrCC,$attachment);
+  if($jUtils->_validateEmailAddress($mail['to'])){
+    $themail->send_mail($mail['to'],$mail['subject'],$mail['text'],$arrCC,$attachment);
+  }else{
+    echo " drop email -> ".$mail['to']."<br/>";
+  }
+
 }
 
 echo "DONE";

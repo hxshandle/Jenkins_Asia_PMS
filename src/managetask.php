@@ -430,7 +430,9 @@ if ($action == "addform") {
 
   $template->assign("lists", $lists);
   $template->assign("groupedTasks",$groupedTasks);
+
   $template->assign("oldlists", $oldlists);
+  //$template->assign("oldlists", $a);
   $template->debugging = false;
   $template->display("projecttasks.tpl");
 }elseif($action == "quickAddTask"){
