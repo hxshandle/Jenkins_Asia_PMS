@@ -6,6 +6,7 @@ require_once CL_ROOT . "/include/CommentExtractor.php";
 
 $mailbox = 'imap.mail.yahoo.com:993';
 $username = '***@yahoo.com';
+
 $password = '***';
 $encryption = 'ssl'; // or ssl or ''
 

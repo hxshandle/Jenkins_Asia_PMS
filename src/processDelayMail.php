@@ -12,6 +12,10 @@ $mailMgr = new DelayMail();
 $jUtils = new JUtils();
 $mails = $mailMgr->getDelayMails();
 $themail = new emailer($settings);
+//clear db first
+foreach ($mails as $mail){
+  $mailMgr->del($mail['ID']);
+}
 foreach ($mails as $mail) {
   $arrCC = null;
   if(!empty($mail['cc'])){
@@ -23,7 +27,6 @@ foreach ($mails as $mail) {
   if(empty($attachment)){
     $attachment = null;
   }
-  $mailMgr->del($mail['ID']);
   if($jUtils->_validateEmailAddress($mail['to'])){
     $themail->send_mail($mail['to'],$mail['subject'],$mail['text'],$arrCC,$attachment);
   }else{
