@@ -203,7 +203,7 @@ class JUtils
   }
 
 
-  function getDelayedTaskMailMsg($mailTo, $title, $text, $link, $statusUpdate)
+  function getDelayedTaskMailMsg($mailTo, $title, $text, $link, $taskComments)
   {
     $msg = "";
     $msg .= "Dear " . $mailTo . ",<br/><br/>";
@@ -216,7 +216,9 @@ class JUtils
     $msg .= "<p style='padding-left:15px'>" . $text . "</p>";
     $msg .= "<hr/>";
     $msg .= "<b>Status Update</b>";
-    $msg .= "<p style='padding-left:15px'>" . $statusUpdate . "</p>";
+    $msg .= "<hr/>";
+    //$msg .= "<p style='padding-left:15px'>" . $statusUpdate . "</p>";
+    $msg .=$this->getTaskCommentsMailMsg($taskComments);
     $msg .= "</div>";
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
@@ -247,7 +249,21 @@ class JUtils
     return $msg;
   }
 
-  function getModifiedTaskMailMsg($projectName, $mailTo, $operator, $link, $title, $text, $statusUpdate)
+  function getTaskCommentsMailMsg($taskComments){
+    $msg = '<ul style="list-style:none">';
+    foreach($taskComments as $tc){
+      $msg .="<li>";
+      $msg .=' <div style="font-size:18px;color:#fff;background:#6d83b4;padding-left:12px;line-height:24px;font-style:italic;">';
+      $msg .=' <span>'.$tc['commnet_user_name'].'</span>';
+      $msg .=' <span style="float:right;padding-right:12px;font-size:12px;">'.$tc['last_update'].'</span>';
+      $msg .=" </div>";
+      $msg .='<div style="padding:12px;">'.$tc['comment'].'</div>';
+      $msg .="</li>";
+    }
+    $msg .= "</ul>";
+    return $msg;
+  }
+  function getModifiedTaskMailMsg($projectName, $mailTo, $operator, $link, $title, $text, $taskComments)
   {
     $msg = "";
     $msg .= "Dear " . $mailTo . ",<br/><br/>";
@@ -264,12 +280,14 @@ class JUtils
     $msg .= "<p style='padding-left:15px'>" . $text . "</p>";
     $msg .= "<hr/>";
     $msg .= "<b>Status Update</b>";
-    $msg .= "<p style='padding-left:15px'>" . $statusUpdate . "</p>";
+    $msg .= "<hr/>";
+    //$msg .= "<p style='padding-left:15px'>" . $statusUpdate . "</p>";
+    $msg .=$this->getTaskCommentsMailMsg($taskComments);
     $msg .= "</div>";
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
     $msg .= "Thank you from JANUS.<br/>";
-    $msg .= "Please do not reply to this mail.<br/>";
+    //$msg .= "Please do not reply to this mail.<br/>";
     $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }

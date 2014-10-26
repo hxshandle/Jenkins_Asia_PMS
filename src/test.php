@@ -2,20 +2,11 @@
 
 require("init.php");
 
-function getSavedFileName($name){
-  $randval = mt_rand(1, 99999);
-  $nameArr = split('[\.]',$name);
-  $ext = $nameArr[count($nameArr)-1];
-  $preName = array_slice($nameArr,0,count($nameArr)-1);
-  $preName = join('.',$preName);
-  $subname = preg_replace("/[^-_0-9a-zA-Z]/", "_", $preName);
-  $fname = $subname . "_" . $randval . "." . $ext;
-  return $fname;
-}
+$jUtil = new JUtils();
+$taskComment = new Comments();
+$tComments = $taskComment->getTaskComments(796);
+$str = $jUtil->getModifiedTaskMailMsg("AAAAAAAAAA","ceshi","update","ccccc","bbbbbbbbbbbbbbb","this is a text....",$tComments);
 
-echo getSavedFileName("abc")."<br/>";
-echo getSavedFileName("abc.xls")."<br/>";
-echo getSavedFileName("你好.xls")."<br/>";
-echo getSavedFileName("abc.abc.xls")."<br/>";
-
+$mail2 = $jUtil->getDelayedTaskMailMsg("aaa","bbb","ccc","dddd",$tComments);
+echo $mail2;
  ?>

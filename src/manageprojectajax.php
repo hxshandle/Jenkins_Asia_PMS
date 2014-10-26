@@ -1056,8 +1056,10 @@ switch ($action) {
     $fileInfo = $datei->getFile($fileId);
     $fileInfo = $datei->getFile($fileId);
     $attachmentPath=CL_ROOT."/".$fileInfo['datei'];
+    $taskComments = new Comments();
+    $tComments = $taskComments->getTaskComments($taskId);
     foreach($assignee as $user){
-      $msg = $jutils->getModifiedTaskMailMsg($projectName,$user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
+      $msg = $jutils->getModifiedTaskMailMsg($projectName,$user["name"],$_SESSION["username"],$link,$title,$text,$tComments);
       $jutils->sendMail($user["email"],$subject,$msg,null,$attachmentPath);
     }
     echo $ret;

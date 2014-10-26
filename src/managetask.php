@@ -270,7 +270,8 @@ if ($action == "addform") {
               if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
                 $mailSubject = $langfile["taskclosedsubject"];
               }
-              $msg = $jUtils->getModifiedTaskMailMsg($proj['name'],$user["name"],$_SESSION["username"],$link,$title,$text,$statusUpdate);
+              $tComments = $taskComments->getTaskComments($tid);
+              $msg = $jUtils->getModifiedTaskMailMsg($proj['name'],$user["name"],$_SESSION["username"],$link,$title,$text,$tComments);
               if($hasCCed){
                 if(!$themail->send_mail($user["email"], $mailSubject." | ".$title." [JTiD-".$tid."]", $msg)){
                   $template->assign("mailErr",'true');$template->assign("mailErr",'true');

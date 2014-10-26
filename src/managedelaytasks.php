@@ -42,6 +42,8 @@ switch ($action) {
     $strids = getArrayVal($_POST, "ids");
     $delaytasks = explode(",", $strids);
     $task = new task();
+    $taskComments = new Comments();
+
     if(!empty($delaytasks)){
       foreach($delaytasks as $tId){
         $t = $task->getTask($tId);
@@ -51,7 +53,8 @@ switch ($action) {
         foreach($users as $user){
           if (!empty($user["email"])) {
             $themail = new emailer($settings);
-            $msg = $jUtils->getDelayedTaskMailMsg($user["name"],$t['title'],$t['text'],$link,$t['status_update']);
+            $tComments = $taskComments->getTaskComments($tId);
+            $msg = $jUtils->getDelayedTaskMailMsg($user["name"],$t['title'],$t['text'],$link,$tComments);
             $themail->send_mail($user["email"], $langfile["taskdelayedsubject"]." | ".$t['title'], $msg);
           }
         }
