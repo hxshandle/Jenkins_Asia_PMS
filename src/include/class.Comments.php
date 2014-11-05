@@ -127,7 +127,27 @@ class Comments {
   function getTaskComments($taskId){
     $taskId = (int) $taskId;
     $sql = "select * from task_comments where task = $taskId and valid = 1 order by last_update DESC ";
-    return $this->jUtils->Query($sql);
+    $arr = $this->jUtils->Query($sql);
+    $KEY_WORD=" added new file ";
+    $new_arr = array();
+    foreach($arr as $cmt){
+      $str_comment = $cmt['comment'];
+      $pos = strpos($str_comment,$KEY_WORD);
+      if($pos !== false){
+        list($pre,$file_name) = explode($KEY_WORD,$str_comment);
+        $sql1 = "select * from files where name = '$file_name'";
+        $ret = $this->jUtils->Query($sql1);
+        if(count($ret) >0){
+          $datei = $ret[0]['datei'];
+          $lnk ="<a href='".$datei."' style='font-weight:bold;font-style:italic;color:orangered;'>".$file_name."</a>";
+          $newCmt = str_replace($file_name,$lnk,$str_comment);
+          $cmt['comment'] = $newCmt;
+          $ccc=11;
+        }
+      }
+      array_push($new_arr,$cmt);
+    }
+    return $new_arr;
 
   }
 } 

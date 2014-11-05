@@ -235,11 +235,13 @@ class task
 
     if ($ins) {
       $insertId = mysql_insert_id();
-      $sql0 = "select name from files where id = $fileId";
+      $sql0 = "select name,datei from files where id = $fileId";
       $sel0 = mysql_query($sql0);
       $fileName = "";
+      $fileLink = "";
       while ($row = mysql_fetch_row($sel0)) {
         $fileName = $row[0];
+        $fileLink = $row[1];
       }
       $sql1 = "select status_update from tasks where id =  $taskId";
       $sel1 = mysql_query($sql1);
@@ -249,6 +251,7 @@ class task
         $today = date($dateFormat);
         //$updateStatus .= "<br/> added new file " . $fileName . "<br/>  --" . $_SESSION['username'] . " " . $today;
         $sql2 = "update tasks set status_update = '$updateStatus' where id = $taskId";
+        //$link = '<a href="'.$fileLink.'">'.$fileName.'</a>';
         $cmt = $_SESSION['username']." added new file " . $fileName;
         $comment->addTaskComments("$cmt",0,0,"System",$taskId);
         mysql_query($sql2);

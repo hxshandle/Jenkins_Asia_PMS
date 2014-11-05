@@ -1041,7 +1041,10 @@ switch ($action) {
     $jutils = new JUtils();
     $taskId = getArrayVal($_GET, "taskId");
     $fileId = getArrayVal($_GET, "fileId");
+    $leaveMessage = getArrayVal($_GET,"leaveMessage");
     $ret = $task->addAttachment($taskId, $fileId);
+    $taskComments = new Comments();
+    $taskComments->addTaskComments($leaveMessage,0,$_SESSION["userid"],$_SESSION["username"],$taskId);
     $taskObj = $task->getTask($taskId);
     $subject = $langfile["taskmodifiedsubject"]." [JTiD-".$taskId."]";
     $assignee = $taskObj['users'];
@@ -1056,7 +1059,6 @@ switch ($action) {
     $fileInfo = $datei->getFile($fileId);
     $fileInfo = $datei->getFile($fileId);
     $attachmentPath=CL_ROOT."/".$fileInfo['datei'];
-    $taskComments = new Comments();
     $tComments = $taskComments->getTaskComments($taskId);
     foreach($assignee as $user){
       $msg = $jutils->getModifiedTaskMailMsg($projectName,$user["name"],$_SESSION["username"],$link,$title,$text,$tComments);
