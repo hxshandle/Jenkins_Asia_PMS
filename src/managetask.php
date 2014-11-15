@@ -117,7 +117,7 @@ if ($action == "addform") {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
-          $jUtils->sendMail($user["email"], $langfile["taskassignedsubject"]." [JTiD-".$tid."]",$msg,null,$attachmentPath);
+          $jUtils->sendMail($user["email"], $langfile["taskassignedsubject"]." | ".$title." [JTiD-".$tid."]",$msg,null,$attachmentPath);
         }
       }
     }
@@ -196,16 +196,17 @@ if ($action == "addform") {
     die();
   }
   $len1 = strlen($statusUpdate);
-  $len2 = strlen($oldStatusUpdate);
+//  $len2 = strlen($oldStatusUpdate);
   $cmt = $statusUpdate;
-  if($len1 > 0){
-    $statusUpdate = $oldStatusUpdate.'</br></br>'.$statusUpdate;
-    $dateFormat = CL_DATEFORMAT." H:i:s";
-    $today = date($dateFormat);
-    $statusUpdate .= "</br> --".$_SESSION['username']." ".$today;
-  }else{
-    $statusUpdate = $oldStatusUpdate;
-  }
+//  if($len1 > 0){
+//    $statusUpdate = $oldStatusUpdate.'</br></br>'.$statusUpdate;
+//    $dateFormat = CL_DATEFORMAT." H:i:s";
+//    $today = date($dateFormat);
+//    $statusUpdate .= "</br> --".$_SESSION['username']." ".$today;
+//  }else{
+//    $statusUpdate = $oldStatusUpdate;
+//  }
+  $statusUpdate = $oldStatusUpdate;
   $taskComments = new Comments();
   if($len1 > 0){
     $taskComments->addTaskComments($cmt,0,$_SESSION["userid"],$_SESSION["username"],$tid);
@@ -225,10 +226,10 @@ if ($action == "addform") {
     $today = date($dateFormat);
     if($taskStatus == $completeStatus){
       //$statusUpdate .= "</br> -- Task marked as completed by ".$_SESSION['username']." ".$today;
-      $cmt = "Task marked as completed by ".$_SESSION['username'];
+      //$cmt = "Task marked as completed by ".$_SESSION['username'];
       $taskComments->addTaskComments($cmt,0,$_SESSION["userid"],$_SESSION["username"],$tid);
     }else{
-      $cmt = " Task closed by ".$_SESSION['username'];
+      //$cmt = " Task closed by ".$_SESSION['username'];
       $taskComments->addTaskComments($statusUpdate,0,$_SESSION["userid"],$_SESSION["username"],$tid);
       //$statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
     }
