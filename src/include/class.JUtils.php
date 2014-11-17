@@ -209,21 +209,23 @@ class JUtils
     $msg .= "Dear " . $mailTo . ",<br/><br/>";
     $msg .= "You have a delayed task request for <b>" . $projectName . "</b><br/>";
     $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
+    $msg .= "<b>Status Update</b>";
+    $msg .= "<hr/>";
+    $msg .=$this->getTaskCommentsMailMsg($taskComments);
+    $msg .= "<hr/>";
     $msg .= "<b>Task Name<br/></b>";
     $msg .= "<p style='padding-left:15px'>" . $title . "</p>";
     $msg .= "<hr/>";
     $msg .= "<b>Description</b>";
     $msg .= "<p style='padding-left:15px'>" . $text . "</p>";
     $msg .= "<hr/>";
-    $msg .= "<b>Status Update</b>";
-    $msg .= "<hr/>";
+
     //$msg .= "<p style='padding-left:15px'>" . $statusUpdate . "</p>";
-    $msg .=$this->getTaskCommentsMailMsg($taskComments);
     $msg .= "</div>";
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
     $msg .= "Thank you from JANUS.<br/>";
-    $msg .= "Please do not reply to this mail.<br/>";
+    //$msg .= "Please do not reply to this mail.<br/>";
     $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
@@ -244,7 +246,7 @@ class JUtils
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
     $msg .= "Thank you from JANUS.<br/>";
-    $msg .= "Please do not reply to this mail.<br/>";
+    //$msg .= "Please do not reply to this mail.<br/>";
     $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
@@ -270,6 +272,10 @@ class JUtils
     $msg .= "Task updated by " . $operator;
     $msg .= "<br/>";
     $msg .= "<div style='background-color:#CDCDCD;padding:15px'>";
+    $msg .= "<b>Status Update</b>";
+    $msg .= "<hr/>";
+    $msg .=$this->getTaskCommentsMailMsg($taskComments);
+    $msg .= "<hr/>";
     $msg .= "<b>Project Name<br/></b>";
     $msg .= "<p style='padding-left:15px'>" . $projectName . "</p>";
     $msg .= "<hr/>";
@@ -279,10 +285,9 @@ class JUtils
     $msg .= "<b>Description</b>";
     $msg .= "<p style='padding-left:15px'>" . $text . "</p>";
     $msg .= "<hr/>";
-    $msg .= "<b>Status Update</b>";
-    $msg .= "<hr/>";
+
     //$msg .= "<p style='padding-left:15px'>" . $statusUpdate . "</p>";
-    $msg .=$this->getTaskCommentsMailMsg($taskComments);
+
     $msg .= "</div>";
     $msg .= "Please click on the link below to access task details and to add any update.<br/><br/>";
     $msg .= "<a href=\"" . $link . "\">Go to task</a><br/><br/>";
