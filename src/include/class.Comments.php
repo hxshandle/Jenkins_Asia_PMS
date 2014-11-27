@@ -139,7 +139,7 @@ class Comments {
         $ret = $this->jUtils->Query($sql1);
         if(count($ret) >0){
           $datei = $ret[0]['datei'];
-          $lnk ="<a href='".$datei."' style='font-weight:bold;font-style:italic;color:orangered;'>".$file_name."</a>";
+          $lnk ="<a href='http://janus.jenkins-asia.com/".$datei."' style='font-weight:bold;font-style:italic;color:orangered;'>".$file_name."</a>";
           $newCmt = str_replace($file_name,$lnk,$str_comment);
           $cmt['comment'] = $newCmt;
           $ccc=11;
