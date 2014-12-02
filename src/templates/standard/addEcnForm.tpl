@@ -17,7 +17,6 @@
         <label for="order">{#order#}:</label>
         <select name="selOrder" id="selOrder" onchange="onSelORderChange(this)"; required = "1">
           <option value="-1" selected="selected">{#chooseone#}</option>
-          
         </select>
       </div>
 
@@ -25,7 +24,6 @@
         <label for="order">{#quality#}:</label>
         <select name="selQuality" id="selQuality">
           <option value="-1" selected="selected">{#chooseone#}</option>
-          
         </select>
       </div>
 
