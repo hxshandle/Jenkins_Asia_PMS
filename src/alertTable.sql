@@ -505,3 +505,101 @@ ALTER TABLE `delay_mail`
 ADD COLUMN `attachments` LONGTEXT NULL DEFAULT NULL AFTER `last_update`;
 
 
+
+-- ECN new
+-- PART
+create table `ecn_impact_part` (
+  `ID` INT(11) AUTO_INCREMENT NOT NULL,
+  `ecn_id` int(11) not null,
+  `part_number` varchar(255) not null,
+  `quantity_in_store` int(10) default 0,
+  `part_description` longtext,
+  `cost_per_part` double,
+  `disposition_type` varchar(255) not null,
+  `remark_or_other` longtext,
+  `disposition_cost` double,
+  `insert_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+-- TOOL
+create table `ecn_impact_tool` (
+  `ID` INT(11) AUTO_INCREMENT NOT NULL,
+  `ecn_id` int(11) not null,
+  `tool_number` varchar(255) not null,
+  `tool_description` longtext,
+  `disposition_type` varchar(255) not null,
+  `remark_or_other` longtext,
+  `disposition_cost` double,
+  `insert_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+-- OTHER
+create table `ecn_impact_other` (
+  `ID` INT(11) AUTO_INCREMENT NOT NULL,
+  `ecn_id` int(11) not null,
+  `other_description` longtext,
+  `other_disposition` longtext,
+  `disposition_cost` double,
+  `insert_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+-- PROCESS
+create table `ecn_impact_process` (
+  `ID` INT(11) AUTO_INCREMENT NOT NULL,
+  `ecn_id` int(11) not null,
+  `process_number` varchar(255) not null,
+  `process_description` longtext,
+  `remark_or_other` longtext,
+  `disposition_cost` double,
+  `insert_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+-- PROCESS_DOCUMENT
+create table `ecn_impact_process_attachment` (
+  `ID` INT(11) AUTO_INCREMENT NOT NULL,
+  `ecn_impact_process_id` int(11) not null,
+  `document_id`  int(11) not null,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+-- DOCUMENTATION
+create table `ecn_impact_documentation` (
+  `ID` INT(11) AUTO_INCREMENT NOT NULL,
+  `ecn_id` int(11) not null,
+  `document_number` varchar(255) not null,
+  `document_description` longtext,
+  `remark_or_other` longtext,
+  `disposition_cost` double,
+  `insert_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+-- PROCESS_DOCUMENT
+create table `ecn_impact_documentation_attachment` (
+  `ID` INT(11) AUTO_INCREMENT NOT NULL,
+  `ecn_impact_documentation_id` int(11) not null,
+  `document_id`  int(11) not null,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
+
+-- END ECN New
+
+
