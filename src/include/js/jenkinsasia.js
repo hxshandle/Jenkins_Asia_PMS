@@ -1,3 +1,10 @@
+// global jquery function
+
+jQuery(function(){
+  var $ = jQuery;
+  $('input.numeric').numeric();
+});
+
 var J = {};
 
 J.validationAddTask=function(form,errCss){

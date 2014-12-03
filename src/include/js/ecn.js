@@ -146,3 +146,11 @@ function setSelectedDocuments(documents){
   $("files").value = val.join(",");
 
 }
+
+function addECNImpact(){
+  var $ = jQuery;
+  var templateId = $('#impactType').val() +'-tpl';
+  var tpl = $('#'+templateId).clone(true);
+  console.log("template id is %c %s","color:red",templateId);
+
+}

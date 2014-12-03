@@ -3165,4 +3165,12 @@ ul.chk-list label{
   font-size: 12px;
 }
 
+
+.impact-container .col label{
+	display:block;
+}
+.mceLast td.mceIframeContainer {
+	padding-left:0px;
+}
+
 /*****************Jenkins Asia Special***********************/

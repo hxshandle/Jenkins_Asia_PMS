@@ -24,18 +24,24 @@ closeEndcolor = '#377814';
 deleteEndcolor = '#c62424';
 </script>
 <script type = "text/javascript" src = "include/js/prototype.php" ></script>
+<script type = "text/javascript" src = "include/js/jquery-1.11.1.min.js" ></script>
+<script>
+  jQuery.noConflict();
+</script>
+<script type = "text/javascript" src = "include/js/jquery.numeric.min.js" ></script>
 <script type = "text/javascript" src = "include/js/ajax.php" ></script>
 <script type = "text/javascript" src="include/js/jsval.php"></script>
+
 <script type="text/javascript" src="include/js/chat.js"></script>
 <script type="text/javascript" src="include/js/livepipe.js"></script>
 <script type="text/javascript" src="include/js/tabs.js"></script>
 <script type="text/javascript" src="include/js/jenkinsasia.js"></script>
-     <script type = "text/javascript">
-        function _jsVal_Language() {
-            this.err_enter = "{/literal}{#wrongfield#}{literal}";
-            this.err_form = "{/literal}{#wrongfields#}{literal}";
-            this.err_select = "{/literal}{#wrongselect#}{literal}";
-        }
+<script type = "text/javascript">
+  function _jsVal_Language() {
+    this.err_enter = "{/literal}{#wrongfield#}{literal}";
+    this.err_form = "{/literal}{#wrongfields#}{literal}";
+    this.err_select = "{/literal}{#wrongselect#}{literal}";
+  }
 </script>
 
 <script type="text/javascript" src="include/js/mycalendar.js"></script>
