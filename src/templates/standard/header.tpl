@@ -71,31 +71,31 @@ window.onunload = quitchat;
 <script type="text/javascript" src="include/js/tiny_mce/tiny_mce.js"></script>
 
 <script type="text/javascript">
-//	theme_advanced_statusbar_location : "bottom",
+//  theme_advanced_statusbar_location : "bottom",
 tinyMCE.init({
-	mode : "textareas",
-	theme : "advanced",
-	language: "{/literal}{$locale}{literal}",
-	width: "55%",
-	height: "150px",
-	plugins : "inlinepopups,style,advimage,advlink,xhtmlxtras,safari,template",
-	theme_advanced_buttons1 : "bold,italic,underline,|,fontsizeselect,|,bullist,numlist,|,link,unlink,image,|,forecolor,",
-	theme_advanced_buttons2 : "",
-	theme_advanced_buttons3 : "",
-	theme_advanced_toolbar_location : "top",
-	theme_advanced_toolbar_align : "left",
-	theme_advanced_path : false,
-	theme_advanced_resizing : true,
-	theme_advanced_resizing_use_cookie : false,
-	theme_advanced_resizing_max_width : "55%",
-	extended_valid_elements : "a[name|href|target|title],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-	force_br_newlines : true,
-	cleanup: true,
-	cleanup_on_startup: true,
-	force_p_newlines : false,
-	convert_newlines_to_brs : false,
-	forced_root_block : false,
-	external_image_list_url: 'manageajax.php?action=jsonfiles&id={/literal}{$project.ID}{literal}'
+  mode : "textareas",
+  theme : "advanced",
+  language: "{/literal}{$locale}{literal}",
+  width: "55%",
+  height: "150px",
+  plugins : "inlinepopups,style,advimage,advlink,xhtmlxtras,safari,template",
+  theme_advanced_buttons1 : "bold,italic,underline,|,fontsizeselect,|,bullist,numlist,|,link,unlink,image,|,forecolor,",
+  theme_advanced_buttons2 : "",
+  theme_advanced_buttons3 : "",
+  theme_advanced_toolbar_location : "top",
+  theme_advanced_toolbar_align : "left",
+  theme_advanced_path : false,
+  theme_advanced_resizing : true,
+  theme_advanced_resizing_use_cookie : false,
+  theme_advanced_resizing_max_width : "55%",
+  extended_valid_elements : "a[name|href|target|title],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+  force_br_newlines : true,
+  cleanup: true,
+  cleanup_on_startup: true,
+  force_p_newlines : false,
+  convert_newlines_to_brs : false,
+  forced_root_block : false,
+  external_image_list_url: 'manageajax.php?action=jsonfiles&id={/literal}{$project.ID}{literal}'
 
 });
 
@@ -108,13 +108,13 @@ tinyMCE.init({
 <div id = "jslog" style = "color:red;position:absolute;top:70%;right:5%;width:300px;"></div>
 
 <script type="text/javascript">
-	{literal}
+  {literal}
   var MSGS={};
   {/literal}
   {foreach from=$langfile key=k item=v}
-  	MSGS["{$k}"]=escape("{$v}");
+    MSGS["{$k}"]=escape("{$v}");
   {/foreach}
 </script>
 {if $showheader != "no"}
-	{include file="header_main.tpl"}
+  {include file="header_main.tpl"}
 {/if}
