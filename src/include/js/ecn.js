@@ -147,10 +147,33 @@ function setSelectedDocuments(documents){
 
 }
 
+var impactSequence = 0;
+
 function addECNImpact(){
   var $ = jQuery;
   var templateId = $('#impactType').val() +'-tpl';
   var tpl = $('#'+templateId).clone(true);
-  console.log("template id is %c %s","color:red",templateId);
+  //process template
+  tpl.removeAttr('id');
+  impactSequence++;
+  $( "[name*='sequence']",tpl).each(function(idx,el){
+    var $el = $(el); 
+    var name = $el.attr('name');
+    var newName = name.replace('sequence',""+impactSequence); 
+    console.log("process %s -> %s",name,newName);
+    $el.attr('name',newName);
+  });
+  var el = $('<li></li>').append(tpl);
+  $('#impact-list').prepend(el);
+}
 
+
+function removeECNImpact(el){
+  var $ = jQuery;
+  var confirmDel = window.confirm("Are you sure to delete it?");
+  if(!confirmDel){
+    return;
+  }
+  var $t = $(el);
+  $t.parents('.ecn-impact-row').remove();
 }

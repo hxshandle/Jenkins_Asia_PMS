@@ -61,6 +61,7 @@ window.onunload = quitchat;
 <script type="text/javascript" src="include/js/lytebox.php"></script>
 {/if}
 <link rel="stylesheet" type="text/css" href="templates/standard/css/style_main.php"/>
+<link rel="stylesheet" type="text/css" href="templates/standard/css/font-awesome.min.css"/>
 
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="templates/standard/css/style_iefix.css"/>
@@ -73,8 +74,9 @@ window.onunload = quitchat;
 <script type="text/javascript">
 //  theme_advanced_statusbar_location : "bottom",
 tinyMCE.init({
-  mode : "textareas",
+  mode : "specific_textareas",
   theme : "advanced",
+  editor_deselector: "mceNoEditor",
   language: "{/literal}{$locale}{literal}",
   width: "55%",
   height: "150px",
@@ -96,7 +98,6 @@ tinyMCE.init({
   convert_newlines_to_brs : false,
   forced_root_block : false,
   external_image_list_url: 'manageajax.php?action=jsonfiles&id={/literal}{$project.ID}{literal}'
-
 });
 
 </script>
