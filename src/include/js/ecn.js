@@ -177,3 +177,32 @@ function removeECNImpact(el){
   var $t = $(el);
   $t.parents('.ecn-impact-row').remove();
 }
+
+var _fileTarget = null;
+function ecnImpactFileAttached(selDocuments){
+  var $ = jQuery;
+  for (var i = 0; i < selDocuments.length; i++) {
+    var d = selDocuments[i];
+    //0:id
+    //1:name
+    //2:vision
+    //3:doc_no
+    if(_fileTarget){
+      var uploadLink = $(_fileTarget);
+      var targetUl = uploadLink.siblings('ul');
+      var idx = targetUl.data('index');
+      var name = uploadLink.attr('name')+"["+(idx++)+"]";
+      targetUl.data('index',idx);
+      $("<li></li>")
+      .append($("<input>").attr("name",name).attr('value',d[0]).attr('type','hidden'))
+      .append($("<label></label>").text(d[1]+" : "+d[2]))
+      .appendTo(targetUl);
+    }
+  };
+}
+
+function ecnImpactAttachDocument(el){
+  var $ = jQuery;
+  _fileTarget = el;
+  J.uploadDocument("ecnImpactFileAttached");
+}

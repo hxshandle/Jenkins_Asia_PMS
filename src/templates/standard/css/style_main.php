@@ -3208,13 +3208,13 @@ ul.chk-list label{
 
 }
 
-.impact-part-row{
+.impact-part-row,
+.impact-process-row,
+.impact-document-row{
   width:1400px;
 }
 .impact-tool-row,
-.impact-other-row,
-.impact-document-row,
-.impact-process-row{
+.impact-other-row{
   width:1000px;
 }
 

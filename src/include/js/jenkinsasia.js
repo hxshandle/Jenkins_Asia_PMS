@@ -113,6 +113,13 @@ J.selectDocument = function(refElement,dispElement){
   var _win = J.openWindow(url);
   _win.focus();
 }
+
+J.uploadDocument = function(callback){
+  var url = "managedocument.php?action=selectDocuments";
+  url +="&callBack="+callback;
+  var _win = J.openWindow(url);
+  _win.focus();
+}
 J.resetDocument = function(refElement,dispElement){
   $("#"+dispElement).innerHTML = "";
   $("#"+refElement).value = "";

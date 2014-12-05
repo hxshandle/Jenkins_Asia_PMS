@@ -184,7 +184,8 @@
       <!-- document_attached -->
       <div class="col">
         <label for="">{#document_attach#}</label>
-        <a href="javascript:ecnImpactAttachDocument(this)" class="butn_link">{#upload#}</a>
+        <ul data-index=0></ul>
+        <a href="javascript:void(0)" onclick="ecnImpactAttachDocument(this)" name="ecnImpact[process][sequence][attachment]" class="butn_link">{#upload#}</a>
       </div>
       <!-- remark_or_other -->
       <div class="col">
@@ -219,7 +220,8 @@
       <!-- document_attached -->
       <div class="col">
         <label for="">{#document_attach#}</label>
-        <a href="javascript:ecnImpactAttachDocument(this)" class="butn_link">{#upload#}</a>
+        <ul data-index=0></ul>
+        <a href="javascript:void(0)" onclick="ecnImpactAttachDocument(this)" class="butn_link" name="ecnImpact[documentation][sequence][attachment]">{#upload#}</a>
       </div>
       <!-- remark_or_other -->
       <div class="col">
