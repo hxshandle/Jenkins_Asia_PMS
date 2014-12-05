@@ -25,9 +25,9 @@ class ECNImpacts
       if (!is_string($key)) {
         continue;
       }
-      if(is_array($value)){
+      if (is_array($value)) {
         $hasSubTable = true;
-        $subTableName = $tableName."_".$key;
+        $subTableName = $tableName . "_" . $key;
         $subTableData = $value;
         continue;
       }
@@ -47,12 +47,12 @@ class ECNImpacts
     $sql = sprintf($sql, $keys, $values);
     $ins = mysql_query($sql);
     // insert sub attachment data
-    if($ins && $hasSubTable){
+    if ($ins && $hasSubTable) {
       $insId = mysql_insert_id();
-      $key = $tableName."_id";
+      $key = $tableName . "_id";
       $docSql = "insert into `$subTableName` (`$key`,`document_id`) values ($insId,%d)";
       foreach ($subTableData as $docId) {
-        $docInsSql = sprintf($docSql,(int)$docId);
+        $docInsSql = sprintf($docSql, (int)$docId);
         mysql_query($docInsSql);
       }
 
@@ -66,13 +66,13 @@ class ECNImpacts
   function addRecords($tableName, $ecnId, $recoreds)
   {
     $ret = array(
-        "status" => true,
-        "errors" => array()
+      "status" => true,
+      "errors" => array()
     );
     foreach ($recoreds as $record) {
       $record['ecn_id'] = $ecnId;
       $ins = $this->addRecord($tableName, $record);
-      if (!ins) {
+      if (!$ins) {
         array_push($ret['errors'], "insert error for $record");
       }
     }
@@ -94,7 +94,7 @@ class ECNImpacts
         continue;
       }
       // don't update array it should be the sub table.
-      if(is_array($value)){
+      if (is_array($value)) {
         continue;
       }
       $setStr .= "`" . $key . "`= ";
@@ -149,6 +149,18 @@ class ECNImpacts
       $ret[$tableName] = $tableResult;
     }
     return $ret;
+  }
+
+  function addImpacts($ecnId,$arr)
+  {
+    if (!is_array($arr)) {
+      return;
+    }
+    foreach ((array)$arr as $tableName => $tableData) {
+      $tableName = "ecn_impact_".$tableName;
+      $this->addRecords($tableName,$ecnId,$tableData);
+    }
+
   }
 }
 

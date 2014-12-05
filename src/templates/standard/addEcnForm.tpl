@@ -53,7 +53,7 @@
             <option value="part">PART</option>
             <option value="tool">TOOL</option>
             <option value="process">PROCESS</option>
-            <option value="dcoumentation">DOCUMENTATION</option>
+            <option value="documentation">DOCUMENTATION</option>
             <option value="other">OTHER</option>
           </select>
           <a href="javascript:addECNImpact();" class="butn_link" style="margin-left:10px;">{#add#}</a>
@@ -84,10 +84,10 @@
         <label for="">{#part_number#}</label>
         <input type="" class="part_number" name="ecnImpact[part][sequence][part_number]">
       </div>
-      <!-- quanity_in_store -->
+      <!-- quantity_in_store -->
       <div class="col">
-        <label for="">{#quanity_in_store#}</label>
-        <input type="" class="quanity_in_store numeric" name="ecnImpact[part][sequence][quanity_in_store]">
+        <label for="">{#quantity_in_store#}</label>
+        <input type="" class="quantity_in_store numeric" name="ecnImpact[part][sequence][quantity_in_store]">
       </div>
       <!-- part_description -->
       <div class="col">
@@ -139,7 +139,7 @@
       <!-- tool_description -->
       <div class="col">
         <label for="">{#tool_description#}</label>
-        <textarea type="" class="tool_description mceNoEditor" name="ecnmpact[tool][sequence][tool_description]"></textarea>
+        <textarea type="" class="tool_description mceNoEditor" name="ecnImpact[tool][sequence][tool_description]"></textarea>
       </div>
       <!-- disposition_type -->
       <div class="col">
@@ -199,7 +199,7 @@
     </div>
     <div style="clear:both;"></div>
   </div>
-  <div id="dcoumentation-tpl" class="impact-document-row ecn-impact-row">
+  <div id="documentation-tpl" class="impact-document-row ecn-impact-row">
     <div class="impact-container">
       <div class="col">
         <label class="impact-label color-document" onclick="removeECNImpact(this)">document
@@ -209,12 +209,12 @@
       <!-- document_number -->
       <div class="col">
         <label for="">{#document_number#}</label>
-        <input type="" class="document_number" name="ecnImpact[document][sequence][document_number]">
+        <input type="" class="document_number" name="ecnImpact[documentation][sequence][document_number]">
       </div>
       <!-- document_description -->
       <div class="col">
         <label for="">{#document_description#}</label>
-        <textarea type="" class="document_description mceNoEditor" name="ecnImpact[document][sequence][document_description]"></textarea>
+        <textarea type="" class="document_description mceNoEditor" name="ecnImpact[documentation][sequence][document_description]"></textarea>
       </div>
       <!-- document_attached -->
       <div class="col">
@@ -224,12 +224,12 @@
       <!-- remark_or_other -->
       <div class="col">
         <label for="">{#remark_or_other#}</label>
-        <textarea type="" class="remark_or_other mceNoEditor" name="ecnImpact[document][sequence][remark_or_other]"></textarea>
+        <textarea type="" class="remark_or_other mceNoEditor" name="ecnImpact[documentation][sequence][remark_or_other]"></textarea>
       </div>
       <!-- disposition_cost -->
       <div class="col">
         <label for="">{#disposition_cost#}</label>
-        <input type="" class="disposition_cost numeric" name="ecnImpact[document][sequence][disposition_cost]">
+        <input type="" class="disposition_cost numeric" name="ecnImpact[documentation][sequence][disposition_cost]">
       </div>
     </div>
     <div style="clear:both;"></div>
@@ -246,10 +246,10 @@
         <label for="">{#other_description#}</label>
         <textarea type="" class="other_description mceNoEditor" name="ecnImpact[other][sequence][other_description]"></textarea>
       </div>
-      <!-- remark_or_other -->
+      <!-- other_disposition -->
       <div class="col">
-        <label for="">{#remark_or_other#}</label>
-        <textarea type="" class="remark_or_other mceNoEditor" name="ecnImpact[other][sequence][remark_or_other]"></textarea>
+        <label for="">{#disposition_type#}</label>
+        <textarea type="" class="other_disposition mceNoEditor" name="ecnImpact[other][sequence][other_disposition]"></textarea>
       </div>
       <!-- disposition_cost -->
       <div class="col">

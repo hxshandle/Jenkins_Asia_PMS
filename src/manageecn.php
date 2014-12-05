@@ -31,7 +31,12 @@ case "addEcn":
   $ecn = new EngineeringChangeNote();
   $deliverable = new DeliverableItem();
   $d = $deliverable->getItem($deliverableItemId);
-  $ecn->add($newEcnName, $desc, $projectId, $d['phase'], -1,$orderId,$qualityId);
+  $ecnId = $ecn->add($newEcnName, $desc, $projectId, $d['phase'], -1,$orderId,$qualityId);
+  if($ecnId){
+    // insert impacts
+    $impacts = new ECNImpacts();
+    $impacts->addImpacts($ecnId,$_POST['ecnImpact']);
+  }
   $loc = $url."manageecn.php?action=showecn";
   header("Location: $loc");
   break;
