@@ -3,10 +3,10 @@
   <thead>
     <th>{#part_number#}</th>
     <th>{#quantity_in_store#}</th>
-    <th width="300px">{#part_description#}</th>
+    <th class="long-text">{#part_description#}</th>
     <th>{#cost_per_part#}</th>
     <th>{#disposition#}</th>
-    <th width="300px">{#remark_or_other#}</th>
+    <th class="long-text">{#remark_or_other#}</th>
     <th>{#disposition_cost#}</th>
   </thead>
   <tbody>

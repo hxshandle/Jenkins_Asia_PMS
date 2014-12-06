@@ -157,7 +157,7 @@
         <label for="">{#disposition#}</label>
         <select class="disposition_type" name="ecnImpact[tool][sequence][disposition_type]">
           <option value="modify">{#scrap#}</option>
-          <option value="fabricate_new">{#use_as_ls#}</option>
+          <option value="fabricate_new">{#fabricate_new#}</option>
           <option value="scrap">{#reword#}</option>
           <option value="other">{#other#}</option>
         </select>

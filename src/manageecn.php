@@ -72,9 +72,11 @@ case "viewUploadFile":
   $documents = $doc->getDocumentsByECNId($ecnId);
   $projectName = $jUtils->getProjectNameById($ecnIns['project']);
   $ecnRequester = $jUtils->getUserName($ecnIns['submitter']);
+  $ecnApprovedBy = $jUtils->getUserName($ecnIns['approver']);
   $template->assign("projectName",$projectName);
   $template->assign("documents",$documents);
   $template->assign("ecnRequester",$ecnRequester);
+  $template->assign("ecnApprovedBy",$ecnApprovedBy);
   $template->assign("impacts",$impacts);
   $template->assign("ecn",$ecnIns);
   $template->display("viewECNFile.tpl");

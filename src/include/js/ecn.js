@@ -160,7 +160,6 @@ function addECNImpact(){
     var $el = $(el); 
     var name = $el.attr('name');
     var newName = name.replace('sequence',""+impactSequence); 
-    console.log("process %s -> %s",name,newName);
     $el.attr('name',newName);
   });
   var el = $('<li></li>').append(tpl);

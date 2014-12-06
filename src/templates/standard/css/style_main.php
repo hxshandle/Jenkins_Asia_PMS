@@ -3275,6 +3275,7 @@ ul.chk-list label{
   width: 100%;
   overflow: auto;
   padding: 0;
+  margin-bottom: 20px;
 }
 .ecn-base-attr .impacts .impact-list .ecn-impact-table-part {
   width: 1500px;
@@ -3289,6 +3290,9 @@ ul.chk-list label{
   background: #2C3E50;
   color: #fff;
   line-height: 2em;
+}
+.ecn-base-attr .impacts .impact-list .ecn-impact-table th.long-text {
+  width: 300px;
 }
 .ecn-base-attr .impacts .impact-list .ecn-impact-table tbody tr:nth-child(even) {
   background: #CCC;
