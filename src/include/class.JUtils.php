@@ -15,6 +15,20 @@ class JUtils
     }
   }
 
+  function getProjectNameById($id){
+    $id = (int) $id;
+    $sql = "select name from projekte where id = $id";
+    $sel = mysql_query($sql);
+    if($sel){
+      $arr = mysql_fetch_array($sel);
+      return $arr[0];
+    }else{
+      return "project not found";
+    }
+
+
+  }
+
 
   function getValidCCList($arrCC){
     $ret = Array();

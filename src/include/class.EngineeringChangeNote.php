@@ -47,16 +47,17 @@ class EngineeringChangeNote {
     
   }
 
-  function add($name,$submitterComments,$projectId,$phaseId,$deliverableItemId,$orderId=-1,$qualityId=-1){
+  function add($name,$submitterComments,$projectId,$phaseId,$deliverableItemId,$orderId=-1,$qualityId=-1,$recommandAction){
     $submitter = getArrayVal($_SESSION, 'userid');
     $submitterComments = mysql_real_escape_string($submitterComments);
+    $recommandAction = mysql_real_escape_string($recommandAction);
     $projectId = (int) $projectId;
     $phaseId = (int) $phaseId;
     $deliverableItemId = (int) $deliverableItemId;
     $orderId = (int) $orderId;
     $qualityId = (int) $qualityId;
     $status = Status::getId("ECN", "need_approve");
-    $sql = "insert into engineering_change_note (name,status,submitter,submit_time,submitter_comments,project,phase,deliverable,`order`,quality) values('$name',$status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId,$orderId,$qualityId )";
+    $sql = "insert into engineering_change_note (name,status,submitter,submit_time,submitter_comments,project,phase,deliverable,`order`,quality,recommand_action) values('$name',$status,'$submitter',NOW(),'$submitterComments',$projectId,$phaseId,$deliverableItemId,$orderId,$qualityId,'$recommandAction')";
     $ins = mysql_query($sql);
     if($ins){
       return mysql_insert_id();

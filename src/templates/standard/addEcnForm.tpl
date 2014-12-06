@@ -47,7 +47,7 @@
       <h3>{#ecn_impact#}</h3>
       <hr style="margin-right:44px"/>
 
-      <div class="ecn-impact-container" style="margin-right:44px;clear:both;">
+      <div class="ecn-impact-container" style="margin-right:44px;clear:both;padding:12px 0px;">
         <div>
           <select name="impactType" id="impactType" style="width:150px;">
             <option value="part">PART</option>
@@ -61,11 +61,22 @@
         <div style="clear:both"></div>
         <!-- impact list -->
         <ul id="impact-list"></ul>
+        <!-- total cost -->
+        <hr style="margin-top:12px;"/>
+        <div class="row" style="font-size:1.17em;font-weight:bold;">
+          <span>{#total_disposition_cost#}:</span>
+          <span id="totalDispositionCost" style="margin-left:8px">0</span>
+        </div>
+      </div>
+      
+      <div class="row">
+        <label >{#recommand_action#}</label>
+        <textarea  id="recommand_action" name="recommand_action"></textarea>
       </div>
 
-      <div class="action-wrapper" style="clear:both;">
+      <div class="action-wrapper" style="clear:both;margin-top:20px">
         <button onfocus="this.blur();" type="submit">{#add#}</button>
-        <button onfocus="this.blur();" onclick="blindtoggle('form_adddocument');return false;" type="reset">{#cancel#}</button>
+        <button onfocus="this.blur();" onclick="blindtoggle('form_adddecn');return false;" type="reset">{#cancel#}</button>
       </div>
       <input type="hidden" id="fileId" name="fileId"/>
     </fieldset>

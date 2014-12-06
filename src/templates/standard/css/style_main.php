@@ -3253,6 +3253,48 @@ ul.chk-list label{
 .color-other{
   background-color:#2C3E50;
 }
+.ecn-base-attr li{
+  padding:10px 0;
+}
+.ecn-base-attr>li span{
+  font-weight:bold;
+  font-size:1.1em;
+  font-style:italic;
+}
+.ecn-base-attr>li div{
+  padding:3px 0px 3px 20px;
+}
 
+/** from scss***/
+.ecn-base-attr .impacts .head {
+  color: #555;
+  font-size: 1.1em;
+  display: block;
+}
+.ecn-base-attr .impacts .impact-list {
+  width: 100%;
+  overflow: auto;
+  padding: 0;
+}
+.ecn-base-attr .impacts .impact-list .ecn-impact-table-part {
+  width: 1500px;
+}
+.ecn-base-attr .impacts .impact-list .ecn-impact-table {
+  border-collapse: collapse;
+}
+.ecn-base-attr .impacts .impact-list .ecn-impact-table th, .ecn-base-attr .impacts .impact-list .ecn-impact-table td {
+  padding: 0px 10px;
+}
+.ecn-base-attr .impacts .impact-list .ecn-impact-table th {
+  background: #2C3E50;
+  color: #fff;
+  line-height: 2em;
+}
+.ecn-base-attr .impacts .impact-list .ecn-impact-table tbody tr:nth-child(even) {
+  background: #CCC;
+}
+.ecn-base-attr .impacts .impact-list .ecn-impact-table tbody tr:nth-child(odd) {
+  background: #FFF;
+}
 
 /*****************Jenkins Asia Special***********************/

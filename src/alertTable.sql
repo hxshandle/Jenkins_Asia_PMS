@@ -599,6 +599,8 @@ create table `ecn_impact_documentation_attachment` (
 )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
+ALTER TABLE `engineering_change_note` 
+ADD COLUMN `recommand_action` LONGTEXT NULL AFTER `quality`;
 
 -- END ECN New
 

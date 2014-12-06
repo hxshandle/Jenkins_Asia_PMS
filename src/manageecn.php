@@ -28,10 +28,11 @@ case "addEcn":
   $qualityId = getArrayVal($_POST, "selQuality");
   $newEcnName = getArrayVal($_POST, "newEcnName");
   $desc = getArrayVal($_POST, "newEcnDescription");
+  $recommandAction = getArrayVal($_POST, "recommand_action");
   $ecn = new EngineeringChangeNote();
   $deliverable = new DeliverableItem();
   $d = $deliverable->getItem($deliverableItemId);
-  $ecnId = $ecn->add($newEcnName, $desc, $projectId, $d['phase'], -1,$orderId,$qualityId);
+  $ecnId = $ecn->add($newEcnName, $desc, $projectId, $d['phase'], -1,$orderId,$qualityId,$recommandAction);
   if($ecnId){
     // insert impacts
     $impacts = new ECNImpacts();
@@ -64,10 +65,17 @@ case "approveOrReject":
 case "viewUploadFile":
   $ecnId = getArrayVal($_GET, "id");
   $ecn = new EngineeringChangeNote();
+  $ecnImpacts = new ECNImpacts();
+  $impacts = $ecnImpacts->getImpactsByECNId($ecnId);
   $ecnIns = $ecn->get($ecnId);
   $doc = new Document();
   $documents = $doc->getDocumentsByECNId($ecnId);
+  $projectName = $jUtils->getProjectNameById($ecnIns['project']);
+  $ecnRequester = $jUtils->getUserName($ecnIns['submitter']);
+  $template->assign("projectName",$projectName);
   $template->assign("documents",$documents);
+  $template->assign("ecnRequester",$ecnRequester);
+  $template->assign("impacts",$impacts);
   $template->assign("ecn",$ecnIns);
   $template->display("viewECNFile.tpl");
 }
