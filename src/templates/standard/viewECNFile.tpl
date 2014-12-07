@@ -31,6 +31,11 @@
       <span>{#approved_by#}</span>
       <div>{$ecnApprovedBy|default:"N/A"}</div>
     </li>
+    <!-- Total Disposition Cost -->
+    <li>
+      <span>{#total_disposition_cost#}</span>
+      <div>{$totalCost|default:"0"}</div>
+    </li>
 
     <!-- ecn impacts -->
     <li>

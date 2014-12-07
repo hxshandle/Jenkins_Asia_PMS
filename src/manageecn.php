@@ -73,11 +73,18 @@ case "viewUploadFile":
   $projectName = $jUtils->getProjectNameById($ecnIns['project']);
   $ecnRequester = $jUtils->getUserName($ecnIns['submitter']);
   $ecnApprovedBy = $jUtils->getUserName($ecnIns['approver']);
+  $totalCost = 0;
+  foreach ($impacts as $impact) {
+    foreach ($impact as $row) {
+      $totalCost += $row['disposition_cost'];
+    }
+  }
   $template->assign("projectName",$projectName);
   $template->assign("documents",$documents);
   $template->assign("ecnRequester",$ecnRequester);
   $template->assign("ecnApprovedBy",$ecnApprovedBy);
   $template->assign("impacts",$impacts);
+  $template->assign("totalCost",$totalCost);
   $template->assign("ecn",$ecnIns);
   $template->display("viewECNFile.tpl");
 }
