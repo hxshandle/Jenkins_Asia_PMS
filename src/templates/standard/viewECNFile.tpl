@@ -37,30 +37,32 @@
       <span>{#ecn_impact#}</span>
       <div class="impacts">
         {foreach from=$impacts key=impactName item=dataList}
-          <span class="head">{$impactName|regex_replace:"/ecn_impact_/":""|upper}</span>
-          <hr/>
-          <div class="impact-list">
-            <!-- part -->
-            {if $impactName == "ecn_impact_part"}
-              {include file="_ecn_impact_table_part.tpl" data=$dataList}
-            {/if}
-            <!-- tool -->
-            {if $impactName == "ecn_impact_tool"}
-              {include file="_ecn_impact_table_tool.tpl" data=$dataList}
-            {/if}
-            <!-- process -->
-            {if $impactName == "ecn_impact_process"}
-              {include file="_ecn_impact_table_process.tpl" data=$dataList}
-            {/if}
-            <!-- documentation -->
-            {if $impactName == "ecn_impact_documentation"}
-              {include file="_ecn_impact_table_documentation.tpl" data=$dataList}
-            {/if}
-            <!-- other -->
-            {if $impactName == "ecn_impact_other"}
-              {include file="_ecn_impact_table_other.tpl" data=$dataList}
-            {/if}
-          </div>
+          {if count($dataList)>0}
+            <span class="head">{$impactName|regex_replace:"/ecn_impact_/":""|upper}</span>
+            <hr/>
+            <div class="impact-list">
+              <!-- part -->
+              {if $impactName == "ecn_impact_part"}
+                {include file="_ecn_impact_table_part.tpl" data=$dataList}
+              {/if}
+              <!-- tool -->
+              {if $impactName == "ecn_impact_tool"}
+                {include file="_ecn_impact_table_tool.tpl" data=$dataList}
+              {/if}
+              <!-- process -->
+              {if $impactName == "ecn_impact_process"}
+                {include file="_ecn_impact_table_process.tpl" data=$dataList}
+              {/if}
+              <!-- documentation -->
+              {if $impactName == "ecn_impact_documentation"}
+                {include file="_ecn_impact_table_documentation.tpl" data=$dataList}
+              {/if}
+              <!-- other -->
+              {if $impactName == "ecn_impact_other"}
+                {include file="_ecn_impact_table_other.tpl" data=$dataList}
+              {/if}
+            </div>
+          {/if}
         {/foreach}
       </div>
     </li>

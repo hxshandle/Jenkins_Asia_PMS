@@ -205,3 +205,12 @@ function ecnImpactAttachDocument(el){
   _fileTarget = el;
   J.uploadDocument("ecnImpactFileAttached");
 }
+
+function ecnImpactRecacluateCost(){
+  var $ = jQuery;
+  var total = 0;
+  $('#impact-list [name*="disposition_cost"]').each(function(idx,el){
+    total += Number(el.value);
+  });
+  $('#totalDispositionCost').text(total);
+}

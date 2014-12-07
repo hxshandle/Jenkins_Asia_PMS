@@ -118,7 +118,7 @@ class ECNImpacts
     $relTableName = $tableName . "_attachment";
     $relKey = $tableName . "_id";
     $id = (int)$id;
-    $sql = "select * from $relTableName t,document_info di where t.document_id = di.id and $relKey = $id";
+    $sql = "select * from $relTableName t,document_info di,files fl where t.document_id = di.id and fl.id=di.file and $relKey = $id";
     return $this->jUtil->Query($sql);
   }
 

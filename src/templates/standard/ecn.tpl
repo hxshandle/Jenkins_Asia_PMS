@@ -23,7 +23,7 @@
 
         {* Search *}
         <div id="documenthead" class="block">
-          <div id="form_adddecn" style="display:block">
+          <div id="form_adddecn" style="display:none">
             {include file="addEcnForm.tpl"}
           </div>
 

@@ -3283,6 +3283,9 @@ ul.chk-list label{
 .ecn-base-attr .impacts .impact-list .ecn-impact-table {
   border-collapse: collapse;
 }
+.ecn-base-attr .impacts .impact-list .ecn-impact-table .download_link:hover {
+  text-decoration: underline;
+}
 .ecn-base-attr .impacts .impact-list .ecn-impact-table th, .ecn-base-attr .impacts .impact-list .ecn-impact-table td {
   padding: 0px 10px;
 }

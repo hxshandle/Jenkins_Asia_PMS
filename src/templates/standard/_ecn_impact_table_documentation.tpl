@@ -12,7 +12,14 @@
       <tr>
         <td>{$row.document_number}</td>
         <td>{$row.document_description}</td>
-        <td>Dco.....</td>
+        <td>
+          <!-- attachment -->
+          {foreach from=$row.attachments item=doc}
+            <input type="hidden" name="documentid" value="{$doc.document_id}">
+            <a class="download_link" href="{$doc.datei}" title="{$doc.name}"><span class="document_no">{$doc.document_no} : {$doc.revision}</span></a>
+            <br/>
+          {/foreach}
+        </td>
         <td>{$row.remark_or_other}</td>
         <td>{$row.disposition_cost}</td>
       </tr>

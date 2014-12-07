@@ -93,7 +93,7 @@
       </div>
       <div class="col">
         <label for="">{#part_number#}</label>
-        <input type="" class="part_number" name="ecnImpact[part][sequence][part_number]">
+        <input type="" class="part_number" name="ecnImpact[part][sequence][part_number]" required>
       </div>
       <!-- quantity_in_store -->
       <div class="col">
@@ -129,7 +129,7 @@
       <!-- disposition_cost -->
       <div class="col">
         <label for="">{#disposition_cost#}</label>
-        <input type="" class="disposition_cost numeric" name="ecnImpact[part][sequence][disposition_cost]">
+        <input type="" class="disposition_cost numeric" name="ecnImpact[part][sequence][disposition_cost]" onblur="ecnImpactRecacluateCost();">
       </div>
     </div>
     <div style="clear:both;"></div>
@@ -146,7 +146,7 @@
       <!-- tool_number -->
       <div class="col">
         <label for="">{#tool_number#}</label>
-        <input type="" class="tool_number" name="ecnImpact[tool][sequence][tool_number]"></div>
+        <input type="" class="tool_number" name="ecnImpact[tool][sequence][tool_number]" required></div>
       <!-- tool_description -->
       <div class="col">
         <label for="">{#tool_description#}</label>
@@ -171,7 +171,7 @@
       <!-- disposition_cost -->
       <div class="col">
         <label for="">{#disposition_cost#}</label>
-        <input type="" class="disposition_cost numeric" name="ecnImpact[tool][sequence][disposition_cost]"></div>
+        <input type="" class="disposition_cost numeric" name="ecnImpact[tool][sequence][disposition_cost]" onblur="ecnImpactRecacluateCost();"></div>
     </div>
     <div style="clear:both;"></div>
   </div>
@@ -185,7 +185,7 @@
       <!-- process_number -->
       <div class="col">
         <label for="">{#process_number#}</label>
-        <input type="" class="process_number" name="ecnImpact[process][sequence][process_number]">
+        <input type="" class="process_number" name="ecnImpact[process][sequence][process_number]" required>
       </div>
       <!-- process_description -->
       <div class="col">
@@ -206,7 +206,7 @@
       <!-- disposition_cost -->
       <div class="col">
         <label for="">{#disposition_cost#}</label>
-        <input type="" class="disposition_cost numeric" name="ecnImpact[process][sequence][disposition_cost]">
+        <input type="" class="disposition_cost numeric" name="ecnImpact[process][sequence][disposition_cost]" onblur="ecnImpactRecacluateCost();">
       </div>
     </div>
     <div style="clear:both;"></div>
@@ -221,7 +221,7 @@
       <!-- document_number -->
       <div class="col">
         <label for="">{#document_number#}</label>
-        <input type="" class="document_number" name="ecnImpact[documentation][sequence][document_number]">
+        <input type="" class="document_number" name="ecnImpact[documentation][sequence][document_number]" required>
       </div>
       <!-- document_description -->
       <div class="col">
@@ -242,7 +242,7 @@
       <!-- disposition_cost -->
       <div class="col">
         <label for="">{#disposition_cost#}</label>
-        <input type="" class="disposition_cost numeric" name="ecnImpact[documentation][sequence][disposition_cost]">
+        <input type="" class="disposition_cost numeric" name="ecnImpact[documentation][sequence][disposition_cost]" onblur="ecnImpactRecacluateCost();">
       </div>
     </div>
     <div style="clear:both;"></div>
@@ -257,7 +257,7 @@
       <!-- other_description -->
       <div class="col">
         <label for="">{#other_description#}</label>
-        <textarea type="" class="other_description mceNoEditor" name="ecnImpact[other][sequence][other_description]"></textarea>
+        <textarea type="" class="other_description mceNoEditor" name="ecnImpact[other][sequence][other_description]" required></textarea>
       </div>
       <!-- other_disposition -->
       <div class="col">
@@ -267,7 +267,7 @@
       <!-- disposition_cost -->
       <div class="col">
         <label for="">{#disposition_cost#}</label>
-        <input type="" class="disposition_cost numeric" name="ecnImpact[other][sequence][disposition_cost]">
+        <input type="" class="disposition_cost numeric" name="ecnImpact[other][sequence][disposition_cost]" onblur="ecnImpactRecacluateCost();">
       </div>
     </div>
     <div style="clear:both;"></div>
