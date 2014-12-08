@@ -115,7 +115,7 @@
         <label for="">{#disposition#}</label>
         <select class="disposition_type" name="ecnImpact[part][sequence][disposition_type]">
           <option value="scrap">{#scrap#}</option>
-          <option value="use_as_ls">{#use_as_ls#}</option>
+          <option value="use_as_is">{#use_as_is#}</option>
           <option value="rework">{#reword#}</option>
           <option value="other">{#other#}</option>
         </select>
