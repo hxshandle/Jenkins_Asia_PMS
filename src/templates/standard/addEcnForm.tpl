@@ -43,6 +43,20 @@
         <textarea  id="newEcnDescription" name="newEcnDescription"></textarea>
       </div>
 
+      <!-- approved by -->
+      <div class="row" style="margin-top:10px">
+        <label >{#approved_by#}</label>
+        <div id="approved_by-outer"></div>
+      </div>
+      <div style="clear:both;"></div>
+
+      <!-- notify -->
+      <div class="row" style="margin-top:10px">
+        <label >{#notify#}</label>
+        <div id="notify-outer"></div>
+      </div>
+      <div style="clear:both;"></div>
+
       <!-- ecn impacts -->
       <h3>{#ecn_impact#}</h3>
       <hr style="margin-right:44px"/>

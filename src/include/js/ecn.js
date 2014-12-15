@@ -5,11 +5,28 @@ function onSelProjectChange(p){
   getProjectOrders(p.value);
   getProjectNumber(p.value);
   getProjectDeliverable(p.value);
+  getProjectNotifyList(p.value);
 }
 
 function onSelORderChange(p){
   getOrderQualities(p.value);
+}
 
+function getProjectNotifyList(id){
+  var theUrl = "manageprojectajax.php?action=getProjectNotifyGroupedList&ulstyle=nothing&id="+id;
+  new Ajax.Request(theUrl, {
+        method: 'get',
+        onSuccess:function(payload) {
+          if (payload.responseText != ""){
+            var $ = jQuery;
+            var _notify_html = payload.responseText;
+            var _approve_html = _notify_html.replace(/name="notify\[\]"/g,'name="approved_by" required ');
+            _approve_html = _approve_html.replace(/type="checkbox/g,'type="radio');
+            $('#notify-outer').empty().html(_notify_html);
+            $('#approved_by-outer').empty().html(_approve_html);
+          }
+        }
+    }); 
 }
 
 

@@ -29,14 +29,21 @@ case "addEcn":
   $newEcnName = getArrayVal($_POST, "newEcnName");
   $desc = getArrayVal($_POST, "newEcnDescription");
   $recommandAction = getArrayVal($_POST, "recommand_action");
+  $notifies = getArrayVal($_POST,"notify");
+  $approvedBy = getArrayVal($_POST,"approved_by");
   $ecn = new EngineeringChangeNote();
   $deliverable = new DeliverableItem();
   $d = $deliverable->getItem($deliverableItemId);
-  $ecnId = $ecn->add($newEcnName, $desc, $projectId, $d['phase'], -1,$orderId,$qualityId,$recommandAction);
+  $ecnId = $ecn->add($newEcnName, $desc, $projectId, $d['phase'], -1,$orderId,$qualityId,$recommandAction,$approvedBy);
   if($ecnId){
     // insert impacts
     $impacts = new ECNImpacts();
     $impacts->addImpacts($ecnId,$_POST['ecnImpact']);
+    if(!empty($notifies)){
+      $usr = (object) new user();
+      
+      $ecn->addNotify($ecnId,$notifies);
+    }
   }
   $loc = $url."manageecn.php?action=showecn";
   header("Location: $loc");

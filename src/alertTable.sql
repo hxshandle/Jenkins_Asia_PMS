@@ -602,6 +602,13 @@ DEFAULT CHARACTER SET = utf8;
 ALTER TABLE `engineering_change_note` 
 ADD COLUMN `recommand_action` LONGTEXT NULL AFTER `quality`;
 
+-- ecn notify
+CREATE TABLE `ecn_notify` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `ecn_id` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`));
+
 -- END ECN New
 
 

@@ -3051,7 +3051,7 @@ ul.tabs li.quality a {
   margin-left: 140px;
   width: 315px;
 }
-.chk-list input[type="checkbox"]{
+.chk-list input[type="checkbox"],.chk-list input[type="radio"]{
   height:auto;
   width:auto;
   margin:0 6px 00;

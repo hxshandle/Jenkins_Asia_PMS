@@ -1175,6 +1175,7 @@ switch ($action) {
     if(empty($ulstyle)){
       $ulstyle = "margin-left:200px";
     }
+
     $jUtils = new JUtils();
     $list = $jUtils->getProjectNotifyList($id);
     $groupedList = $jUtils->groupUsers($list);
