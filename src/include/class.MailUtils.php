@@ -30,8 +30,7 @@ class MailUtils{
     $msg .= "Please login to Janus first before clicking on the link.<br/>";
     return $msg;
   }
-  
-  
+
   function sendECNMail($ecnId,$ecnBaseInfo,$userList){
     $subject = "New ECN created";
     $user = new user();
