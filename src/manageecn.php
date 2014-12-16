@@ -40,8 +40,13 @@ case "addEcn":
     $impacts = new ECNImpacts();
     $impacts->addImpacts($ecnId,$_POST['ecnImpact']);
     if(!empty($notifies)){
-      $usr = (object) new user();
-      
+      $mailUtil = new MailUtils();
+      $ecnBaseInfo = array(
+        "name" => $newEcnName,
+        "submitter_comments" => $desc,
+        "recommand_action" => $recommandAction
+      );
+      $mailUtil->sendECNMail($ecnId,$ecnBaseInfo,$notifies);
       $ecn->addNotify($ecnId,$notifies);
     }
   }

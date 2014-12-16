@@ -55,7 +55,6 @@ class ECNImpacts
         $docInsSql = sprintf($docSql, (int)$docId);
         mysql_query($docInsSql);
       }
-
     }
     return $ins ? true : false;
   }
