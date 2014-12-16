@@ -31,6 +31,7 @@ class MailUtils{
     return $msg;
   }
   
+  
   function sendECNMail($ecnId,$ecnBaseInfo,$userList){
     $subject = "New ECN created";
     $user = new user();
