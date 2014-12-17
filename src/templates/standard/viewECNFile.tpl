@@ -36,6 +36,11 @@
       <span>{#total_disposition_cost#}</span>
       <div>{$totalCost|default:"0"}</div>
     </li>
+    <!-- Total Disposition Cost -->
+    <li>
+      <span>{#recommand_action#}</span>
+      <div>{$ecn.recommand_action|default:"N/A"}</div>
+    </li>
 
     <!-- ecn impacts -->
     <li>

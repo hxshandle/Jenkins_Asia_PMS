@@ -22,7 +22,7 @@
     {/if}
       <td>
           {if $ecntable[ecn].status == "1"}
-            {if $smarty.session.userRole == 3 || $smarty.session.userRole == 1}
+            {if $ecntable[ecn].approver == $smarty.session.userid }
               <a class="butn_link" onclick="javascript:submitAction('{$ecntable[ecn].ID}','approve');return false;">{#approve#}</a>
               <a class="butn_link" onclick="javascript:submitAction('{$ecntable[ecn].ID}','reject');return false;">{#reject#}</a>
             {/if}
