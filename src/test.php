@@ -39,9 +39,16 @@ $jUtil = new JUtils();
 //echo $impacts;
 
 // for ecn email
-$mailUtils = new MailUtils();
-$ecn = new EngineeringChangeNote();
-$obj = $ecn->get(28);
-$msg = $mailUtils->_getECNMailMsg($obj['ID'],'abc',$obj);
+//$mailUtils = new MailUtils();
+//$ecn = new EngineeringChangeNote();
+//$obj = $ecn->get(28);
+//$msg = $mailUtils->_getECNMailMsg($obj['ID'],'abc',$obj);
+//echo $msg;
+
+
+// for document email
+$doc = new Document();
+$d = $doc->getDocumentInfo(30);
+$msg = $jUtil->getDocumentMailMsg($d,'abc');
 echo $msg;
  ?>
