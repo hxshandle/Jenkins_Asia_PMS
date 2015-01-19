@@ -16,7 +16,11 @@ J.validationAddTask=function(form,errCss){
   var taskStartDate = new Date(Date.parse(document.getElementsByName("start")[0].value));
   var taskEndDate = new Date(Date.parse(document.getElementsByName("end")[0].value));
   ret = taskStartDate >= deliverStartDate && taskStartDate <= deliverEndDate && taskEndDate >= deliverStartDate && taskEndDate <= deliverEndDate && taskEndDate > taskStartDate
-
+  // for quick add task which will without deliverable item
+  var deliverableItem = jQuery('#deliverableItems').val();
+  if("-1" == deliverableItem){
+      ret = true;
+  }
   if(!ret){
     $(document.getElementsByName("start")[0].id).addClassName("hiErrorField");
     $(document.getElementsByName("end")[0].id).addClassName("hiErrorField");

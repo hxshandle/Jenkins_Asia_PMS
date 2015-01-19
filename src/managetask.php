@@ -86,6 +86,10 @@ if ($action == "addform") {
   $project = $projectIns->getProject($id);
   $deliverableItem = new DeliverableItem();
   $deliverableItemObj = $deliverableItem->getItem($deliverableId);
+  // Since for quick added task the deliverable id maybe empty
+  if(!$deliverableItemObj){
+    $deliverableItemObj = array("phase" => -1, "ID" => -1);
+  }
   // add the task
   $tid = $task->add($start, $end, $title, $text, $tasklist, $taskStatus, $projectId, $deliverableItemObj["phase"], $deliverableItemObj["ID"], $parentTask, $location);
   
@@ -196,6 +200,7 @@ if ($action == "addform") {
     die();
   }
   $len1 = strlen($statusUpdate);
+  $deliverableItemId = getArrayVal($_POST,"deliverableItems");
 //  $len2 = strlen($oldStatusUpdate);
   $cmt = $statusUpdate;
 //  if($len1 > 0){
@@ -235,7 +240,13 @@ if ($action == "addform") {
     }
     
   }
-  $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location);
+  // if deliverableItem id is -1 should reset $phose id to -1;
+  $deliverableItemIns = new DeliverableItem();
+  $deliverableObj = $deliverableItemIns->getItem($deliverableItemId);
+  if(!$deliverableObj){
+    $deliverableObj = array("phase"=>-1, "ID"=>-1);
+  }
+  $upd = $task->edit($tid, $start, $end, $title, $text, $taskStatus,$statusUpdate, $parentTask, $location,$deliverableObj["ID"],$deliverableObj["phase"]);
   $tk = $task->getTask($tid);
   $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
   $jUtils->updateDeliverItemStatus($tk["deliverable_item"]);

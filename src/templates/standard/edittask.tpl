@@ -84,9 +84,9 @@
           </div>
 
           {*start date*}
-          <div class="row"><label for="start">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start" value = "{$task.start_date|truncate:"10":""}" required = "1" /></div>
+          <div class="row"><label for="start">{#startDate#}:</label><input type="text" class="text" name="start" realname="{#startDate#}"  id="start" value = "{$task.start_date|truncate:"10":""}" required = "1" /><span class="tipsMsg" id="tips_startDate">  {$deliverStartDate|truncate:"10":""}</span></div>
 
-					<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" value="{$task.end_date|truncate:"10":""}" name="end"  id="end"  /></div>
+					<div class="row"><label for="end">{#end#}:</label><input type="text" class="text" value="{$task.end_date|truncate:"10":""}" name="end"  id="end"  /><span class="tipsMsg" id="tips_endDate"> {$deliverEndDate|truncate:"10":""}</span></div>
 
             <div class="datepick">
               <div id = "datepicker_taskStart" class="picker" style = "display:none;"></div>
@@ -159,7 +159,7 @@
           new Ajax.Request(theUrl, {
           method: 'get',
           onSuccess:function(payload) {
-            alert(payload.responseText);
+
             var jsonObj = JSON.parse(payload.responseText);
             //var jsonObj = eval("("+payload.responseText+")");
             $("tips_startDate").innerHTML = " > "+jsonObj['startDate'];
