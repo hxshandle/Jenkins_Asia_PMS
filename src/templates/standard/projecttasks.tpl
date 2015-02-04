@@ -108,10 +108,10 @@
         <ul>
         {foreach from=$groupedTasks.tasks key=phaseName item=deliverableItems name=phase}
            <li>
-           <div class="tasklist-phase-name">{$phaseName|default:"Unset Phase"}</div>
+           <div class="tasklist-phase-name">{$phaseName|default:"Miscellaneous Tasks"}</div>
            {*START Deliverable items*}
            {foreach from=$deliverableItems key=deliverableName item=tasks name=deliverableTasks}
-                <div class="tasklist-deliverable-name">{$deliverableName|default:"Unset Deliverable Item"}</div>
+                <div class="tasklist-deliverable-name">{$deliverableName|default:"Deliverable Not Selected"}</div>
                 {include file="_projectTaskListTable.tpl" taskListId=$groupedTasks.ID tasks=$tasks pseq=$smarty.foreach.phase.index dseq=$smarty.foreach.deliverableTasks.index}
 
            {/foreach}
