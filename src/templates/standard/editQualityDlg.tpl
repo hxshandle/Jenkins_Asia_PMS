@@ -80,7 +80,7 @@
   <label style="">{#containmentDesc#}</label>
   <select id="containmentDesc" name="containmentDesc">
     <option value="sort" {if $quality.containment_desc == 'sort'} selected {/if}>{#sort#}</option>
-    <option value="remark" {if $quality.containment_desc == 'remark'} selected {/if}>{#remark#}</option>
+    <option value="rework" {if $quality.containment_desc == 'rework'} selected {/if}>{#rework#}</option>
     <option value="waier" {if $quality.containment_desc == 'waier'} selected {/if}>{#waier#}</option>
     <option value="scope" {if $quality.containment_desc == 'scope'} selected {/if}>{#scope#}</option>
   </select>
