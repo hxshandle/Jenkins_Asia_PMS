@@ -14,8 +14,6 @@ $encryption = 'ssl'; // or ssl or ''
 $username = $settings["mailuser"];
 $password = $settings["mailpass"];
 
-//$username = "handle.huang@yahoo.com";
-//$password = "Iamallgood";
 
 
 $srcFolder = "UnReadTasks";

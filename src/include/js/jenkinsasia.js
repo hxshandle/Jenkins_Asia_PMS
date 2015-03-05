@@ -341,7 +341,8 @@ J.buildSelectByJSON = function (id,jsonData,hasDefaultOption){
 
 
 function onDeskTopCustomerChange(val){
-  var theUrl = "manageprojectajax.php?action=filterProjectsByCustomerName&&customer="+val.value;
+  var v = encodeURIComponent(val.value);
+  var theUrl = "manageprojectajax.php?action=filterProjectsByCustomerName&customer="+v;
   new Ajax.Request(theUrl, {
           method: 'get',
           onSuccess:function(payload) {
