@@ -1,6 +1,9 @@
 <!-- ecn impact table part -->
 <table class="ecn-impact-table-part ecn-impact-table" cellpadding="0" cellspacing="0">
   <thead>
+    {if $canDel==true}
+      <th>Action</th>
+    {/if}
     <th>{#part_number#}</th>
     <th>{#quantity_in_store#}</th>
     <th class="long-text">{#part_description#}</th>
@@ -12,6 +15,9 @@
   <tbody>
     {foreach from=$data item=row}
       <tr>
+        {if $canDel}
+          <td><a href="javascript:void(0)" onclick="delEcnImpact({$row.ID},'ecn_impact_part',this)">Delete<i class="fa fa-close"></i></a></td>
+        {/if}
         <td>{$row.part_number}</td>
         <td>{$row.quantity_in_store}</td>
         <td>{$row.part_description}</td>

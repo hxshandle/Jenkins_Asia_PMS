@@ -1,6 +1,9 @@
 <!-- ecn impact table process -->
 <table class="ecn-impact-table-process ecn-impact-table" cellpadding="0" cellspacing="0">
   <thead>
+    {if $canDel==true}
+      <th>Action</th>
+    {/if}
     <th>{#process_number#}</th>
     <th class="long-text">{#process_description#}</th>
     <th>{#document_attach#}</th>
@@ -10,6 +13,9 @@
   <tbody>
     {foreach from=$data item=row}
       <tr>
+        {if $canDel}
+          <td><a href="javascript:void(0)" onclick="delEcnImpact({$row.ID},'ecn_impact_process',this)">Delete<i class="fa fa-close"></i></a></td>
+        {/if}
         <td>{$row.process_number}</td>
         <td>{$row.process_description}</td>
         <td>

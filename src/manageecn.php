@@ -98,8 +98,8 @@ case "viewUploadFile":
   $template->assign("impacts",$impacts);
   $template->assign("totalCost",$totalCost);
   $template->assign("ecn",$ecnIns);
-  //$template->display("ecn/editECN.tpl");
-  $template->display("viewECNFile.tpl");
+  $template->display("ecn/editECN.tpl");
+  //$template->display("viewECNFile.tpl");
 }
 
 

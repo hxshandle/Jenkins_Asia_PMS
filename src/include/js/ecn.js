@@ -217,6 +217,19 @@ function ecnImpactFileAttached(selDocuments){
   };
 }
 
+var deletedEcnImpacts={};
+function delEcnImpact(id,table,element){
+  var isDel = window.confirm("Are you sure to delete?");
+  if(!isDel){
+    return;
+  }
+  var obj = deletedEcnImpacts[table] || [];
+  obj.push(id);
+  jQuery(element).parents('tr').remove();
+  deletedEcnImpacts[table] = obj;
+
+}
+
 function ecnImpactAttachDocument(el){
   var $ = jQuery;
   _fileTarget = el;
