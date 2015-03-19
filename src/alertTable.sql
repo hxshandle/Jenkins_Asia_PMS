@@ -612,3 +612,19 @@ CREATE TABLE `ecn_notify` (
 -- END ECN New
 
 
+ALTER TABLE `ecn_impact_documentation` 
+ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 ;
+
+ALTER TABLE `ecn_impact_other` 
+ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 ;
+
+ALTER TABLE `ecn_impact_part` 
+ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 ;
+
+ALTER TABLE `ecn_impact_process` 
+ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 ;
+
+ALTER TABLE `ecn_impact_tool` 
+ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 ;
+
+

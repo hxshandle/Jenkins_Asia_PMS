@@ -8,7 +8,8 @@
     }
   </style>
   {/literal}
-  <div class="projects block_in_wrapper" style="padding-right:44px;color:#333">
+  <form onsubmit="return validateCompleteForm(this);" action="manageecn.php?action=updateECN&id={$ecnId}" method="post" class="main">
+    <div class="projects block_in_wrapper" style="padding-right:44px;color:#333">
     <h1 style="color:#333;padding-top:32px;">{#ecnname#}</h1>
     <ul class="ecn-base-attr">
       <!-- project name -->
@@ -20,15 +21,13 @@
       <li>
         <span>{#ecn_number#}</span>
         <div>
-          <div class="editFiled"><input name="ecn[name]" value="{$ecn.name}"/></div>
-          <span class="dispFild">{$ecn.name}</span>
+          <div class="editFiled"><input style="float:none;" name="ecn[name]" value="{$ecn.name}"/></div>
         </div>
       </li>
       <!-- ecn reason -->
       <li>
         <span>{#ecn_reason#}</span>
         <div>
-          <span class="dispField">{$ecn.submitter_comments}</span>
           <div class="editFiled">
             <textarea name="ecn[description]">{$ecn.submitter_comments}</textarea>
           </div>
@@ -53,7 +52,6 @@
       <li>
         <span>{#recommand_action#}</span>
         <div>
-          <span class="dispField">{$ecn.recommand_action|default:"N/A"}</span>
           <div class="editFiled">
             <textarea name="ecn[recommand_action]">{$ecn.recommand_action}</textarea>
           </div>
@@ -118,7 +116,13 @@
         </div>
       </li>
     </ul>
-
+    
+      <div style="margin:20px 0;height:50px;">
+        <a href="javascript:void(0)" class="butn_link" onclick="saveEcn();">Save</a>
+        <a href="javascript:void(0)" class="butn_link" onclick="reviewEcn();">Review</a>
+      </div>
+    </div>
+  </form>
   <!-- start template -->
   <div id="template" style="display:none">
     <div id="part-tpl" class="impact-part-row ecn-impact-row">
@@ -310,18 +314,7 @@
       </div>
       <div style="clear:both;"></div>
     </div>
-
   </div>
   <!-- end template -->
-  <div style="margin:20px 0;height:50px;">
-    <a href="javascript:void(0)" class="butn_link" onclick="saveEcn();">Save</a>
-    <a href="javascript:void(0)" class="butn_link" onclick="reviewEcn();">Review</a>
-  </div>
   <script type = "text/javascript" src = "include/js/ecn.js" ></script>
-  {literal}
-  <script type="text/javascript">
-      function saveEcn(){}
-      function reviewEcn(){}
-  </script>
-  {/literal}
 </body>

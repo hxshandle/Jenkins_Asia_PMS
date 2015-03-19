@@ -53,6 +53,42 @@ case "addEcn":
   $loc = $url."manageecn.php?action=showecn";
   header("Location: $loc");
   break;
+case "updateECN":
+  $ecnId = getArrayVal($_GET, "id");
+  $ecn = new EngineeringChangeNote();
+  $ecnImpacts = new ECNImpacts();
+  $ecnImpacts->addImpacts($ecnId,$_POST['ecnImpact']);
+
+  $ecnImpacts->deleteImpacts($_POST['deletedImpacts']);
+
+  $ecn->updatePart($ecnId,$_POST['ecn']);
+
+  $impacts = $ecnImpacts->getImpactsByECNId($ecnId);
+  $ecnIns = $ecn->get($ecnId);
+  $doc = new Document();
+  $documents = $doc->getDocumentsByECNId($ecnId);
+  $projectName = $jUtils->getProjectNameById($ecnIns['project']);
+  $ecnRequester = $jUtils->getUserName($ecnIns['submitter']);
+  $ecnApprovedBy = $jUtils->getUserName($ecnIns['approver']);
+
+
+
+  $totalCost = 0;
+  foreach ($impacts as $impact) {
+    foreach ($impact as $row) {
+      $totalCost += $row['disposition_cost'];
+    }
+  }
+  $template->assign("projectName",$projectName);
+  $template->assign("ecnId",$ecnId);
+  $template->assign("documents",$documents);
+  $template->assign("ecnRequester",$ecnRequester);
+  $template->assign("ecnApprovedBy",$ecnApprovedBy);
+  $template->assign("impacts",$impacts);
+  $template->assign("totalCost",$totalCost);
+  $template->assign("ecn",$ecnIns);
+  $template->display("ecn/editECN.tpl");
+  break;
  case "filterECN":
   $projectId = getArrayVal($_POST,"projectId");
   $orderId = getArrayVal($_POST,"orderId");
@@ -92,15 +128,25 @@ case "viewUploadFile":
     }
   }
   $template->assign("projectName",$projectName);
+  $template->assign("ecnId",$ecnId);
   $template->assign("documents",$documents);
   $template->assign("ecnRequester",$ecnRequester);
   $template->assign("ecnApprovedBy",$ecnApprovedBy);
   $template->assign("impacts",$impacts);
   $template->assign("totalCost",$totalCost);
   $template->assign("ecn",$ecnIns);
-  $template->display("ecn/editECN.tpl");
-  //$template->display("viewECNFile.tpl");
+  $canEdit = $ecn->isNotified($ecnId,$_SESSION['userid']);
+  if($canEdit){
+    $template->display("ecn/editECN.tpl");
+  }else{
+    $template->display("viewECNFile.tpl");
+  }
+
+  //
 }
+
+
+
 
 
 ?>

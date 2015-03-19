@@ -78,6 +78,16 @@ class ECNImpacts
     return $ret;
   }
 
+  function delRecords($tableName,$strId){
+    $sql = "update $tableName set valid = 0 where id in ($strId)";
+    $upd = mysql_query($sql);
+    if($upd){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   function update($tableName, $record)
   {
     //check for id
@@ -139,7 +149,7 @@ class ECNImpacts
     $tables = array("ecn_impact_part", "ecn_impact_tool", "ecn_impact_other", "ecn_impact_process", "ecn_impact_documentation");
     $ret = array();
     foreach ($tables as $tableName) {
-      $sql = "select * from `$tableName` where ecn_id = $id";
+      $sql = "select * from `$tableName` where ecn_id = $id and valid = 1";
       $tableResult = $this->jUtil->Query($sql);
       if ($tableName == "ecn_impact_process" || $tableName == "ecn_impact_documentation") {
         // get document attachements
@@ -148,6 +158,16 @@ class ECNImpacts
       $ret[$tableName] = $tableResult;
     }
     return $ret;
+  }
+
+  function deleteImpacts($arr){
+    if (!is_array($arr)) {
+      return;
+    }
+    foreach ((array)$arr as $tableName => $deletedIds) {
+      $strIds = implode(",",$deletedIds);
+      $this->delRecords($tableName,$strIds);
+    }
   }
 
   function addImpacts($ecnId,$arr)

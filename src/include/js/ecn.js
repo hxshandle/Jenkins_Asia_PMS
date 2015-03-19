@@ -230,6 +230,20 @@ function delEcnImpact(id,table,element){
 
 }
 
+function saveEcn(){
+  var $ = jQuery;
+  var form = document.forms[0];
+  var nameTpl = _.template('deletedImpacts[<%= table %>][<%= seq %>]');
+  _.each(deletedEcnImpacts,function(n,key){
+    console.log(n,key);
+    for(var i = 0 ; i < n.length;i++){
+      var el = $('<input></input>').attr('name',nameTpl({table:key,seq:i})).attr('value',n[i]);
+      $(form).append(el);
+    }
+  });
+  form.submit();
+}
+
 function ecnImpactAttachDocument(el){
   var $ = jQuery;
   _fileTarget = el;
@@ -244,3 +258,4 @@ function ecnImpactRecacluateCost(){
   });
   $('#totalDispositionCost').text(total);
 }
+

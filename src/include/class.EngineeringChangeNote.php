@@ -55,6 +55,16 @@ class EngineeringChangeNote {
     }
   }
 
+  function isNotified($ecnId,$userId){
+    $sql = "select * from ecn_notify where ecn_id = $ecnId and user_id = $userId";
+    $sel = mysql_query($sql);
+    $row = mysql_fetch_array($sel);
+    if($row ){
+      return true;
+    }
+    return false;
+  }
+
   function add($name,$submitterComments,$projectId,$phaseId,$deliverableItemId,$orderId=-1,$qualityId=-1,$recommandAction,$approvedBy){
     $submitter = getArrayVal($_SESSION, 'userid');
     $submitterComments = mysql_real_escape_string($submitterComments);
@@ -89,6 +99,16 @@ class EngineeringChangeNote {
     }else{
       return FALSE;
     }
+  }
+
+  function updatePart($id,$arr){
+    $name = mysql_real_escape_string( $arr['name']);
+    $desc = mysql_real_escape_string($arr["description"]);
+    $recommand = mysql_real_escape_string($arr["recommand_action"]);
+    $sql = "update engineering_change_note set `name`='$name', `submitter_comments` = '$desc', `recommand_action` = '$recommand' where id = $id";
+    $upd = mysql_query($sql);
+    return $upd;
+
   }
   
   function approve($id,$approverId,$approverComments){
