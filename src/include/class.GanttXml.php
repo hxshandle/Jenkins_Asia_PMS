@@ -62,8 +62,9 @@ class GanttXml {
         $deliverItemEl->appendChild($deliverItemDurEl);
         
         $deliverItemCompletedPer = $deliverItem["percentcompleted"];
-        $deliverItemCompletedEl = $doc->createElement("percentcompleted",$deliverItemCompletedPer);
+        $deliverItemCompletedEl = $doc->createElement("progress",round($deliverItemCompletedPer/100,2));
         $deliverItemEl->appendChild($deliverItemCompletedEl);
+
         
         $deliverItemPreEl = $doc->createElement("predecessortasks");
         $deliverItemEl->appendChild($deliverItemPreEl);
@@ -90,7 +91,7 @@ class GanttXml {
           $taskEl->appendChild($taskDurEl);
           
           $taskCompletedPer = $t["percentcompleted"];
-          $taskCompletedEl = $doc->createElement("percentcompleted",$taskCompletedPer);
+          $taskCompletedEl = $doc->createElement("progress",round($taskCompletedPer/100,2));
           $taskEl->appendChild($taskCompletedEl);
           
           $taskEl->appendChild($doc->createElement("predecessortasks"));

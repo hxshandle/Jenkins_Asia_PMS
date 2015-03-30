@@ -379,6 +379,19 @@ function onNormalSelProjectLeaderChange(val,url,targetEl){
       }); 
 }
 
+function onNormalSelCustomerLeaderChange(val,url,targetEl){
+  url = url+'&customerLeader='+val.value;
+  var targetElId = targetEl;
+  new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              document.getElementById(targetElId).innerHTML=payload.responseText;
+            }
+          }
+      }); 
+}
+
 function normalSelAll(el,targetId){
   
   var isChk = el.checked;  

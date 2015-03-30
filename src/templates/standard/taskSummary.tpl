@@ -41,6 +41,15 @@
                 {/section}
               </select>
             </div>
+            <div class="row">
+              <label for="customer">{#customerLeader#}:</label>
+              <select name="customerLeader" id="criteriaCustomerLeader" onchange='onNormalSelCustomerLeaderChange(this,"managetasksummary.php?action=filterTasks","delayTaskTableContainer")'; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=leader loop=$customerLeaders}
+                  <option value="{$customerLeaders[leader].ID}">{$customerLeaders[leader].name}</option>
+                {/section}
+              </select>
+            </div>
 			{/if}
             <div class="row">
               <a class="butn_link" onclick="sendTaskDelayReminder()">{#sendreminder#}</a>

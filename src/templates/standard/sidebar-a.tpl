@@ -72,7 +72,7 @@
 			<h2><a id="quickfindertoggle" class="win-up" href="javascript:blindtoggle('quickfinder');toggleClass('quickfindertoggle','win-up','win-down');">{#project#}</a></h2>
 			<div id = "quickfinder">
 				<form>
-					<select onchange="window.location='manageproject.php?action=showproject&id='+this.value;">
+					<select style="width:187px" onchange="window.location='manageproject.php?action=showproject&id='+this.value;">
 						<option>{#chooseone#}</option>
 						{section name=drop loop=$openProjects}
 							<option value="{$openProjects[drop].ID}">{$openProjects[drop].name|truncate:28:"...":true}</option>

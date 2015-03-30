@@ -149,6 +149,25 @@ class task
     return $groupedTasks;
   }
 
+  function getTaskSummaryByCustomerLeader($userId){
+    $userId = (int) $userId;
+    $this->updateDeleyTasks();
+    $customer = mysql_real_escape_string($customer);
+    $st1 = Status::getId("task", "delayed");
+    $st2 = Status::getId("task", "not_start");
+    $st3 = Status::getId("task", "in_progress");
+    $sql = "select t.ID from tasks t,projekte p where t.status in($st1,$st2,$st3) and p.customer_leader= $userId and t.project=p.id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while ($row = mysql_fetch_array($sel)) {
+      $tk = $this->getTask($row[0]);
+      array_push($ret, $tk);
+    }
+    $groupedTasks = $this->groupTasks($ret);
+    //$groupedTasks = $this->groupTasksByProjectName($ret);
+    return $groupedTasks;
+  }
+
   function getDelayTasksByCustomerName($customer)
   {
     $this->updateDeleyTasks();

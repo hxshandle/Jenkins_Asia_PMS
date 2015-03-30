@@ -682,6 +682,16 @@ class JUtils
     return $ret;
   }
 
+  function getAllCustomerLeaders(){
+    $ret = array();
+    $sql = "select * from user where id in (select DISTINCT customer_leader from projekte) order by `name`";
+    $sel = mysql_query($sql);
+    while ($user = mysql_fetch_array($sel)) {
+      array_push($ret, $user);
+    }
+    return $ret;
+  }
+
 
   function getAllOrders()
   {

@@ -285,11 +285,11 @@ if ($action == "addform") {
               $tComments = $taskComments->getTaskComments($tid);
               $msg = $jUtils->getModifiedTaskMailMsg($proj['name'],$user["name"],$_SESSION["username"],$link,$title,$text,$tComments);
               if($hasCCed){
-                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title." [JTiD-".$tid."]", $msg)){
+                if(!$themail->send_mail($user["email"], $title." [JTiD-".$tid."]", $msg)){
                   $template->assign("mailErr",'true');$template->assign("mailErr",'true');
                 }
               }else{
-                if(!$themail->send_mail($user["email"], $mailSubject." | ".$title." [JTiD-".$tid."]", $msg,$arrCC)){
+                if(!$themail->send_mail($user["email"], $title." [JTiD-".$tid."]", $msg,$arrCC)){
                   $template->assign("mailErr",'true');
                 }
                 $hasCCed = true;
