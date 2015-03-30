@@ -119,7 +119,9 @@
     
       <div style="margin:20px 0;height:50px;">
         <a href="javascript:void(0)" class="butn_link" onclick="saveEcn();">Save</a>
+        <!--
         <a href="javascript:void(0)" class="butn_link" onclick="reviewEcn();">Review</a>
+        -->
       </div>
     </div>
   </form>
