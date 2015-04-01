@@ -31,14 +31,15 @@ switch ($action) {
     $projectLeader = getArrayVal($_GET,"projectLeader");
     $customerLeader = getArrayVal($_GET,"customerLeader");
     $task = new task();
-    if(empty($customerLeaders)){
-        $tasks = $task->getTaskSummaryByCustomerLeader($customerLeader);
+
+    if(empty($customerLeader)){
+      if(empty($projectLeader)){
+        $tasks = $task->getTaskSummaryByCustomerName($customer);
+      }else{
+        $tasks = $task->getTaskSummaryByProjectLeader($projectLeader);
+      }
     }else{
-        if(empty($projectLeader)){
-          $tasks = $task->getTaskSummaryByCustomerName($customer);
-        }else{
-          $tasks = $task->getTaskSummaryByProjectLeader($projectLeader);
-        }
+      $tasks = $task->getTaskSummaryByCustomerLeader($customerLeader);
     }
     
     $template->assign("tasks",$tasks);
@@ -50,14 +51,23 @@ switch ($action) {
     $projectLeader = getArrayVal($_POST,"projectLeader");
     $customerLeader = getArrayVal($_GET,"customerLeader");
     $task = new task();
-    if(empty($customerLeaders)){
-        $tasks = $task->getTaskSummaryByCustomerLeader($customerLeader);
+//    if(empty($customerLeaders)){
+//        $tasks = $task->getTaskSummaryByCustomerLeader($customerLeader);
+//    }else{
+//        if(empty($projectLeader)){
+//          $tasks = $task->getTaskSummaryByCustomerName($customer);
+//        }else{
+//          $tasks = $task->getTaskSummaryByProjectLeader($projectLeader);
+//        }
+//    }
+    if(empty($customerLeader)){
+      if(empty($projectLeader)){
+        $tasks = $task->getTaskSummaryByCustomerName($customer);
+      }else{
+        $tasks = $task->getTaskSummaryByProjectLeader($projectLeader);
+      }
     }else{
-        if(empty($projectLeader)){
-          $tasks = $task->getTaskSummaryByCustomerName($customer);
-        }else{
-          $tasks = $task->getTaskSummaryByProjectLeader($projectLeader);
-        }
+      $tasks = $task->getTaskSummaryByCustomerLeader($customerLeader);
     }
     
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true);
