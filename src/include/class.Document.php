@@ -112,10 +112,11 @@ class Document{
     foreach ($documents as $doc) {
       $arr[$doc['document_no']][$doc['revision']] = $doc;
     }
-    ksort($arr,SORT_DESC);
+    ksort($arr，SORT_NATURAL);
     $ret = array();
     foreach ($arr as $docs) {
       $docRow = array();
+      krsort($docs,SORT_NUMERIC);
       $docRow['latest'] = array_shift($docs);
       $docRow['old'] = $docs;
       array_push($ret,$docRow);
