@@ -45,7 +45,7 @@
                   <li>
                     <div>{$image.name}</div>
                     <a href="{$image.datei}" target="blank">
-                      <img src="/thumb.php?pic={$image.datei}&width=480"></img>
+                      <img src="/thumb2.php?pic={$image.datei}&width=480"></img>
                     </a>
                   </li>
                 {/foreach}
