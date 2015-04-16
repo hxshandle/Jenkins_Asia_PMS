@@ -47,8 +47,15 @@ $jUtil = new JUtils();
 
 
 // for document email
-$doc = new Document();
-$d = $doc->getDocumentInfo(30);
-$msg = $jUtil->getDocumentMailMsg($d,'abc');
-echo $msg;
+//$doc = new Document();
+//$d = $doc->getDocumentInfo(30);
+//$msg = $jUtil->getDocumentMailMsg($d,'abc');
+//echo $msg;
+
+// test thumb
+$pic = "files/standard/1/_________________65003.jpg";
+$p2 = "files/standard/1/image002_4310.png";
+$p = getArrayVal($_GET,"pic");
+$imgW = getimagesize($p);
+echo $imgW;
  ?>

@@ -71,7 +71,7 @@
       <div class='title'>{#attachment#}</div>
       <div class='content'>
         {foreach from=$entry.files item=image}
-          <img src="/thumb.php?pic={$image.datei}&width=480"></img>
+          <img src="/thumb2.php?pic={$image.datei}&width=480"></img>
         {/foreach}
       </div>
     </li>
