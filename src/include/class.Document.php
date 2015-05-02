@@ -116,7 +116,7 @@ class Document{
     $ret = array();
     foreach ($arr as $docs) {
       $docRow = array();
-      krsort($docs,SORT_NUMERIC);
+      krsort($docs);
       $docRow['latest'] = array_shift($docs);
       $docRow['old'] = $docs;
       array_push($ret,$docRow);

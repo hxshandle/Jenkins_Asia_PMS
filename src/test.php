@@ -53,9 +53,21 @@ $jUtil = new JUtils();
 //echo $msg;
 
 // test thumb
-$pic = "files/standard/1/_________________65003.jpg";
-$p2 = "files/standard/1/image002_4310.png";
-$p = getArrayVal($_GET,"pic");
-$imgW = getimagesize($p);
-echo $imgW;
+// $pic = "files/standard/1/_________________65003.jpg";
+// $p2 = "files/standard/1/image002_4310.png";
+// $p = getArrayVal($_GET,"pic");
+// $imgW = getimagesize($p);
+// echo $imgW;
+// 
+// 
+// 
+
+  $arr = array(
+    "A" => "JK0O-00N-JQT-0002-A",
+    "B" => "JK0O-00N-JQT-0002-B"
+    );
+
+  krsort($arr,SORT_NUMERIC);
+  $latest = array_shift($arr);
+  var_dump($arr);
  ?>
