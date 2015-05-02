@@ -440,12 +440,12 @@ class project {
         $myprojekte = array();
         $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY ID ASC");
         if($_SESSION["userRole"] == 3 || $_SESSION["userRole"] ==1){
-          $sel = mysql_query("SELECT id FROM projekte ORDER BY ID ASC");
+          $sel = mysql_query("SELECT id FROM projekte ORDER BY name ASC");
         }
         if($_SESSION["userRole"] == 6 ){
           $st1 = Status::getId("project", "planning");
           $st2 = Status::getId("project", "closed");
-          $sel = mysql_query("SELECT projekt FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and  pa.user = $user and p.status not in ($st1,$st2) ORDER BY pa.ID ASC");
+          $sel = mysql_query("SELECT projekt FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and  pa.user = $user and p.status not in ($st1,$st2) ORDER BY p.name ASC");
         }
         
         while ($projs = mysql_fetch_row($sel)) {
@@ -462,7 +462,7 @@ class project {
 			foreach ($myprojekte as $key => $row) {
 				$date[$key] = $row['end_date'];
 			}
-			array_multisort($date, SORT_ASC, $myprojekte);
+			//array_multisort($date, SORT_ASC, $myprojekte);
 			
             return $myprojekte;
         } else {
@@ -511,7 +511,7 @@ class project {
 			foreach ($myprojekte as $key => $row) {
 				$date[$key] = $row['project_no'];
 			}
-			array_multisort($date, SORT_ASC, $myprojekte);
+			//array_multisort($date, SORT_ASC, $myprojekte);
 			
             return $myprojekte;
         } else {
