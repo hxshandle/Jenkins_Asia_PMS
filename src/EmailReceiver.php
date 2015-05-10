@@ -72,79 +72,84 @@ $user = new user();
 
 // start loop 1
 foreach ($emails as $message) {
-  $email_body = $message ['body'];
-  $email_from = $message ['from'] ['email'];
-  $email_uid = $message ['uid'];
-  $email_subject = $message ['subject'];
-  $email_date = $message ['date'];
+  try {
+    
+    $email_body = $message ['body'];
+    $email_from = $message ['from'] ['email'];
+    $email_uid = $message ['uid'];
+    $email_subject = $message ['subject'];
+    $email_date = $message ['date'];
 
-  $taskId = extractTaskIdFromEmailSubject($email_subject);
-  if ($taskId == NIL) {
-    //$imap->moveMessage ( $message ['uid'], $moveToFolder );
-    continue;
-  }
+    $taskId = extractTaskIdFromEmailSubject($email_subject);
+    if ($taskId == NIL) {
+      //$imap->moveMessage ( $message ['uid'], $moveToFolder );
+      continue;
+    }
 
-  $plainEmailBody = $email_body;
-  if ($message ['html']) {
-    $plainEmailBody = convert_html_to_text($email_body);
-  }
-  $comment = extractCommmentFromTextEmailBody($plainEmailBody);
+    $plainEmailBody = $email_body;
+    if ($message ['html']) {
+      $plainEmailBody = convert_html_to_text($email_body);
+    }
+    $comment = extractCommmentFromTextEmailBody($plainEmailBody);
 
-  /*	echo ">>>>>>>>>>>>>>>>eamil header>>>>>>>>>>>>\n";
-    print $taskId . "\n";
-    print $email_from . "\n";
-    print $email_uid . "\n";
-    print $email_subject . "\n";
-    print $email_date . "\n";
-    print "<hr/>";
-    print $comment;
+    /*	echo ">>>>>>>>>>>>>>>>eamil header>>>>>>>>>>>>\n";
+      print $taskId . "\n";
+      print $email_from . "\n";
+      print $email_uid . "\n";
+      print $email_subject . "\n";
+      print $email_date . "\n";
+      print "<hr/>";
+      print $comment;
 
-    echo ">>>>>>>>>>>>>>>>eamil end>>>>>>>>>>>>\n";*/
+      echo ">>>>>>>>>>>>>>>>eamil end>>>>>>>>>>>>\n";*/
 
-  // ===============================
-  // insert DB
-  //get user info
-  $userInfo = $user->getUserByEmail($email_from);
-  if ($user) {
-    $commentsId = $taskComments->insertMailComments($comment, $userInfo['ID'], $userInfo['name'], $taskId, $message ['uid']);
-    print "<br/>comments ID -> " . $commentsId . "taskid -> " . $taskId;
+    // ===============================
+    // insert DB
+    //get user info
+    $userInfo = $user->getUserByEmail($email_from);
+    if ($user) {
+      $commentsId = $taskComments->insertMailComments($comment, $userInfo['ID'], $userInfo['name'], $taskId, $message ['uid']);
+      print "<br/>comments ID -> " . $commentsId . "taskid -> " . $taskId;
 
 
-    $attachements = $message["attachments"];
-    // for attachements
-    if ($attachements) {
-      $taskObj = $task->getTask($taskId);
-      $projectId = $taskObj['project'];
-      $path = "files/standard/" . $projectId . "/";
-      while (list($key, $attachment) = each($attachements)) {
+      $attachements = $message["attachments"];
+      // for attachements
+      if ($attachements) {
+        $taskObj = $task->getTask($taskId);
+        $projectId = $taskObj['project'];
+        $path = "files/standard/" . $projectId . "/";
+        while (list($key, $attachment) = each($attachements)) {
 
-        $attachment = $imap->getAttachment($message['uid'], $key);
-        if ($attachment) {
-//        $enc = $jUtils->detechStringEncoding($attachment["name"]);
-//        $newFN = iconv("gb2312", 'UTF-8//IGNORE', $attachment["name"]);
-          $newFN = iconv("GB2312", "UTF-8", $attachment["name"]);
-          $fileName = getSavedFileName($attachment["name"]);
-          $dateStr = $path . $fileName;
-          $fname = CL_ROOT . "/" . $dateStr;
-          $f = fopen($fname, 'wb');
-          if ($f) {
-            echo "write file -> " . $fname . "\r\n";
-            fwrite($f, $attachment["content"]);
-            fclose($f);
-            $fileId = $datei->add_file($attachment['name'], "uploaded by email", $projectId, 0, '', $dateStr, 'application/octet-stream', '', 0, '', $userInfo['ID']);
-            if($fileId){
-              $task->addAttachment($taskId,$fileId);
+          $attachment = $imap->getAttachment($message['uid'], $key);
+          if ($attachment) {
+  //        $enc = $jUtils->detechStringEncoding($attachment["name"]);
+  //        $newFN = iconv("gb2312", 'UTF-8//IGNORE', $attachment["name"]);
+            $newFN = iconv("GB2312", "UTF-8", $attachment["name"]);
+            $fileName = getSavedFileName($attachment["name"]);
+            $dateStr = $path . $fileName;
+            $fname = CL_ROOT . "/" . $dateStr;
+            $f = fopen($fname, 'wb');
+            if ($f) {
+              echo "write file -> " . $fname . "\r\n";
+              fwrite($f, $attachment["content"]);
+              fclose($f);
+              $fileId = $datei->add_file($attachment['name'], "uploaded by email", $projectId, 0, '', $dateStr, 'application/octet-stream', '', 0, '', $userInfo['ID']);
+              if($fileId){
+                $task->addAttachment($taskId,$fileId);
+              }
+              echo "<br/> attachment - > " . $attachment['name']." file id -> ".$fileId;
             }
-            echo "<br/> attachment - > " . $attachment['name']." file id -> ".$fileId;
           }
         }
       }
     }
-  }
 
   // ==============================
 
   // move to another folder
-  $imap->moveMessage ( $message ['uid'], $moveToFolder );
+    $imap->moveMessage ( $message ['uid'], $moveToFolder );
+  } catch (Exception $e) {
+    echo "error - > ".$e."<br/>";
+  }
 }//end loop 1
 
