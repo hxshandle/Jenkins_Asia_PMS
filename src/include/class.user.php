@@ -572,7 +572,7 @@ class user
         $start = SmartyPaginate::getCurrentIndex();
         $lim = SmartyPaginate::getLimit();
 
-        $sel2 = mysql_query("SELECT * FROM `user` ORDER BY ID DESC LIMIT $start,$lim");
+        $sel2 = mysql_query("SELECT * FROM `user` ORDER BY name ASC LIMIT $start,$lim");
 
         $users = array();
         while ($user = mysql_fetch_array($sel2))

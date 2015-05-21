@@ -703,9 +703,7 @@ td.message ul {
 
 .inwrapper li td.thumb a {
   display: block;
-  width: 32px;
-  max-height: 32px;
-  overflow: hidden;
+  
   padding: 0;
   margin: 0;
   border: none;
@@ -719,6 +717,8 @@ td.message ul {
 .inwrapper li td.thumb a img {
   float: none;
   margin: 0;
+  width: 32px;
+  max-height: 32px;
 }
 
 .inwrapper span.name {

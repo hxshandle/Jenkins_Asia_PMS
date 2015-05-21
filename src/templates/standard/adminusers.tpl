@@ -69,16 +69,15 @@
 							{section name=user loop=$users}
 								<li>
 									<div class="itemwrapper" id="iw_{$users[user].ID}">
-
 											<table cellpadding="0" cellspacing="0" border="0">
 												<tr>
-													<td class="leftmen" valign="top">
+													<!-- <td class="leftmen" valign="top">
 														<div class="inmenue">
 															{if $users[user].avatar != ""}
 																<a class="more" href="javascript:fadeToggle('info_{$users[user].ID}');"></a>
 															{/if}
 														</div>
-													</td>
+													</td> -->
 													<td class="thumb">
 														<a href="manageuser.php?action=profile&amp;id={$users[user].ID}" title="{$users[user].name}">
 															{if $users[user].gender == "f"}
@@ -86,6 +85,11 @@
 															{else}
 																<img src = "./templates/standard/images/symbols/user-icon-male.png" alt="" />
 															{/if}
+															{if $users[user].name != ""}
+																	{$users[user].name|truncate:13:"...":true}
+																{else}
+																	{#user#}
+																{/if}
 														</a>
 													</td>
 													<td class="rightmen" valign="top">
@@ -100,7 +104,7 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
+<!-- 												<tr>
 													<td colspan="3">
 														<span class="name">
 															<a href = "manageuser.php?action=profile&amp;id={$users[user].ID}" title="{$users[user].name}">
@@ -112,7 +116,7 @@
 															</a>
 														</span>
 													</td>
-												</tr>
+												</tr> -->
 											</table>
 
 											{if $users[user].avatar != ""}
