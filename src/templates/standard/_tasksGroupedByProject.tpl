@@ -34,7 +34,8 @@
 					       <th><input type="checkbox" name="selAll" onclick='normalSelAll(this,"selectedDelayTask")' ></th>
                            {/if}
 					       <th class="b tx">{#task#}</th>
-					       <th class="b tx">{#status#}</th>
+                 <th class="b tx">{#status#}</th>
+					       <th class="b tx">{#latest_update#}</th>
 					       <th class="b tx">{#end#}</th>
 					       <th class="b tx" style="border-right:1px solid #aaa;">{#assignto#}</th>
 					     </tr>
@@ -54,7 +55,8 @@
 					             <td><input type="checkbox" name="selectedDelayTask" value = "{$tasks[tk].ID}"/></td>
                              {/if}
 					             <td><a style="{$cStyle}" target="_blank" href="managetask.php?action=showtask&tid={$tasks[tk].ID}&id={$tasks[tk].project}">{$tasks[tk].title}</a></td>
-					             <td>{dispstatus statusId =$tasks[tk].status}</td>
+                       <td>{dispstatus statusId =$tasks[tk].status}</td>
+					             <td>{$tasks[tk].last_comment.comment}</td>
 					             <td>{$tasks[tk].endstring}</td>
 					             <td style="border-right:1px solid #aaa;">{$tasks[tk].user}</td>
 

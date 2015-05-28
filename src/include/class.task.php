@@ -106,6 +106,7 @@ class task
     $ret = array();
     while ($row = mysql_fetch_array($sel)) {
       $tk = $this->getTask($row[0]);
+      $tk['last_comment'] = $this->_getTaskLastCommentByTaskId($tk['ID']);
       array_push($ret, $tk);
     }
     $groupedTasks = $this->groupTasks($ret);
@@ -130,6 +131,15 @@ class task
     return $groupedTasks;
   }
 
+  function _getTaskLastCommentByTaskId($id){
+    $sql = "select * from task_comments ts where id in (select max(id) from task_comments where task = $id)";
+    $ret = $this->jUtils->Query($sql);
+    if(count($ret) > 0){
+      return $ret[0];
+    }
+    return [];
+  }
+
   function getTaskSummaryByCustomerName($customer)
   {
     $this->updateDeleyTasks();
@@ -142,6 +152,7 @@ class task
     $ret = array();
     while ($row = mysql_fetch_array($sel)) {
       $tk = $this->getTask($row[0]);
+      $tk['last_comment'] = $this->_getTaskLastCommentByTaskId($tk['ID']);
       array_push($ret, $tk);
     }
     $groupedTasks = $this->groupTasks($ret);
@@ -161,6 +172,7 @@ class task
     $ret = array();
     while ($row = mysql_fetch_array($sel)) {
       $tk = $this->getTask($row[0]);
+      $tk['last_comment'] = $this->_getTaskLastCommentByTaskId($tk['ID']);
       array_push($ret, $tk);
     }
     $groupedTasks = $this->groupTasks($ret);
