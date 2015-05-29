@@ -17,15 +17,15 @@
 			 <!-- start tasks table-->
 			{foreach from=$phase key=phaseName item=deliverable name=pp}
                 {if not $isPDF}
-				    <h1 style="padding:10px 0 0 10px;width:auto;color:#fff;background:#95A5A6;">{$phaseName}</h1>
+				    <h1 style="padding:10px 0 0 10px;width:auto;color:#fff;background:#95A5A6;">Active Phase: {$phaseName}</h1>
                 {else}
-                    <h1 style="padding:0 0 0 10px;width:auto;">{$phaseName}</h1>
+                    <h1 style="padding:0 0 0 10px;width:auto;">Active Phase: {$phaseName}</h1>
                 {/if}
 				{foreach from=$deliverable key=deliverableName item=tasks name=pd}
                     {if not $isPDF}
-                        <h2 style="padding:10px 0px 10px 12px;color:#fff;background:#95A5A6;margin-bottom:0;">{$deliverableName}</h2>
+                        <h2 style="padding:10px 0px 10px 12px;color:#fff;background:#95A5A6;margin-bottom:0;">Deliverable: {$deliverableName}</h2>
                     {else}
-                        <h2 style="padding:0 0px 10px 12px;">{$deliverableName}</h2>
+                        <h2 style="padding:0 0px 10px 12px;">Deliverable: {$deliverableName}</h2>
                     {/if}
 					<table id="delatyTaskTable" cellspacing="0" cellpadding="0" border="0" style="width:100%;margin-bottom:8px;border:1px solid #aaa;">
 					   <thead>
