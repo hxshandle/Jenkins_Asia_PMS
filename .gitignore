@@ -6,3 +6,4 @@ src/nbproject/*
 
 .idea/
 src/files/
+*.log

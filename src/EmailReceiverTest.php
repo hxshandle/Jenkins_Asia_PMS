@@ -1,16 +1,26 @@
 <?PHP
+set_time_limit(0);
 require("init.php");
 require_once CL_ROOT . "/include/Imap.php";
 require_once CL_ROOT . "/include/html2text.php";
 require_once CL_ROOT . "/include/CommentExtractor.php";
 
-echo "heihie ";
+$LOG_PATH = CL_ROOT."/logs/emailReceiver.log";
+
+define('LOG_PATH',CL_ROOT."/logs/emailReceiver.log");
 $mailbox = 'imap.mail.yahoo.com:993';
 $username = '***@yahoo.com';
+
+echo LOG_PATH;
 
 $password = '***';
 $encryption = 'ssl'; // or ssl or ''
 
+function erLog($msg){
+  $date = date('d.m.Y h:i:s'); 
+  $msg = $date." | ".$msg."\n";
+  error_log($msg,3,LOG_PATH);
+}
 
 $username = $settings["mailuser"];
 $password = $settings["mailpass"];
@@ -38,6 +48,11 @@ function getSavedFileName($name){
   return $fname;
 }
 
+
+erLog('===========================');
+erLog('EmailReceiverTest Start...');
+erLog('Connect to Email Server use '.$username);
+
 // ===================================
 // connect to mail server
 // ===================================
@@ -46,18 +61,23 @@ $imap = new Imap ($mailbox, $username, $password, $encryption);
 // stop on error
 if ($imap->isConnected() === false){
   echo "can not connect mail";
+  erLog('can not connect mail');
+  erLog('EmailReceiver stopped');
   die ($imap->getError());
 }
+erLog('Email server connect success.');
 
 // =========================================================
 // do validaiton of folder
 // ========================================================
 
 if (!$imap->haveFolder($srcFolder)) {
+  erLog("folder '$srcFolder' is not exiting in mail");
   die ("folder '$srcFolder' is not exiting in mail");
 }
 
 if (!$imap->haveFolder($moveToFolder)) {
+  erLog("folder '$moveToFolder' is not exiting in mail");
   die ("folder '$moveToFolder' is not exiting in mail");
 }
 
@@ -65,28 +85,28 @@ if (!$imap->haveFolder($moveToFolder)) {
 // select folder Inbox
 // ==============================
 $imap->selectFolder($srcFolder);
-echo "selectFolder";
+erLog("selectFolder success");
 // =======================================
 // fetch all messages in the current folder
 // =======================================
 $emails = $imap->getMessages();
-echo "after get messages";
+erLog("Get messages " .count($emails) );
 $taskComments = new Comments();
 $user = new user();
 
 // start loop 1
 foreach ($emails as $message) {
-  
+
   $email_body = $message ['body'];
   $email_from = $message ['from'] ['email'];
   $email_uid = $message ['uid'];
   $email_subject = $message ['subject'];
   $email_date = $message ['date'];
-  echo "get mail...\n".$email_subject."<br/>";
-  continue;
+  erLog('Process email '.$email_subject);
   $taskId = extractTaskIdFromEmailSubject($email_subject);
   if ($taskId == NIL) {
-    //$imap->moveMessage ( $message ['uid'], $moveToFolder );
+    erLog("remove mail (email_uid ".$email_uid.") since not find taskId in subject ".$email_subject);
+    $imap->moveMessage ( $message ['uid'], $moveToFolder );
     continue;
   }
 
@@ -96,7 +116,7 @@ foreach ($emails as $message) {
   }
   $comment = extractCommmentFromTextEmailBody($plainEmailBody);
 
-  /*	echo ">>>>>>>>>>>>>>>>eamil header>>>>>>>>>>>>\n";
+  /*  echo ">>>>>>>>>>>>>>>>eamil header>>>>>>>>>>>>\n";
     print $taskId . "\n";
     print $email_from . "\n";
     print $email_uid . "\n";
@@ -120,6 +140,7 @@ foreach ($emails as $message) {
     // for attachements
     if ($attachements) {
       echo "has attachements\n";
+      continue;
       $taskObj = $task->getTask($taskId);
       $projectId = $taskObj['project'];
       $path = "files/standard/" . $projectId . "/";
@@ -153,6 +174,6 @@ foreach ($emails as $message) {
   // ==============================
 
   // move to another folder
-  $imap->moveMessage ( $message ['uid'], $moveToFolder );
+  //$imap->moveMessage ( $message ['uid'], $moveToFolder );
 }//end loop 1
 

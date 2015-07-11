@@ -1,9 +1,10 @@
 <?PHP
+set_time_limit(0);
 require("init.php");
 require_once CL_ROOT . "/include/Imap.php";
 require_once CL_ROOT . "/include/html2text.php";
 require_once CL_ROOT . "/include/CommentExtractor.php";
-
+define('LOG_PATH',CL_ROOT."/logs/emailReceiver.log");
 $mailbox = 'imap.mail.yahoo.com:993';
 $username = '***@yahoo.com';
 
@@ -15,7 +16,11 @@ $username = $settings["mailuser"];
 $password = $settings["mailpass"];
 
 
-
+function erLog($msg){
+  $date = date('d.m.Y h:i:s');
+  $msg = $date." | ".$msg."\n";
+  error_log($msg,3,LOG_PATH);
+}
 $srcFolder = "UnReadTasks";
 $moveToFolder = "ReadTasks";
 
@@ -36,6 +41,11 @@ function getSavedFileName($name){
   return $fname;
 }
 
+
+erLog('===========================');
+erLog('EmailReceiver Start...');
+erLog('Connect to Email Server use '.$username);
+$runtime_start = microtime(true);
 // ===================================
 // connect to mail server
 // ===================================
@@ -43,8 +53,12 @@ function getSavedFileName($name){
 $imap = new Imap ($mailbox, $username, $password, $encryption);
 
 // stop on error
-if ($imap->isConnected() === false)
+if ($imap->isConnected() === false){
+  erLog('can not connect mail');
+  erLog('EmailReceiver stopped');
   die ($imap->getError());
+}
+  
 
 // =========================================================
 // do validaiton of folder
@@ -62,14 +76,16 @@ if (!$imap->haveFolder($moveToFolder)) {
 // select folder Inbox
 // ==============================
 $imap->selectFolder($srcFolder);
-
+erLog('Email server connect success.');
 // =======================================
 // fetch all messages in the current folder
 // =======================================
 $emails = $imap->getMessages();
+erLog("Get messages " .count($emails) );
 $taskComments = new Comments();
 $user = new user();
 
+$processedMessageSequence = 0;
 // start loop 1
 foreach ($emails as $message) {
   try {
@@ -79,10 +95,12 @@ foreach ($emails as $message) {
     $email_uid = $message ['uid'];
     $email_subject = $message ['subject'];
     $email_date = $message ['date'];
-
+    $processedMessageSequence++;
+    erLog('Process['.$processedMessageSequence.'] email('.$email_uid.') '.$email_subject);
     $taskId = extractTaskIdFromEmailSubject($email_subject);
     if ($taskId == NIL) {
-      //$imap->moveMessage ( $message ['uid'], $moveToFolder );
+      erLog("remove mail (email_uid ".$email_uid.") since not find taskId in subject ".$email_subject);
+      $imap->moveMessage ( $message ['uid'], $moveToFolder );
       continue;
     }
 
@@ -109,17 +127,18 @@ foreach ($emails as $message) {
     $userInfo = $user->getUserByEmail($email_from);
     if ($user) {
       $commentsId = $taskComments->insertMailComments($comment, $userInfo['ID'], $userInfo['name'], $taskId, $message ['uid']);
-      print "<br/>comments ID -> " . $commentsId . "taskid -> " . $taskId;
+      //print "<br/>comments ID -> " . $commentsId . "taskid -> " . $taskId;
 
 
       $attachements = $message["attachments"];
       // for attachements
       if ($attachements) {
+        erLog('process email attachements...');
         $taskObj = $task->getTask($taskId);
         $projectId = $taskObj['project'];
         $path = "files/standard/" . $projectId . "/";
         while (list($key, $attachment) = each($attachements)) {
-
+          $sts = microtime(true);
           $attachment = $imap->getAttachment($message['uid'], $key);
           if ($attachment) {
   //        $enc = $jUtils->detechStringEncoding($attachment["name"]);
@@ -128,9 +147,12 @@ foreach ($emails as $message) {
             $fileName = getSavedFileName($attachment["name"]);
             $dateStr = $path . $fileName;
             $fname = CL_ROOT . "/" . $dateStr;
+            $ets =microtime(true);
+            $downloadSeconds = round($ets-$sts,6);
+            erLog('Download attachment cost '.$downloadSeconds." seconds");
             $f = fopen($fname, 'wb');
             if ($f) {
-              echo "write file -> " . $fname . "\r\n";
+              erLog("write file -> " . $fname . "");
               fwrite($f, $attachment["content"]);
               fclose($f);
               $fileId = $datei->add_file($attachment['name'], "uploaded by email", $projectId, 0, '', $dateStr, 'application/octet-stream', '', 0, '', $userInfo['ID']);
@@ -148,8 +170,12 @@ foreach ($emails as $message) {
 
   // move to another folder
     $imap->moveMessage ( $message ['uid'], $moveToFolder );
+    erLog('Move processed mail '.$message ['uid'].' to Readed mailbox');
   } catch (Exception $e) {
     echo "error - > ".$e."<br/>";
   }
 }//end loop 1
 
+$runtime_stop = microtime(true);
+
+erLog("<!-- Processed in ".round($runtime_stop-$runtime_start,6)." second(s) -->");
