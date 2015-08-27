@@ -121,7 +121,7 @@ if ($action == "addform") {
           // send email
           $themail = new emailer($settings);
           $msg = $jUtils->getNewTaskMailMsg($user["name"],$project["name"],$start,$end, $_SESSION["username"],$link,$title,$text);
-          $jUtils->sendMail($user["email"], $langfile["taskassignedsubject"]." | ".$title." [JTiD-".$tid."]",$msg,null,$attachmentPath);
+          $jUtils->sendMail($user["email"], $title." [JTiD-".$tid."]",$msg,null,$attachmentPath);
         }
       }
     }
