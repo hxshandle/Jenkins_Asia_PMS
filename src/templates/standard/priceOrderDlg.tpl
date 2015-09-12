@@ -65,6 +65,6 @@
 </div>
 <div  style="margin:10px 0 0 0">
 
-<button id="dlgBtnEditOrder" onclick="editOrder({$order.ID});">{#save#}</button>
+<button id="dlgBtnEditOrder" onclick="updateOrderPrice({$order.ID});">{#save#}</button>
 
 </div>

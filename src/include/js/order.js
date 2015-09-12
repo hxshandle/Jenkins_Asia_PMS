@@ -43,12 +43,47 @@ function _buildOrderFilterParam(){
       method: 'get',
       onSuccess:function(payload) {
         if (payload.responseText != ""){ 
-                     showOrderDlg(payload.responseText);
-                     }else{
-                         alert("faild");
-                        }
-                    }
-                    });  
+             showOrderDlg(payload.responseText);
+             }else{
+                 alert("faild");
+                }
+            }
+            });  
+  }
+
+
+  function updateOrderPrice(id) {
+    var orderId = id;
+    var theUrl = "manageprojectajax.php?action=saveOrder&id="+orderId;
+    var _data = {
+      orderId:id,
+      endTime:$("newEndTime").value,
+      currencyInner:$('targetFOBCurrencyInner').value,
+      published:$('publishedFlag').value,
+      currencyExt:$('targetFOBCurrencyExt').value,
+      innerCost:$('newInnerCost').value,
+      externalCost:$('newExternalCost').value
+    };
+   var _thePost = "&orderId="+id;
+   _thePost +="&endTime="+$("newEndTime").value;
+   _thePost +="&currencyInner="+$("targetFOBCurrencyInner").value;
+   _thePost +="&published="+$("publishedFlag").value;
+   _thePost +="&currencyExt="+$("targetFOBCurrencyExt").value;
+   _thePost +="&innerCost="+$("newInnerCost").value;
+   _thePost +="&externalCost="+$("newExternalCost").value;
+
+   new Ajax.Request(theUrl,{
+    method:'post',
+    postBody:_thePost,
+    onSuccess:function(payload){
+      if(payload.responseText == "Ok"){
+        refreshOrder();
+        Control.Modal.close();
+      }else{
+        alert('Save Failed');
+      }
+    }
+   });
   }
 
 function refreshOrder(){
