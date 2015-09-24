@@ -628,3 +628,6 @@ ALTER TABLE `ecn_impact_tool`
 ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 ;
 
 
+ALTER TABLE `order` 
+CHANGE COLUMN `inner_cost` `inner_cost` DOUBLE NULL DEFAULT NULL ,
+CHANGE COLUMN `external_cost` `external_cost` DOUBLE NULL DEFAULT NULL ;

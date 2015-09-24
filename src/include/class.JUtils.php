@@ -67,7 +67,7 @@ class JUtils
 
   function sendMail($email,$subject,$msg,$arrCC=null,$attachmentPath=null){
     if(!$this->_validateEmailAddress($email)){
-      return;
+      return "Wrong email address -> ".$email;
     }
     $arrCC = $this->getValidCCList($arrCC);
     $set = (object) new settings();
