@@ -351,7 +351,8 @@ class datei {
       $del = mysql_query("DELETE FROM files WHERE ID = $datei");
       $del2 = mysql_query("DELETE FROM files_attached WHERE file = $datei");
       if ($del) {
-        if (unlink($delfile)) {
+        return true;
+        /*if (unlink($delfile)) {
           if ($ftitle != "") {
             $this->mylog->add($ftitle, 'file', 3, $project);
           } else {
@@ -360,7 +361,7 @@ class datei {
           return true;
         } else {
           return false;
-        }
+        }*/
       }
     } else {
       return false;
