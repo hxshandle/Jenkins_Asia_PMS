@@ -62,12 +62,12 @@ $jUtil = new JUtils();
 // 
 // 
 
-  $arr = array(
+/*  $arr = array(
     "A" => "JK0O-00N-JQT-0002-A",
     "B" => "JK0O-00N-JQT-0002-B"
     );
 
   krsort($arr,SORT_NUMERIC);
   $latest = array_shift($arr);
-  var_dump($arr);
+  var_dump($arr);*/
  ?>

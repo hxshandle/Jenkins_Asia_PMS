@@ -5,7 +5,8 @@ require_once CL_ROOT . "/include/Imap.php";
 require_once CL_ROOT . "/include/html2text.php";
 require_once CL_ROOT . "/include/CommentExtractor.php";
 define('LOG_PATH',CL_ROOT."/logs/emailReceiver.log");
-$mailbox = 'imap.mail.yahoo.com:993';
+//$mailbox = 'imap.mail.yahoo.com:993';
+$mailbox= "imap.exmail.qq.com:993";
 $username = '***@yahoo.com';
 
 $password = '***';
@@ -23,6 +24,10 @@ function erLog($msg){
 }
 $srcFolder = "UnReadTasks";
 $moveToFolder = "ReadTasks";
+
+//for qq mail
+$srcFolder = "&UXZO1mWHTvZZOQ-/UnReadTasks";
+$moveToFolder = "&UXZO1mWHTvZZOQ-/ReadTasks";
 
 $jUtils = new JUtils();
 $datei = new datei();
@@ -63,6 +68,11 @@ if ($imap->isConnected() === false){
 // =========================================================
 // do validaiton of folder
 // ========================================================
+
+
+$mailFolders = $imap->getFolders();
+
+echo var_dump($mailFolders);
 
 if (!$imap->haveFolder($srcFolder)) {
   die ("folder '$srcFolder' is not exiting in mail");
