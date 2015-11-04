@@ -15,6 +15,8 @@
 	{/if}
 
 
+	{if $smarty.session.userRole < 8 }
+
 	{*Search*}
 	<div class="content-right-in">
 			<h2><a id = "searchtoggle" class="win-up" href="javascript:blindtoggle('search');toggleClass('searchtoggle','win-up','win-down');">{#search#}</a></h2>
@@ -36,7 +38,7 @@
 			</form>
 	</div>
 	{*Search End*}
-	
+	{/if}
 	
 	{*Calendar*}
 	{* theCal.dayNames = ["{#monday#}","{#tuesday#}","{#wednesday#}","{#thursday#}","{#friday#}","{#saturday#}","{#sunday#}"];
