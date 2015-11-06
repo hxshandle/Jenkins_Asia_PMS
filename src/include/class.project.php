@@ -438,7 +438,7 @@ class project {
         $status = (int) $status;
 
         $myprojekte = array();
-        $sel = mysql_query("SELECT projekt FROM projekte_assigned WHERE user = $user ORDER BY ID ASC");
+        $sel = mysql_query("SELECT projekt FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and pa.user = $user ORDER BY p.name ASC");
         if($_SESSION["userRole"] == 3 || $_SESSION["userRole"] ==1){
           $sel = mysql_query("SELECT id FROM projekte ORDER BY name ASC");
         }
