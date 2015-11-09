@@ -21,15 +21,21 @@ switch ($action) {
     $customers = $jUtils->getAllCustomers();
     $projectLeaders = $jUtils->getAllProjectLeaders();
     $customerLeaders = $jUtils->getAllCustomerLeaders();
+    $engineerLeaders = $jUtils->getAllEngineerLeaders();
+    $qualityLeaders = $jUtils->getAllQualityLeaders();
     $template->assign("customers",$customers);
     $template->assign("projectLeaders",$projectLeaders);
     $template->assign("customerLeaders",$customerLeaders);
+    $template->assign("engineerLeaders",$engineerLeaders);
+    $template->assign("qualityLeaders",$qualityLeaders);
     $template->display("taskSummary.tpl");
     break;
   case "filterTasks":
     $customer = getArrayVal($_GET, "customer");
     $projectLeader = getArrayVal($_GET,"projectLeader");
     $customerLeader = getArrayVal($_GET,"customerLeader");
+    $engineerLeader = getArrayVal($_GET,"engineerLeader");
+    $qualityLeader = getArrayVal($_GET,"qualityLeader");
     $task = new task();
 
     if(empty($customerLeader)){
@@ -41,7 +47,13 @@ switch ($action) {
     }else{
       $tasks = $task->getTaskSummaryByCustomerLeader($customerLeader);
     }
-    
+
+    if(!empty($engineerLeader)){
+      $tasks = $task->getTaskSummaryByLeaderId("engineer_leader",$engineerLeader);
+    }
+    if(!empty($qualityLeader)){
+      $tasks = $task->getTaskSummaryByLeaderId("quality_leader",$qualityLeader);
+    }
     $template->assign("tasks",$tasks);
     $template->assign("groupedTasks",$tasks);
     $template->display("_tasksGroupedByProject.tpl");

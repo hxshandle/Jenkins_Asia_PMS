@@ -50,6 +50,27 @@
                 {/section}
               </select>
             </div>
+            <!-- engineer leader-->
+            <div class="row">
+              <label for="customer">{#engineerLeader#}:</label>
+              <select name="engineerLeader" id="criteriaEngineerLeader" onchange='onNormalSelEngineerLeaderChange(this,"managetasksummary.php?action=filterTasks","delayTaskTableContainer")'; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=leader loop=$engineerLeaders}
+                  <option value="{$engineerLeaders[leader].ID}">{$engineerLeaders[leader].name}</option>
+                {/section}
+              </select>
+            </div>
+
+            <!-- quality leader-->
+            <div class="row">
+              <label for="customer">{#qualityLeader#}:</label>
+              <select name="engineerLeader" id="criteriaQualityLeader" onchange='onNormalSelQualityLeaderChange(this,"managetasksummary.php?action=filterTasks","delayTaskTableContainer")'; required = "1">
+                <option value="-1" selected="selected">{#chooseone#}</option>
+                {section name=leader loop=$qualityLeaders}
+                  <option value="{$qualityLeaders[leader].ID}">{$qualityLeaders[leader].name}</option>
+                {/section}
+              </select>
+            </div>
 			{/if}
             <div class="row">
               <a class="butn_link" onclick="sendTaskDelayReminder()">{#sendreminder#}</a>

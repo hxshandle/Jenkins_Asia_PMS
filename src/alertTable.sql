@@ -631,3 +631,9 @@ ADD COLUMN `valid` INT(1) NOT NULL DEFAULT 1 ;
 ALTER TABLE `order` 
 CHANGE COLUMN `inner_cost` `inner_cost` DOUBLE NULL DEFAULT NULL ,
 CHANGE COLUMN `external_cost` `external_cost` DOUBLE NULL DEFAULT NULL ;
+
+
+
+ALTER TABLE `projekte` 
+ADD COLUMN `engineer_leader` INT(10) NULL DEFAULT NULL AFTER `project_leader`,
+ADD COLUMN `quality_leader` INT(10) NULL DEFAULT NULL AFTER `engineer_leader`;

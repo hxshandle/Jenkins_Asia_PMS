@@ -180,6 +180,26 @@ class task
     return $groupedTasks;
   }
 
+  // $type should be "engineer_leader","quality_leader"
+  function getTaskSummaryByLeaderId($type,$userId){
+    $userId = (int) $userId;
+    $this->updateDeleyTasks();
+    $st1 = Status::getId("task", "delayed");
+    $st2 = Status::getId("task", "not_start");
+    $st3 = Status::getId("task", "in_progress");
+    $sql = "select t.ID from tasks t,projekte p where t.status in($st1,$st2,$st3) and p.".$type."= $userId and t.project=p.id";
+    $sel = mysql_query($sql);
+    $ret = array();
+    while ($row = mysql_fetch_array($sel)) {
+      $tk = $this->getTask($row[0]);
+      $tk['last_comment'] = $this->_getTaskLastCommentByTaskId($tk['ID']);
+      array_push($ret, $tk);
+    }
+    $groupedTasks = $this->groupTasks($ret);
+    //$groupedTasks = $this->groupTasksByProjectName($ret);
+    return $groupedTasks;
+  }
+
   function getDelayTasksByCustomerName($customer)
   {
     $this->updateDeleyTasks();

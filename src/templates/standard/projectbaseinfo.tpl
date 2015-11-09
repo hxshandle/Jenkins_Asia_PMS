@@ -136,7 +136,17 @@
       <div class="row4">
         <label for="supplierLeader">{#supplierLeader#}</label>
         <input type="text" class="text" name="supplierLeader" id="supplierLeader" realname="{#supplierLeader#}" value = "{$project.supplier_leader_name}" /><input id="supplierLeaderId" name = "supplierLeaderId" value = "{$project.supplier_leader}" type="hidden" />
-      </div>      
+
+        <label for="engineerLeader">{#engineerLeader#}</label>
+        <input type="text" class="text" name="engineerLeader" id="engineerLeader" realname="{#engineerLeader#}" value = "{$project.engineer_leader_name}" /><input id="engineerLeaderId" name = "engineerLeaderId" value = "{$project.engineer_leader}" type="hidden" />
+
+      </div>   
+
+      <div class="row4">
+        <label for="qualityLeader">{#qualityLeader#}</label>
+        <input type="text" class="text" name="qualityLeader" id="qualityLeader" realname="{#qualityLeader#}" value = "{$project.quality_leader_name}" /><input id="qualityLeaderId" name = "qualityLeaderId" value = "{$project.quality_leader}" type="hidden" />
+        
+      </div>     
        <div id="autoCompChoice" class="autoComp"></div>
 
     </fieldset>
@@ -165,9 +175,17 @@
     function setSupplierLeaderId(text,li){
       $("supplierLeaderId").value=li.id;
     }
+    function setEngineerLeaderId(text,li){
+      $("engineerLeaderId").value=li.id;
+    }
+    function setQualityLeaderId(text,li){
+      $("qualityLeaderId").value=li.id;
+    }
     new Ajax.Autocompleter('customerLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setCustomerLeaderId});
     new Ajax.Autocompleter('projectLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setProjectLeaderId});
     new Ajax.Autocompleter('supplierLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setSupplierLeaderId});
+    new Ajax.Autocompleter('engineerLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setEngineerLeaderId});
+    new Ajax.Autocompleter('qualityLeader', 'autoCompChoice', 'managepeoplesearch.php?action=findUser', {paramName:'query',minChars: 2,afterUpdateElement : setQualityLeaderId});
 
     function saveBaseInfo(){
       var theUrl = "manageprojectajax.php";

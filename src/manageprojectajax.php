@@ -428,8 +428,10 @@ switch ($action) {
     $projectLeader = getArrayVal($_POST, "projectLeaderId");
     $customerLeader = getArrayVal($_POST, "customerLeaderId");
     $supplierLeader = getArrayVal($_POST, "supplierLeaderId");
+    $engineerLeader = getArrayVal($_POST, "engineerLeaderId");
+    $qualityLeader = getArrayVal($_POST, "qualityLeaderId");
     $project = new Project();
-    $upd = $project->edit($id, $name,$projectNo, $desc, $projectStatus, $budget, $projectLevel, $projectPriority, $customer, $suppler, $targetFOB, $targetFOBCurrency, $forecastedAnnualQuality1, $forecastedAnnualQuality2, $forecastedAnnualQuality3, $customerLeader, $supplierLeader, $projectLeader, $startDate, $endDate);
+    $upd = $project->edit($id, $name,$projectNo, $desc, $projectStatus, $budget, $projectLevel, $projectPriority, $customer, $suppler, $targetFOB, $targetFOBCurrency, $forecastedAnnualQuality1, $forecastedAnnualQuality2, $forecastedAnnualQuality3, $customerLeader, $supplierLeader, $projectLeader,$engineerLeader,$qualityLeader,$startDate, $endDate);
     if ($upd) {
       echo "Ok";
     } else {

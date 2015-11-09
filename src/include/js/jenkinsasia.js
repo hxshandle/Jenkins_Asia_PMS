@@ -392,6 +392,35 @@ function onNormalSelCustomerLeaderChange(val,url,targetEl){
       }); 
 }
 
+
+function onNormalSelEngineerLeaderChange(val,url,targetEl){
+  url = url+'&engineerLeader='+val.value;
+  var targetElId = targetEl;
+  new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              document.getElementById(targetElId).innerHTML=payload.responseText;
+            }
+          }
+      }); 
+}
+
+
+function onNormalSelQualityLeaderChange(val,url,targetEl){
+  url = url+'&qualityLeader='+val.value;
+  var targetElId = targetEl;
+  new Ajax.Request(url, {
+          method: 'get',
+          onSuccess:function(payload) {
+            if (payload.responseText != ""){
+              document.getElementById(targetElId).innerHTML=payload.responseText;
+            }
+          }
+      }); 
+}
+
+
 function normalSelAll(el,targetId){
   
   var isChk = el.checked;  

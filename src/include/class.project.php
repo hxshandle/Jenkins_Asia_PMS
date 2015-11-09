@@ -135,7 +135,7 @@ class project {
     }
 
     
-    function edit($id,$name, $projectNo,$desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate){
+    function edit($id,$name, $projectNo,$desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$engineerLeader,$qualityLeader, $startDate,$endDate){
       $name = mysql_real_escape_string($name);
       $projectNo = mysql_real_escape_string($projectNo);
       $desc = mysql_real_escape_string($desc);
@@ -151,6 +151,9 @@ class project {
       $customerLeader = (int) $customerLeader;
       $supplierLeader = (int)$supplierLeader;
       $projectLeader = (int) $projectLeader;
+      $engineerLeader = (int) $engineerLeader;
+      $qualityLeader = (int) $qualityLeader;
+
       $id = mysql_real_escape_string($id);
       $name = mysql_real_escape_string($name);
       $desc = mysql_real_escape_string($desc);
@@ -175,6 +178,8 @@ class project {
               `customer_leader` = $customerLeader,
               `supplier_leader` = $supplierLeader,
               `project_leader` = $projectLeader,
+              `engineer_leader` = $engineerLeader,
+              `quality_leader` = $qualityLeader,
               `start_date` = '$startDate',
               `end_date` = '$endDate'
               WHERE ID = $id;
@@ -377,6 +382,8 @@ class project {
             $project["project_leader_name"] = $user->getName($project["project_leader"]);
             $project["customer_leader_name"] = $user->getName($project["customer_leader"]);
             $project["supplier_leader_name"] = $user->getName($project["supplier_leader"]);
+            $project["engineer_leader_name"] = $user->getName($project["engineer_leader"]);
+            $project["quality_leader_name"] = $user->getName($project["quality_leader"]);
             return $project;
         } else {
             return false;
