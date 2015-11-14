@@ -3304,4 +3304,26 @@ ul.chk-list label{
   background: #FFF;
 }
 
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+
+
+.critler-filter-label{
+  font-size: 20px;
+  display:block;
+
+}
+.critler-filter{
+  font-size:18px;
+  line-height: 24px;
+  margin: 6px 0;
+  width:100%;
+}
+
 /*****************Jenkins Asia Special***********************/

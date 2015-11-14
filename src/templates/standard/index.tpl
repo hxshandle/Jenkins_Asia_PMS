@@ -45,14 +45,19 @@
 					</div>
 					<!-- customer filter-->
 				{if $smarty.session.userRole < 6}
-				<div class="row">
-          <label for="customer">{#customer#}:</label>
-	      	<select name="criteriaCustomer" id="criteriaCustomer" onchange="onDeskTopCustomerChange(this)"; required = "1">
+				<div class="row" style="">
+          <label for="customer" class="critler-filter-label">{#customer#}:</label>
+	      	<select name="criteriaCustomer" id="criteriaCustomer" onchange="onDeskTopCustomerChange(this)"; required = "1" class="critler-filter">
 	      	  <option value="-1" selected="selected">{#chooseone#}</option>
             {section name=customer loop=$customers}
               <option value="{$customers[customer][0]}">{$customers[customer][0]}</option>
             {/section}
           </select>
+        </div>
+        <!-- project filter -->
+        <div class="row">
+          <label for="project-filter" class="critler-filter-label">{#projectFilter#}:</label>
+          <input id="porject-filter" class="critler-filter" placeholder = "Filter by Project Name or Project No">
         </div>
         {/if}
         	<div id="desktop-project-table" class="height500">
@@ -81,7 +86,7 @@
 							{else}
 							<tbody class="color-b" id="proj_{$myprojects[project].ID}" rel = "{$myprojects[project].ID},{$myprojects[project].name},{$myprojects[project].daysleft},0,0,{$myprojects[project].done}">
 							{/if}
-								<tr {if $myprojects[project].daysleft < 0 && $myprojects[project].daysleft != ""} class="marker-late"{elseif $myprojects[project].daysleft == "0"} class="marker-today"{/if}>
+								<tr {if $myprojects[project].daysleft < 0 && $myprojects[project].daysleft != ""} class="marker-late project-row"{elseif $myprojects[project].daysleft == "0"} class="marker-today project-row"{/if} class=" project-row" data-project-name="{$myprojects[project].name}" data-project-no="{$myprojects[project].project_no}" data-project-id="{$myprojects[project].ID}" projectid="{$myprojects[project].ID}" customer="{$myprojects[project].customer_name}">
 									<td>
 										{if $smarty.session.userRole < 5}
 											<a class="butn_check" href="javascript:closeElement('proj_{$myprojects[project].ID}','manageproject.php?action=close&amp;id={$myprojects[project].ID}');" title="{#close#}"></a>

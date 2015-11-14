@@ -29,6 +29,7 @@ deleteEndcolor = '#c62424';
   jQuery.noConflict();
 </script>
 <script type = "text/javascript" src = "include/js/jquery.numeric.min.js" ></script>
+<script type = "text/javascript" src = "include/js/jquery.autocomplete.min.js" ></script>
 <script type = "text/javascript" src = "include/js/ajax.php" ></script>
 <script type = "text/javascript" src="include/js/jsval.php"></script>
 

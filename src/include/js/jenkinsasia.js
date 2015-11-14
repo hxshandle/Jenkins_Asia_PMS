@@ -343,15 +343,55 @@ J.buildSelectByJSON = function (id,jsonData,hasDefaultOption){
 function onDeskTopCustomerChange(val){
   var v = encodeURIComponent(val.value);
   var theUrl = "manageprojectajax.php?action=filterProjectsByCustomerName&customer="+v;
-  new Ajax.Request(theUrl, {
+  var $ = jQuery;
+  $('.project-row').hide();
+  $('.project-row[customer='+val.value+']').show();
+  if(val.value == -1){
+    $('.project-row').show();
+  }
+  /*new Ajax.Request(theUrl, {
           method: 'get',
           onSuccess:function(payload) {
             if (payload.responseText != ""){
               document.getElementById("desktop-project-table").innerHTML=payload.responseText;
             }
           }
-      }); 
+      }); */
 }
+
+// Use new auto complete jQuery plugin
+jQuery(function(){
+  var $ = jQuery;
+    // 查看是否有存在Customer Support
+  var autoCompletedSelects = ['#porject-filter'];
+  // 首页项目选择器
+  var projectFilter = $('#porject-filter');
+  if(projectFilter.length > 0 ){
+    // 获得所有项目信息
+    var pData = _.map($('.project-row'),function(row){
+      var el = $(row);
+      var pName = el.data('projectName');
+      var pNo = el.data('projectNo');
+      var pId = el.data('projectId');
+      return {
+          value:pName+" ( "+ pNo +" )",
+          data:pName+" ( "+ pNo +" )",
+          projectId:pId
+      }
+    });
+
+    projectFilter.autocomplete({
+      lookup:pData,
+      onSelect: function (suggestion) {
+        //alert('You selected: ' + suggestion.value + ', ' + suggestion.data +","+suggestion.projectId);
+        $('.project-row').hide();
+        $('.project-row[projectid='+suggestion.projectId+']').show();
+      }
+    });
+  }
+});
+
+
 
 function onNormalSelCustomerChange(val,url,targetEl){
   url = url+'&customer='+val.value;
