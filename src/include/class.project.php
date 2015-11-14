@@ -588,7 +588,7 @@ class project {
      * @param int $lim Maximum auszugebender Mitglieder
      * @return array $members Projektmitglieder
      */
-    function getProjectMembers($project, $lim = 10, $paginate = true)
+    function getProjectMembers($project, $lim = 1000, $paginate = true)
     {
         $project = (int) $project;
         $lim = (int) $lim;
