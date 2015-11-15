@@ -1,11 +1,12 @@
 {config_load file=lng.conf section = "strings" scope="global" }
 {*Document table*}
 <div class="documentTableWrapper">
-<table id="documentsTable" cellspacing="0" cellpadding="0" border="0" style="width:5000px">
+<table id="documentsTable" cellspacing="0" cellpadding="0" border="0" style="width:5500px">
   <thead>
     <tr>   
       <th>{#order#}</th>
       <th>{#quantity#}</th>
+      <th>{#project#}</th>
       <th>{#customer#}</th>
       <th>{#customerPoNumber#}</th>
       <th>{#supplier#}</th>
@@ -47,6 +48,7 @@
         <span class="acc-toggle" onclick="javascript:accord_order.activate($$('#documentsTable .accordion_toggle')[{$smarty.section.order.index}]);toggleAccordeon('accord_order',this);"><a onclick="javascript:showOrderSubInfo({$orderTab[order].ID});return false;">{$orderTab[order].name|default:'N/A'}</a></span>
       </td>
       <td  align  = "center">{$orderTab[order].quantity}</td>
+      <td  align  = "left">{$orderTab[order].projectName}</td>
       <td  align  = "center">{$orderTab[order].customerName}</td>
       <td  align  = "center">{$orderTab[order].customer_po_number}</td>
        <td  align  = "center">{$orderTab[order].supplierlead}</td>

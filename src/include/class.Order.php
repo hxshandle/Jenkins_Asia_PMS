@@ -556,7 +556,7 @@ class Order {
   
   function getBaseSql(){
     return  "select o.ID,o.name,o.quantity,o.desc,(select u.name from user u where p.customer_leader = u.ID) as customerlead,
-      p.customer_name as customerName,
+      p.customer_name as customerName,p.name as projectName,
       (select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.inner_cost,o.inner_cost_currency,
       o.external_cost,o.external_cost_currency,(select value from status s where o.status = s.ID) as status,
       o.status as statusId,o.published,o.customer_po_number,o.jenkins_po_number,
