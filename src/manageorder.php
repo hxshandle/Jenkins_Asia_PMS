@@ -13,13 +13,15 @@ case "myorder":
   $order = new Order();
   $project = new project();
   $projects = $jUtils->getAllProjects();
-  $orderTab = $order->getOrdersByUser();
+  //$orderTab = $order->getOrdersByUser();
+  $orderTab = Array();
   $template->assign("orderTab", $orderTab);
   $template->assign("projects",$projects);
   $customers = $jUtils->getAllCustomers();
   $template->assign("customers",$customers);
-  $orders = $jUtils->getAllOrders();
-  $template->assign("orders",$orders);
+  //$orders = $jUtils->getAllOrders();
+  //$orders =  Array();
+  //$template->assign("orders",$orders);
   $template->display("order.tpl");
   break;
 case "addOrder":
@@ -64,6 +66,8 @@ case "filterOrder":
   break;
 case "editOrderDlg":
   $orderId = getArrayVal($_GET,"oId");
+  $projects = $jUtils->getAllProjects();
+  $template->assign("projects",$projects);
   $order = new Order();
   $orderItem = $order->get($orderId);
   $template->assign("status", Status::getStatusByType("order1"));
@@ -80,6 +84,7 @@ case "editOrderDlg":
 case "editOrder":
   $orderId = getArrayVal($_POST, "orderId");
   $orderName = getArrayVal($_POST, "orderName");
+  $projectId = getArrayVal($_POST, "project");
   $orderQuantity = getArrayVal($_POST, "orderQuantity");
   $orderTime = getArrayVal($_POST, "orderTime");
   $orderDesc = getArrayVal($_POST, "orderDesc");
@@ -124,7 +129,7 @@ case "editOrder":
   $arrComplianceFiles = $jUtils->getUploadedFileIds($compliancefilesAttachement);
 
   $order = new Order();
-  $upd = $order->updateOrder($orderId,$orderName,$orderQuantity, $orderTime, $orderDesc,
+  $upd = $order->updateOrder($orderId,$projectId,$orderName,$orderQuantity, $orderTime, $orderDesc,
                       $arrFiles, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
                       $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                       $paymentOneSchedule,$paymentOneStatus,$arrP1Files,$paymentTwoSchedule,

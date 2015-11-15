@@ -8,9 +8,20 @@
         <input name="orderName" value ="{$order.name}"></input>
         <!-- <label style="">{$order.name}</label> -->
       </div>
+
+      <div class="row">
+        <label for="project">{#project#}:</label>
+        <select name="project" id="project" onchange="onAddOrderSelProjectChange(this)"; required = "1">
+          <option value="-1" selected="selected">{#chooseone#}</option>
+          {section name=project loop=$projects}
+            <option value="{$projects[project].ID}" {if $order.project == $projects[project].ID} selected {/if}>{$projects[project].name}</option>
+          {/section}
+        </select>
+      </div>
+
       <div class="row">
         <label style="">{#status#}</label>
-        <select id = "orderStatus" name="orderStatus" class="currency">
+        <select id = "orderStatus" name="orderStatus" class="">
             {section name=curr loop=$orderStatus}
             {if $orderStatus[curr].id == $order.status}
                 <option selected  value="{$orderStatus[curr].id}">{$orderStatus[curr].value}</option>
@@ -100,7 +111,7 @@
       </div>
       <div class="row">
           <label style="">{#deliverystatus#}</label>
-          <select id = "deliveryStatus1" name="deliveryStatus1" class="currency">
+          <select id = "deliveryStatus1" name="deliveryStatus1" class="">
               {section name=curr loop=$status}
               {if $status[curr].id == $order.delivery_status_one}
                   <option selected  value="{$status[curr].id}">{$status[curr].value}</option>
@@ -116,7 +127,7 @@
       </div>
       <div class="row">
           <label style="">{#deliverystatus#}</label>
-          <select id = "deliveryStatus2" name="deliveryStatus2" class="currency">
+          <select id = "deliveryStatus2" name="deliveryStatus2" class="">
               {section name=curr loop=$status}
               {if $status[curr].id == $order.delivery_status_two}
                   <option selected  value="{$status[curr].id}">{$status[curr].value}</option>
@@ -132,7 +143,7 @@
       </div>
       <div class="row">
           <label style="">{#paymentOneStatus#}</label>
-          <select id = "paymentStatus1" name="paymentStatus1" class="currency">
+          <select id = "paymentStatus1" name="paymentStatus1" class="">
               {section name=curr loop=$status}
               {if $status[curr].id == $order.payment_one_status}
                   <option selected  value="{$status[curr].id}">{$status[curr].value}</option>
@@ -163,7 +174,7 @@
       </div>
       <div class="row">
           <label style="">{#paymentTwoStatus#}</label>
-          <select id = "paymentStatus2" name="paymentStatus2" class="currency">
+          <select id = "paymentStatus2" name="paymentStatus2" class="">
               {section name=curr loop=$status}
               {if $status[curr].id == $order.payment_two_status}
                   <option selected  value="{$status[curr].id}">{$status[curr].value}</option>
@@ -193,7 +204,7 @@
       </div>
       <div class="row">
           <label style="">{#paymentThreeStatus#}</label>
-          <select id = "paymentStatus3" name="paymentStatus3" class="currency">
+          <select id = "paymentStatus3" name="paymentStatus3" class="">
               {section name=curr loop=$status}
               {if $status[curr].id == $order.payment_three_status}
                   <option selected  value="{$status[curr].id}">{$status[curr].value}</option>
