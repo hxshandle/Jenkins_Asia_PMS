@@ -3315,13 +3315,13 @@ ul.chk-list label{
 
 
 .critler-filter-label{
-  font-size: 20px;
+  font-size: 18px;
   display:block;
 
 }
 .critler-filter{
-  font-size:18px;
-  line-height: 24px;
+  font-size:16px;
+  line-height: 20px;
   margin: 6px 0;
   width:100%;
 }
