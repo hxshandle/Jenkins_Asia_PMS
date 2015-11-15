@@ -334,7 +334,7 @@ class Order {
   }
 
 
-  function updateOrder($orderId,$orderQuantity, $orderTime, $orderDesc,
+  function updateOrder($orderId,$orderName,$orderQuantity, $orderTime, $orderDesc,
                         $attachment1, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
                         $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                         $paymentOneSchedule,$paymentOneStatus,$paymentOneAttachment,$paymentTwoSchedule,
@@ -344,6 +344,7 @@ class Order {
     $id = (int) $orderId;
     $orderQuantity = (int) $orderQuantity;
     $desc = mysql_real_escape_string($orderDesc);
+    $orderName = mysql_real_escape_string($orderName);
     $jenkinsPoNumber = mysql_real_escape_string($jenkinsPoNumber);
     $factory = mysql_real_escape_string($factory);
     $terms = mysql_real_escape_string($terms);
@@ -365,7 +366,7 @@ class Order {
     $deliveryStatusTwo = (int)$deliveryStatus2;
     $waiverDesc = mysql_real_escape_string($waiverDesc);
     $isFulfilled = (int) $isFulfilled;
-    $sql = "update `order` set `quantity` = $orderQuantity,`desc`='$desc',end_time='$orderTime',jenkins_po_number='$jenkinsPoNumber',
+    $sql = "update `order` set `name`= '$orderName', `quantity` = $orderQuantity,`desc`='$desc',end_time='$orderTime',jenkins_po_number='$jenkinsPoNumber',
             factory='$factory',terms='$terms',account_payment='$accountPayment',
             customer_model_number='$customerModelNumber',customer_part_number='$customerPartNumber',
             jenkins_model_number='$jenkinsModelNumber',jenkins_part_number='$jenkinsPartNumber',

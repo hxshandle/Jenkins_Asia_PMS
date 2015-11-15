@@ -79,7 +79,7 @@ case "editOrderDlg":
   break;
 case "editOrder":
   $orderId = getArrayVal($_POST, "orderId");
-  //$orderName = getArrayVal($_POST, "orderName");
+  $orderName = getArrayVal($_POST, "orderName");
   $orderQuantity = getArrayVal($_POST, "orderQuantity");
   $orderTime = getArrayVal($_POST, "orderTime");
   $orderDesc = getArrayVal($_POST, "orderDesc");
@@ -124,7 +124,7 @@ case "editOrder":
   $arrComplianceFiles = $jUtils->getUploadedFileIds($compliancefilesAttachement);
 
   $order = new Order();
-  $upd = $order->updateOrder($orderId,$orderQuantity, $orderTime, $orderDesc,
+  $upd = $order->updateOrder($orderId,$orderName,$orderQuantity, $orderTime, $orderDesc,
                       $arrFiles, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
                       $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                       $paymentOneSchedule,$paymentOneStatus,$arrP1Files,$paymentTwoSchedule,

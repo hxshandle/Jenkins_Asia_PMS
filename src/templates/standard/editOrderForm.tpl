@@ -5,7 +5,8 @@
       <input type="hidden" name="orderId" id="orderId" value="{$order.ID}"></input>
       <div class="row">
         <label style="" >{#order#}</label>
-        <label style="">{$order.name}</label>
+        <input name="orderName" value ="{$order.name}"></input>
+        <!-- <label style="">{$order.name}</label> -->
       </div>
       <div class="row">
         <label style="">{#status#}</label>
