@@ -371,7 +371,7 @@ class Order {
             factory='$factory',terms='$terms',account_payment='$accountPayment',
             customer_model_number='$customerModelNumber',customer_part_number='$customerPartNumber',
             jenkins_model_number='$jenkinsModelNumber',jenkins_part_number='$jenkinsPartNumber',
-            payment_one_schedule='$jenkinsPartNumber',payment_one_status=$paymentOneStatus,
+            payment_one_schedule='$paymentOneSchedule',payment_one_status=$paymentOneStatus,
             payment_two_schedule='$paymentTwoSchedule',
             payment_two_status=$paymentTwoStatus,
             payment_three_schedule='$paymentThreeSchedule',payment_three_status=$paymentThreeStatus,

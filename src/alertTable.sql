@@ -637,3 +637,23 @@ CHANGE COLUMN `external_cost` `external_cost` DOUBLE NULL DEFAULT NULL ;
 ALTER TABLE `projekte` 
 ADD COLUMN `engineer_leader` INT(10) NULL DEFAULT NULL AFTER `project_leader`,
 ADD COLUMN `quality_leader` INT(10) NULL DEFAULT NULL AFTER `engineer_leader`;
+
+
+
+INSERT INTO `status`
+(
+`type`,
+`value`)
+VALUES
+('order',
+'complete');
+
+
+
+INSERT INTO `status`
+(
+`type`,
+`value`)
+VALUES
+('order1',
+'complete');
