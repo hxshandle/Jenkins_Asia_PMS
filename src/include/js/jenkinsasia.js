@@ -359,16 +359,10 @@ function onDeskTopCustomerChange(val){
       }); */
 }
 
-// Use new auto complete jQuery plugin
-jQuery(function(){
+// index.tpl -> _getProjects4HomePage
+function _getProjects4HomePage(){
   var $ = jQuery;
-    // 查看是否有存在Customer Support
-  var autoCompletedSelects = ['#porject-filter'];
-  // 首页项目选择器
-  var projectFilter = $('#porject-filter');
-  if(projectFilter.length > 0 ){
-    // 获得所有项目信息
-    var pData = _.map($('.project-row'),function(row){
+  return pData = _.map($('.project-row'),function(row){
       var el = $(row);
       var pName = el.data('projectName');
       var pNo = el.data('projectNo');
@@ -379,13 +373,56 @@ jQuery(function(){
           projectId:pId
       }
     });
+}
 
+function _homePageAutocompleteHandler(suggestion){
+  var $ = jQuery;
+  //alert('You selected: ' + suggestion.value + ', ' + suggestion.data +","+suggestion.projectId);
+  $('.project-row').hide();
+  $('.project-row[projectid='+suggestion.projectId+']').show();
+}
+// document.tpl -> _getProjects4DocumentPage
+function _getProjects4DocumentPage(){
+  var $ = jQuery;
+  return pData = _.map($('#criteriaProject option'),function(row){
+      var el = $(row);
+      var pName = el.data('projectName');
+      var pNo = el.data('projectNo');
+      var pId = el.data('projectId');
+      return {
+          value:pName+" ( "+ pNo +" )",
+          data:pName+" ( "+ pNo +" )",
+          projectId:pId
+      }
+    });
+}
+
+// Use new auto complete jQuery plugin
+jQuery(function(){
+  var $ = jQuery;
+    // 查看是否有存在Customer Support
+  var autoCompletedSelects = ['#porject-filter'];
+  // 首页项目选择器
+  var projectFilter = $('#porject-filter');
+  var _filterType = projectFilter.data('type');
+  if(projectFilter.length > 0 ){
+    
+    var pData = eval(projectFilter.data('dataSource'));
     projectFilter.autocomplete({
       lookup:pData,
       onSelect: function (suggestion) {
-        //alert('You selected: ' + suggestion.value + ', ' + suggestion.data +","+suggestion.projectId);
-        $('.project-row').hide();
-        $('.project-row[projectid='+suggestion.projectId+']').show();
+        switch(_filterType){
+          case "project":
+            _homePageAutocompleteHandler(suggestion);
+            break;
+          case "document":
+          case "quality":
+            $('#project-filter-val').val(suggestion.projectId);
+            onCriteriaProjectChange();
+            break;
+          default:
+            break;
+        }
       }
     });
   }

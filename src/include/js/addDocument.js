@@ -154,7 +154,7 @@ function _buildSelOpts(opts, data) {
 
 function filterDocument(param) {
 
-    var project = document.getElementById("criteriaProject").value;
+    var project = document.getElementById("project-filter-val").value;
     var order = document.getElementById("criteriaOrder").value;
     var customer = "-1";
     if (document.getElementById("criteriaCustomer")) {
@@ -180,7 +180,9 @@ function filterDocument(param) {
 }
 
 function _buildFilterParam() {
-    var project = document.getElementById("criteriaProject").value;
+    //var project = document.getElementById("criteriaProject").value;
+    // for new project filter
+    var project = document.getElementById('project-filter-val').value;
     var order = document.getElementById("criteriaOrder").value;
     var customer = "-1";
     if (document.getElementById("criteriaCustomer")) {

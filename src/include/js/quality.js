@@ -19,7 +19,7 @@ function updateFileId(id){
 }
 
 function _buildQualityFilterParam(){
-  var project = document.getElementById("criteriaProject").value;
+  var project = document.getElementById("project-filter-val").value;
   var customer = "-1";
   if(document.getElementById("criteriaCustomer")){
     customer = document.getElementById("criteriaCustomer").value;

@@ -48,15 +48,24 @@
       <div id="searchArea" class="block_in_wrapper block">
         <form class="main">
         <h1>{#filter#}</h1>
-            <div class="row">
+            <div class="row" style="display:none">
               <label for="project">{#project#}:</label>
               <select name="criteriaProject" id="criteriaProject" onchange="onCriteriaProjectChange(this)"; required = "1">
                 <option value="-1" selected="selected">{#chooseone#}</option>
                 {section name=project loop=$projects}
-                  <option value="{$projects[project].ID}">{$projects[project].name}</option>
+                  <option value="{$projects[project].ID}" data-project-id="{$projects[project].ID}" data-project-no="{$projects[project].project_no}" data-project-name="{$projects[project].name}">{$projects[project].name}</option>
                 {/section}
               </select>
             </div>
+
+            <div class="row">
+              <label for="project-filter" class="">{#projectFilter#}:</label>
+              <input id="project-filter-val" type="hidden">
+              <input id="porject-filter" class="critler-filter"
+                     placeholder="Filter by Project Name or Project No" data-type="quality"
+                     data-data-source="_getProjects4DocumentPage()">
+            </div>
+
             {if $smarty.session.userRole < 6 }
             <div class="row">
               <label for="customer">{#customer#}:</label>
