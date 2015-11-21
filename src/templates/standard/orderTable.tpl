@@ -15,6 +15,7 @@
       <th>{#deliverystatusone#}</th>
       <th>{#deliverydatetwo#}</th>
       <th>{#deliverystatustwo#}</th>
+      <th>{#jenkinsPiNumber#}</th>
       <th>{#jenkinsPoNumber#}</th>
       <th>{#factory#}</th>
       <th>{#terms#}</th>
@@ -58,6 +59,7 @@
       <td  align  = "center">{$orderTab[order].delivery_status_one}</td>
       <td  align  = "center">{$orderTab[order].delivery_date_two}</td>
       <td  align  = "center">{$orderTab[order].delivery_status_two}</td>
+      <td  align  = "center">{$orderTab[order].jenkins_pi_number}</td>  
       <td  align  = "center">{$orderTab[order].jenkins_po_number}</td>  
       <td  align  = "center">{$orderTab[order].factory}</td>
       <td  align  = "center">{$orderTab[order].terms}</td>

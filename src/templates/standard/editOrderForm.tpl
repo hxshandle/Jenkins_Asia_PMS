@@ -73,6 +73,10 @@
         <input name = "customerPartNumber" value="{$order.customer_po_number}"></input>
       </div>
       <div class="row">
+        <label style="" >{#jenkinsPiNumber#}</label>
+        <input id="jenkinsPiNumber" name="jenkinsPiNumber" value="{$order.jenkins_pi_number}"></input>
+      </div>
+      <div class="row">
         <label style="" >{#jenkinsPoNumber#}</label>
         <input id="jenkinsPoNumber" name="jenkinsPoNumber" value="{$order.jenkins_po_number}"></input>
       </div>

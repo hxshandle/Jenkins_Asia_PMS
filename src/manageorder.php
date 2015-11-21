@@ -90,6 +90,7 @@ case "editOrder":
   $orderDesc = getArrayVal($_POST, "orderDesc");
   $attachment1 = getArrayVal($_POST, "attachment1");
   $jenkinsPoNumber = getArrayVal($_POST, "jenkinsPoNumber");
+  $jenkinsPiNumber = getArrayVal($_POST, "jenkinsPiNumber");
   $attachment2 = getArrayVal($_POST, "attachment2");
   $factory = getArrayVal($_POST, "factory");
   $terms = getArrayVal($_POST, "terms");
@@ -130,7 +131,7 @@ case "editOrder":
 
   $order = new Order();
   $upd = $order->updateOrder($orderId,$projectId,$orderName,$orderQuantity, $orderTime, $orderDesc,
-                      $arrFiles, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
+                      $arrFiles, $jenkinsPoNumber,$jenkinsPiNumber, $attachment2,$factory,$terms,$accountPayment,
                       $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                       $paymentOneSchedule,$paymentOneStatus,$arrP1Files,$paymentTwoSchedule,
                       $paymentTwoStatus,$arrP2Files,$paymentThreeSchedule,$paymentThreeStatus,

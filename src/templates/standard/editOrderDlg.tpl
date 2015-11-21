@@ -13,6 +13,10 @@
   <label style="">{$order.customer_po_number}</label>
 </div>
 <div class="dlgRow">
+  <label style="" >{#jenkinsPiNumber#}</label>
+  <input id="newJenkinsPiNumber" value="{$order.jenkins_pi_number}"></input>
+</div>
+<div class="dlgRow">
   <label style="" >{#jenkinsPoNumber#}</label>
   <input id="newJenkinsPoNumber" value="{$order.jenkins_po_number}"></input>
 </div>

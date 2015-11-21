@@ -657,3 +657,6 @@ INSERT INTO `status`
 VALUES
 ('order1',
 'complete');
+
+ALTER TABLE `order` ADD COLUMN `jenkins_pi_number` VARCHAR(255) NULL  AFTER `jenkins_po_number` ;
+

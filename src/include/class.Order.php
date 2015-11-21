@@ -335,7 +335,7 @@ class Order {
 
 
   function updateOrder($orderId,$projectId,$orderName,$orderQuantity, $orderTime, $orderDesc,
-                        $attachment1, $jenkinsPoNumber, $attachment2,$factory,$terms,$accountPayment,
+                        $attachment1, $jenkinsPoNumber,$jenkinsPiNumber, $attachment2,$factory,$terms,$accountPayment,
                         $customerModelNumber,$customerPartNumber,$jenkinsModelNumber,$jenkinsPartNumber,
                         $paymentOneSchedule,$paymentOneStatus,$paymentOneAttachment,$paymentTwoSchedule,
                         $paymentTwoStatus,$paymentTwoAttachment,$paymentThreeSchedule,$paymentThreeStatus,
@@ -347,6 +347,7 @@ class Order {
     $desc = mysql_real_escape_string($orderDesc);
     $orderName = mysql_real_escape_string($orderName);
     $jenkinsPoNumber = mysql_real_escape_string($jenkinsPoNumber);
+    $jenkinsPiNumber = mysql_real_escape_string($jenkinsPiNumber);
     $factory = mysql_real_escape_string($factory);
     $terms = mysql_real_escape_string($terms);
     $accountPayment = mysql_real_escape_string($accountPayment);
@@ -367,19 +368,35 @@ class Order {
     $deliveryStatusTwo = (int)$deliveryStatus2;
     $waiverDesc = mysql_real_escape_string($waiverDesc);
     $isFulfilled = (int) $isFulfilled;
-    $sql = "update `order` set `name`= '$orderName',`project`=$projectId, `quantity` = $orderQuantity,`desc`='$desc',end_time='$orderTime',jenkins_po_number='$jenkinsPoNumber',
-            factory='$factory',terms='$terms',account_payment='$accountPayment',
-            customer_model_number='$customerModelNumber',customer_part_number='$customerPartNumber',
-            jenkins_model_number='$jenkinsModelNumber',jenkins_part_number='$jenkinsPartNumber',
-            payment_one_schedule='$paymentOneSchedule',payment_one_status=$paymentOneStatus,
+    $sql = "update `order` set
+            `name`= '$orderName',
+            `project`=$projectId,
+            `quantity` = $orderQuantity,
+            `desc`='$desc',
+            end_time='$orderTime',
+            jenkins_po_number='$jenkinsPoNumber',
+            jenkins_pi_number='$jenkinsPiNumber',
+            factory='$factory',
+            terms='$terms',
+            account_payment='$accountPayment',
+            customer_model_number='$customerModelNumber',
+            customer_part_number='$customerPartNumber',
+            jenkins_model_number='$jenkinsModelNumber',
+            jenkins_part_number='$jenkinsPartNumber',
+            payment_one_schedule='$paymentOneSchedule',
+            payment_one_status=$paymentOneStatus,
             payment_two_schedule='$paymentTwoSchedule',
             payment_two_status=$paymentTwoStatus,
-            payment_three_schedule='$paymentThreeSchedule',payment_three_status=$paymentThreeStatus,
+            payment_three_schedule='$paymentThreeSchedule',
+            payment_three_status=$paymentThreeStatus,
             final_total_amount_received='$finalTotalAmountReceived',
-            delivery_date_one='$deliveryDateOne',delivery_date_two='$deliveryDateTwo',
+            delivery_date_one='$deliveryDateOne',
+            delivery_date_two='$deliveryDateTwo',
             waiverDesc = '$waiverDesc',
             isFulfilled = $isFulfilled,
-            delivery_status_one=$deliveryStatusOne,delivery_status_two=$deliveryStatusTwo  where ID = $id";
+            delivery_status_one=$deliveryStatusOne,
+            delivery_status_two=$deliveryStatusTwo
+            where ID = $id";
     $upd = mysql_query($sql);
     if($upd){
       if(!empty($attachment1)){
@@ -561,7 +578,7 @@ class Order {
       p.customer_name as customerName,p.name as projectName,
       (select u.name from user u where p.supplier_leader = u.ID) as supplierlead,o.inner_cost,o.inner_cost_currency,
       o.external_cost,o.external_cost_currency,(select value from status s where o.status = s.ID) as status,
-      o.status as statusId,o.published,o.customer_po_number,o.jenkins_po_number,
+      o.status as statusId,o.published,o.customer_po_number,o.jenkins_po_number,o.jenkins_pi_number,
       o.factory,o.terms,o.account_payment,o.customer_model_number,o.customer_part_number,o.jenkins_model_number,
       o.jenkins_part_number,o.payment_one_schedule,(select value from status s where o.payment_one_status = s.ID) as payment_one_status,o.payment_one_status as payment_one_status_id,
       o.payment_one_attachment as payment_one_attachment_id,(select datei from `files` where ID = o.payment_one_attachment) as payment_one_attachment,(select name from `files` where ID = o.payment_one_attachment) as paymentfilename1, 
