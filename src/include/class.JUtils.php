@@ -623,7 +623,7 @@ class JUtils
       $userId = (int)$userId;
       $u = $user->getProfile($userId);
       $msg = $this->getDocumentMailMsg($docInfo, $u['name']);
-      $subject = "JANUS Document Upload Notification: " . $docInfo["document_no"] . " " . $docInfo["name"];
+      $subject = "Upload: " . $docInfo["document_no"] . " " . $docInfo["name"];
       if($this->_validateEmailAddress($u["email"])){
         $themail->send_mail($u["email"], $subject, $msg);
       }
