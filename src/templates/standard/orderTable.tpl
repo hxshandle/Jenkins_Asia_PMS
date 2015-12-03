@@ -33,7 +33,7 @@
       <th>{#finalTotalAmountReceived#}</th>
       <th>{#innercost#}</th>
       {/if}
-      {if $smarty.session.userRole < 4}
+      {if $smarty.session.userRole != 4}
       <th>{#externalcost#}</th>
       {/if}
       <th>{#status#}</th>
@@ -77,7 +77,7 @@
       <td  align  = "center">{$orderTab[order].final_total_amount_received}</td>
       <td  align  = "center">{$orderTab[order].inner_cost_currency}:{$orderTab[order].inner_cost}</td>
       {/if}
-      {if $smarty.session.userRole < 4}
+      {if $smarty.session.userRole != 4}
         {if $smarty.session.userRole==6 and $orderTab[order].published==1}
           <td  align  = "center">{$orderTab[order].external_cost_currency}:{$orderTab[order].external_cost}</td>
         {elseif  $smarty.session.userRole!=6}
@@ -92,13 +92,13 @@
       <td>
         {if $orderTab[order].statusId == 14 || $orderTab[order].statusId == 17 || $orderTab[order].statusId == 15}
          {if $smarty.session.userRole == 1 || $smarty.session.userRole ==3 ||$smarty.session.userRole == 5}
-        <a class="tool_edit" title="{#price#}" href="javascript:void(0);" onclick="priceOrderDlg({$orderTab[order].ID});"></a>
-        <a class="tool_edit" title="{#edit#}" href="javascript:void(0);" onclick="editOrderDlg({$orderTab[order].ID});"></a>
+        <a class="" title="{#price#}" href="javascript:void(0);" onclick="priceOrderDlg({$orderTab[order].ID});"><i class="fa fa-usd"></i></a>
+        <a class="" title="{#edit#}" href="javascript:void(0);" onclick="editOrderDlg({$orderTab[order].ID});"><i class="fa fa-pencil-square-o"></i></a>
          {/if}
         {/if}
         {if $orderTab[order].statusId == 15 and $smarty.session.userRole==6  and $orderTab[order].published==1}
-        <a class="tool_edit" title="{#agree#}" href="javascript:void(0);" onclick="agreeOrderDlg({$orderTab[order].ID});"></a>
-        <a class="tool_del" title="{#reject#}" href="javascript:void(0);" onclick="rejectOrderDlg({$orderTab[order].ID});"></a>
+        <a class="" title="{#agree#}" href="javascript:void(0);" onclick="agreeOrderDlg({$orderTab[order].ID});"><i class="fa fa-pencil-square-o"></i></a>
+        <a class="tool_del" title="{#reject#}" href="javascript:void(0);" onclick="rejectOrderDlg({$orderTab[order].ID});"><i class="fa fa-times"></i></a>
         {/if}
         
         </td>
