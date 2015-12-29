@@ -100,7 +100,7 @@
                 <tr {if $myprojects[project].daysleft < 0 && $myprojects[project].daysleft != ""} class="marker-late project-row"{elseif $myprojects[project].daysleft == "0"} class="marker-today project-row"{/if}
                         class=" project-row" data-project-name="{$myprojects[project].name}"
                         data-project-no="{$myprojects[project].project_no}" data-project-id="{$myprojects[project].ID}"
-                        projectid="{$myprojects[project].ID}" customer="{$myprojects[project].customer_name}">
+                        projectid="{$myprojects[project].ID}" customer="{$myprojects[project].customer_name|upper}">
                   <td>
                     {if $smarty.session.userRole < 5}
                       <a class="butn_check"

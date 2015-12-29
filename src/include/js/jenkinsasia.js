@@ -345,7 +345,8 @@ function onDeskTopCustomerChange(val){
   var theUrl = "manageprojectajax.php?action=filterProjectsByCustomerName&customer="+v;
   var $ = jQuery;
   $('.project-row').hide();
-  $('.project-row[customer='+val.value+']').show();
+  var _customerName = val.value.toUpperCase();
+  $('.project-row[customer="'+_customerName+'"]').show();
   if(val.value == -1){
     $('.project-row').show();
   }
