@@ -13,9 +13,11 @@
         {if 1==1 }
 		<li class="document"><a {if $documenttab == "active" }class="active"{/if} href="managedocument.php?action=mydocument"><span>{#mydocuments#}</span></a>
         {/if}
-    {if ($smarty.session.userRole != "5" && $smarty.session.userRole != "8" && $smarty.session.userRole != "9" && $smarty.session.userRole != "7") || $smarty.session.userid == 91 || $smarty.session.userid == 90}
-		  <li class="msgs"><a {if $ordertab == "active" }class="active"{/if} href="manageorder.php?action=myorder"><span>{#order#}</span></a>
+
+    {if ($smarty.session.userRole != "8" && $smarty.session.userRole != "9" && $smarty.session.userRole != "7") || $smarty.session.userid == 91 || $smarty.session.userid == 90}
+      <li class="msgs"><a {if $ordertab == "active" }class="active"{/if} href="manageorder.php?action=myorder"><span>{#order#}</span></a>
     {/if}
+
     {if $smarty.session.userRole != "7" && $smarty.session.userRole != "8" && $smarty.session.userRole != "9"}  
     <li class="msgs"><a {if $ecntab == "active" }class="active"{/if} href="manageecn.php?action=showecn"><span>{#ecnname#}</span></a>
     {/if}

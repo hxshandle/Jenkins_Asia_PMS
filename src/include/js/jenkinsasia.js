@@ -426,7 +426,24 @@ jQuery(function(){
         }
       }
     });
+    //监听清空事件
+    projectFilter.on('change',function(){
+      var val = $(this).val();
+      if(!_.isEmpty(val)){
+        return;
+      }
+      switch(_filterType){
+        case "document":
+        case "quality":
+          $('#project-filter-val').val("-1");
+          break;
+        default:
+          break;
+      }
+    });
   }
+
+
 });
 
 

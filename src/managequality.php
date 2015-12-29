@@ -189,6 +189,7 @@ switch ($action) {
     break;
   case "filterQuality":
      $projectId = getArrayVal($_POST,"projectId");
+     $projectId = empty($projectId) ? "-1" : $projectId;
      $orderId = getArrayVal($_POST,"orderId");
      $customerName = getArrayVal($_POST,"customerName");
      $quality = new Quality();
