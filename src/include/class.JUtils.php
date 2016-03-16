@@ -608,7 +608,7 @@ class JUtils
     }
     $msg .=$desc;
     $msg .= "<br/>";
-    $msg .= "Please click on the <a href='http://janus.jenkins-asia.com/" . $doc["download_url"] . "'/>here</a> to access the document. Thank you.";
+    $msg .= "Please click on the <a href='http://janus.jenkins-asia.com/" . $doc["download_url"] . "'>here</a> to access the document. Thank you.";
     $msg .= "Please login to Janus first before clicking on the link<br/>";
     return $msg;
   }
