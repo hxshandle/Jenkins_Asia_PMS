@@ -17,7 +17,7 @@
       {* base info*}
       <div id="project-base-form" class="addmenue" style="clear:both;">
         <div class="content-spacer"></div>
-        {include file="projectbaseinfo.tpl" showhtml="no" }
+        {include file="_suplierGrid.tpl" showhtml="no" }
       </div>
 
 

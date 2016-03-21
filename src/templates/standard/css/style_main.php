@@ -3323,7 +3323,7 @@ ul.chk-list label{
   font-size:16px;
   line-height: 20px;
   margin: 6px 0;
-  width:100%;
+  width:99%;
 }
 
 /*****************Jenkins Asia Special***********************/

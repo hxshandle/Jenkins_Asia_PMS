@@ -660,3 +660,15 @@ VALUES
 
 ALTER TABLE `order` ADD COLUMN `jenkins_pi_number` VARCHAR(255) NULL  AFTER `jenkins_po_number` ;
 
+-- suppliers
+CREATE TABLE suppliers
+(
+    ID INT(10) PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    user INT(10) NOT NULL,
+    address TEXT,
+    phone_number VARCHAR(255),
+    audit_history TEXT
+);
+
+ALTER TABLE jenkins_asia.suppliers ADD valid INT(1) DEFAULT 1 NULL;
