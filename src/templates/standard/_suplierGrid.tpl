@@ -33,8 +33,9 @@
   </div>
   {* End Search *}
 
-  {*Document table*}
+  {*Supplier table*}
   <div id="documentTableContainer">
+    {include file="_supplierTable.tpl"}
     
   </div>
 

@@ -97,4 +97,30 @@ class Supplier
         return $ret;
     }
 
+
+    public function _getSupplierInfo($supplier)
+    {
+        $ret = array();
+        return $supplier;
+    }
+
+    public function getSupplierById($id)
+    {
+        $id = (int) $id;
+        $sql = "SELECT
+              supplier.*,
+              user.name     AS username,
+              supplier.name AS supplier_name
+            FROM suppliers supplier, user user
+            WHERE supplier.user = user.ID AND supplier.valid = 1 and supplier.ID = $id";
+        $ret = array();
+        $sel = mysql_query($sql);
+        while($row = mysql_fetch_array($sel)){
+            $info = $this->_getSupplierInfo($row[0]);
+            array_push($ret,$info);
+        }
+        return $ret;
+
+    }
+
 } 

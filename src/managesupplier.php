@@ -19,11 +19,16 @@ if (!$action) {
 $jUtils = new JUtils();
 switch ($action) {
     case "show":
+        $id = getArrayVal($_GET,'id');
+        $Supplier = new Supplier();
+        $supplierInfo = $Supplier->getSupplierById($id);
+        $template->assign("suppliers",$supplierInfo);
+        $template->display("supplierInfo.tpl");
         break;
     case "addSupplier":
         $name = getArrayVal($_POST,'name');
         $user = getArrayVal($_POST,'supplierLeaderId');
-        $address = getArrayVal($_POST,'name');
+        $address = getArrayVal($_POST,'address');
         $phone_number = getArrayVal($_POST,'phone_number');
         $audit_history = getArrayVal($_POST,'audit_history');
         $Supplier = new Supplier();
