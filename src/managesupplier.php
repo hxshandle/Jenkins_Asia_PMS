@@ -17,12 +17,12 @@ if (!$action) {
     $action = getArrayVal($_GET, "action");
 }
 $jUtils = new JUtils();
+$Supplier = new Supplier();
 switch ($action) {
     case "show":
         $id = getArrayVal($_GET,'id');
-        $Supplier = new Supplier();
-        $supplierInfo = $Supplier->getSupplierById($id);
-        $template->assign("suppliers",$supplierInfo);
+        $supplierInfo = $Supplier->getSupplierById($id)[0];
+        $template->assign("supplier",$supplierInfo);
         $template->display("supplierInfo.tpl");
         break;
     case "addSupplier":
@@ -31,14 +31,26 @@ switch ($action) {
         $address = getArrayVal($_POST,'address');
         $phone_number = getArrayVal($_POST,'phone_number');
         $audit_history = getArrayVal($_POST,'audit_history');
-        $Supplier = new Supplier();
         $ret = $Supplier->create($name,$user,$address,$phone_number,$audit_history);
         $loc = $url . "managesupplier.php";
         header("Location: $loc");
         break;
+    case "saveSupplier":
+        $id = getArrayVal($_POST,'id');
+        $name = getArrayVal($_POST,'name');
+        $user = getArrayVal($_POST,'supplierLeaderId');
+        $address = getArrayVal($_POST,'address');
+        $phone_number = getArrayVal($_POST,'phone_number');
+        $audit_history = getArrayVal($_POST,'audit_history');
+        $upd = $Supplier->update($id, $name, $user, $address, $phone_number, $audit_history);
+        if($upd){
+            echo "Ok";
+        }else{
+            echo "Fail";
+        }
+        break;
     default:
         // show supplier main page
-        $Supplier = new Supplier();
         $suppliers = $Supplier->getSuppliers();
         $template->assign("suppliers",$suppliers);
         $template->display("supplier.tpl");

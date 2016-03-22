@@ -116,7 +116,7 @@ class Supplier
         $ret = array();
         $sel = mysql_query($sql);
         while($row = mysql_fetch_array($sel)){
-            $info = $this->_getSupplierInfo($row[0]);
+            $info = $this->_getSupplierInfo($row);
             array_push($ret,$info);
         }
         return $ret;

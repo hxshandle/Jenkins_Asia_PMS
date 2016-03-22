@@ -93,6 +93,7 @@ tinyMCE.init({
   theme_advanced_resizing : true,
   theme_advanced_resizing_use_cookie : false,
   theme_advanced_resizing_max_width : "55%",
+  entity_encoding: "raw",
   extended_valid_elements : "a[name|href|target|title],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
   force_br_newlines : true,
   cleanup: true,
