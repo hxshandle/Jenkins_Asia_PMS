@@ -98,9 +98,11 @@ class Supplier
     }
 
 
+
+
     public function _getSupplierInfo($supplier)
     {
-        $ret = array();
+        $supplier = $this->getProjects($supplier);
         return $supplier;
     }
 
@@ -121,6 +123,25 @@ class Supplier
         }
         return $ret;
 
+    }
+
+    /**
+     * @param $supplier
+     */
+    private function getProjects($supplier)
+    {
+        $Project = new project();
+        $supplierUserId = $supplier['username'];
+        $sql = "select * from projekte where project_leader='$supplierUserId'";
+        $projects = $this->jUtils->Query($sql);
+        $ret = array();
+        foreach ($projects as $project) {
+            $projectStatus = $Project->getProgress($project['ID']);
+            $project['project_status'] = $projectStatus;
+            array_push($ret,$project);
+        }
+        $supplier["projects"] = $ret;
+        return $supplier;
     }
 
 } 

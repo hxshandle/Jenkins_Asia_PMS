@@ -23,6 +23,8 @@ switch ($action) {
         $id = getArrayVal($_GET,'id');
         $supplierInfo = $Supplier->getSupplierById($id)[0];
         $template->assign("supplier",$supplierInfo);
+        $template->assign("projects",$supplierInfo['projects']);
+
         $template->display("supplierInfo.tpl");
         break;
     case "addSupplier":

@@ -632,7 +632,7 @@ class project {
      * @param int $project Project ID
      * @return array $done Percent of finished tasks
      */
-    function getProgress($project)
+    public function getProgress($project)
     {
         $project = mysql_real_escape_string($project);
         $project = (int) $project;
