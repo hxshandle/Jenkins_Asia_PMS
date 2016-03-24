@@ -103,6 +103,8 @@ class Supplier
     public function _getSupplierInfo($supplier)
     {
         $supplier = $this->getProjects($supplier);
+        $supplier = $this->getQualities($supplier);// alias SCA
+        $supplier = $this->getOrders($supplier);
         return $supplier;
     }
 
@@ -142,6 +144,33 @@ class Supplier
         }
         $supplier["projects"] = $ret;
         return $supplier;
+    }
+
+    private function getQualities($supplier)
+    {
+        $projectIds = array();
+        foreach ($supplier["projects"] as $project) {
+            array_push($projectIds,$project['ID']);
+        }
+        $strProjectids = implode(',',$projectIds);
+        $sql = "select * from quality where project in ($strProjectids)";
+        $scas = $this->jUtils->Query($sql);
+        $supplier['SCA'] = $scas;
+        return $supplier;
+    }
+
+    private function getOrders($supplier)
+    {
+        $projectIds = array();
+        foreach ($supplier["projects"] as $project) {
+            array_push($projectIds,$project['ID']);
+        }
+        $strProjectids = implode(',',$projectIds);
+        $sql = "select * from `order` where valid!=0 and project in ($strProjectids)";
+        $scas = $this->jUtils->Query($sql);
+        $supplier['orders'] = $scas;
+        return $supplier;
+
     }
 
 } 

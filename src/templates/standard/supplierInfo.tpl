@@ -96,7 +96,7 @@
                                     <tr class="color-b">
                                 {/if}
                                 <td>
-                                    <a href="/manageproject.php?action=showproject&id={$projects[project].ID}">{$projects[project].name}</a>
+                                    <a target="blank" href="/manageproject.php?action=showproject&id={$projects[project].ID}">{$projects[project].name}</a>
                                 </td>
                                 <td>{dispstatus statusId=$projects[project].status}</td>
                                 </tr>
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                     <h2>
-                        <img src="./templates/standard/images/symbols/projects.png" alt=""/>Related Projects
+                        <img src="./templates/standard/images/symbols/projects.png" alt=""/>Related SCA
                     </h2>
                 </div>
                 <div class="block" id="related_sca">
@@ -126,25 +126,108 @@
                         <table id="supplierTable" cellspacing="0" cellpadding="0" border="0" style="width:100%">
                             <thead>
                             <tr>
-                                <th class="b tx">Project Name</th>
-                                <th class="b tx">Status</th>
+                                <th class="b tx">Action No.</th>
+                                <th class="b tx">Product No.</th>
                             </tr>
                             </thead>
                             <tbody id="documentTBody">
-                            {section name=project loop=$projects}
+                            {section name=sca loop=$SCAs}
                                 {if $smarty.section.index % 2 == 0}
                                     <tr class="color-a">
                                         {else}
                                     <tr class="color-b">
                                 {/if}
                                 <td>
-                                    <a href="/manageproject.php?action=showproject&id={$projects[project].ID}">{$projects[project].name}</a>
+                                    <a target="blank" href="/managequality.php?action=showEditDlg&id={$SCAs[sca].ID}">{$SCAs[sca].action_no}</a>
                                 </td>
-                                <td>{dispstatus statusId=$projects[project].status}</td>
+                                <td>{$SCAs[sca].product_no}</td>
                                 </tr>
                             {/section}
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+
+            {*Orders*}
+            <div id="related-sca" class="addmenue" style="clear:both;">
+                <div class="content-spacer"></div>
+                <div class="headline">
+                    <a href="javascript:void(0);" id="related_orders_toggle" class="win_block"
+                       onclick="toggleBlock('related_orders');"></a>
+                    <div class="wintools">
+                        <div class="progress" id="progress" style="display:none;">
+                            <img src="templates/standard/images/symbols/loader-cal.gif"/>
+                        </div>
+                    </div>
+                    <h2>
+                        <img src="./templates/standard/images/symbols/projects.png" alt=""/>Related Order
+                    </h2>
+                </div>
+                <div class="block" id="related_orders">
+                    <div class="projectTableWrapper">
+                        <table id="supplierTable" cellspacing="0" cellpadding="0" border="0" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th class="b tx">Name</th>
+                                <th class="b tx">Customer Po Number</th>
+                            </tr>
+                            </thead>
+                            <tbody id="documentTBody">
+                            {section name=order loop=$orders}
+                                {if $smarty.section.index % 2 == 0}
+                                    <tr class="color-a">
+                                        {else}
+                                    <tr class="color-b">
+                                {/if}
+                                <td>
+                                    <a target="blank" href="/manageorder.php?action=showOrderSubInfo&oId={$orders[order].ID}">{$orders[order].name}</a>
+                                </td>
+                                <td>{$orders[order].customer_po_number}</td>
+                                </tr>
+                            {/section}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            {*Audit Document*}
+            <div id="related-sca" class="addmenue" style="clear:both;">
+                <div class="content-spacer"></div>
+                <div class="headline">
+                    <a href="javascript:void(0);" id="related_audit_document_toggle" class="win_block"
+                       onclick="toggleBlock('related_audit_document');"></a>
+                    <div class="wintools">
+                        <div class="progress" id="progress" style="display:none;">
+                            <img src="templates/standard/images/symbols/loader-cal.gif"/>
+                        </div>
+                    </div>
+                    <h2>
+                        <img src="./templates/standard/images/symbols/projects.png" alt=""/>Audit Document
+                    </h2>
+                </div>
+                <div class="block block_in_wrapper" id="related_audit_document">
+                    <div class="projectTableWrapper">
+                        <form id="auditDocumentForm" name="auditDocumentForm" class="main" method="post" action="/managesupplier.php">
+                            <fieldset>
+                                <h2>Attach New Document</h2>
+                                <input type="hidden" name="id" value="{$supplier.ID}">
+                                <input type="hidden" name="action" value="uploadDocument">
+                                <div class="row">
+                                    <label for="description">{#description#}</label>
+                                    <input  name="description" style="height: 24px;">
+                                </div>
+                                <div class="row">
+                                    <label for="docuemnt">{#file#}</label>
+                                    <input type="file" name="docuemnt" style="height: 24px;background: white;">
+                                </div>
+                            </fieldset>
+                            <div class="phaseMenualBar">
+                                <a class="butn_link" id="btnSaveSupplier" onclick="uploadAuditDocument();"
+                                   href="javascript:void(0)">Upload</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -165,6 +248,11 @@
             minChars: 2,
             afterUpdateElement: setSupplierLeaderId
         });
+
+        function uploadAuditDocument(){
+            var $ = jQuery;
+            $('#auditDocumentForm').submit();
+        }
 
 
         function saveSupplierBaseInfo() {

@@ -24,6 +24,8 @@ switch ($action) {
         $supplierInfo = $Supplier->getSupplierById($id)[0];
         $template->assign("supplier",$supplierInfo);
         $template->assign("projects",$supplierInfo['projects']);
+        $template->assign("SCAs",$supplierInfo['SCA']);
+        $template->assign("orders",$supplierInfo['orders']);
 
         $template->display("supplierInfo.tpl");
         break;
@@ -50,6 +52,11 @@ switch ($action) {
         }else{
             echo "Fail";
         }
+        break;
+    case "uploadDocument":
+        $id = getArrayVal($_POST,'id');
+        $loc = $url. "managesupplier.php?action=show&id=".$id;
+        header("Location: $loc");
         break;
     default:
         // show supplier main page
