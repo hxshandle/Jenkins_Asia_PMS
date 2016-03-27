@@ -672,3 +672,16 @@ CREATE TABLE suppliers
 );
 
 ALTER TABLE jenkins_asia.suppliers ADD valid INT(1) DEFAULT 1 NULL;
+
+
+
+CREATE TABLE supplier_files
+(
+    ID INT NOT NULL AUTO_INCREMENT,
+    file_type VARCHAR(255),
+    file_path LONGTEXT NOT NULL,
+    description LONGTEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    uploaded_by INT,
+    supplier_id INT NOT NULL
+);

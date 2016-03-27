@@ -105,6 +105,7 @@ class Supplier
         $supplier = $this->getProjects($supplier);
         $supplier = $this->getQualities($supplier);// alias SCA
         $supplier = $this->getOrders($supplier);
+        $supplier = $this->getFiles($supplier);
         return $supplier;
     }
 
@@ -171,6 +172,48 @@ class Supplier
         $supplier['orders'] = $scas;
         return $supplier;
 
+    }
+
+    public function uploadFile($data, $file_path)
+    {
+        $supplierId = (int) getArrayVal($data,'id');
+        $fileType = getArrayVal($data,'filetype');
+        $description = getArrayVal($data,'description');
+        $description = mysql_real_escape_string($description);
+        $uploadedBy = $_SESSION['userid'];
+
+        $sql = "INSERT INTO `supplier_files`
+                    (
+                    `file_type`,
+                    `file_path`,
+                    `description`,
+                    `uploaded_by`,
+                    `supplier_id`
+                    )
+                    VALUES
+                    (
+                    '$fileType',
+                    '$file_path',
+                    '$description',
+                    $uploadedBy,
+                    $supplierId
+                    )
+                  ";
+        $ins = mysql_query($sql);
+        if($ins){
+            return mysql_insert_id();
+        }
+        return false;
+
+    }
+
+    private function getFiles($supplier)
+    {
+        $id = (int) $supplier['ID'];
+        $sql = "select * from supplier_files where supplier_id = $id order by file_type";
+        $files = $this->jUtils->Query($sql);
+        $supplier['files'] = $files;
+        return $supplier;
     }
 
 } 

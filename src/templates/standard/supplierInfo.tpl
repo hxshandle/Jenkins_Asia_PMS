@@ -2,6 +2,22 @@
 {include file="tabsmenue-desk.tpl" suppliertab = "active"}
 <script type="text/javascript" src="include/js/order.js"></script>
 
+{literal}
+<style>
+    .supplier-files{
+        padding-right:44px;
+    }
+    .supplier-files li{
+        padding: 10px 0;
+        border-bottom: 1px solid darkcyan;
+        color: #444;
+    }
+    .file-desc {
+        line-height: 1.3em;
+        font-size: 16px;
+    }
+</style>
+{/literal}
 
 <div id="content-left">
     <div id="content-left-in">
@@ -209,18 +225,28 @@
                 </div>
                 <div class="block block_in_wrapper" id="related_audit_document">
                     <div class="projectTableWrapper">
-                        <form id="auditDocumentForm" name="auditDocumentForm" class="main" method="post" action="/managesupplier.php">
+                        <form enctype="multipart/form-data" id="auditDocumentForm" name="auditDocumentForm" class="main" method="post" action="/managesupplier.php">
                             <fieldset>
                                 <h2>Attach New Document</h2>
                                 <input type="hidden" name="id" value="{$supplier.ID}">
                                 <input type="hidden" name="action" value="uploadDocument">
                                 <div class="row">
-                                    <label for="description">{#description#}</label>
-                                    <input  name="description" style="height: 24px;">
+                                    <label for="filetype">File Type</label>
+                                    
+                                    <select name="filetype" id="">
+                                        <option value="Contract">Contract</option>
+                                        <option value="NDA">NDA</option>
+                                        <option value="Supplier Audit Form">Supplier Fudit Form</option>
+                                        <option value="Others">Others</option>
+                                    </select>
                                 </div>
                                 <div class="row">
-                                    <label for="docuemnt">{#file#}</label>
-                                    <input type="file" name="docuemnt" style="height: 24px;background: white;">
+                                    <label for="description">{#description#}</label>
+                                    <input  required="required" name="description" style="height: 24px;">
+                                </div>
+                                <div class="row">
+                                    <label for="userfile">{#file#}</label>
+                                    <input required="required" type="file" name="userfile" style="height: 24px;background: white;">
                                 </div>
                             </fieldset>
                             <div class="phaseMenualBar">
@@ -228,6 +254,16 @@
                                    href="javascript:void(0)">Upload</a>
                             </div>
                         </form>
+
+                        <ul class="supplier-files">
+                            {foreach from=$files key=k item=fileEntry name=file}
+                                <li>
+                                    <div><strong>{$fileEntry.file_type | default:"No Description"}</strong> | <a href="/files/standard{$fileEntry.file_path}">Download</a></div>
+                                    <div class="file-desc">{$fileEntry.description}</div>
+                                </li>
+                            {/foreach}
+
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -251,8 +287,16 @@
 
         function uploadAuditDocument(){
             var $ = jQuery;
+            if(_.isEmpty($('[name=description]').val())){
+                return alert('Please input Description field');
+            }
+            if(_.isEmpty($('[name=userfile]').val())){
+                return alert('Please input File field');
+            }
             $('#auditDocumentForm').submit();
         }
+
+
 
 
         function saveSupplierBaseInfo() {
