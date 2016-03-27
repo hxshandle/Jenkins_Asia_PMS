@@ -24,7 +24,7 @@
 
     <div class="row">
           <label for="project-filter" class="critler-filter-label">Supplier Filter:</label>
-          <input id="porject-filter" class="critler-filter" placeholder="Filter by Supplier name" data-type="project" data-data-source="_getProjects4HomePage()" autocomplete="off">
+          <input id="porject-filter" class="critler-filter" placeholder="Filter by Supplier name" data-type="supplier" data-data-source="_getSuppliers4SupplierPage()" autocomplete="off">
     </div>
 
 

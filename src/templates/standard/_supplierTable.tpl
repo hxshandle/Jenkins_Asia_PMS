@@ -13,9 +13,9 @@
   <tbody id="documentTBody">
     {section name=upplier loop=$suppliers}
         {if $smarty.section.index % 2 == 0}
-          <tr class="color-a">
+          <tr class="color-a supplier-row" supplierid="{$suppliers[upplier].ID}">
         {else}
-          <tr class ="color-b">
+          <tr class ="color-b supplier-row" supplierid="{$suppliers[upplier].ID}>
         {/if}
             <td><a href="/managesupplier.php?action=show&id={$suppliers[upplier].ID}">{$suppliers[upplier].name}</a></td>
             <td>{$suppliers[upplier].username}</td>

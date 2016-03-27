@@ -376,12 +376,36 @@ function _getProjects4HomePage(){
     });
 }
 
+// supplier.tpl
+function _getSuppliers4SupplierPage(){
+  var $ = jQuery;
+  return pData = _.map($('.supplier-row'),function(row){
+      var el = $(row);
+      var pName = $('a',el).text();
+      var pId = el.attr('supplierid');
+      return {
+          value:pName,
+          data:pName,
+          supplierId:pId
+      }
+    });
+}
+
+
 function _homePageAutocompleteHandler(suggestion){
   var $ = jQuery;
   //alert('You selected: ' + suggestion.value + ', ' + suggestion.data +","+suggestion.projectId);
   $('.project-row').hide();
   $('.project-row[projectid='+suggestion.projectId+']').show();
 }
+
+function onSupplierAutocompleteHandler(suggestion){
+  var $ = jQuery;
+  $('.supplier-row').hide();
+  $('.supplier-row[supplierid='+suggestion.supplierId+']').show();
+}
+
+
 // document.tpl -> _getProjects4DocumentPage
 function _getProjects4DocumentPage(){
   var $ = jQuery;
@@ -421,6 +445,9 @@ jQuery(function(){
             $('#project-filter-val').val(suggestion.projectId);
             onCriteriaProjectChange();
             break;
+          case "supplier":
+            onSupplierAutocompleteHandler(suggestion);
+            break;
           default:
             break;
         }
@@ -436,6 +463,9 @@ jQuery(function(){
         case "document":
         case "quality":
           $('#project-filter-val').val("-1");
+          break;
+        case "supplier":
+          $('.supplier-row').show();
           break;
         default:
           break;
