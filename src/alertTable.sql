@@ -660,16 +660,19 @@ VALUES
 
 ALTER TABLE `order` ADD COLUMN `jenkins_pi_number` VARCHAR(255) NULL  AFTER `jenkins_po_number` ;
 
+
 -- suppliers
 CREATE TABLE suppliers
 (
-    ID INT(10) PRIMARY KEY NOT NULL,
+    ID INT(10) PRIMARY KEY AUTO_INCREMENT NOT NULL,
     name VARCHAR(255) NOT NULL,
     user INT(10) NOT NULL,
     address TEXT,
     phone_number VARCHAR(255),
     audit_history TEXT
-);
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE jenkins_asia.suppliers ADD valid INT(1) DEFAULT 1 NULL;
 
@@ -677,11 +680,13 @@ ALTER TABLE jenkins_asia.suppliers ADD valid INT(1) DEFAULT 1 NULL;
 
 CREATE TABLE supplier_files
 (
-    ID INT NOT NULL AUTO_INCREMENT,
+    ID INT NOT NULL AUTO_INCREMENT primary key,
     file_type VARCHAR(255),
     file_path LONGTEXT NOT NULL,
     description LONGTEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     uploaded_by INT,
     supplier_id INT NOT NULL
-);
+)
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8;

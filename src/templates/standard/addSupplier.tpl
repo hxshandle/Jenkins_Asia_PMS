@@ -1,7 +1,7 @@
 <script type="text/javascript" src="include/js/addSupplier.js"></script>
 <div class="block_in_wrapper">
     <h2>{#addSupplier#}</h2>
-    <form onsubmit="return validateCompleteForm(this);" action="manageSupplier.php?action=addSupplier" method="post"
+    <form onsubmit="return validateCompleteForm(this);" action="managesupplier.php?action=addSupplier" method="post"
           class="main">
         <fieldset>
 
