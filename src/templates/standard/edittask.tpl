@@ -27,8 +27,8 @@
 					<form class="main" method="post" action="managetask.php?action=edit&amp;tid={$task.ID}&amp;id={$pid}" {literal}onsubmit="return validateCompleteForm(this);"{/literal}>
 					<fieldset>
 
-					<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" value="{$task.title|escape:'htmlall'}" name="title" id="title" realname="{#title#}" required="1" /></div>
-					<div class="row"><label for="text">{#sampledescription#}:</label><div class="editor" style='border:0;'>{$task.text|escape:'htmlall'}</div><input type="hidden" value="{$task.text|escape:'htmlall'}" id="text" name="text"/></div>
+					<div class="row"><label for="title">{#title#}:</label><input type="text" class="text" value="{$task.title|escape:'html'}" name="title" id="title" realname="{#title#}" required="1" /></div>
+					<div class="row"><label for="text">{#sampledescription#}:</label><div class="editor" style='border:0;'>{$task.text|escape:'html'}</div><input type="hidden" value="{$task.text|escape:'html'}" id="text" name="text"/></div>
           <div class="row"><label for="location">{#location#}:</label><input type="text" class="text" name="location" realname="{#location#}"  id="location" required = "1" value = "{$task.location}" /></div>
 
           <div class="row"><label for="status">{#status#}:</label>
