@@ -63,6 +63,7 @@ window.onunload = quitchat;
 <script type="text/javascript" src="include/js/lytebox.php"></script>
 {/if}
 <link rel="stylesheet" type="text/css" href="templates/standard/css/style_main.php"/>
+<link rel="stylesheet" href="templates/standard/css/globalPrintable.css" type="text/css" media="print" />
 <!-- font-awsome 4.5.0 -->
 <link rel="stylesheet" type="text/css" href="templates/standard/css/font-awesome.min.css"/>
 

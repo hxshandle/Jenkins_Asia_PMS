@@ -1,0 +1,15 @@
+
+* {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
+#content-right,
+#header-wrapper,
+#attachment_task,
+.tabswrapper,
+.breadcrumb {
+  display: none!important;
+}
+#content-left{
+    width: 960px!important;
+}

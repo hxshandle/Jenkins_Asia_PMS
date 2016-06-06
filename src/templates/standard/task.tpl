@@ -1,4 +1,6 @@
+
 {include file="header.tpl" jsload = "ajax" jsload1 = "tinymce"}
+
 
 {include file="tabsmenue-project.tpl" taskstab = "active"}
 <div id="content-left">
@@ -28,15 +30,17 @@
 			<ul>
 				{if $userpermissions.tasks.close and $editable != 'false'}
 				<li class="link" id = "closetoggle">
-				{if $task.status == 1}
-				<a class="close" href="javascript:closeElement('closetoggle','managetask.php?action=close&amp;tid={$task.ID}&amp;id={$project.ID}');" title="{#close#}"></a></li>
-				{else}
-				<a class="close" href="javascript:closeElement('closetoggle','managetask.php?action=open&amp;tid={$task.ID}&amp;id={$project.ID}');" title="{#open#}"></a></li>
-				{/if}
+					{if $task.status == 1}
+					<a class="close" href="javascript:closeElement('closetoggle','managetask.php?action=close&amp;tid={$task.ID}&amp;id={$project.ID}');" title="{#close#}"></a></li>
+					{else}
+					<a class="close" href="javascript:closeElement('closetoggle','managetask.php?action=open&amp;tid={$task.ID}&amp;id={$project.ID}');" title="{#open#}"></a></li>
+					{/if}
 				{/if}
 				{if $userpermissions.tasks.edit}
 				<li class="link"><a class="edit" href="javascript:void(0);"  id="edit_butn" onclick="blindtoggle('form_edit');toggleClass(this,'edit-active','edit');toggleClass('sm_task','smooth','nosmooth');" title="{#edit#}"></a></li>
 				{/if}
+				<!-- print -->
+				<li class="link"><a class="print" href="javascript:void(0);"  id="print_butn" onclick="window.print()" title="{#print#}"><i class="fa fa-print"></i></a></li>
 
 
 				<li><a>{#user#}: {$task.user|truncate:25:"...":true}</a></li>
@@ -152,3 +156,4 @@ function refreshFileList(fileId){
 
 {include file="sidebar-a.tpl"}
 {include file="footer.tpl"}
+
