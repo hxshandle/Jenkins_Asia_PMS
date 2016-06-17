@@ -2,6 +2,12 @@
 {include file="tabsmenue-desk.tpl" suppliertab = "active"}
 <script type="text/javascript" src="include/js/order.js"></script>
 
+<link rel="stylesheet" href="templates/standard/css/jquery-ui.min.css">
+<script type="text/javascript" src="include/js/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="templates/standard/css/jquery.tag-editor.css">
+<script type="text/javascript" src="include/js/jquery.caret.min.js"></script>
+<script type="text/javascript" src="include/js/jquery.tag-editor.min.js"></script>
 {literal}
 <style>
     .supplier-files{
@@ -9,12 +15,21 @@
     }
     .supplier-files li{
         padding: 10px 0;
-        border-bottom: 1px solid darkcyan;
+        border-bottom: 1px solid darkcyan;form.main select
         color: #444;
     }
     .file-desc {
         line-height: 1.3em;
         font-size: 16px;
+    }
+
+    .tag-editor {
+        width:300px;
+        margin-bottom: 5px;
+        border: 1px solid #8caaac;
+    }
+    .tag-editor .tag-editor-delete i {
+        line-height:20px;
     }
 </style>
 {/literal}
@@ -54,6 +69,11 @@
                                 <input name="username" id="username" value="{$supplier.username}">
                                 <input id="supplierLeaderId" name="supplierLeaderId" value="{$supplier.user}"
                                        type="hidden"/>
+                            </div>
+
+                            <div class="row">
+                                <label for="tag">tag</label>
+                                <input name="tag" id="supplier_tag">
                             </div>
 
                             <div class="row">
@@ -315,5 +335,18 @@
                 }
             });
         }
+
+        jQuery(function(){
+            var $ = jQuery;
+            var tagCfg = {
+                autocomplete: {
+                    delay: 0, // show suggestions immediately
+                    position: {collision: 'flip'}, // automatic menu position up/down
+                    source: ['a','bbbbbsd']
+                },
+                initialTags: ['tag1', 'tag2', 'tag3']
+            };
+            $('#supplier_tag').tagEditor(tagCfg);
+        });
     </script>
 {/literal}

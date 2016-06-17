@@ -1,6 +1,8 @@
 {include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce"}
 {include file="tabsmenue-desk.tpl" suppliertab = "active"}
+
 <script type="text/javascript" src="include/js/order.js"></script>
+<script type="text/javascript" src="include/js/jquery.tag-editor.min.js"></script>
 
 
 <div id="content-left">

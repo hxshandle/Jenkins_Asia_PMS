@@ -5,6 +5,6 @@ $db_name = 'jenkins_asia';
 
 $db_user = 'root';
 
-$db_pass = '!qaz2wsx';
+$db_pass = '';
 
 ?>

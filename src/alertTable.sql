@@ -690,3 +690,20 @@ CREATE TABLE supplier_files
 )
 ENGINE = MyISAM
 DEFAULT CHARACTER SET = utf8;
+
+
+-- for suppliser enhancement
+
+CREATE TABLE tags
+(
+    ID INT(10) PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE supplier_tag
+(
+    supplier_id INT(10) NOT NULL,
+    tag_id INT(10) NOT NULL,
+    CONSTRAINT supplier_tag_supplier_id_tag_id_pk PRIMARY KEY (supplier_id, tag_id)
+);
