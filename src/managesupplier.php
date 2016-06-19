@@ -44,10 +44,13 @@ switch ($action) {
         $id = getArrayVal($_POST, 'id');
         $name = getArrayVal($_POST, 'name');
         $user = getArrayVal($_POST, 'supplierLeaderId');
+        $tags = getArrayVal($_POST,'tags');
         $address = getArrayVal($_POST, 'address');
         $phone_number = getArrayVal($_POST, 'phone_number');
         $audit_history = getArrayVal($_POST, 'audit_history');
         $upd = $Supplier->update($id, $name, $user, $address, $phone_number, $audit_history);
+        $Tag = new Tag();
+        $Tag->saveSupplierTags($id,$tags);
         if ($upd) {
             echo "Ok";
         } else {

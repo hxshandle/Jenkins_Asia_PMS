@@ -73,7 +73,7 @@
 
                             <div class="row">
                                 <label for="tag">tag</label>
-                                <input name="tag" id="supplier_tag">
+                                <input name="tags" id="supplier_tag">
                             </div>
 
                             <div class="row">
@@ -342,7 +342,7 @@
                 autocomplete: {
                     delay: 0, // show suggestions immediately
                     position: {collision: 'flip'}, // automatic menu position up/down
-                    source: ['a','bbbbbsd']
+                    source: ['abccc','bbbbbsd']
                 },
                 initialTags: ['tag1', 'tag2', 'tag3']
             };
