@@ -73,7 +73,7 @@
 
                             <div class="row">
                                 <label for="tag">tag</label>
-                                <input name="tags" id="supplier_tag">
+                                <input name="tags" id="supplier_tag" data-tag="{$supplier.tag_str}">
                             </div>
 
                             <div class="row">
@@ -290,6 +290,7 @@
         </div> {*Projects END*}
     </div> {*content-left-in END*}
 </div> {*content-left END*}
+<input type="hidden" id="all-tag-str" data-tags="{$allTagStr}">
 
 {include file="sidebar-a.tpl"}
 {include file="footer.tpl"}
@@ -338,13 +339,17 @@
 
         jQuery(function(){
             var $ = jQuery;
+            var el = $('#supplier_tag');
+            $data = el.data('tag');
+            var arrData = $data.split(',');
+            var allTagStr = $('#all-tag-str').data('tags').split(',')
             var tagCfg = {
                 autocomplete: {
                     delay: 0, // show suggestions immediately
                     position: {collision: 'flip'}, // automatic menu position up/down
-                    source: ['abccc','bbbbbsd']
+                    source: allTagStr
                 },
-                initialTags: ['tag1', 'tag2', 'tag3']
+                initialTags: arrData
             };
             $('#supplier_tag').tagEditor(tagCfg);
         });

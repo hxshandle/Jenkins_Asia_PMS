@@ -6,7 +6,7 @@
     <tr>
       <th class="b tx">{#supplier_name#}</th>
       <th class="b tx">{#jenkins_username#}</th>
-      <th class="b tx">{#address#}</th>
+      <th class="b tx">Tag</th>
 
     </tr>
   </thead>
@@ -19,7 +19,7 @@
         {/if}
             <td><a href="/managesupplier.php?action=show&id={$suppliers[upplier].ID}">{$suppliers[upplier].name}</a></td>
             <td>{$suppliers[upplier].username}</td>
-            <td>{$suppliers[upplier].address}</td>
+            <td>{$suppliers[upplier].tag_str}</td>
 
           </tr>
     {/section}

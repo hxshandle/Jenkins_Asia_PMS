@@ -20,6 +20,13 @@ $jUtils = new JUtils();
 $Supplier = new Supplier();
 switch ($action) {
     case "show":
+        $Tag = new Tag();
+        $allTags = $Tag->getAllTags();
+        $allTagStr = "";
+        foreach ($allTags as $tag) {
+            $allTagStr .= $tag['name'] . ",";
+        }
+        $allTagStr = rtrim($allTagStr, ",");
         $id = getArrayVal($_GET, 'id');
         $supplierInfo = $Supplier->getSupplierById($id)[0];
         $template->assign("supplier", $supplierInfo);
@@ -27,7 +34,7 @@ switch ($action) {
         $template->assign("SCAs", $supplierInfo['SCA']);
         $template->assign("orders", $supplierInfo['orders']);
         $template->assign("files", $supplierInfo['files']);
-
+        $template->assign("allTagStr", $allTagStr);
         $template->display("supplierInfo.tpl");
         break;
     case "addSupplier":
