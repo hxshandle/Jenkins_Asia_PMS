@@ -65,6 +65,12 @@
                             </div>
 
                             <div class="row">
+                                <label for="name">Supplier Num</label>
+                                <label for="">Supplier-{$supplier.ID}</label>
+                                
+                            </div>
+
+                            <div class="row">
                                 <label for="username">{#jenkins_username#}</label>
                                 <input name="username" id="username" value="{$supplier.username}">
                                 <input id="supplierLeaderId" name="supplierLeaderId" value="{$supplier.user}"
