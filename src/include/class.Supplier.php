@@ -16,17 +16,17 @@ class Supplier
         $this->jUtils = new JUtils();
     }
 
-    public function create($name, $user, $address, $phone_number, $audit_history)
+    public function create($name, $users, $address, $phone_number, $audit_history)
     {
         $name = mysql_real_escape_string($name);
-        $user = (int)$user;
+        $users = mysql_real_escape_string($users);
         $address = mysql_real_escape_string($address);
         $phone_number = mysql_real_escape_string($phone_number);
         $audit_history = mysql_real_escape_string($audit_history);
         $sql = "INSERT INTO `suppliers`
             (
             `name`,
-            `user`,
+            `users`,
             `address`,
             `phone_number`,
             `audit_history`
@@ -34,7 +34,7 @@ class Supplier
             VALUES
             (
             '$name',
-            $user,
+            '$users',
             '$address',
             '$phone_number',
             '$audit_history'
@@ -48,18 +48,18 @@ class Supplier
         }
     }
 
-    public function update($id, $name, $user, $address, $phone_number, $audit_history)
+    public function update($id, $name, $users, $address, $phone_number, $audit_history)
     {
         $id = (int)$id;
         $name = mysql_real_escape_string($name);
-        $user = (int)$user;
+        $users = mysql_real_escape_string($users);
         $address = mysql_real_escape_string($address);
         $phone_number = mysql_real_escape_string($phone_number);
         $audit_history = mysql_real_escape_string($audit_history);
         $sql = "UPDATE `suppliers`
             SET
             `name` = '$name',
-            `user` = $user,
+            `users` = '$users',
             `address` = '$address',
             `phone_number` = '$phone_number',
             `audit_history` = '$audit_history'
@@ -87,17 +87,18 @@ class Supplier
 
     public function getSuppliers()
     {
-        $sql = "SELECT
+        /*$sql = "SELECT
               supplier.*,
               user.name     AS username,
               supplier.name AS supplier_name
             FROM suppliers supplier, user user
-            WHERE supplier.user = user.ID AND supplier.valid = 1;";
+            WHERE supplier.user = user.ID AND supplier.valid = 1;";*/
+        $sql = "select * from suppliers where valid = 1";
         $ret = $this->jUtils->Query($sql);
         $arr = array();
         foreach ($ret as $item) {
             $item['tag_str'] = $this->getTagStr($item['ID']);
-            array_push($arr,$item);
+            array_push($arr, $item);
         }
         return $arr;
     }
@@ -113,15 +114,21 @@ class Supplier
         return $supplier;
     }
 
+    public function getAllSystemSupplierUsers()
+    {
+        $sql = "select * from user where role_type in (8,9)";
+        $ret = $this->jUtils->Query($sql);
+        return $ret;
+    }
+
     public function getSupplierById($id)
     {
         $id = (int)$id;
         $sql = "SELECT
               supplier.*,
-              user.name     AS username,
               supplier.name AS supplier_name
-            FROM suppliers supplier, user user
-            WHERE supplier.user = user.ID AND supplier.valid = 1 and supplier.ID = $id";
+            FROM suppliers supplier
+            WHERE supplier.valid = 1 and supplier.ID = $id";
         $ret = array();
         $sel = mysql_query($sql);
         while ($row = mysql_fetch_array($sel)) {
@@ -132,14 +139,34 @@ class Supplier
     }
 
 
+    private function getSupplierLeaderUserIdsStr($supplier)
+    {
+        $userStr = $supplier['users'];
+        $userNames = explode(',', $userStr);
+        $sqlName = "";
+
+        foreach ($userNames as $name) {
+            $sqlName .= "'" . $name . "',";
+        }
+        $sqlName = rtrim($sqlName, ',');
+        $sql = "select * from `user` where `name` in ($sqlName)";
+        $ret = $this->jUtils->Query($sql);
+        $arrID = array();
+        foreach ($ret as $item) {
+            array_push($arrID, $item['ID']);
+        }
+
+        return join(',', $arrID);
+    }
+
     /**
      * @param $supplier
      */
     private function getProjects($supplier)
     {
         $Project = new project();
-        $supplierUserId = $supplier['username'];
-        $sql = "select * from projekte where project_leader='$supplierUserId'";
+        $leaderIDsStr = $this->getSupplierLeaderUserIdsStr($supplier);
+        $sql = "select * from projekte where supplier_leader in ($leaderIDsStr)";
         $projects = $this->jUtils->Query($sql);
         $ret = array();
         foreach ($projects as $project) {
@@ -230,7 +257,7 @@ class Supplier
         foreach ($tags as $tag) {
             $tagStr .= $tag['name'] . ",";
         }
-        $tagStr = rtrim($tagStr,',');
+        $tagStr = rtrim($tagStr, ',');
         $supplier['tag_str'] = $tagStr;
         return $supplier;
     }
@@ -244,7 +271,7 @@ class Supplier
         foreach ($tags as $tag) {
             $tagStr .= $tag['name'] . ",";
         }
-        $tagStr = rtrim($tagStr,',');
+        $tagStr = rtrim($tagStr, ',');
         return $tagStr;
     }
 

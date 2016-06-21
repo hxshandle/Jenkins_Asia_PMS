@@ -18,7 +18,7 @@
           <tr class ="color-b supplier-row" supplierid="{$suppliers[upplier].ID}>
         {/if}
             <td><a href="/managesupplier.php?action=show&id={$suppliers[upplier].ID}">{$suppliers[upplier].name}</a></td>
-            <td>{$suppliers[upplier].username}</td>
+            <td>{$suppliers[upplier].users}</td>
             <td>{$suppliers[upplier].tag_str}</td>
 
           </tr>

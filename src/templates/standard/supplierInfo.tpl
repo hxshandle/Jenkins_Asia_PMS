@@ -67,14 +67,19 @@
                             <div class="row">
                                 <label for="name">Supplier Num</label>
                                 <label for="">Supplier-{$supplier.ID}</label>
-                                
+
                             </div>
 
-                            <div class="row">
+                            <div class="row" style="display: none;">
                                 <label for="username">{#jenkins_username#}</label>
                                 <input name="username" id="username" value="{$supplier.username}">
                                 <input id="supplierLeaderId" name="supplierLeaderId" value="{$supplier.user}"
                                        type="hidden"/>
+                            </div>
+
+                            <div class="row">
+                                <label for="tag">Jenkins Users</label>
+                                <input name="users" id="supplier_users" data-users="{$supplier.users}">
                             </div>
 
                             <div class="row">
@@ -297,6 +302,7 @@
     </div> {*content-left-in END*}
 </div> {*content-left END*}
 <input type="hidden" id="all-tag-str" data-tags="{$allTagStr}">
+<input type="hidden" id="all-suppliers-str" data-suppliers="{$allSupplierStr}">
 
 {include file="sidebar-a.tpl"}
 {include file="footer.tpl"}
@@ -344,20 +350,38 @@
         }
 
         jQuery(function(){
+
             var $ = jQuery;
             var el = $('#supplier_tag');
             $data = el.data('tag');
             var arrData = $data.split(',');
-            var allTagStr = $('#all-tag-str').data('tags').split(',')
+            var allTagStr = $('#all-tag-str').data('tags').split(',');
             var tagCfg = {
                 autocomplete: {
                     delay: 0, // show suggestions immediately
                     position: {collision: 'flip'}, // automatic menu position up/down
                     source: allTagStr
                 },
+                forceLowercase: false,
                 initialTags: arrData
             };
             $('#supplier_tag').tagEditor(tagCfg);
+
+            // for users
+            var supplierEl = $('#supplier_users');
+            var allSupplierStr = $("#all-suppliers-str").data('suppliers');
+            var allSupplierData = allSupplierStr.split(',');
+            var arrSupplierData = supplierEl.data('users').split(',');
+            var usersTagCfg = {
+                autocomplete: {
+                    delay: 0, // show suggestions immediately
+                    position: {collision: 'flip'}, // automatic menu position up/down
+                    source: allSupplierData
+                },
+                forceLowercase: false,
+                initialTags: arrSupplierData
+            };
+            supplierEl.tagEditor(usersTagCfg);
         });
     </script>
 {/literal}

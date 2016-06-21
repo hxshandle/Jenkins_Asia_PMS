@@ -27,6 +27,12 @@ switch ($action) {
             $allTagStr .= $tag['name'] . ",";
         }
         $allTagStr = rtrim($allTagStr, ",");
+        $sysSuppliers = $Supplier->getAllSystemSupplierUsers();
+        $allSupplierStr = "";
+        foreach ($sysSuppliers as $sp) {
+            $allSupplierStr .= $sp['name'] . ",";
+        }
+        $allSupplierStr = rtrim($allSupplierStr, ",");
         $id = getArrayVal($_GET, 'id');
         $supplierInfo = $Supplier->getSupplierById($id)[0];
         $template->assign("supplier", $supplierInfo);
@@ -35,27 +41,34 @@ switch ($action) {
         $template->assign("orders", $supplierInfo['orders']);
         $template->assign("files", $supplierInfo['files']);
         $template->assign("allTagStr", $allTagStr);
+        $template->assign("allSupplierStr", $allSupplierStr);
+
         $template->display("supplierInfo.tpl");
         break;
     case "addSupplier":
         $name = getArrayVal($_POST, 'name');
-        $user = getArrayVal($_POST, 'supplierLeaderId');
+        $users = getArrayVal($_POST, 'users');
+        $tags = getArrayVal($_POST,'tags');
         $address = getArrayVal($_POST, 'address');
         $phone_number = getArrayVal($_POST, 'phone_number');
         $audit_history = getArrayVal($_POST, 'audit_history');
-        $ret = $Supplier->create($name, $user, $address, $phone_number, $audit_history);
+        $newId = $Supplier->create($name, $users, $address, $phone_number, $audit_history);
+        if($newId){
+            $Tag = new Tag();
+            $Tag->saveSupplierTags($newId,$tags);
+        }
         $loc = $url . "managesupplier.php";
         header("Location: $loc");
         break;
     case "saveSupplier":
         $id = getArrayVal($_POST, 'id');
         $name = getArrayVal($_POST, 'name');
-        $user = getArrayVal($_POST, 'supplierLeaderId');
+        $users = getArrayVal($_POST,'users');
         $tags = getArrayVal($_POST,'tags');
         $address = getArrayVal($_POST, 'address');
         $phone_number = getArrayVal($_POST, 'phone_number');
         $audit_history = getArrayVal($_POST, 'audit_history');
-        $upd = $Supplier->update($id, $name, $user, $address, $phone_number, $audit_history);
+        $upd = $Supplier->update($id, $name, $users, $address, $phone_number, $audit_history);
         $Tag = new Tag();
         $Tag->saveSupplierTags($id,$tags);
         if ($upd) {
@@ -90,8 +103,24 @@ switch ($action) {
         break;
     default:
         // show supplier main page
+        $Tag = new Tag();
+        $allTags = $Tag->getAllTags();
+        $allTagStr = "";
+        foreach ($allTags as $tag) {
+            $allTagStr .= $tag['name'] . ",";
+        }
+        $allTagStr = rtrim($allTagStr, ",");
+
+        $sysSuppliers = $Supplier->getAllSystemSupplierUsers();
+        $allSupplierStr = "";
+        foreach ($sysSuppliers as $sp) {
+            $allSupplierStr .= $sp['name'] . ",";
+        }
+        $allSupplierStr = rtrim($allSupplierStr, ",");
         $suppliers = $Supplier->getSuppliers();
         $template->assign("suppliers", $suppliers);
+        $template->assign("allTagStr", $allTagStr);
+        $template->assign("allSupplierStr", $allSupplierStr);
         $template->display("supplier.tpl");
         break;
 }
