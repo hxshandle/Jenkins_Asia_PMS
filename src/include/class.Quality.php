@@ -85,7 +85,7 @@ class Quality {
             '$quantityInInventory',
             '$quantityInProcess',
             '$containmentDesc',
-            '$acknowledge_by',
+            '$acknowledgeBy',
             '$acknowledgeDate',
             '$verifiedForClosureBy',
             '$verificationDate',
@@ -94,9 +94,13 @@ class Quality {
             $orderId
             )
             ";
-    $ins = mysql_query($sql);
+    $str = str_replace(array("\n", "\r"), '', $sql);
+    $str = str_replace("  ","",$str);
+    // $ins = mysql_query($sql);
+    $ins = mysql_query($str);
     if($ins){
-      return mysql_insert_id();
+      $iid = mysql_insert_id();
+      return $iid;
     }else{
       return false;
     }
