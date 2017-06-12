@@ -64,7 +64,7 @@ class Tag
         $newTagIds = $this->saveNewTag($newTags);
         // 合并所有需要关联的tagID
         // 更新Tag的关联
-        $sql2 = "delete from tags where `supplier_id`= $id";
+        $sql2 = "delete from supplier_tag where supplier_id = $id";
         mysql_query($sql2);
         $allIDs = array_merge($newTagIds, $existedTagIds);
         $sql3 = 'INSERT INTO supplier_tag (`supplier_id`, `tag_id`) VALUES ';
@@ -74,5 +74,12 @@ class Tag
         $sql3 = rtrim($sql3, ',');
         $sel3 = mysql_query($sql3);
         return !! $sel3;
+    }
+
+    public function getAllTags()
+    {
+        $sql = "select name from tags";
+        $ret = $this->jutil->Query($sql);
+        return $ret;
     }
 }

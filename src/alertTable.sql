@@ -707,3 +707,7 @@ CREATE TABLE supplier_tag
     tag_id INT(10) NOT NULL,
     CONSTRAINT supplier_tag_supplier_id_tag_id_pk PRIMARY KEY (supplier_id, tag_id)
 );
+
+
+ALTER TABLE suppliers MODIFY user INT(10);
+ALTER TABLE suppliers ADD users TEXT NULL;
