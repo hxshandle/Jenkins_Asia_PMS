@@ -34,7 +34,7 @@
             <h1>{#filter#}</h1>
             <div class="row">
               <label for="project">{#project#}:</label>
-              <select name="criteriaProject" id="criteriaProject" onchange="onCriteriaProjectChange(this)"; required = "1">
+              <select class="select2" name="criteriaProject" id="criteriaProject" onchange="onCriteriaProjectChange(this)"; required = "1">
                 <option value="-1" selected="selected">{#chooseone#}</option>
                 {section name=project loop=$projects}
                   <option value="{$projects[project].ID}">{$projects[project].name}</option>
@@ -44,7 +44,7 @@
             {if $smarty.session.userRole < 6 }
             <div class="row">
               <label for="customer">{#customer#}:</label>
-              <select name="criteriaCustomer" id="criteriaCustomer" onchange="onCriteriaCustomerChange(this)"; required = "1">
+              <select class="select2" name="criteriaCustomer" id="criteriaCustomer" onchange="onCriteriaCustomerChange(this)"; required = "1">
                 <option value="-1" selected="selected">{#chooseone#}</option>
                 {section name=customer loop=$customers}
                   <option value="{$customers[customer][0]}">{$customers[customer][0]}</option>
@@ -54,7 +54,7 @@
             {/if}
             <div class="row">
               <label for="order">{#order#}:</label>
-              <select name="criteriaOrder" id="criteriaOrder" onchange="onCriteriaOrderChange(this)"; required = "1">
+              <select class="select2" name="criteriaOrder" id="criteriaOrder" onchange="onCriteriaOrderChange(this)"; required = "1">
                 <option value="-1" selected="selected">{#chooseone#}</option>
                 {section name=cOrder loop=$orders}
                   <option value="{$orders[cOrder].ID}">{$orders[cOrder].name}</option>

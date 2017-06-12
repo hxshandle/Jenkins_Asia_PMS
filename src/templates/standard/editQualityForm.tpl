@@ -5,7 +5,7 @@
   
 <div class="dlgRow">
   <label for="project">{#project#}:</label>
-  <select name="project" id="project" onchange="onAddQualitySelProjectChange(this)"; required = "1">
+  <select style="width:230px;" class="select2" name="project" id="project" onchange="onAddQualitySelProjectChange(this)"; required = "1">
     <option value="-1" selected="selected">{#chooseone#}</option>
     {section name=project loop=$projects}
       <option value="{$projects[project].ID}">{$projects[project].name}</option>

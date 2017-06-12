@@ -9,7 +9,7 @@
             <input type="hidden" value="1" name="tasklist" id="tasklist">
         	<div class="row">
         		<label for="project">{#project#}:</label>
-        		<select type="text" class="text" name="project" realname="{#project#}"  id="project" required = "1" onchange="onProjectChange(this)">
+        		<select type="text" class="text select2" name="project" realname="{#project#}"  id="project" required = "1" onchange="onProjectChange(this)">
 					{section name = p loop=$myProjects}
 	              		<option value = "{$myProjects[p].ID}">{$myProjects[p].name}</option>
 				    {/section}

@@ -85,7 +85,7 @@ class Quality {
             '$quantityInInventory',
             '$quantityInProcess',
             '$containmentDesc',
-            '$acknowledge_by',
+            '$acknowledgeBy',
             '$acknowledgeDate',
             '$verifiedForClosureBy',
             '$verificationDate',
