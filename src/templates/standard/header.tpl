@@ -5,6 +5,18 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>{$title} @ {$settings.name}</title>
 <link rel="shortcut icon" href="templates/standard/images/favicon.ico" type="image/x-icon" />
+<link href="include/extlib/select2/select2.min.css" rel="stylesheet" />
+<style>
+  {literal}
+  .select2-container--default .select2-selection--single {
+    border-radius: 0;
+  }
+  .select2-container .select2-selection--single {
+    height: 30px;
+    margin-bottom: 6px;
+  }
+  {/literal}
+</style>
 {if $stage != "project" and $loggedin}
 <link rel="search" type="application/opensearchdescription+xml" title="{$settings.name} {#search#}" href="manageajax.php?action=addfx-all" />
 {elseif $stage == "project" and $loggedin}
@@ -32,18 +44,22 @@ deleteEndcolor = '#c62424';
 <script type = "text/javascript" src = "include/js/jquery.autocomplete.min.js" ></script>
 <script type = "text/javascript" src = "include/js/ajax.php" ></script>
 <script type = "text/javascript" src="include/js/jsval.php"></script>
-
 <script type="text/javascript" src="include/js/chat.js"></script>
 <script type="text/javascript" src="include/js/livepipe.js"></script>
 <script type="text/javascript" src="include/js/tabs.js"></script>
 <script type="text/javascript" src="include/js/lodash.js"></script>
 <script type="text/javascript" src="include/js/jenkinsasia.js"></script>
+<script type = "text/javascript" src="include/extlib/select2/select2.min.js"></script>
 <script type = "text/javascript">
   function _jsVal_Language() {
     this.err_enter = "{/literal}{#wrongfield#}{literal}";
     this.err_form = "{/literal}{#wrongfields#}{literal}";
     this.err_select = "{/literal}{#wrongselect#}{literal}";
   }
+  // change all select to jquery select2 plugin
+  jQuery(document).ready(function(){
+    jQuery('.select2').select2();
+  });
 </script>
 
 <script type="text/javascript" src="include/js/mycalendar.js"></script>
