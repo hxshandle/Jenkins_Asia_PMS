@@ -260,6 +260,8 @@ class task
               $valid
               );
               ";
+    $sql = trim($sql);
+    $sql = str_replace("  ", "", $sql);
     $ins = mysql_query($sql);
     if ($ins) {
       return mysql_insert_id();
