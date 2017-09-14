@@ -6,7 +6,7 @@
 
 		  <div class="row">
         <label for="project">{#project#}:</label>
-				<select name="project" id="project" onchange="onSelProjectChange(this)"; required = "1">
+				<select name="project" class="select2" id="project" onchange="onSelProjectChange(this)"; required = "1">
 				  <option value="-1" selected="selected">{#chooseone#}</option>
           {section name=project loop=$projects}
             <option value="{$projects[project].ID}">{$projects[project].name}</option>
