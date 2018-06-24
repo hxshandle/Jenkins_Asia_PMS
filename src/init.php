@@ -128,13 +128,19 @@ $them = date("n");
 $template->assign("theM", $them);
 $template->assign("theY", $they);
 // Get the user's projects for the quickfinder in the sidebar
-if (isset($userid))
-{
-	$project = new project();
-	$myOpenProjects = $project->getMyProjects($userid);
-	$template->assign("openProjects", $myOpenProjects);
+$cachedMyOpenProjects = $_SESSION['cachedMyOpenProjects'];
+if (!empty(cachedMyOpenProjects)) {
+    $project = new project();
+    $template->assign("openProjects", unserialize($cachedMyOpenProjects));
+} else {
+    if (isset($userid))
+    {
+        $project = new project();
+        $myOpenProjects = $project->getMyProjects($userid);
+        $template->assign("openProjects", $myOpenProjects);
+        $_SESSION['cachedMyOpenProjects'] = serialize($myOpenProjects);
+    }
 }
-
 
 function display_status($params){
   $AllStatus = Status::$ALL_STATUS;
