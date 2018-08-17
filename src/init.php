@@ -16,6 +16,7 @@ define("CL_VERSION", 0.7);
 require(CL_ROOT . "/config/" . CL_CONFIG . "/config.php");
 require(CL_ROOT . "/include/SmartyPaginate.class.php");
 require(CL_ROOT . "/include/initfunctions.php");
+require('./PerformanceTime.php');
 // Start database connection
 if (!empty($db_name) and !empty($db_user))
 {

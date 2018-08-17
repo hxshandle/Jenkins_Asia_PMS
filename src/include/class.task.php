@@ -865,6 +865,42 @@ class task
     }
   }
 
+  function getAllMyUnFinishedTasks($user) {
+      $user = (int)$user;
+
+      if ($user < 1) {
+          $user = $_SESSION['userid'];
+      }
+      $lists = array();
+      $now = time();
+      $stNotStart = Status::getId("task", "not_start");
+      $stInProgress = Status::getId("task", "in_progress");
+      $sql = "SELECT
+              tasks.*,
+              tasks_assigned.user,
+              projekte.name as pname
+            FROM tasks, tasks_assigned, projekte
+            WHERE tasks.ID = tasks_assigned.task and projekte.id = tasks.project
+            HAVING tasks_assigned.user = 3 AND status in ($stNotStart, $stInProgress)
+            ORDER BY `end_date` ASC ";
+      $sel2 = mysql_query($sql);
+      while ($task = mysql_fetch_array($sel2, MYSQL_ASSOC)) {
+          array_push($lists, $task);
+      }
+      if ($_SESSION['userRole'] >= 8) {
+          $sql1 = "select ts.*, projekte.name as pname
+                    from tasks ts, task_distribution td, projekte
+                    where ts.id = td.task_id and td.user_id = 3 and projekte.id = ts.project and ts.status in ($stNotStart, $stInProgress)
+                    ORDER BY `end_date` ASC";
+          $sel3 = mysql_query($sql1);
+          while ($task = mysql_fetch_array($sel3, MYSQL_ASSOC)) {
+            $task['editable'] = 'false';
+            array_push($lists, $task);
+          }
+      }
+      return $lists;
+  }
+
   function getTasksByDeliverableId($id)
   {
     $id = (int)$id;

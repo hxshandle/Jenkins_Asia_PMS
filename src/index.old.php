@@ -26,21 +26,27 @@ $milestone = new milestone();
 $mtask = new task();
 $msg = new message();
 
-$myprojects = $project->getMyProjectsLight($userid);
+$myprojects = $project->getMyProjects($userid);
 $messages = array();
 $milestones = array();
 $tasks = array();
 $cou = 0;
 
-if (1 == 2 && !empty($myprojects))
+if (!empty($myprojects))
 {
     foreach($myprojects as $proj)
     {
+        $task = $mtask->getAllMyProjectTasks($proj["ID"], 100);
         $msgs = $msg->getProjectMessages($proj["ID"]);
 
         if (!empty($msgs))
         {
             array_push($messages, $msgs);
+        }
+
+        if (!empty($task))
+        {
+            array_push($tasks, $task);
         }
 
         $cou = $cou + 1;
@@ -58,7 +64,7 @@ if (!empty($messages))
 {
     $messages = reduceArray($messages);
 }
-$etasks = $mtask->getAllMyUnFinishedTasks();
+$etasks = reduceArray($tasks);
 
 $sort = array();
 foreach($etasks as $etask)

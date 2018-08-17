@@ -97,6 +97,7 @@ if ($action == "addform") {
   // if tasks was added and mailnotify is activated, send an email
   $attachmentPath = null;
   if ($tid) {
+      $projectIns->updateProgress($projectId);
     if(!empty($fileId)){
       $task->addAttachment($tid,$fileId);
       $datei = new datei();
@@ -226,20 +227,7 @@ if ($action == "addform") {
   if(!empty($taskStatusAction)){
     $taskStatus = $taskStatusAction;
   }
-  if($taskStatus ==$completeStatus || $taskStatus == $closeStatus ){
-    $dateFormat = CL_DATEFORMAT." H:i:s";
-    $today = date($dateFormat);
-    if($taskStatus == $completeStatus){
-      //$statusUpdate .= "</br> -- Task marked as completed by ".$_SESSION['username']." ".$today;
-      //$cmt = "Task marked as completed by ".$_SESSION['username'];
-      $taskComments->addTaskComments($cmt,0,$_SESSION["userid"],$_SESSION["username"],$tid);
-    }else{
-      //$cmt = " Task closed by ".$_SESSION['username'];
-      $taskComments->addTaskComments($statusUpdate,0,$_SESSION["userid"],$_SESSION["username"],$tid);
-      //$statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
-    }
-    
-  }
+
   // if deliverableItem id is -1 should reset $phose id to -1;
   $deliverableItemIns = new DeliverableItem();
   $deliverableObj = $deliverableItemIns->getItem($deliverableItemId);
@@ -251,8 +239,21 @@ if ($action == "addform") {
   $jUtils->updateDeliverItemEndDate($tk["deliverable_item"],$end);
   $jUtils->updateDeliverItemStatus($tk["deliverable_item"]);
   $project = new project();
-  $proj = $project->getProject($tk['project']);
-
+    $proj = $project->getProject($tk['project']);
+    if ($taskStatus == $completeStatus || $taskStatus == $closeStatus) {
+        $dateFormat = CL_DATEFORMAT . " H:i:s";
+        $today = date($dateFormat);
+        if ($taskStatus == $completeStatus) {
+            //$statusUpdate .= "</br> -- Task marked as completed by ".$_SESSION['username']." ".$today;
+            //$cmt = "Task marked as completed by ".$_SESSION['username'];
+            $taskComments->addTaskComments($cmt, 0, $_SESSION["userid"], $_SESSION["username"], $tid);
+        } else {
+            //$cmt = " Task closed by ".$_SESSION['username'];
+            $taskComments->addTaskComments($statusUpdate, 0, $_SESSION["userid"], $_SESSION["username"], $tid);
+            //$statusUpdate .= "</br> -- Task closed by ".$_SESSION['username']." ".$today;
+        }
+        $project->updateProgress($tk['project']);
+    }
 
 
   // edit the task

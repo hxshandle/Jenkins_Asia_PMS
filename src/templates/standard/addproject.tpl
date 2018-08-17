@@ -111,7 +111,7 @@
 		</div>
     <div id = "userChoice" class = "autoComp"></div>
 		<div class="row"><label>{#members#}:</label>
-		<div style="float:left;">
+		<div style="float:left; max-height: 400px; overflow-y: auto; width: 47%;">
         {section name=user loop=$users}
 	        <div class="row">
 	        <input type="checkbox" class="checkbox" value="{$users[user].ID}" name="assignto[]" id="{$users[user].ID}"  {if $users[user].ID == $userid} checked="checked"{/if} /><label for="{$users[user].ID}">{$users[user].name}</label><br />

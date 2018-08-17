@@ -2,72 +2,11 @@
 
 require("init.php");
 
-$jUtil = new JUtils();
-//$document = new Document();
-//$documentId = 1036;
-//$comment = new Comments();
-//$cms = $comment->getTaskComments(42);
-//$docInfo = $document->getDocumentInfo($documentId);
-//$str = $jUtil->getTaskCommentsMailMsg($cms);
-//echo $str;
+$project = new project();
+$pt = new PerformanceTime();
+$pt->start('test page');
+$projects = $project->getProgress(557);
 
-
-//$testObj = array();
-//$ECNImpact = new ECNImpacts();
-//// for ecn_impact_process
-//$row1 = array(
-//  "process_number" => "proc_1",
-//  "process_description" => "this is desc for proc_1",
-//    "disposition_cost" => 100.20,
-//  "remark_or_other" => " this is remark for proc_1"
-//
-//);
-//
-//$row2 = array(
-//    "process_number" => "proc_2",
-//    "process_description" => "this is desc for proc_2",
-//    "disposition_cost" => 1.20,
-//    "attachment" => array(14,15,16)
-//);
-//
-////$processRecords = array($row1,$row2);
-////$ret = $ECNImpact->addRecords("ecn_impact_process",1,$processRecords);
-////echo $ret;
-//
-//// test get
-//$impacts = $ECNImpact->getImpactsByECNId(1);
-//echo $impacts;
-
-// for ecn email
-//$mailUtils = new MailUtils();
-//$ecn = new EngineeringChangeNote();
-//$obj = $ecn->get(28);
-//$msg = $mailUtils->_getECNMailMsg($obj['ID'],'abc',$obj);
-//echo $msg;
-
-
-// for document email
-//$doc = new Document();
-//$d = $doc->getDocumentInfo(30);
-//$msg = $jUtil->getDocumentMailMsg($d,'abc');
-//echo $msg;
-
-// test thumb
-// $pic = "files/standard/1/_________________65003.jpg";
-// $p2 = "files/standard/1/image002_4310.png";
-// $p = getArrayVal($_GET,"pic");
-// $imgW = getimagesize($p);
-// echo $imgW;
-// 
-// 
-// 
-
-/*  $arr = array(
-    "A" => "JK0O-00N-JQT-0002-A",
-    "B" => "JK0O-00N-JQT-0002-B"
-    );
-
-  krsort($arr,SORT_NUMERIC);
-  $latest = array_shift($arr);
-  var_dump($arr);*/
- ?>
+$pt->end('test page');
+echo $projects;
+echo 'done';

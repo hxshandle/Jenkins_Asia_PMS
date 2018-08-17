@@ -9,9 +9,10 @@
  * @link http://www.o-dyn.de
  * @license http://opensource.org/licenses/gpl-license.php GNU General Public License v3 or later
  */
+
+
 class project {
     private $mylog;
-
     /**
      * Konstruktor
      * Initialisiert den Eventlog
@@ -20,8 +21,8 @@ class project {
     {
         $this->mylog = new mylog;
     }
-    
-    
+
+
     function add($name,$projectNo, $desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$startDate,$endDate,$valid=1){
       $name = mysql_real_escape_string($name);
       $projectNo = mysql_real_escape_string($projectNo);
@@ -95,10 +96,10 @@ class project {
       }else{
         return FALSE;
       }
-      
+
     }
-    
-    
+
+
 
     /**
      * Imports a project from Basecamp into Collabtive
@@ -134,7 +135,7 @@ class project {
         }
     }
 
-    
+
     function edit($id,$name, $projectNo,$desc, $status,$budget,$level,$prioity,$customerName,$supplier,$targetFOB,$targetFOBCurrency,$forecastedAnnualQuantity1,$forecastedAnnualQuantity2,$forecastedAnnualQuantity3,$customerLeader,$supplierLeader,$projectLeader,$engineerLeader,$qualityLeader, $startDate,$endDate){
       $name = mysql_real_escape_string($name);
       $projectNo = mysql_real_escape_string($projectNo);
@@ -191,7 +192,7 @@ class project {
         return false;
       }
     }
-    
+
 
     /**
      * Deletes a project including everything else that was assigned to it (e.g. Milestones, tasks, timetracker entries)
@@ -208,7 +209,7 @@ class project {
         $phase = new Phase();
         $deliverable = new DeliverableItem();
         $phase->delPhasesByProjectId($id);
-  
+
         // Delete files and the assignments of these files to the messages they were attached to
         $fil = new datei();
         $files = $fil->getProjectFiles($id, 1000000);
@@ -236,7 +237,7 @@ class project {
             return false;
         }
     }
-    
+
     /**
      * Mark a project as "active / open"
      *
@@ -378,7 +379,8 @@ class project {
 
             $project["name"] = stripslashes($project["name"]);
             $project["desc"] = stripslashes($project["desc"]);
-            $project["done"] = $this->getProgress($project["ID"]);
+//              $project["done"] = $this->getProgress($project["ID"]);
+            $project["done"] = $project["progress"];
             $project["project_leader_name"] = $user->getName($project["project_leader"]);
             $project["customer_leader_name"] = $user->getName($project["customer_leader"]);
             $project["supplier_leader_name"] = $user->getName($project["supplier_leader"]);
@@ -439,6 +441,7 @@ class project {
      */
     function getMyProjects($user, $status = 1)
     {
+
         $user = mysql_real_escape_string($user);
         $status = mysql_real_escape_string($status);
         $user = (int) $user;
@@ -449,12 +452,12 @@ class project {
         if($_SESSION["userRole"] == 3 || $_SESSION["userRole"] ==1){
           $sel = mysql_query("SELECT id FROM projekte ORDER BY name ASC");
         }
+
         if($_SESSION["userRole"] == 6 ){
           $st1 = Status::getId("project", "planning");
           $st2 = Status::getId("project", "closed");
           $sel = mysql_query("SELECT projekt FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and  pa.user = $user and p.status not in ($st1,$st2) ORDER BY p.name ASC");
         }
-        
         while ($projs = mysql_fetch_row($sel)) {
             $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND valid=$status"), MYSQL_ASSOC);
             if ($projekt) {
@@ -462,33 +465,62 @@ class project {
                 array_push($myprojekte, $project);
             }
         }
-
         if (!empty($myprojekte)) {
-			// Sort projects by due date ascending
-			$date = array();
-			foreach ($myprojekte as $key => $row) {
-				$date[$key] = $row['end_date'];
-			}
-			//array_multisort($date, SORT_ASC, $myprojekte);
-			
+            // Sort projects by due date ascending
+            $date = array();
+            foreach ($myprojekte as $key => $row) {
+                $date[$key] = $row['end_date'];
+            }
+            //array_multisort($date, SORT_ASC, $myprojekte);
+
             return $myprojekte;
         } else {
             return false;
         }
     }
 
+    function getMyProjectsLight($user, $status = 1) {
+        $user = mysql_real_escape_string($user);
+        $status = mysql_real_escape_string($status);
+        $user = (int) $user;
+        $status = (int) $status;
+
+        $myprojekte = array();
+        $sel = mysql_query("SELECT p.* FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and pa.user = $user ORDER BY p.name ASC");
+        if($_SESSION["userRole"] == 3 || $_SESSION["userRole"] ==1){
+            $sel = mysql_query("SELECT * FROM projekte ORDER BY name ASC");
+        }
+
+        if($_SESSION["userRole"] == 6 ){
+            $st1 = Status::getId("project", "planning");
+            $st2 = Status::getId("project", "closed");
+            $sel = mysql_query("SELECT p.* FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and  pa.user = $user and p.status not in ($st1,$st2) ORDER BY p.name ASC");
+        }
+        $st1 = Status::getId("project", "closed");
+        while ($projekt = mysql_fetch_array($sel)) {
+            $projekt["daysleft"] = '';
+            if ($projekt["end_date"] && $projekt['status']!=$st1 ) {
+                $daysleft = $this->getDaysLeft($projekt["end_date"]);
+                $projekt["daysleft"] = $daysleft;
+            }
+            $projekt["done"] = $projekt['progress'];
+            array_push($myprojekte, $projekt);
+        }
+        return $myprojekte;
+    }
+
     function getMyProjectsByCustomerName($user,$customer){
       return $this->ngetMyProjectsByCustomerName($user,$customer);
     }
-    
-    
+
+
     function ngetMyProjectsByCustomerName($user,$customer,$status = 1){
         $user = mysql_real_escape_string($user);
         $status = mysql_real_escape_string($status);
         $customer = mysql_real_escape_string($customer);
         $user = (int) $user;
         $status = (int) $status;
-        
+
         if($customer=="-1"){
           return $this->getMyProjects($user);
         }
@@ -503,7 +535,7 @@ class project {
           $st2 = Status::getId("project", "closed");
           $sel = mysql_query("SELECT projekt FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and  pa.user = $user and p.status not in ($st1,$st2) ORDER BY pa.ID ASC");
         }
-        
+
         while ($projs = mysql_fetch_row($sel)) {
             $projekt = mysql_fetch_array(mysql_query("SELECT ID FROM projekte WHERE ID = $projs[0] AND valid=$status and customer_name='$customer'"), MYSQL_ASSOC);
             if ($projekt) {
@@ -519,7 +551,7 @@ class project {
 				$date[$key] = $row['project_no'];
 			}
 			//array_multisort($date, SORT_ASC, $myprojekte);
-			
+
             return $myprojekte;
         } else {
             return false;
@@ -624,6 +656,14 @@ class project {
         $project = (int) $project;
         $num = mysql_fetch_row(mysql_query("SELECT COUNT(*) FROM projekte_assigned WHERE projekt = $project"));
         return $num[0];
+    }
+
+    public function updateProgress($projectId)
+    {
+        $progress = $this->getProgress($projectId);
+        $sql = "update projekte set progress = $progress where id = $projectId";
+        $upd = mysql_query($sql);
+        return $upd;
     }
 
     /**
@@ -783,7 +823,7 @@ class project {
 
   function updateRealEndDate($id,$strLastDate){
     $id = (int) $id;
-    $sql = "update projekte set real_end_date = '$strLastDate' where id = $id"; 
+    $sql = "update projekte set real_end_date = '$strLastDate' where id = $id";
     $upd = mysql_query($sql);
     if($upd){
       return true;
@@ -791,7 +831,7 @@ class project {
       return false;
     }
   }
-  
+
   function rejectProject($id){
     $id = (int) $id;
     $st = Status::getId("project", "rejected");
@@ -801,7 +841,7 @@ class project {
       return true;
     }else{
       return false;
-    }    
+    }
   }
 }
 

@@ -1,0 +1,17 @@
+version: '2'
+services:
+  web:
+    image: navidonskis/nginx-php5.6
+    container_name: web
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      # 1. mount your workdir path
+      - ../src:/var/www
+      # 2. mount your configuration of site
+      # - /mnt/docker/nginx/sites-enabled:/etc/nginx/sites-enabled
+      # 3. if you have settings for ssmtp
+      #- /mnt/docker/nginx/ssmtp/ssmtp.conf:/etc/ssmtp/ssmtp.conf
+      # 4. if you want to override php.ini file
+      - ./custom.php.ini:/etc/php/5.6/fpm/conf.d/custom.ini
