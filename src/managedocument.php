@@ -15,8 +15,8 @@ switch ($action) {
 case "mydocument":
   $doc = new Document();
   $project = new project();
-//    $projects = $jUtils->getAllProjects();
-    $projects = $project->getMyProjectsLight();
+    $projects = $jUtils->getAllProjects();
+//    $projects = $project->getMyProjectsLight();
   $template->assign("projects",$projects);
   $customers = $jUtils->getAllCustomers();
   $template->assign("customers",$customers);
