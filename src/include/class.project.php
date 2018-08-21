@@ -484,6 +484,9 @@ class project {
         $status = mysql_real_escape_string($status);
         $user = (int) $user;
         $status = (int) $status;
+        if (empty($user)) {
+            $user = $_SESSION['userid'];
+        }
 
         $myprojekte = array();
         $sel = mysql_query("SELECT p.* FROM projekte_assigned pa, projekte p WHERE p.id = pa.projekt and pa.user = $user ORDER BY p.name ASC");
