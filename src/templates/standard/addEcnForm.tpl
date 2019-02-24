@@ -5,7 +5,7 @@
 
       <div class="row">
         <label for="project">{#project#}:</label>
-        <select name="project" id="project" onchange="onSelProjectChange(this)"; required = "1">
+        <select  class="select2 critler-filter" name="project" id="project" onchange="onSelProjectChange(this)"; required = "1">
           <option value="-1" selected="selected">{#chooseone#}</option>
           {section name=project loop=$projects}
           <option value="{$projects[project].ID}">{$projects[project].name}</option>
@@ -15,14 +15,14 @@
 
       <div class="row">
         <label for="order">{#order#}:</label>
-        <select name="selOrder" id="selOrder" onchange="onSelORderChange(this)"; required = "1">
+        <select  class="select2 critler-filter" name="selOrder" id="selOrder" onchange="onSelORderChange(this)"; required = "1">
           <option value="-1" selected="selected">{#chooseone#}</option>
         </select>
       </div>
 
       <div class="row">
         <label for="order">{#quality#}:</label>
-        <select name="selQuality" id="selQuality">
+        <select  class="select2 critler-filter" name="selQuality" id="selQuality">
           <option value="-1" selected="selected">{#chooseone#}</option>
         </select>
       </div>
