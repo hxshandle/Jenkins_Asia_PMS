@@ -117,11 +117,9 @@ class Document
 
     private function compareDocumentNo($a, $b)
     {
-        $a1 = explode('-', $a);
-        $b1 = explode('-', $b);
-        $aa = end($a1);
-        $bb = end($b1);
-        return strcmp($aa, $bb) * -1;
+        $revisionA = $a[0]['revision'];
+        $revisionB = $b[0]['revision'];
+        return strcasecmp($revisionA, $revisionB) * -1;
     }
 
     function groupDocumentsByDocNo($documents)
@@ -130,12 +128,13 @@ class Document
         foreach ($documents as $doc) {
             $arr[$doc['document_no']][$doc['revision']] = $doc;
         }
-//        ksort($arr，SORT_NATURAL);
-        usort($arr, array($this, 'compareDocumentNo'));
+        ksort($arr，SORT_NATURAL);
+//        usort($arr, array($this, 'compareDocumentNo'));
         $ret = array();
         foreach ($arr as $docs) {
             $docRow = array();
-            krsort($docs);
+//            krsort($docs);
+//            usort($docs, array($this, 'compareDocumentNo'));
             $docRow['latest'] = array_shift($docs);
             $docRow['old'] = $docs;
             array_push($ret, $docRow);

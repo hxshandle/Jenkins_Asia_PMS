@@ -11,22 +11,19 @@ class Test extends PHPUnit_Framework_TestCase
 {
     private function compareDocumentNo($a, $b)
     {
-        $a1 = explode('-', $a);
-        $b1 = explode('-', $b);
-        $aa = end($a1);
-        $bb = end($b1);
-        return strcmp($aa, $bb) * -1;
+
+        return strcasecmp($a, $b) * -1;
     }
 
     public function testSort()
     {
         $arr = [
-            "JK0F-0000-QCP-0002",
-            "JK0F-0000-QCP-0001",
-            "JK0F-0000-QCP-0003",
-            "JK0F-0000-QCP-0011",
-            "JK0F-0000-QCP-0001-B",
-            "JK0F-0000-QCP-0001-A"
+            "1",
+            "0",
+            "2",
+            "A",
+            "C",
+            "B"
         ];
         usort($arr, array($this, 'compareDocumentNo'));
         var_dump($arr);
