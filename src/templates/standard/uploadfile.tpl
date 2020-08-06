@@ -96,9 +96,14 @@
           jQuery('#fileUpload').val('');
           _progressOuter.style.display='none';
           var el = document.getElementById('fileId');
-          el.value = "" + request.response;
+          if (el) {
+            el.value = "" + request.response;
+          }
           _messager.innerText = "上传成功";
           _messager.style.display = "block";
+          if (__callbackFunc != null) {
+            __callbackFunc.call(window, request.response)
+          }
         } catch (e){
           _messager.innerText ="上传失败";
           _messager.style.display = "block";
