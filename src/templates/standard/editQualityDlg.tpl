@@ -1,9 +1,10 @@
 {include file="header.tpl" jsload = "ajax"  jsload1 = "tinymce" showheader="no"}
-<script type="text/javascript" src="include/swfupload/swfupload.js"></script>
-<script type="text/javascript" src="include/swfupload/swfupload.queue.js"></script>
+{*<script type="text/javascript" src="include/swfupload/swfupload.js"></script>*}
+{*<script type="text/javascript" src="include/swfupload/swfupload.queue.js"></script>*}
 <script type="text/javascript" src="include/js/fileprogress.js"></script>
 <script type="text/javascript" src="include/js/handlers.js"></script>
 <script type="text/javascript" src="include/js/quality.js"></script>
+<script type="text/javascript" src="include/js/uploadfile.js"></script>
 <body style="width:742px;background: url(/templates/standard/images/tables-msgs-sechead.png) repeat scroll 0 0 transparent;">
   <div class="msgs block_in_wrapper" >
   <div class="headline" style="margin-bottom:10px">
@@ -273,8 +274,9 @@ var accord_qualityDetails = new accordion('block_details');
           if (payload.responseText != ""){ 
             $("editDetailsInfo").innerHTML=payload.responseText;
             $("editDetailsInfo").style.display="";
-            var swfu;
-            swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},"spanButtonPlaceHolder","btnCancel",setFileId);
+            __uploadInfoBaseInfo(__sesionId, __userId, "qualitydetails", __projectId, setFileId)
+            // var swfu;
+            // swfu = J.initSwfUploader("uploadfileajax.php",{"PHPSESSID" : __sesionId,"userId":__userId,'type':"qualitydetails","id":__projectId},"spanButtonPlaceHolder","btnCancel",setFileId);
           }else{
             alert("get data error");
           }

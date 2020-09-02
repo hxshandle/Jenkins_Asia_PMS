@@ -1,4 +1,5 @@
 <?php
+//@error_reporting(E_ERROR  | E_PARSE);
 ini_set("arg_separator.output", "&amp;");
 ini_set('default_charset', 'utf-8');
 // Start output buffering with gzip compression and start the session
