@@ -742,7 +742,7 @@ class JUtils
   function getProjectNotifyList($projectId)
   {
     $projectId = (int)$projectId;
-    $sql = "select distinct(u.id),u.name,u.role_type from projekte_assigned pa, user u  where pa.projekt = $projectId and u.id=pa.user or u.role_type in (1,3);";
+    $sql = "select distinct(u.id),u.name,u.role_type from projekte_assigned pa, user u  where pa.projekt = $projectId and u.id=pa.user and u.is_valid = 1 or (u.role_type in (1,3) and u.is_valid = 1);";
     $sel = mysql_query($sql);
     $ret = array();
     while ($row = mysql_fetch_array($sel)) {

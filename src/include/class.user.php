@@ -459,7 +459,7 @@ class user
         $pass = mysql_real_escape_string($pass);
         $pass = sha1($pass);
 
-        $sel1 = mysql_query("SELECT ID,name,locale,lastlogin,gender,role_type FROM user WHERE (name = '$user' OR email = '$user') AND pass = '$pass'");
+        $sel1 = mysql_query("SELECT ID,name,locale,lastlogin,gender,role_type FROM user WHERE (name = '$user' OR email = '$user') and is_valid = 1 AND pass = '$pass'");
         $chk = mysql_fetch_array($sel1);
         if ($chk["ID"] != "")
         {
